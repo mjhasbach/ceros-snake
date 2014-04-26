@@ -221,7 +221,7 @@ $( function() {
 
                 // Space bar and Escape
                 if ( event.which == 32 || event.which == 27 ){
-                   config.animations.snakeIsMoving = !config.animations.snakeIsMoving
+                    config.animations.snakeIsMoving = !config.animations.snakeIsMoving
                 }
 
                 if ( !config.gameOver ){
@@ -341,7 +341,7 @@ $( function() {
                     config.layers.bg.add( tile );
 
                     if ( x == 0 || x == config.tiles.horizontalAmount - 1 ||
-                         y == 0 || y == config.tiles.verticalAmount - 1 ){
+                        y == 0 || y == config.tiles.verticalAmount - 1 ){
 
                         tile = new Kinetic.Text({
                             x: x * config.tiles.width,
@@ -551,9 +551,9 @@ $( function() {
 
         function generateSnakePrototype() {
             var group = new Kinetic.Group({
-                    x: -1000,
-                    y: -1000
-                });
+                x: -1000,
+                y: -1000
+            });
 
             var subSegment = new Kinetic.Rect({
                 x: config.tiles.width,
@@ -574,8 +574,8 @@ $( function() {
                 width: ( config.tiles.width * 0.6 ),
                 height: ( config.tiles.height * 0.6 ),
                 fill: 'hsl(' +
-                      config.colors.snake.hue + ', ' +
-                      config.colors.snake.sat + '%, ' +
+                    config.colors.snake.hue + ', ' +
+                    config.colors.snake.sat + '%, ' +
                     ( config.colors.heart.lum / 1.4 ) + '%)'
             });
 
@@ -587,8 +587,8 @@ $( function() {
                 width: ( config.tiles.width * 0.2 ),
                 height: ( config.tiles.height * 0.2 ),
                 fill: 'hsl(' +
-                      config.colors.snake.hue + ', ' +
-                      config.colors.snake.sat + '%, ' +
+                    config.colors.snake.hue + ', ' +
+                    config.colors.snake.sat + '%, ' +
                     ( config.colors.heart.lum / 1.8 ) + '%)'
             });
 
@@ -603,6 +603,7 @@ $( function() {
 
             segment.id( config.shapes.game.snake.segments.length );
             config.shapes.game.snake.segments.push( segment );
+            config.shapes.game.snake.queue = null;
             config.shapes.game.snake.coords.push({
                 id: segment.id(), x: xPos / config.tiles.width, y: yPos / config.tiles.height });
 
@@ -612,8 +613,8 @@ $( function() {
         function queueNewSnakeSegment() {
             config.shapes.game.snake.queue = {};
             if ( config.shapes.game.snake.segments.length == 0 ){
-                 config.shapes.game.snake.queue.x = config.shapes.game.snake.defaultStartCoords.x * config.tiles.width;
-                 config.shapes.game.snake.queue.y = config.shapes.game.snake.defaultStartCoords.y * config.tiles.height;
+                config.shapes.game.snake.queue.x = config.shapes.game.snake.defaultStartCoords.x * config.tiles.width;
+                config.shapes.game.snake.queue.y = config.shapes.game.snake.defaultStartCoords.y * config.tiles.height;
             } else {
                 config.shapes.game.snake.queue.x = config.shapes.game.snake.segments.last().x();
                 config.shapes.game.snake.queue.y = config.shapes.game.snake.segments.last().y();
@@ -644,8 +645,8 @@ $( function() {
                 fontSize: ( config.tiles.width * 0.6 ),
                 fontFamily: 'FontAwesome',
                 fill: 'hsl(' +
-                      config.colors.heart.hue + ', ' +
-                      config.colors.heart.sat + '%, ' +
+                    config.colors.heart.hue + ', ' +
+                    config.colors.heart.sat + '%, ' +
                     ( config.colors.heart.lum / 1.4 ) + '%)'
             });
 
@@ -658,8 +659,8 @@ $( function() {
                 fontSize: ( config.tiles.width * 0.2 ),
                 fontFamily: 'FontAwesome',
                 fill: 'hsl(' +
-                      config.colors.heart.hue + ', ' +
-                      config.colors.heart.sat + '%, ' +
+                    config.colors.heart.hue + ', ' +
+                    config.colors.heart.sat + '%, ' +
                     ( config.colors.heart.lum / 1.8 ) + '%)'
             });
 
@@ -737,7 +738,7 @@ $( function() {
 
         function displaySegmentCounter() {
             if ( typeof config.shapes.game.snake.counters.active == 'undefined' )
-                 config.shapes.game.snake.counters.active = [];
+                config.shapes.game.snake.counters.active = [];
 
             var snakes = config.shapes.game.snake.segments,
                 activeCounters = config.shapes.game.snake.counters.active,
@@ -767,15 +768,15 @@ $( function() {
 
                 if ( !config.gameOver ){
                     if ( frame.time - config.animations.lastMovementTime >=
-                       ( config.animations.period - ( config.shapes.game.snake.segments.length * 2 )) / 2 ){
+                        ( config.animations.period - ( config.shapes.game.snake.segments.length * 2 )) / 2 ){
 
                         if ( config.animations.snakeIsMoving ){
-                             config.animations.lastMovementTime = frame.time;
+                            config.animations.lastMovementTime = frame.time;
 
                             if ( config.shapes.game.snake.queue ) addSnakeSegment();
 
                             if ( config.animations.queuedMovements.length > 0 ){
-                                 config.animations.snakeCurrentDirection = config.animations.queuedMovements.shift();
+                                config.animations.snakeCurrentDirection = config.animations.queuedMovements.shift();
                             } else config.animations.snakeCurrentDirection = config.animations.snakePreviousDirection;
 
                             if ( config.animations.snakeCurrentDirection == 'up' ) config.snakeMove( 'up' );
@@ -787,15 +788,15 @@ $( function() {
                             config.shapes.game.snake.coords.forEach( function( snakeCoord ){
                                 for ( x = 0; x < config.shapes.game.hearts.coords.length; x++ ){
                                     if ( snakeCoord.x == config.shapes.game.hearts.coords[ x ].x &&
-                                         snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
+                                        snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
 
                                         displaySegmentCounter();
                                         config.cyclingBackgroundColors = true;
 
                                         for ( y = 0; y < config.shapes.game.hearts.list.length; y++ ){
                                             if ( config.shapes.game.hearts.coords[ x ].id == config.shapes.game.hearts.list[ y ].id() ){
-                                                 config.shapes.game.hearts.list[ y ].destroy();
-                                                 config.shapes.game.hearts.list.splice( y, 1 );
+                                                config.shapes.game.hearts.list[ y ].destroy();
+                                                config.shapes.game.hearts.list.splice( y, 1 );
                                             }
                                         }
 
@@ -807,7 +808,7 @@ $( function() {
                                 // Collided with self
                                 config.shapes.game.snake.coords.forEach( function( segment ){
                                     if ( snakeCoord.x == segment.x && snakeCoord.y == segment.y &&
-                                         snakeCoord.id != segment.id ){
+                                        snakeCoord.id != segment.id ){
 
                                         config.gameOver = true
                                     }
@@ -816,8 +817,8 @@ $( function() {
 
                             // Collided with boundary
                             if ( config.shapes.game.snake.coords[ 0 ].x == 0 || config.shapes.game.snake.coords[ 0 ].y == 0 ||
-                                 config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
-                                 config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
+                                config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
+                                config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
 
                                 config.gameOver = true
                             }
@@ -1000,15 +1001,15 @@ $( function() {
                 if ( wheelRadius <= 0 ) wheelRadius = 2;
 
                 if ( config.doneLoadingAssets ){
-                     config.shapes.loadingShapesOpacity -= config.animations.transitionSpeed;
+                    config.shapes.loadingShapesOpacity -= config.animations.transitionSpeed;
 
                     if ( config.shapes.loadingShapesOpacity <= 0 ){
-                         config.animations.loops.loading.stop();
-                         config.layers.loading.remove()
+                        config.animations.loops.loading.stop();
+                        config.layers.loading.remove()
                     } else {
                         for ( var shape in config.shapes.loading ){
                             if ( config.shapes.loading.hasOwnProperty( shape )){
-                                 config.shapes.loading[ shape ].opacity( config.shapes.loadingShapesOpacity );
+                                config.shapes.loading[ shape ].opacity( config.shapes.loadingShapesOpacity );
                             }
                         }
                     }
