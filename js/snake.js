@@ -40,12 +40,12 @@ $( function() {
             transitioningToMenu: false,
             snakeIsMoving: true,
             snakeMove: self.snakeMove,
-            queuedMovements: [],
+            snakeSpeedIncrementModifier: 2,
             snakeCurrentDirection: 'up',
             snakePreviousDirection: 'up',
+            queuedMovements: [],
             transitionSpeed: 0.025,
             lastMovementTime: 0,
-            frameCount: 0,
             menuTitleBounciness: 7,
             menuTextBrightnessVariance: 5,
             loops: {}
@@ -69,11 +69,11 @@ $( function() {
             game: {
                 hearts: {
                     list: [], coords: [], maximumPossible: 10,
-                    probability: 30, existOnTheStage: false
+                    numberOfInner: 2, probability: 30, existOnTheStage: false
                 },
                 snake: {
-                    segments: [], coords: [],
-                    queue: {}, counters: {},
+                    segments: [], coords: [], queue: [],
+                    counters: {}, numberOfInner: 2,
                     defaultStartCoords: {
                         x: 13,
                         y: 13
@@ -550,123 +550,79 @@ $( function() {
         }
 
         function generateSnakePrototype() {
-            var group = new Kinetic.Group({
-                x: -1000,
-                y: -1000
-            });
+            var color = config.colors.snake,
+                segment = new Kinetic.Group();
 
-            var subSegment = new Kinetic.Rect({
-                x: config.tiles.width,
-                y: config.tiles.height,
-                width: config.tiles.width,
-                height: config.tiles.height,
-                fill: 'hsl(' +
-                    config.colors.snake.hue + ', ' +
-                    config.colors.snake.sat + '%, ' +
-                    config.colors.snake.lum + '%)'
-            });
+            for ( var i = 0; i < config.shapes.game.snake.numberOfInner + 1; i++ ){
+                var rect = new Kinetic.Rect({
+                    x: config.tiles.width + i * (( config.tiles.width * 0.33 ) / 2),
+                    y: config.tiles.height + i * (( config.tiles.height * 0.33 ) / 2),
+                    width: config.tiles.width - i * ( config.tiles.width * 0.33 ),
+                    height: config.tiles.height - i * ( config.tiles.height * 0.33 ),
+                    fill: 'hsl(' +
+                        color.hue + ', ' +
+                        color.sat + '%, ' +
+                        color.lum + '%)'
+                });
 
-            group.add( subSegment );
+                color.lum += 10;
 
-            subSegment = new Kinetic.Rect({
-                x: (( config.tiles.width ) + ( config.tiles.width * 0.2 )),
-                y: (( config.tiles.height ) + ( config.tiles.height * 0.2 )),
-                width: ( config.tiles.width * 0.6 ),
-                height: ( config.tiles.height * 0.6 ),
-                fill: 'hsl(' +
-                    config.colors.snake.hue + ', ' +
-                    config.colors.snake.sat + '%, ' +
-                    ( config.colors.heart.lum / 1.4 ) + '%)'
-            });
+                segment.add( rect );
+            }
 
-            group.add( subSegment );
-
-            subSegment = new Kinetic.Rect({
-                x: (( config.tiles.width ) + ( config.tiles.width * 0.4 )),
-                y: (( config.tiles.height ) + ( config.tiles.height * 0.4 )),
-                width: ( config.tiles.width * 0.2 ),
-                height: ( config.tiles.height * 0.2 ),
-                fill: 'hsl(' +
-                    config.colors.snake.hue + ', ' +
-                    config.colors.snake.sat + '%, ' +
-                    ( config.colors.heart.lum / 1.8 ) + '%)'
-            });
-
-            group.add( subSegment );
-            config.shapes.game.snake.proto = group
-        }
-
-        function addSnakeSegment() {
-            var xPos = config.shapes.game.snake.queue.x,
-                yPos = config.shapes.game.snake.queue.y,
-                segment = config.shapes.game.snake.proto.clone({ x: xPos, y: yPos });
-
-            segment.id( config.shapes.game.snake.segments.length );
-            config.shapes.game.snake.segments.push( segment );
-            config.shapes.game.snake.queue = null;
-            config.shapes.game.snake.coords.push({
-                id: segment.id(), x: xPos / config.tiles.width, y: yPos / config.tiles.height });
-
-            config.layers.foreground.add( segment )
+            config.shapes.game.snake.proto = segment
         }
 
         function queueNewSnakeSegment() {
-            config.shapes.game.snake.queue = {};
             if ( config.shapes.game.snake.segments.length == 0 ){
-                config.shapes.game.snake.queue.x = config.shapes.game.snake.defaultStartCoords.x * config.tiles.width;
-                config.shapes.game.snake.queue.y = config.shapes.game.snake.defaultStartCoords.y * config.tiles.height;
+                config.shapes.game.snake.queue.push({
+                    x: config.shapes.game.snake.defaultStartCoords.x * config.tiles.width,
+                    y: config.shapes.game.snake.defaultStartCoords.y * config.tiles.height
+                })
             } else {
-                config.shapes.game.snake.queue.x = config.shapes.game.snake.segments.last().x();
-                config.shapes.game.snake.queue.y = config.shapes.game.snake.segments.last().y();
+                config.shapes.game.snake.queue.push({
+                    x: config.shapes.game.snake.segments.last().x(),
+                    y: config.shapes.game.snake.segments.last().y()
+                })
             }
         }
 
+        function addSnakeSegment() {
+            var queuedSegment = config.shapes.game.snake.queue[0],
+                segment = config.shapes.game.snake.proto.clone({ x: queuedSegment.x, y: queuedSegment.y });
+
+            segment.id( config.shapes.game.snake.segments.length );
+            config.shapes.game.snake.segments.push( segment );
+            config.shapes.game.snake.coords.push({
+                id: segment.id(), x: queuedSegment.x / config.tiles.width, y: queuedSegment.y / config.tiles.height });
+
+            config.shapes.game.snake.queue.shift();
+            config.layers.foreground.add( segment );
+        }
+
         function generateHeartPrototype() {
-            var group = new Kinetic.Group();
+            var color = config.colors.heart,
+                heart = new Kinetic.Group();
 
-            var shape = new Kinetic.Text({
-                x: 0,
-                y: 0,
-                text: '\uf004',
-                fontSize: config.tiles.width,
-                fontFamily: 'FontAwesome',
-                fill: 'hsl(' +
-                    config.colors.heart.hue + ', ' +
-                    config.colors.heart.sat + '%, ' +
-                    config.colors.heart.lum + '%)'
-            });
+            for ( var i = 0; i < config.shapes.game.hearts.numberOfInner + 1; i++ ){
+                var innerHeart = new Kinetic.Text({
+                    x: config.tiles.width + i * (( config.tiles.width * 0.33 ) / 2),
+                    y: config.tiles.height + i * (( config.tiles.height * 0.33 ) / 2),
+                    text: '\uf004',
+                    fontSize: config.tiles.width - i * ( config.tiles.width * 0.33 ),
+                    fontFamily: 'FontAwesome',
+                    fill: 'hsl(' +
+                        color.hue + ', ' +
+                        color.sat + '%, ' +
+                        color.lum + '%)'
+                });
 
-            group.add( shape );
+                color.lum += 10;
 
-            shape = new Kinetic.Text({
-                x: ( config.tiles.width * 0.2 ),
-                y: ( config.tiles.height * 0.2 ),
-                text: '\uf004',
-                fontSize: ( config.tiles.width * 0.6 ),
-                fontFamily: 'FontAwesome',
-                fill: 'hsl(' +
-                    config.colors.heart.hue + ', ' +
-                    config.colors.heart.sat + '%, ' +
-                    ( config.colors.heart.lum / 1.4 ) + '%)'
-            });
+                heart.add( innerHeart );
+            }
 
-            group.add( shape );
-
-            shape = new Kinetic.Text({
-                x: (( config.tiles.width * 0.4 )),
-                y: (( config.tiles.height * 0.4 )),
-                text: '\uf004',
-                fontSize: ( config.tiles.width * 0.2 ),
-                fontFamily: 'FontAwesome',
-                fill: 'hsl(' +
-                    config.colors.heart.hue + ', ' +
-                    config.colors.heart.sat + '%, ' +
-                    ( config.colors.heart.lum / 1.8 ) + '%)'
-            });
-
-            group.add( shape );
-
-            config.shapes.game.hearts.proto = group
+            config.shapes.game.hearts.proto = heart;
         }
 
         function regenerateHearts() {
@@ -691,7 +647,7 @@ $( function() {
                 else {
                     config.shapes.game.hearts.existOnTheStage = true;
                     heart.id( config.shapes.game.hearts.list.length );
-                    coords.push({ id: heart.id(), x: x, y: y });
+                    coords.push({ id: heart.id(), x: x + 1, y: y + 1});
                     config.shapes.game.hearts.list.push( heart );
                     config.layers.foreground.add( heart );
 
@@ -708,7 +664,7 @@ $( function() {
 
                                 if ( !collision ){
                                     heart.id( config.shapes.game.hearts.list.length );
-                                    coords.push({ id: heart.id(), x: x, y: y });
+                                    coords.push({ id: heart.id(), x: x + 1, y: y + 1});
                                     config.shapes.game.hearts.list.push( heart );
                                     config.layers.foreground.add( heart );
                                 } else collision = false
@@ -719,8 +675,8 @@ $( function() {
             });
 
             function generateHeart( cb ){
-                var x = getRandomInt( 1, config.tiles.horizontalAmount - 2 ),
-                    y = getRandomInt( 1, config.tiles.verticalAmount - 2 ),
+                var x = getRandomInt( 2, config.tiles.horizontalAmount - 4 ),
+                    y = getRandomInt( 2, config.tiles.verticalAmount - 4 ),
                     heart = config.shapes.game.hearts.proto.clone({
                         x: x * config.tiles.width, y: y * config.tiles.height });
 
@@ -759,7 +715,7 @@ $( function() {
 
             config.animations.loops.game = new Kinetic.Animation( function( frame ){
                 if ( config.gameStarted ){
-                    config.gameStarted = !config.gameStarted;
+                    config.gameStarted = false;
                     config.gameOver = false;
                     config.animations.loops.background.start();
                     regenerateHearts();
@@ -767,16 +723,16 @@ $( function() {
                 }
 
                 if ( !config.gameOver ){
-                    if ( frame.time - config.animations.lastMovementTime >=
-                        ( config.animations.period - ( config.shapes.game.snake.segments.length * 2 )) / 2 ){
+                    if ( frame.time - config.animations.lastMovementTime >= ( config.animations.period -
+                       ( config.shapes.game.snake.segments.length * config.animations.snakeSpeedIncrementModifier )) / 2 &&
+                         config.animations.snakeIsMoving ){
 
-                        if ( config.animations.snakeIsMoving ){
                             config.animations.lastMovementTime = frame.time;
 
-                            if ( config.shapes.game.snake.queue ) addSnakeSegment();
+                            if ( config.shapes.game.snake.queue.length > 0 ) addSnakeSegment();
 
                             if ( config.animations.queuedMovements.length > 0 ){
-                                config.animations.snakeCurrentDirection = config.animations.queuedMovements.shift();
+                                 config.animations.snakeCurrentDirection = config.animations.queuedMovements.shift();
                             } else config.animations.snakeCurrentDirection = config.animations.snakePreviousDirection;
 
                             if ( config.animations.snakeCurrentDirection == 'up' ) config.snakeMove( 'up' );
@@ -788,7 +744,7 @@ $( function() {
                             config.shapes.game.snake.coords.forEach( function( snakeCoord ){
                                 for ( x = 0; x < config.shapes.game.hearts.coords.length; x++ ){
                                     if ( snakeCoord.x == config.shapes.game.hearts.coords[ x ].x &&
-                                        snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
+                                         snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
 
                                         displaySegmentCounter();
                                         config.cyclingBackgroundColors = true;
@@ -808,19 +764,19 @@ $( function() {
                                 // Collided with self
                                 config.shapes.game.snake.coords.forEach( function( segment ){
                                     if ( snakeCoord.x == segment.x && snakeCoord.y == segment.y &&
-                                        snakeCoord.id != segment.id ){
+                                         snakeCoord.id != segment.id ){
 
-                                        config.gameOver = true
+                                            config.gameOver = true
                                     }
                                 })
                             });
 
                             // Collided with boundary
                             if ( config.shapes.game.snake.coords[ 0 ].x == 0 || config.shapes.game.snake.coords[ 0 ].y == 0 ||
-                                config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
-                                config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
+                                 config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
+                                 config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
 
-                                config.gameOver = true
+                                    config.gameOver = true
                             }
 
                             config.shapes.game.hearts.existOnTheStage = false;
@@ -831,12 +787,11 @@ $( function() {
                             });
 
                             if ( !config.shapes.game.hearts.existOnTheStage ) regenerateHearts();
-                        }
                     }
                 }
 
                 if ( config.shapes.game.snake.counters.active ){
-                    config.shapes.game.snake.counters.active.forEach( function( counter ){
+                     config.shapes.game.snake.counters.active.forEach( function( counter ){
                         x = counter.opacity() - config.animations.transitionSpeed;
 
                         if ( x <= 0 ) counter.destroy();
@@ -845,7 +800,7 @@ $( function() {
                 }
 
                 if ( config.gameOver ){
-                    config.shapes.game.snake.segments.forEach( function( segment ){
+                     config.shapes.game.snake.segments.forEach( function( segment ){
                         i = segment.opacity() - config.animations.transitionSpeed;
 
                         if ( i <= 0 ) segment.destroy();
@@ -885,9 +840,6 @@ $( function() {
                         config.gameOver = false;
                     }
                 }
-
-                config.animations.frameCount++
-
             }, config.layers.foreground );
         }
 
