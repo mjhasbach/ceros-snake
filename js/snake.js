@@ -588,7 +588,7 @@ $( function() {
         }
 
         function addSnakeSegment() {
-            var queuedSegment = config.shapes.game.snake.queue[0],
+            var queuedSegment = config.shapes.game.snake.queue[ 0 ],
                 segment = config.shapes.game.snake.proto.clone({ x: queuedSegment.x, y: queuedSegment.y });
 
             segment.id( config.shapes.game.snake.segments.length );
@@ -677,10 +677,19 @@ $( function() {
             function generateHeart( cb ){
                 var x = getRandomInt( 2, config.tiles.horizontalAmount - 4 ),
                     y = getRandomInt( 2, config.tiles.verticalAmount - 4 ),
-                    heart = config.shapes.game.hearts.proto.clone({
+                    heartIntersectsSegment = false;
+
+                config.shapes.game.snake.coords.forEach( function( coord ) {
+                    if ( coord.x == x + 1 && coord.y == y + 1 ) heartIntersectsSegment = true
+                });
+
+                if ( heartIntersectsSegment ) generateHeart( cb );
+                else {
+                    var heart = config.shapes.game.hearts.proto.clone({
                         x: x * config.tiles.width, y: y * config.tiles.height });
 
-                cb( heart, x, y )
+                    cb( heart, x, y )
+                }
             }
         }
 
