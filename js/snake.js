@@ -415,7 +415,16 @@ $( function() {
         }
 
         function generateMenuOptions() {
-            var absX = config.absX;
+            var absX = config.absX,
+                absY = config.absY;
+
+            config.shapes.menu.onePlayerHitbox = new Kinetic.Rect({
+                x: absX( 50 ),
+                y: absY( 1.21 ),
+                width: absX( 6.5 ),
+                height: absY( 8.9 ),
+                opacity: 0
+            });
 
             config.shapes.menu.number1 = new Kinetic.Text({
                 x: absX( 50 ),
@@ -424,20 +433,6 @@ $( function() {
                 fontSize: config.font.size,
                 fontFamily: config.font.menu,
                 fill: config.font.color
-            });
-
-            config.shapes.menu.number1.on( 'mouseover', function() {
-                config.animations.mouseOver1Player = true
-            });
-
-            config.shapes.menu.number1.on( 'mouseout', function() {
-                config.shapes.menu.controller1.fill( config.font.color );
-                config.shapes.menu.number1.fill( config.font.color );
-                config.animations.mouseOver1Player = false
-            });
-
-            config.shapes.menu.number1.on( 'mouseup', function() {
-                config.animations.transitioningToNewGame = true;
             });
 
             config.shapes.menu.controller1 = new Kinetic.Text({
@@ -449,17 +444,17 @@ $( function() {
                 fill: config.font.color
             });
 
-            config.shapes.menu.controller1.on( 'mouseover', function() {
+            config.shapes.menu.onePlayerHitbox.on( 'mouseover', function() {
                 config.animations.mouseOver1Player = true
             });
 
-            config.shapes.menu.controller1.on( 'mouseout', function() {
+            config.shapes.menu.onePlayerHitbox.on( 'mouseout', function() {
                 config.shapes.menu.controller1.fill( config.font.color );
                 config.shapes.menu.number1.fill( config.font.color );
                 config.animations.mouseOver1Player = false
             });
 
-            config.shapes.menu.controller1.on( 'mouseup', function() {
+            config.shapes.menu.onePlayerHitbox.on( 'mouseup', function() {
                 config.animations.transitioningToNewGame = true;
             });
 
@@ -501,6 +496,14 @@ $( function() {
 //                config.animations.mouseOver2Player = false
 //            });
 
+            config.shapes.menu.volumeHitbox = new Kinetic.Rect({
+                x: absX( 2.5 ),
+                y: absY( 1.215 ),
+                width: absX( 11.9 ),
+                height: absY( 7.9 ),
+                opacity: 0
+            });
+
             config.shapes.menu.volume = new Kinetic.Text({
                 x: absX( 2.5 ),
                 y: config.font.optionRowY,
@@ -510,16 +513,16 @@ $( function() {
                 fill: config.font.color
             });
 
-            config.shapes.menu.volume.on( 'mouseover', function() {
+            config.shapes.menu.volumeHitbox.on( 'mouseover', function() {
                 config.animations.mouseOverVolume = true
             });
 
-            config.shapes.menu.volume.on( 'mouseout', function() {
+            config.shapes.menu.volumeHitbox.on( 'mouseout', function() {
                 config.shapes.menu.volume.fill( config.font.color );
                 config.animations.mouseOverVolume = false
             });
 
-            config.shapes.menu.volume.on( 'mouseup', function() {
+            config.shapes.menu.volumeHitbox.on( 'mouseup', function() {
                 buzz.sounds[ 0 ].toggleMute();
             });
 
@@ -541,12 +544,22 @@ $( function() {
 //                config.animations.mouseOverHighScores = false
 //            });
 
+            config.layers.menu.add( config.shapes.menu.onePlayerHitbox );
+            config.shapes.menu.onePlayerHitbox.cache();
             config.layers.menu.add( config.shapes.menu.number1 );
             config.layers.menu.add( config.shapes.menu.controller1 );
+
             config.layers.menu.add( config.shapes.menu.number2 );
             config.layers.menu.add( config.shapes.menu.controller2 );
+
+            config.layers.menu.add( config.shapes.menu.volumeHitbox );
+            config.shapes.menu.volumeHitbox.cache();
             config.layers.menu.add( config.shapes.menu.volume );
+
             config.layers.menu.add( config.shapes.menu.highScores );
+
+            config.shapes.menu.onePlayerHitbox.moveToTop();
+            config.shapes.menu.volumeHitbox.moveToTop();
         }
 
         function generateSnakePrototype() {
