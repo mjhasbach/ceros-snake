@@ -229,7 +229,7 @@ $( function() {
 
                     function waitUntilAudioHasLoaded( cb ) {
                         if ( !config.song.doneLoading ){
-                            setTimeout(waitUntilAudioHasLoaded( cb ), 200);
+                            setTimeout( waitUntilAudioHasLoaded, 200, cb );
                         } else cb()
                     }
                 }
