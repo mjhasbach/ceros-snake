@@ -18,8 +18,9 @@ $( function() {
         };
 
         this.song = {
-            bpm: 132,
-            path: 'audio/soundtrack'
+            bpm: 140,
+            doneLoading: false,
+            path: 'audio/soundtrack.mp3'
         };
 
         this.tiles = {
@@ -33,9 +34,12 @@ $( function() {
         this.animations = {
             period: ( 60 / self.song.bpm ) * 1000,
             mouseOver1Player: false,
-            mouseOver2Player: false,
+            mouseOverSettings: false,
             mouseOverVolume: false,
-            mouseOverHighScores: false,
+            mouseOverFullScreen: false,
+            mouseOverHelp: false,
+            mouseOverCredits: false,
+            settingsIn: false,
             transitioningToNewGame: false,
             transitioningToMenu: false,
             snakeIsMoving: true,
@@ -44,10 +48,10 @@ $( function() {
             snakeCurrentDirection: 'up',
             snakePreviousDirection: 'up',
             queuedMovements: [],
-            transitionSpeed: 0.025,
+            transitionSpeed: 0.05,
             lastMovementTime: 0,
             menuTitleBounciness: 7,
-            menuTextBrightnessVariance: 5,
+            menuTextBrightnessVariance: 8,
             loops: {}
         };
 
@@ -61,6 +65,7 @@ $( function() {
         this.shapes = {
             loadingShapesOpacity: 1,
             menuShapesOpacity: 1,
+            settingShapesOpacity: 0,
             doneGenerating: false,
             loading: {},
             tiles: [],
@@ -85,10 +90,13 @@ $( function() {
         this.font = {
             menu: 'New Rocker',
             loading: 'Georgia',
-            color: '#005F6B',
-            disabledColor: '#0c3a40',
-            preLoad: '\uf071\uf11b\uf013\uf028',
-            size: self.absX( 11 ),
+            menuTitleColor: '#007585',
+            menuOptionColor: '#00515c',
+            disabledColor: '#002d33',
+            preLoad: '\uf071\uf11b\uf013\uf028\uf0b2\uf059',
+            menuOptionSize: self.absX( 11 ),
+            menuSettingSize: self.absX( 4 ),
+            menuOptionBorderWidth: self.absX( 300 ),
             gamepadSize: self.absX( 9 ),
             optionRowY: self.absY( 1.24 ),
             optionRowGamePadY: self.absY( 1.295 ),
@@ -100,7 +108,7 @@ $( function() {
             simpleScreenBg: '#00B4CC',
             boundary: '#008C9E',
             counter: '#007180',
-            menuText: { hue: 187, sat: 100, lum: 21 },
+            menuText: { hue: 187, sat: 100, lum: 18 },
             snake: { hue: 187, sat: 100, lum: 21 },
             heart: { hue: 187, sat: 100, lum: 21 }
         };
@@ -171,7 +179,7 @@ $( function() {
 
     function initialize() {
         var config = new Config(),
-            soundtrack = new buzz.sound( config.song.path, { formats: [ "ogg", "mp3", "aac" ] });
+            soundtrack = new buzz.sound(config.song.path);
 
         config.stage = new Kinetic.Stage({
             container: 'game',
@@ -203,13 +211,25 @@ $( function() {
 
                     addLayersToStage();
                     initializeRemainingShapes();
+
+                    soundtrack.bind("loadeddata", function() {
+                        config.song.doneLoading = true
+                    });
                 },
 
                 active: function() {
-                    soundtrack.play().loop();
-                    config.doneLoadingAssets = true;
-                    config.animations.loops.background.start();
-                    config.animations.loops.menu.start();
+                    waitUntilAudioHasLoaded( function() {
+                        soundtrack.play().loop();
+                        config.doneLoadingAssets = true;
+                        config.animations.loops.background.start();
+                        config.animations.loops.menu.start();
+                    });
+
+                    function waitUntilAudioHasLoaded( cb ) {
+                        if ( !config.song.doneLoading ){
+                            setTimeout(waitUntilAudioHasLoaded(cb), 200);
+                        } else cb()
+                    }
                 }
             };
 
@@ -219,37 +239,39 @@ $( function() {
 
                 console.log( 'Key code ' + event.which + ' pressed!' );
 
-                // Space bar and Escape
-                if ( event.which == 32 || event.which == 27 ){
-                    config.animations.snakeIsMoving = !config.animations.snakeIsMoving
-                }
-
                 if ( !config.gameOver ){
-                    // Up Arrow or W Key
-                    if ( event.which == 38 || event.which == 87 ){
-                        if ( config.animations.queuedMovements.last() != 'up' && config.animations.snakeCurrentDirection != 'down' ){
-                            config.animations.queuedMovements.push('up')
-                        }
+                    // Space bar
+                    if ( event.which == 32){
+                        config.animations.snakeIsMoving = !config.animations.snakeIsMoving
                     }
 
-                    // Right Arrow or D Key
-                    else if ( event.which == 39 || event.which == 68 ){
-                        if ( config.animations.queuedMovements.last() != 'right' && config.animations.snakeCurrentDirection != 'left' ){
-                            config.animations.queuedMovements.push( 'right' )
+                    if ( config.animations.snakeIsMoving ) {
+                        // Up Arrow or W Key
+                        if ( event.which == 38 || event.which == 87 ){
+                            if ( config.animations.queuedMovements.last() != 'up' && config.animations.snakeCurrentDirection != 'down' ){
+                                config.animations.queuedMovements.push('up')
+                            }
                         }
-                    }
 
-                    // Down Arrow or S Key
-                    else if ( event.which == 40 || event.which == 83 ){
-                        if ( config.animations.queuedMovements.last() != 'down' && config.animations.snakeCurrentDirection != 'up' ){
-                            config.animations.queuedMovements.push( 'down' )
+                        // Right Arrow or D Key
+                        else if ( event.which == 39 || event.which == 68 ){
+                            if ( config.animations.queuedMovements.last() != 'right' && config.animations.snakeCurrentDirection != 'left' ){
+                                config.animations.queuedMovements.push( 'right' )
+                            }
                         }
-                    }
 
-                    // Left Arrow or A Key
-                    else if ( event.which == 37 || event.which == 65 ){
-                        if ( config.animations.queuedMovements.last() != 'left' && config.animations.snakeCurrentDirection != 'right' ){
-                            config.animations.queuedMovements.push('left')
+                        // Down Arrow or S Key
+                        else if ( event.which == 40 || event.which == 83 ){
+                            if ( config.animations.queuedMovements.last() != 'down' && config.animations.snakeCurrentDirection != 'up' ){
+                                config.animations.queuedMovements.push( 'down' )
+                            }
+                        }
+
+                        // Left Arrow or A Key
+                        else if ( event.which == 37 || event.which == 65 ){
+                            if ( config.animations.queuedMovements.last() != 'left' && config.animations.snakeCurrentDirection != 'right' ){
+                                config.animations.queuedMovements.push('left')
+                            }
                         }
                     }
                 }
@@ -278,6 +300,7 @@ $( function() {
             generateBackgroundTiles();
             generateTitle();
             generateMenuOptions();
+            generateSettings();
 
             createMenuLoop();
             createGameLoop();
@@ -301,9 +324,9 @@ $( function() {
                 x: config.absX( 3 ),
                 y: config.absY( 2.35 ),
                 text: 'Loading',
-                fontSize: config.font.size,
+                fontSize: config.font.menuOptionSize,
                 fontFamily: config.font.loading,
-                fill: config.font.color
+                fill: config.font.menuOptionColor
             });
 
             config.shapes.loading.wheel = new Kinetic.Shape({
@@ -313,7 +336,7 @@ $( function() {
                     context.stroke();
                     context.strokeShape( this );
                 },
-                stroke: config.font.color,
+                stroke: config.font.menuOptionColor,
                 strokeWidth: config.font.strokeWidth * 2
             });
 
@@ -377,7 +400,7 @@ $( function() {
                     context.stroke();
                     context.strokeShape(this);
                 },
-                stroke: config.font.color,
+                stroke: config.font.menuTitleColor,
                 strokeWidth: config.font.strokeWidth
             });
 
@@ -407,11 +430,136 @@ $( function() {
                     context.stroke();
                     context.strokeShape(this);
                 },
-                stroke: config.font.color,
+                stroke: config.font.menuTitleColor,
                 strokeWidth: config.font.strokeWidth
             });
 
             config.layers.menu.add( config.shapes.menu.snake );
+        }
+
+        function generateSettings() {
+            var absX = config.absX,
+                absY = config.absY;
+
+            config.shapes.menu.volumeHitbox = new Kinetic.Rect({
+                x: absX( 32 ),
+                y: absY( 4.67 ),
+                width: absX( 4.31 ),
+                height: absY( 2.845 ),
+                opacity: 0
+            });
+
+            config.shapes.menu.volume = new Kinetic.Text({
+                x: absX( 32 ),
+                y: absY( 5.9 ),
+                text: '\uf028',
+                fontSize: config.font.menuSettingSize,
+                fontFamily: 'FontAwesome',
+                fill: config.font.menuOptionColor,
+                opacity: 0
+            });
+
+            config.shapes.menu.fullscreenHitbox = new Kinetic.Rect({
+                x: absX( 3.31 ),
+                y: absY( 4.67 ),
+                width: absX( 5.07 ),
+                height: absY( 2.85 ),
+                opacity: 0
+            });
+
+            config.shapes.menu.fullscreen = new Kinetic.Text({
+                x: absX( 3.31 ),
+                y: absY( 5.36 ),
+                text: '\uf0b2',
+                fontSize: config.font.menuSettingSize * 0.922,
+                fontFamily: 'FontAwesome',
+                fill: config.font.menuOptionColor,
+                opacity: 0
+            });
+
+            config.shapes.menu.helpHitbox = new Kinetic.Rect({
+                x: absX( 1.86 ),
+                y: absY( 4.67 ),
+                width: absX( 5.07 ),
+                height: absY( 2.85 ),
+                opacity: 0
+            });
+
+            config.shapes.menu.help = new Kinetic.Text({
+                x: absX( 1.86 ),
+                y: absY( 5.35 ),
+                text: '\uf059',
+                fontSize: config.font.menuSettingSize * 0.922,
+                fontFamily: 'FontAwesome',
+                fill: config.font.disabledColor,
+                opacity: 0
+            });
+
+            config.shapes.menu.creditsHitbox = new Kinetic.Rect({
+                x: absX( 1.297 ),
+                y: absY( 4.68 ),
+                width: absX( 5.017 ),
+                height: absY( 2.849 ),
+                opacity: 0
+            });
+
+            config.shapes.menu.credits = new Kinetic.Text({
+                x: absX( 1.32 ),
+                y: absY( 6.1 ),
+                text: '\u00A9',
+                fontSize: config.font.menuSettingSize * 1.089,
+                fontFamily: config.font.menu,
+                fill: config.font.disabledColor,
+                opacity: 0
+            });
+
+
+            config.shapes.menu.volumeHitbox.on( 'mouseover', function() {
+                config.animations.mouseOverVolume = true
+            });
+
+            config.shapes.menu.volumeHitbox.on( 'mouseout', function() {
+                config.shapes.menu.volume.fill( config.font.menuOptionColor );
+                config.animations.mouseOverVolume = false
+            });
+
+            config.shapes.menu.volumeHitbox.on( 'mouseup', function() {
+                buzz.sounds[ 0 ].toggleMute();
+                config.animations.settingsIn = false
+            });
+
+            config.shapes.menu.fullscreenHitbox.on( 'mouseover', function() {
+                config.animations.mouseOverFullScreen = true
+            });
+
+            config.shapes.menu.fullscreenHitbox.on( 'mouseout', function() {
+                config.shapes.menu.fullscreen.fill( config.font.menuOptionColor );
+                config.animations.mouseOverFullScreen = false
+            });
+
+            config.shapes.menu.fullscreenHitbox.on( 'mouseup', function() {
+                if (screenfull.enabled) {
+                    screenfull.request();
+                }
+                config.animations.settingsIn = false
+            });
+
+
+            config.layers.menu.add( config.shapes.menu.volume );
+            config.layers.menu.add( config.shapes.menu.volumeHitbox );
+            config.shapes.menu.volumeHitbox.cache();
+
+            config.layers.menu.add( config.shapes.menu.fullscreen );
+            config.layers.menu.add( config.shapes.menu.fullscreenHitbox );
+            config.shapes.menu.fullscreenHitbox.cache();
+
+            config.layers.menu.add( config.shapes.menu.help );
+            config.layers.menu.add( config.shapes.menu.helpHitbox );
+            config.shapes.menu.helpHitbox.cache();
+
+            config.layers.menu.add( config.shapes.menu.credits );
+            config.layers.menu.add( config.shapes.menu.creditsHitbox );
+            config.shapes.menu.creditsHitbox.cache();
         }
 
         function generateMenuOptions() {
@@ -430,9 +578,9 @@ $( function() {
                 x: absX( 50 ),
                 y: config.font.optionRowY,
                 text: '1',
-                fontSize: config.font.size,
+                fontSize: config.font.menuOptionSize,
                 fontFamily: config.font.menu,
-                fill: config.font.color
+                fill: config.font.menuOptionColor
             });
 
             config.shapes.menu.controller1 = new Kinetic.Text({
@@ -441,41 +589,17 @@ $( function() {
                 text: '\uf11b',
                 fontSize: config.font.gamepadSize,
                 fontFamily: 'FontAwesome',
-                fill: config.font.color
-            });
-
-            config.shapes.menu.onePlayerHitbox.on( 'mouseover', function() {
-                config.animations.mouseOver1Player = true
-            });
-
-            config.shapes.menu.onePlayerHitbox.on( 'mouseout', function() {
-                config.shapes.menu.controller1.fill( config.font.color );
-                config.shapes.menu.number1.fill( config.font.color );
-                config.animations.mouseOver1Player = false
-            });
-
-            config.shapes.menu.onePlayerHitbox.on( 'mouseup', function() {
-                config.animations.transitioningToNewGame = true;
+                fill: config.font.menuOptionColor
             });
 
             config.shapes.menu.number2 = new Kinetic.Text({
                 x: absX( 5 ),
                 y: config.font.optionRowY,
                 text: '2',
-                fontSize: config.font.size,
+                fontSize: config.font.menuOptionSize,
                 fontFamily: config.font.menu,
                 fill: config.font.disabledColor
             });
-
-//            config.shapes.menu.number2.on('mouseover', function() {
-//                config.animations.mouseOver2Player = true
-//            });
-//
-//            config.shapes.menu.number2.on('mouseout', function() {
-//                config.shapes.menu.number2.fill(config.font.color);
-//                config.shapes.menu.controller2.fill(config.font.color);
-//                config.animations.mouseOver2Player = false
-//            });
 
             config.shapes.menu.controller2 = new Kinetic.Text({
                 x: absX( 3.99 ),
@@ -486,80 +610,74 @@ $( function() {
                 fill: config.font.disabledColor
             });
 
-//            config.shapes.menu.controller2.on('mouseover', function() {
-//                config.animations.mouseOver2Player = true
-//            });
-//
-//            config.shapes.menu.controller2.on('mouseout', function() {
-//                config.shapes.menu.number2.fill(config.font.color);
-//                config.shapes.menu.controller2.fill(config.font.color);
-//                config.animations.mouseOver2Player = false
-//            });
-
-            config.shapes.menu.volumeHitbox = new Kinetic.Rect({
-                x: absX( 2.5 ),
-                y: absY( 1.215 ),
-                width: absX( 11.9 ),
-                height: absY( 7.9 ),
+            config.shapes.menu.settingsHitbox = new Kinetic.Rect({
+                x: absX( 2.51 ),
+                y: config.font.optionRowY + absY( 105 ),
+                width: absX( 12.85 ),
+                height: absY( 7.17 ),
                 opacity: 0
             });
 
-            config.shapes.menu.volume = new Kinetic.Text({
-                x: absX( 2.5 ),
+            config.shapes.menu.settings = new Kinetic.Text({
+                x: absX( 2.51 ),
                 y: config.font.optionRowY,
-                text: '\uf028',
-                fontSize: config.font.size,
+                text: '\uf013',
+                fontSize: config.font.menuOptionSize,
                 fontFamily: 'FontAwesome',
-                fill: config.font.color
-            });
-
-            config.shapes.menu.volumeHitbox.on( 'mouseover', function() {
-                config.animations.mouseOverVolume = true
-            });
-
-            config.shapes.menu.volumeHitbox.on( 'mouseout', function() {
-                config.shapes.menu.volume.fill( config.font.color );
-                config.animations.mouseOverVolume = false
-            });
-
-            config.shapes.menu.volumeHitbox.on( 'mouseup', function() {
-                buzz.sounds[ 0 ].toggleMute();
+                fill: config.font.menuOptionColor
             });
 
             config.shapes.menu.highScores = new Kinetic.Text({
                 x: absX( 1.97 ),
                 y: config.font.optionRowY,
                 text: 'High Scores',
-                fontSize: config.font.size,
+                fontSize: config.font.menuOptionSize,
                 fontFamily: config.font.menu,
                 fill: config.font.disabledColor
             });
 
-//            config.shapes.menu.highScores.on('mouseover', function() {
-//                config.animations.mouseOverHighScores = true
-//            });
-//
-//            config.shapes.menu.highScores.on('mouseout', function() {
-//                config.shapes.menu.highScores.fill(config.font.color);
-//                config.animations.mouseOverHighScores = false
-//            });
 
-            config.layers.menu.add( config.shapes.menu.onePlayerHitbox );
-            config.shapes.menu.onePlayerHitbox.cache();
+            config.shapes.menu.onePlayerHitbox.on( 'mouseover', function() {
+                config.animations.mouseOver1Player = true
+            });
+
+            config.shapes.menu.onePlayerHitbox.on( 'mouseout', function() {
+                config.shapes.menu.controller1.fill( config.font.menuOptionColor );
+                config.shapes.menu.number1.fill( config.font.menuOptionColor );
+                config.animations.mouseOver1Player = false
+            });
+
+            config.shapes.menu.onePlayerHitbox.on( 'mouseup', function() {
+                config.animations.transitioningToNewGame = true;
+            });
+
+            config.shapes.menu.settingsHitbox.on( 'mouseover', function() {
+                config.animations.mouseOverSettings = true
+            });
+
+            config.shapes.menu.settingsHitbox.on( 'mouseout', function() {
+                config.shapes.menu.settings.fill( config.font.menuOptionColor );
+                config.animations.mouseOverSettings = false
+            });
+
+            config.shapes.menu.settingsHitbox.on( 'mouseup', function() {
+                config.animations.settingsIn = !config.animations.settingsIn
+            });
+
+
             config.layers.menu.add( config.shapes.menu.number1 );
             config.layers.menu.add( config.shapes.menu.controller1 );
+            config.layers.menu.add( config.shapes.menu.onePlayerHitbox );
+            config.shapes.menu.onePlayerHitbox.cache();
 
             config.layers.menu.add( config.shapes.menu.number2 );
             config.layers.menu.add( config.shapes.menu.controller2 );
 
-            config.layers.menu.add( config.shapes.menu.volumeHitbox );
-            config.shapes.menu.volumeHitbox.cache();
-            config.layers.menu.add( config.shapes.menu.volume );
+            config.layers.menu.add( config.shapes.menu.settings );
+            config.layers.menu.add( config.shapes.menu.settingsHitbox );
+            config.shapes.menu.settingsHitbox.cache();
 
             config.layers.menu.add( config.shapes.menu.highScores );
-
-            config.shapes.menu.onePlayerHitbox.moveToTop();
-            config.shapes.menu.volumeHitbox.moveToTop();
         }
 
         function generateSnakePrototype() {
@@ -708,7 +826,7 @@ $( function() {
 
         function generateCounterPrototype() {
             config.shapes.game.snake.counters.proto = new Kinetic.Text({
-                fontSize: config.font.size * 2,
+                fontSize: config.font.menuOptionSize * 2,
                 fontFamily: config.font.menu,
                 fill: config.colors.counter
             });
@@ -871,35 +989,49 @@ $( function() {
 
             config.animations.loops.menu = new Kinetic.Animation( function( frame ){
                 bounciness = ( Math.sin( frame.time * 2 * Math.PI / config.animations.period )) * config.animations.menuTitleBounciness;
-                brightnessOffset = (( Math.sin( frame.time * 2 * Math.PI / config.animations.period ) * config.animations.menuTextBrightnessVariance ));
+                brightnessOffset = Math.abs((( Math.cos( frame.time * Math.PI / config.animations.period ) * config.animations.menuTextBrightnessVariance )));
 
                 config.shapes.menu.ceros.strokeWidth( config.font.strokeWidth + bounciness );
                 config.shapes.menu.snake.strokeWidth( config.font.strokeWidth + bounciness );
 
                 if ( config.animations.mouseOver1Player ){
                     config.shapes.menu.number1.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
+                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' );
 
                     config.shapes.menu.controller1.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
-                }
+                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.mouseOver2Player ){
-                    config.shapes.menu.number2.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
-
-                    config.shapes.menu.controller2.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
-                }
+                if ( config.animations.mouseOverSettings ){
+                    config.shapes.menu.settings.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
+                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
 
                 if ( config.animations.mouseOverVolume ){
                     config.shapes.menu.volume.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
-                }
+                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.mouseOverHighScores ){
-                    config.shapes.menu.highScores.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum + brightnessOffset ) + '%)' );
+                if ( config.animations.mouseOverFullScreen ){
+                    config.shapes.menu.fullscreen.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
+                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
+
+                if ( config.animations.settingsIn && config.shapes.menu.volume.opacity() < 1 ){
+                    config.shapes.settingShapesOpacity += config.animations.transitionSpeed;
+                    config.shapes.settingShapesOpacity = config.shapes.settingShapesOpacity > 1 ?
+                        1 : config.shapes.settingShapesOpacity;
+
+                    config.shapes.menu.volume.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.fullscreen.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.help.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.credits.opacity( config.shapes.settingShapesOpacity );
+
+                } else if ( !config.animations.settingsIn && config.shapes.menu.volume.opacity() > 0 ){
+                    config.shapes.settingShapesOpacity -= config.animations.transitionSpeed;
+                    config.shapes.settingShapesOpacity = config.shapes.settingShapesOpacity < 0 ?
+                        0 : config.shapes.settingShapesOpacity;
+
+                    config.shapes.menu.volume.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.fullscreen.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.help.opacity( config.shapes.settingShapesOpacity );
+                    config.shapes.menu.credits.opacity( config.shapes.settingShapesOpacity );
                 }
 
                 if ( config.animations.transitioningToMenu || config.animations.transitioningToNewGame ){
@@ -914,13 +1046,15 @@ $( function() {
                         config.animations.transitioningToNewGame = false;
                     }
 
+                    if ( config.animations.settingsIn ) config.animations.settingsIn = false;
+
                     config.shapes.menu.ceros.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.snake.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.number1.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.controller1.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.number2.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.controller2.opacity( config.shapes.menuShapesOpacity );
-                    config.shapes.menu.volume.opacity( config.shapes.menuShapesOpacity );
+                    config.shapes.menu.settings.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.highScores.opacity( config.shapes.menuShapesOpacity );
                 }
 

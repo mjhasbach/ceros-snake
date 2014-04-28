@@ -1,2 +1,1 @@
-1) Place an ogg, mp3, or aac audio track in this directory. Name it "soundtrack" or change the value of config.song.path.
-2) Change the value of config.song.bpm to match the added song's BPM (beats per minute).
+If you would like to change the soundtrack, simply overwrite the existing soundtrack.mp3 with a replacement, and change the value of config.song.bpm to match the new song's BPM (beats per minute).
