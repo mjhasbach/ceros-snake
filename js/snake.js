@@ -21,8 +21,8 @@ $( function() {
         };
 
         this.tiles = { size: window.innerWidth / 32 };
-        this.tiles.verticalAmount = Math.round( window.innerHeight / this.tiles.size );
         this.tiles.horizontalAmount = Math.round( window.innerWidth / this.tiles.size );
+        this.tiles.verticalAmount = Math.round( 9 * this.tiles.horizontalAmount / 16 );
 
         this.animations = {
             period: ( 60 / self.song.bpm ) * 1000,
