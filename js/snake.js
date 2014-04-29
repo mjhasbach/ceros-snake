@@ -88,31 +88,25 @@ $( function() {
         };
 
         this.font = {
-            menu: 'New Rocker',
-            loading: 'Georgia',
-            menuTitleColor: '#007585',
-            menuOptionColor: '#00515c',
-            disabledColor: '#002d33',
+            face: { main: 'New Rocker', loading: 'Georgia' },
+            size: { menu: self.absX( 11 ), settings: self.absX( 4 ), gamePad: self.absX( 9 )},
+            strokeWidth: { menu: self.absX( 300 ), title: self.absX( 35 ) },
             preLoad: '\uf071\uf11b\uf013\uf028\uf0b2\uf059',
-            menuOptionSize: self.absX( 11 ),
-            menuSettingSize: self.absX( 4 ),
-            menuOptionBorderWidth: self.absX( 300 ),
-            gamepadSize: self.absX( 9 ),
             optionRowY: self.absY( 1.24 ),
             optionRowGamePadY: self.absY( 1.295 ),
-            titleStrokeWidth: self.absX( 35 ),
             counterShadowBlur: self.absX( 100 )
         };
 
         this.colors = {
-            bgPalette: [ '#00B4CC', '#00DFFC', '#00A8C6', '#25b2cb', '#28bdd7' ],
-            simpleScreenBg: '#00B4CC',
+            title: '#006370',
+            menu: { enabledHSL: { h: 187, s: 100, l: 17 }, enabled: '#004d57', disabled: '#003238' },
+            stroke: { enabled: '#007a8a', disabled: '#00606b' },
+            counter: { face: '#0099ad', shadow: '#00292e' },
+            background: { loading: '#00B4CC' },
             boundary: '#008C9E',
-            counter: '#007180',
-            counterShadow: '#00abc2',
-            menuText: { hue: 187, sat: 100, lum: 18 },
-            snake: { hue: 187, sat: 100, lum: 21 },
-            heart: { hue: 187, sat: 100, lum: 21 }
+            bgPalette: [ '#00B4CC', '#00DFFC', '#00A8C6', '#25b2cb', '#28bdd7' ],
+            snake: { hue: 187, sat: 100, lum: 17 },
+            heart: { hue: 187, sat: 100, lum: 17 }
         };
 
         this.firstLoad = true;
@@ -131,19 +125,19 @@ $( function() {
     };
 
     Config.prototype.calculateTileWidth = function() {
-        return Math.ceil( Config.prototype.calculateStageWidth() / this.tiles.horizontalAmount )
+        return Config.prototype.calculateStageWidth() / this.tiles.horizontalAmount
     };
 
     Config.prototype.calculateTileHeight = function() {
-        return Math.ceil( Config.prototype.calculateStageHeight() / this.tiles.verticalAmount )
+        return Config.prototype.calculateStageHeight() / this.tiles.verticalAmount
     };
 
     Config.prototype.absX = function( pos ){
-        return Math.ceil( Config.prototype.calculateStageWidth() / pos )
+        return Config.prototype.calculateStageWidth() / pos
     };
 
     Config.prototype.absY = function( pos ){
-        return Math.ceil( Config.prototype.calculateStageHeight() / pos )
+        return Config.prototype.calculateStageHeight() / pos
     };
 
     Config.prototype.randomBgColor = function() {
@@ -239,8 +233,6 @@ $( function() {
                 event.preventDefault();
                 event.stopPropagation();
 
-                console.log( 'Key code ' + event.which + ' pressed!' );
-
                 if ( !config.gameOver ){
                     // Space bar
                     if ( event.which == 32){
@@ -319,16 +311,16 @@ $( function() {
                 y: 0,
                 width: config.stage.width(),
                 height: config.stage.height(),
-                fill: config.colors.simpleScreenBg
+                fill: config.colors.background.loading
             });
 
             config.shapes.loading.text = new Kinetic.Text({
                 x: config.absX( 3 ),
                 y: config.absY( 2.35 ),
                 text: 'Loading',
-                fontSize: config.font.menuOptionSize,
-                fontFamily: config.font.loading,
-                fill: config.font.menuOptionColor
+                fontSize: config.font.size.menu,
+                fontFamily: config.font.face.loading,
+                fill: config.colors.menu.enabled
             });
 
             config.shapes.loading.wheel = new Kinetic.Shape({
@@ -338,10 +330,10 @@ $( function() {
                     context.stroke();
                     context.strokeShape( this );
                 },
-                stroke: config.font.menuOptionColor,
-                strokeWidth: config.font.titleStrokeWidth * 2
+                stroke: config.colors.menu.enabled,
+                strokeWidth: config.font.strokeWidth.title * 2
             });
-
+        
             config.layers.loading.add( config.shapes.loading.bg );
             config.layers.loading.add( config.shapes.loading.text );
             config.layers.loading.add( config.shapes.loading.wheel );
@@ -402,8 +394,8 @@ $( function() {
                     context.stroke();
                     context.strokeShape(this);
                 },
-                stroke: config.font.menuTitleColor,
-                strokeWidth: config.font.titleStrokeWidth
+                stroke: config.colors.title,
+                strokeWidth: config.font.strokeWidth.title
             });
 
             config.layers.menu.add( config.shapes.menu.ceros );
@@ -432,8 +424,8 @@ $( function() {
                     context.stroke();
                     context.strokeShape(this);
                 },
-                stroke: config.font.menuTitleColor,
-                strokeWidth: config.font.titleStrokeWidth
+                stroke: config.colors.title,
+                strokeWidth: config.font.strokeWidth.title
             });
 
             config.layers.menu.add( config.shapes.menu.snake );
@@ -455,9 +447,9 @@ $( function() {
                 x: absX( 32 ),
                 y: absY( 5.9 ),
                 text: '\uf028',
-                fontSize: config.font.menuSettingSize,
+                fontSize: config.font.size.settings,
                 fontFamily: 'FontAwesome',
-                fill: config.font.menuOptionColor,
+                fill: config.colors.menu.enabled,
                 opacity: 0
             });
 
@@ -473,9 +465,9 @@ $( function() {
                 x: absX( 3.31 ),
                 y: absY( 5.36 ),
                 text: '\uf0b2',
-                fontSize: config.font.menuSettingSize * 0.922,
+                fontSize: config.font.size.settings * 0.922,
                 fontFamily: 'FontAwesome',
-                fill: config.font.menuOptionColor,
+                fill: config.colors.menu.enabled,
                 opacity: 0
             });
 
@@ -491,9 +483,9 @@ $( function() {
                 x: absX( 1.86 ),
                 y: absY( 5.35 ),
                 text: '\uf059',
-                fontSize: config.font.menuSettingSize * 0.922,
+                fontSize: config.font.size.settings * 0.922,
                 fontFamily: 'FontAwesome',
-                fill: config.font.disabledColor,
+                fill: config.colors.menu.disabled,
                 opacity: 0
             });
 
@@ -509,9 +501,9 @@ $( function() {
                 x: absX( 1.32 ),
                 y: absY( 6.1 ),
                 text: '\u00A9',
-                fontSize: config.font.menuSettingSize * 1.089,
-                fontFamily: config.font.menu,
-                fill: config.font.disabledColor,
+                fontSize: config.font.size.settings * 1.089,
+                fontFamily: config.font.face.main,
+                fill: config.colors.menu.disabled,
                 opacity: 0
             });
 
@@ -522,7 +514,7 @@ $( function() {
 
             config.shapes.menu.volumeHitbox.on( 'mouseout', function() {
                 if ( config.shapes.menu.volume.opacity() > 0 ){
-                    config.shapes.menu.volume.fill( config.font.menuOptionColor );
+                    config.shapes.menu.volume.fill( config.colors.menu.enabled );
                     config.animations.mouseOverVolume = false
                 }
             });
@@ -540,7 +532,7 @@ $( function() {
 
             config.shapes.menu.fullscreenHitbox.on( 'mouseout', function() {
                 if ( config.shapes.menu.fullscreen.opacity() > 0 ){
-                    config.shapes.menu.fullscreen.fill( config.font.menuOptionColor );
+                    config.shapes.menu.fullscreen.fill( config.colors.menu.enabled );
                     config.animations.mouseOverFullScreen = false
                 }
             });
@@ -586,36 +578,44 @@ $( function() {
                 x: absX( 50 ),
                 y: config.font.optionRowY,
                 text: '1',
-                fontSize: config.font.menuOptionSize,
-                fontFamily: config.font.menu,
-                fill: config.font.menuOptionColor
+                fontSize: config.font.size.menu,
+                fontFamily: config.font.face.main,
+                fill: config.colors.menu.enabled,
+                stroke: config.colors.stroke.enabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
             config.shapes.menu.controller1 = new Kinetic.Text({
                 x: absX( 18 ),
                 y: config.font.optionRowGamePadY,
                 text: '\uf11b',
-                fontSize: config.font.gamepadSize,
+                fontSize: config.font.size.gamePad,
                 fontFamily: 'FontAwesome',
-                fill: config.font.menuOptionColor
+                fill: config.colors.menu.enabled,
+                stroke: config.colors.stroke.enabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
             config.shapes.menu.number2 = new Kinetic.Text({
                 x: absX( 5 ),
                 y: config.font.optionRowY,
                 text: '2',
-                fontSize: config.font.menuOptionSize,
-                fontFamily: config.font.menu,
-                fill: config.font.disabledColor
+                fontSize: config.font.size.menu,
+                fontFamily: config.font.face.main,
+                fill: config.colors.menu.disabled,
+                stroke: config.colors.stroke.disabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
             config.shapes.menu.controller2 = new Kinetic.Text({
                 x: absX( 3.99 ),
                 y: config.font.optionRowGamePadY,
                 text: '\uf11b',
-                fontSize: config.font.gamepadSize,
+                fontSize: config.font.size.gamePad,
                 fontFamily: 'FontAwesome',
-                fill: config.font.disabledColor
+                fill: config.colors.menu.disabled,
+                stroke: config.colors.stroke.disabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
             config.shapes.menu.settingsHitbox = new Kinetic.Rect({
@@ -630,18 +630,22 @@ $( function() {
                 x: absX( 2.51 ),
                 y: config.font.optionRowY,
                 text: '\uf013',
-                fontSize: config.font.menuOptionSize,
+                fontSize: config.font.size.menu,
                 fontFamily: 'FontAwesome',
-                fill: config.font.menuOptionColor
+                fill: config.colors.menu.enabled,
+                stroke: config.colors.stroke.enabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
             config.shapes.menu.highScores = new Kinetic.Text({
                 x: absX( 1.97 ),
                 y: config.font.optionRowY,
                 text: 'High Scores',
-                fontSize: config.font.menuOptionSize,
-                fontFamily: config.font.menu,
-                fill: config.font.disabledColor
+                fontSize: config.font.size.menu,
+                fontFamily: config.font.face.main,
+                fill: config.colors.menu.disabled,
+                stroke: config.colors.stroke.disabled,
+                strokeWidth: config.font.strokeWidth.menu
             });
 
 
@@ -650,8 +654,8 @@ $( function() {
             });
 
             config.shapes.menu.onePlayerHitbox.on( 'mouseout', function() {
-                config.shapes.menu.controller1.fill( config.font.menuOptionColor );
-                config.shapes.menu.number1.fill( config.font.menuOptionColor );
+                config.shapes.menu.controller1.fill( config.colors.menu.enabled );
+                config.shapes.menu.number1.fill( config.colors.menu.enabled );
                 config.animations.mouseOver1Player = false
             });
 
@@ -664,7 +668,7 @@ $( function() {
             });
 
             config.shapes.menu.settingsHitbox.on( 'mouseout', function() {
-                config.shapes.menu.settings.fill( config.font.menuOptionColor );
+                config.shapes.menu.settings.fill( config.colors.menu.enabled );
                 config.animations.mouseOverSettings = false
             });
 
@@ -834,10 +838,10 @@ $( function() {
 
         function generateCounterPrototype() {
             config.shapes.game.snake.counters.proto = new Kinetic.Text({
-                fontSize: config.font.menuOptionSize * 2,
-                fontFamily: config.font.menu,
-                fill: config.colors.counter,
-                shadowColor: config.colors.shadowColor,
+                fontSize: config.font.size.menu * 2,
+                fontFamily: config.font.face.main,
+                fill: config.colors.counter.face,
+                shadowColor: config.colors.counter.shadow,
                 shadowBlur: config.font.counterShadowBlur
             });
         }
@@ -1001,27 +1005,27 @@ $( function() {
                 bounciness = ( Math.sin( frame.time * 2 * Math.PI / config.animations.period )) * config.animations.menuTitleBounciness;
                 brightnessOffset = Math.abs((( Math.cos( frame.time * Math.PI / config.animations.period ) * config.animations.menuTextBrightnessVariance )));
 
-                config.shapes.menu.ceros.strokeWidth( config.font.titleStrokeWidth + bounciness );
-                config.shapes.menu.snake.strokeWidth( config.font.titleStrokeWidth + bounciness );
+                config.shapes.menu.ceros.strokeWidth( config.font.strokeWidth.title + bounciness );
+                config.shapes.menu.snake.strokeWidth( config.font.strokeWidth.title + bounciness );
 
                 if ( config.animations.mouseOver1Player ){
-                    config.shapes.menu.number1.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' );
+                    config.shapes.menu.number1.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
+                        config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' );
 
-                    config.shapes.menu.controller1.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
+                    config.shapes.menu.controller1.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
+                        config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
                 if ( config.animations.mouseOverSettings ){
-                    config.shapes.menu.settings.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
+                    config.shapes.menu.settings.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
+                        config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
                 if ( config.animations.mouseOverVolume ){
-                    config.shapes.menu.volume.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
+                    config.shapes.menu.volume.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
+                        config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
                 if ( config.animations.mouseOverFullScreen ){
-                    config.shapes.menu.fullscreen.fill( 'hsl(' + config.colors.menuText.hue + ', ' +
-                        config.colors.menuText.sat + '%, ' + ( config.colors.menuText.lum - brightnessOffset ) + '%)' )}
+                    config.shapes.menu.fullscreen.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
+                        config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
                 if ( config.animations.settingsIn && config.shapes.menu.volume.opacity() < 1 ){
                     config.shapes.settingShapesOpacity += config.animations.transitionSpeed;
