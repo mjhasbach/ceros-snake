@@ -33,26 +33,36 @@ $( function() {
 
         this.animations = {
             period: ( 60 / self.song.bpm ) * 1000,
-            mouseOver1Player: false,
-            mouseOverSettings: false,
-            mouseOverVolume: false,
-            mouseOverFullScreen: false,
-            mouseOverHelp: false,
-            mouseOverCredits: false,
-            settingsIn: false,
-            transitioningToNewGame: false,
-            transitioningToMenu: false,
-            snakeIsMoving: true,
-            snakeMove: self.snakeMove,
-            snakeSpeedIncrementModifier: 2,
-            snakeCurrentDirection: 'up',
-            snakePreviousDirection: 'up',
-            queuedMovements: [],
+            loops: {},
             transitionSpeed: 0.05,
-            lastMovementTime: 0,
-            menuTitleBounciness: 7,
-            menuTextBrightnessVariance: 8,
-            loops: {}
+
+            menu: {
+                transitioningToGame: false,
+                mouseOver1Player: false,
+                mouseOverSettings: false,
+                mouseOverVolume: false,
+                mouseOverFullScreen: false,
+                mouseOverHelp: false,
+                mouseOverCredits: false,
+                settingsIn: false,
+                titleBounciness: 7,
+                textBrightnessVariance: 8
+            },
+
+            game: {
+                isOngoing: false,
+                transitioningToGame: false,
+                transitioningToMenu: false,
+                fadingOutShapes: false,
+                snakeIsMoving: true,
+                speedIncrement: 2,
+                snake: {
+                    queuedMovements: [],
+                    lastMovementTime: 0,
+                    currentDirection: 'up',
+                    previousDirection: 'up'
+                }
+            }
         };
 
         this.layers = {
@@ -69,7 +79,7 @@ $( function() {
             doneGenerating: false,
             loading: {},
             tiles: [],
-            boundary: [],
+            boundaries: [],
             menu: {},
             game: {
                 hearts: {
@@ -91,7 +101,7 @@ $( function() {
             face: { main: 'New Rocker', loading: 'Georgia' },
             size: { menu: self.absX( 11 ), settings: self.absX( 4 ), gamePad: self.absX( 9 )},
             strokeWidth: { menu: self.absX( 300 ), title: self.absX( 35 ) },
-            preLoad: '\uf071\uf11b\uf013\uf028\uf0b2\uf059',
+            preLoad: '\uf11b\uf013\uf028\uf0b2\uf059',
             optionRowY: self.absY( 1.24 ),
             optionRowGamePadY: self.absY( 1.295 ),
             counterShadowBlur: self.absX( 100 )
@@ -103,7 +113,7 @@ $( function() {
             stroke: { enabled: '#007a8a', disabled: '#00606b' },
             counter: { face: '#0099ad', shadow: '#00292e' },
             background: { loading: '#00B4CC' },
-            boundary: '#008C9E',
+            boundary: '#00606b',
             bgPalette: [ '#00B4CC', '#00DFFC', '#00A8C6', '#25b2cb', '#28bdd7' ],
             snake: { hue: 187, sat: 100, lum: 17 },
             heart: { hue: 187, sat: 100, lum: 17 }
@@ -112,8 +122,6 @@ $( function() {
         this.firstLoad = true;
         this.doneLoadingAssets = false;
         this.cyclingBackgroundColors = false;
-        this.gameStarted = false;
-        this.gameOver = true;
     }
 
     Config.prototype.calculateStageWidth = function() {
@@ -142,33 +150,6 @@ $( function() {
 
     Config.prototype.randomBgColor = function() {
         return this.colors.bgPalette[ Math.round( Math.random() * ( this.colors.bgPalette.length - 1 ) )]
-    };
-
-    Config.prototype.snakeMove = function( direction ){
-        var firstSegment = this.shapes.game.snake.segments[ 0 ],
-            lastSegment = this.shapes.game.snake.segments.pop(),
-            lastSegmentCoords = this.shapes.game.snake.coords.pop();
-
-        if ( direction == 'up' ){
-            lastSegment.x( firstSegment.x() );
-            lastSegment.y( firstSegment.y() - this.tiles.height );
-        } else if ( direction == 'right' ){
-            lastSegment.x( firstSegment.x() + this.tiles.width );
-            lastSegment.y( firstSegment.y() )
-        } else if ( direction == 'down' ){
-            lastSegment.x( firstSegment.x() );
-            lastSegment.y( firstSegment.y() + this.tiles.height )
-        } else {
-            lastSegment.x( firstSegment.x() - this.tiles.width );
-            lastSegment.y( firstSegment.y() );
-        }
-
-        lastSegmentCoords.x = Math.round( lastSegment.x() / this.tiles.width ) + 1;
-        lastSegmentCoords.y = Math.round( lastSegment.y() / this.tiles.height ) + 1;
-
-        this.animations.snakePreviousDirection = direction;
-        this.shapes.game.snake.segments.unshift( lastSegment );
-        this.shapes.game.snake.coords.unshift( lastSegmentCoords );
     };
 
     initialize();
@@ -233,38 +214,46 @@ $( function() {
                 event.preventDefault();
                 event.stopPropagation();
 
-                if ( !config.gameOver ){
+                if ( config.animations.game.isOngoing ){
                     // Space bar
                     if ( event.which == 32){
-                        config.animations.snakeIsMoving = !config.animations.snakeIsMoving
+                        config.animations.game.snakeIsMoving = !config.animations.game.snakeIsMoving
                     }
 
-                    if ( config.animations.snakeIsMoving ) {
+                    if ( config.animations.game.snakeIsMoving ) {
                         // Up Arrow or W Key
                         if ( event.which == 38 || event.which == 87 ){
-                            if ( config.animations.queuedMovements.last() != 'up' && config.animations.snakeCurrentDirection != 'down' ){
-                                config.animations.queuedMovements.push('up')
+                            if ( config.animations.game.snake.queuedMovements.last() != 'up' &&
+                                 config.animations.game.snake.currentDirection != 'down' ){
+
+                                config.animations.game.snake.queuedMovements.push('up')
                             }
                         }
 
                         // Right Arrow or D Key
                         else if ( event.which == 39 || event.which == 68 ){
-                            if ( config.animations.queuedMovements.last() != 'right' && config.animations.snakeCurrentDirection != 'left' ){
-                                config.animations.queuedMovements.push( 'right' )
+                            if ( config.animations.game.snake.queuedMovements.last() != 'right' &&
+                                 config.animations.game.snake.currentDirection != 'left' ){
+
+                                config.animations.game.snake.queuedMovements.push( 'right' )
                             }
                         }
 
                         // Down Arrow or S Key
                         else if ( event.which == 40 || event.which == 83 ){
-                            if ( config.animations.queuedMovements.last() != 'down' && config.animations.snakeCurrentDirection != 'up' ){
-                                config.animations.queuedMovements.push( 'down' )
+                            if ( config.animations.game.snake.queuedMovements.last() != 'down' &&
+                                 config.animations.game.snake.currentDirection != 'up' ){
+
+                                config.animations.game.snake.queuedMovements.push( 'down' )
                             }
                         }
 
                         // Left Arrow or A Key
                         else if ( event.which == 37 || event.which == 65 ){
-                            if ( config.animations.queuedMovements.last() != 'left' && config.animations.snakeCurrentDirection != 'right' ){
-                                config.animations.queuedMovements.push('left')
+                            if ( config.animations.game.snake.queuedMovements.last() != 'left' &&
+                                 config.animations.game.snake.currentDirection != 'right' ){
+
+                                config.animations.game.snake.queuedMovements.push('left')
                             }
                         }
                     }
@@ -358,18 +347,18 @@ $( function() {
                     config.layers.bg.add( tile );
 
                     if ( x == 0 || x == config.tiles.horizontalAmount - 1 ||
-                        y == 0 || y == config.tiles.verticalAmount - 1 ){
+                         y == 0 || y == config.tiles.verticalAmount - 1 ){
 
-                        tile = new Kinetic.Text({
-                            x: x * config.tiles.width,
-                            y: y * config.tiles.height,
-                            text: '\uf071',
-                            fontSize: config.tiles.width,
-                            fontFamily: 'FontAwesome',
-                            fill: config.colors.boundary
+                        tile = new Kinetic.Path({
+                            x: x * config.tiles.width - config.absX( 500 ),
+                            y: y * config.tiles.height - config.absY( 75 ),
+                            data: 'm 394.5,506.98718 c 0,13.60001 -11.02499,24.625 -24.625,24.625 -13.60001,0 -24.625,-11.02499 -24.625,-24.625 0,-13.60001 11.02499,-24.625 24.625,-24.625 13.60001,0 24.625,11.02499 24.625,24.625 z m -21.06694,-302.85264 -7.875,1.4375 -0.34375,2.875 -20.71875,5.71875 c 0,0 -12.67367,12.68118 -19.28125,18.1875 -6.42857,5.35715 -13.56697,5.72321 -19.28125,3.9375 -6.95274,-2.17273 -8.22768,-6.41518 -9.65625,-10.34375 -1.42857,-3.92857 -0.35075,-12.85825 -0.34375,-12.84375 l -7.21875,3.40625 0.40625,2.875 -18.53125,10.875 c 0,0 -8.98021,15.56489 -13.9375,22.59375 -4.82299,6.83845 -11.61201,9.02715 -17.59375,8.78125 -7.27818,-0.2992 -9.60332,-4.10628 -12,-7.53125 -2.38927,-3.41437 -3.64839,-12.22653 -3.65625,-12.28125 l -6.09375,5.15625 1.125,2.65625 -15.09375,15.3125 c 0,0 -4.62458,17.33385 -7.59375,25.40625 -2.88873,7.85371 -8.90843,11.72058 -14.75,13.03125 -7.10761,1.59473 -10.29854,-1.43703 -13.5,-4.125 -3.20147,-2.68794 -6.7633,-10.97775 -6.75,-10.96875 l -4.53125,6.59375 1.78125,2.25 -10.625,18.6875 c 0,0 0.0287,17.96544 -0.75,26.53125 -0.75762,8.33377 -5.54046,13.62834 -10.84375,16.40625 -6.45269,3.37998 -10.36818,1.26776 -14.15625,-0.5 -3.78806,-1.76778 -9.3299,-8.85175 -9.3125,-8.84375 l -2.6875,7.53125 2.3125,1.75 -5.40625,20.78125 c 0,0 4.66017,17.33701 6.125,25.8125 1.42514,8.24587 -1.84639,14.63163 -6.25,18.6875 -5.35801,4.93487 -9.664724,3.88336 -13.781254,3.15625 -4.11651,-0.7271 -11.3287,-6.126 -11.3125,-6.125 l -0.625,7.96875 2.65625,1.09375 0.15625,21.46875 c 0,0 9.01647,15.53619 12.625,23.34375 3.51078,7.59606 1.98508,14.59885 -1.21875,19.65625 -3.8982,6.15349 -8.33555,6.2619 -12.5,6.625 -4.16443,0.3631 -12.48955,-2.97075 -12.46875,-2.96875 l 1.4375,7.84375 2.84375,0.375 5.71875,20.71875 c 0,0 12.71242,12.67367 18.21875,19.28125 5.357154,6.42857 5.723204,13.56696 3.937504,19.28125 -2.172745,6.95273 -6.446444,8.22768 -10.375004,9.65625 -3.92857,1.42858 -12.85815,0.35075 -12.84375,0.34375 l 3.4375,7.21875 2.84375,-0.40625 10.90625,18.53125 c 0,0 15.533654,8.94896 22.562504,13.90625 6.83846,4.82299 9.02714,11.64326 8.78125,17.625 -0.2992,7.27819 -4.07503,9.60333 -7.5,12 -3.42496,2.39668 -12.3279,3.66745 -12.3125,3.65625 l 5.1875,6.0625 2.65625,-1.125 15.3125,15.09375 c 0,0 17.33384,4.62458 25.40625,7.59375 7.85371,2.88873 11.72058,8.90844 13.03125,14.75 1.59473,7.10762 -1.43705,10.32979 -4.125,13.53125 -2.68796,3.20146 -10.97775,6.73205 -10.96875,6.71875 l 6.59375,4.53125 2.28125,-1.78125 18.6875,10.625 c 0,0 17.93419,-0.0287 26.5,0.75 8.33377,0.75761 13.62833,5.54047 16.40625,10.84375 3.37997,6.45269 1.26777,10.36818 -0.5,14.15625 -1.76776,3.78807 -8.82138,9.35853 -8.8125,9.34375 l 7.5,2.65625 1.75,-2.28125 20.8125,5.40625 c 0,0 17.30576,-4.66018 25.78125,-6.125 8.24588,-1.42514 14.63165,1.81514 18.6875,6.21875 4.93489,5.35801 3.88337,9.69597 3.15625,13.8125 -0.7271,4.11653 -6.09475,11.29725 -6.09375,11.28125 l 7.9375,0.65625 1.09375,-2.6875 21.5,-0.15625 c 0,0 15.53618,-8.98522 23.34375,-12.59375 7.59607,-3.51077 14.56761,-2.01632 19.625,1.1875 6.15348,3.89821 6.26189,8.33556 6.625,12.5 0.36309,4.16445 -2.96675,12.5191 -2.96875,12.5 l 7.84375,-1.4375 0.375,-2.875 20.71875,-5.71875 c 0,0 12.67368,-12.71244 19.28125,-18.21875 6.42857,-5.35715 13.56696,-5.69195 19.28125,-3.90625 6.95273,2.17274 8.19643,6.41518 9.625,10.34375 1.42857,3.92856 0.382,12.85825 0.375,12.84375 l 7.1875,-3.4375 -0.375,-2.84375 18.53125,-10.875 c 0,0 8.94897,-15.56489 13.90625,-22.59375 4.82299,-6.83845 11.64325,-9.02715 17.625,-8.78125 7.27818,0.29919 9.57207,4.07503 11.96875,7.5 2.39667,3.42496 3.6965,12.3314 3.6875,12.3125 l 6.0625,-5.1875 -1.09375,-2.65625 15.0625,-15.28125 c 0,0 4.62459,-17.36509 7.59375,-25.4375 2.88873,-7.85371 8.90843,-11.72058 14.75,-13.03125 7.10762,-1.59473 10.3298,1.4683 13.53125,4.15625 3.20147,2.68796 6.73225,10.9465 6.71875,10.9375 l 4.53125,-6.59375 -1.78125,-2.25 10.625,-18.6875 c 0,0 -0.0287,-17.96544 0.75,-26.53125 0.7576,-8.33377 5.57171,-13.62833 10.875,-16.40625 6.45269,-3.37997 10.33693,-1.26777 14.125,0.5 3.78806,1.76776 9.36115,8.85175 9.34375,8.84375 l 2.65625,-7.53125 -2.28125,-1.75 5.40625,-20.78125 c 0,0 -4.69143,-17.337 -6.15625,-25.8125 -1.42514,-8.24588 1.84639,-14.60039 6.25,-18.65625 5.358,-4.93488 9.69597,-3.9146 13.8125,-3.1875 4.11653,0.72711 11.29735,6.126 11.28125,6.125 l 0.625,-7.96875 -2.65625,-1.09375 -0.15625,-21.46875 c 0,0 -8.98523,-15.53618 -12.59375,-23.34375 -3.51078,-7.59605 -2.01632,-14.59886 1.1875,-19.65625 3.89821,-6.15349 8.33555,-6.2619 12.5,-6.625 4.16445,-0.36311 12.5129,2.96175 12.5,2.96875 l -1.4375,-7.84375 -2.875,-0.34375 -5.6875,-20.71875 c 0,0 -12.71243,-12.67367 -18.21875,-19.28125 -5.35715,-6.42857 -5.72321,-13.56697 -3.9375,-19.28125 2.17273,-6.95274 6.41517,-8.22769 10.34375,-9.65625 3.92856,-1.42858 12.85825,-0.35075 12.84375,-0.34375 l -3.40625,-7.21875 -2.875,0.40625 -10.875,-18.53125 c 0,0 -15.53364,-8.94896 -22.5625,-13.90625 -6.83845,-4.823 -9.0584,-11.64326 -8.8125,-17.625 0.2992,-7.27818 4.10629,-9.60332 7.53125,-12 3.42497,-2.39667 12.3281,-3.66735 12.3125,-3.65625 l -5.1875,-6.09375 -2.65625,1.125 -15.3125,-15.0625 c 0,0 -17.33385,-4.62458 -25.40625,-7.59375 -7.85371,-2.88873 -11.75182,-8.90843 -13.0625,-14.75 -1.59472,-7.10761 1.46829,-10.32979 4.15625,-13.53125 2.68794,-3.20146 10.9465,-6.73225 10.9375,-6.71875 l -6.5625,-4.53125 -2.28125,1.75 -18.6875,-10.59375 c 0,0 -17.93419,0.0287 -26.5,-0.75 -8.33377,-0.75761 -13.65958,-5.57171 -16.4375,-10.875 -3.37998,-6.45269 -1.23652,-10.33693 0.53125,-14.125 1.76776,-3.78806 8.8244,-9.36085 8.8125,-9.34375 l -7.53125,-2.65625 -1.75,2.28125 -20.78125,-5.40625 c 0,0 -17.33701,4.66017 -25.8125,6.125 -8.24588,1.42514 -14.60039,-1.81514 -18.65625,-6.21875 -4.93488,-5.35801 -3.91461,-9.69598 -3.1875,-13.8125 0.7271,-4.11653 6.126,-11.29735 6.125,-11.28125 l -7.96875,-0.65625 -1.0625,2.6875 -21.5,0.15625 c 0,0 -15.53618,8.98523 -23.34375,12.59375 -7.59606,3.51078 -14.59886,2.01632 -19.65625,-1.1875 -6.15349,-3.89821 -6.2619,-8.33555 -6.625,-12.5 -0.3631,-4.16444 2.998,-12.5189 3,-12.5 z',
+                            fill: config.colors.boundary,
+                            scale: { x: 0.09, y: 0.09 },
+                            opacity: 0
                         });
 
-                        config.shapes.boundary.push( tile );
+                        config.shapes.boundaries.push( tile );
                         config.layers.foreground.add( tile );
                     }
                 }
@@ -509,38 +498,38 @@ $( function() {
 
 
             config.shapes.menu.volumeHitbox.on( 'mouseover', function() {
-                if ( config.shapes.menu.volume.opacity() > 0 ) config.animations.mouseOverVolume = true
+                if ( config.shapes.menu.volume.opacity() > 0 ) config.animations.menu.mouseovervolume = true
             });
 
             config.shapes.menu.volumeHitbox.on( 'mouseout', function() {
                 if ( config.shapes.menu.volume.opacity() > 0 ){
                     config.shapes.menu.volume.fill( config.colors.menu.enabled );
-                    config.animations.mouseOverVolume = false
+                    config.animations.menu.mouseovervolume = false
                 }
             });
 
             config.shapes.menu.volumeHitbox.on( 'mouseup', function() {
                 if ( config.shapes.menu.volume.opacity() > 0 ){
                     buzz.sounds[ 0 ].toggleMute();
-                    config.animations.settingsIn = false
+                    config.animations.menu.settingsIn = false
                 }
             });
 
             config.shapes.menu.fullscreenHitbox.on( 'mouseover', function() {
-                if ( config.shapes.menu.fullscreen.opacity() > 0 ) config.animations.mouseOverFullScreen = true
+                if ( config.shapes.menu.fullscreen.opacity() > 0 ) config.animations.menu.mouseOverFullScreen = true
             });
 
             config.shapes.menu.fullscreenHitbox.on( 'mouseout', function() {
                 if ( config.shapes.menu.fullscreen.opacity() > 0 ){
                     config.shapes.menu.fullscreen.fill( config.colors.menu.enabled );
-                    config.animations.mouseOverFullScreen = false
+                    config.animations.menu.mouseOverFullScreen = false
                 }
             });
 
             config.shapes.menu.fullscreenHitbox.on( 'mouseup', function() {
                 if ( config.shapes.menu.fullscreen.opacity() > 0 ){
                     if (screenfull.enabled) screenfull.request();
-                    config.animations.settingsIn = false
+                    config.animations.menu.settingsIn = false
                 }
             });
 
@@ -650,30 +639,30 @@ $( function() {
 
 
             config.shapes.menu.onePlayerHitbox.on( 'mouseover', function() {
-                config.animations.mouseOver1Player = true
+                config.animations.menu.mouseOver1Player = true
             });
 
             config.shapes.menu.onePlayerHitbox.on( 'mouseout', function() {
                 config.shapes.menu.controller1.fill( config.colors.menu.enabled );
                 config.shapes.menu.number1.fill( config.colors.menu.enabled );
-                config.animations.mouseOver1Player = false
+                config.animations.menu.mouseOver1Player = false
             });
 
             config.shapes.menu.onePlayerHitbox.on( 'mouseup', function() {
-                config.animations.transitioningToNewGame = true;
+                config.animations.menu.transitioningToGame = true;
             });
 
             config.shapes.menu.settingsHitbox.on( 'mouseover', function() {
-                config.animations.mouseOverSettings = true
+                config.animations.menu.mouseOverSettings = true
             });
 
             config.shapes.menu.settingsHitbox.on( 'mouseout', function() {
                 config.shapes.menu.settings.fill( config.colors.menu.enabled );
-                config.animations.mouseOverSettings = false
+                config.animations.menu.mouseOverSettings = false
             });
 
             config.shapes.menu.settingsHitbox.on( 'mouseup', function() {
-                config.animations.settingsIn = !config.animations.settingsIn
+                config.animations.menu.settingsIn = !config.animations.menu.settingsIn
             });
 
 
@@ -743,6 +732,33 @@ $( function() {
             config.layers.foreground.add( segment );
         }
 
+        function snakeMove( direction ){
+            var firstSegment = config.shapes.game.snake.segments[ 0 ],
+                lastSegment = config.shapes.game.snake.segments.pop(),
+                lastSegmentCoords = config.shapes.game.snake.coords.pop();
+
+            if ( direction == 'up' ){
+                lastSegment.x( firstSegment.x() );
+                lastSegment.y( firstSegment.y() - config.tiles.height );
+            } else if ( direction == 'right' ){
+                lastSegment.x( firstSegment.x() + config.tiles.width );
+                lastSegment.y( firstSegment.y() )
+            } else if ( direction == 'down' ){
+                lastSegment.x( firstSegment.x() );
+                lastSegment.y( firstSegment.y() + config.tiles.height )
+            } else {
+                lastSegment.x( firstSegment.x() - config.tiles.width );
+                lastSegment.y( firstSegment.y() );
+            }
+
+            lastSegmentCoords.x = Math.round( lastSegment.x() / config.tiles.width ) + 1;
+            lastSegmentCoords.y = Math.round( lastSegment.y() / config.tiles.height ) + 1;
+
+            config.animations.game.snake.previousDirection = direction;
+            config.shapes.game.snake.segments.unshift( lastSegment );
+            config.shapes.game.snake.coords.unshift( lastSegmentCoords );
+        }
+        
         function generateHeartPrototype() {
             var color = config.colors.heart,
                 heart = new Kinetic.Group();
@@ -793,6 +809,7 @@ $( function() {
                     coords.push({ id: heart.id(), x: x + 1, y: y + 1});
                     config.shapes.game.hearts.list.push( heart );
                     config.layers.foreground.add( heart );
+                    heart.moveToBottom();
 
                     for ( var i = 0; i < config.shapes.game.hearts.maximumPossible - 1; i++ ){
                         if ( getRandomFloat(0, 100) < config.shapes.game.hearts.probability ){
@@ -810,6 +827,7 @@ $( function() {
                                     coords.push({ id: heart.id(), x: x + 1, y: y + 1});
                                     config.shapes.game.hearts.list.push( heart );
                                     config.layers.foreground.add( heart );
+                                    heart.moveToBottom();
                                 } else collision = false
                             });
                         }
@@ -861,86 +879,137 @@ $( function() {
                 x: snakes[ 0 ].x() - xOffset, y: snakes[ 0 ].y() - config.tiles.height * 1.2, text: snakes.length + 1
             }));
 
-            config.layers.foreground.add( activeCounters.last() )
+            config.layers.foreground.add( activeCounters.last() );
         }
 
         function createGameLoop() {
             var x = 0, y = 0, i = 0;
 
             config.animations.loops.game = new Kinetic.Animation( function( frame ){
-                if ( config.gameStarted ){
-                    config.gameStarted = false;
-                    config.gameOver = false;
-                    config.animations.loops.background.start();
-                    regenerateHearts();
-                    queueNewSnakeSegment();
-                }
+                if ( !config.animations.game.isOngoing ){
+                    if ( config.animations.game.transitioningToGame ){
+                        if ( config.shapes.game.snake.segments.length == 0 ){
+                            regenerateHearts();
 
-                if ( !config.gameOver ){
-                    if ( frame.time - config.animations.lastMovementTime >= ( config.animations.period -
-                       ( config.shapes.game.snake.segments.length * config.animations.snakeSpeedIncrementModifier )) / 2 &&
-                         config.animations.snakeIsMoving ){
+                            queueNewSnakeSegment();
+                            addSnakeSegment();
+                        }
 
-                            config.animations.lastMovementTime = frame.time;
+                        i = config.shapes.boundaries[ 0 ].opacity() + config.animations.transitionSpeed;
 
-                            if ( config.shapes.game.snake.queue.length > 0 ) addSnakeSegment();
+                        if ( i >= 1 ) {
+                            i = 1;
+                            config.animations.game.transitioningToGame = false;
+                            config.animations.game.isOngoing = true
+                        }
 
-                            if ( config.animations.queuedMovements.length > 0 ){
-                                 config.animations.snakeCurrentDirection = config.animations.queuedMovements.shift();
-                            } else config.animations.snakeCurrentDirection = config.animations.snakePreviousDirection;
+                        config.shapes.boundaries.forEach( function( boundary ){ boundary.opacity( i ) });
+                        config.shapes.game.hearts.list.forEach( function( heart ){ heart.opacity( i ) });
+                        config.shapes.game.snake.segments[ 0 ].opacity( i )
 
-                            if ( config.animations.snakeCurrentDirection == 'up' ) config.snakeMove( 'up' );
-                            else if ( config.animations.snakeCurrentDirection == 'right' ) config.snakeMove( 'right' );
-                            else if ( config.animations.snakeCurrentDirection == 'down' ) config.snakeMove( 'down' );
-                            else if ( config.animations.snakeCurrentDirection == 'left' ) config.snakeMove( 'left' );
+                    } else if ( config.animations.game.fadingOutShapes ){
+                        i = config.shapes.game.snake.segments[ 0 ].opacity() - config.animations.transitionSpeed;
 
-                            // Collision handling
-                            config.shapes.game.snake.coords.forEach( function( snakeCoord ){
-                                for ( x = 0; x < config.shapes.game.hearts.coords.length; x++ ){
-                                    if ( snakeCoord.x == config.shapes.game.hearts.coords[ x ].x &&
-                                         snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
+                        config.shapes.game.snake.segments.forEach( function( segment ){
+                            if ( i <= 0 ) segment.destroy();
+                            else segment.opacity( i );
+                        });
 
-                                        displaySegmentCounter();
-                                        config.cyclingBackgroundColors = true;
+                        config.shapes.game.hearts.list.forEach( function( heart ){
+                            if ( i <= 0 ) heart.destroy();
+                            else heart.opacity( i );
+                        });
 
-                                        for ( y = 0; y < config.shapes.game.hearts.list.length; y++ ){
-                                            if ( config.shapes.game.hearts.coords[ x ].id == config.shapes.game.hearts.list[ y ].id() ){
-                                                config.shapes.game.hearts.list[ y ].destroy();
-                                                config.shapes.game.hearts.list.splice( y, 1 );
-                                            }
+                        config.shapes.boundaries.forEach( function( boundary ){
+                            if ( i <= 0 ){
+                                i = 0;
+                                boundary.opacity( i );
+
+                                config.animations.loops.background.stop();
+                                config.animations.loops.game.stop();
+                                config.animations.loops.menu.start();
+
+                                config.animations.game.snake.currentDirection = 'up';
+                                config.animations.game.snake.previousDirection = 'up';
+
+                                config.shapes.game.snake.segments = [];
+                                config.shapes.game.snake.coords = [];
+                                config.shapes.game.hearts.list = [];
+                                config.shapes.game.hearts.coords = [];
+
+                                config.animations.game.transitioningToMenu = true
+                            }
+                            else boundary.opacity( i )
+                        });
+                    }
+                } else {
+                    if ( frame.time - config.animations.game.snake.lastMovementTime >= ( config.animations.period -
+                        ( config.shapes.game.snake.segments.length * config.animations.game.speedIncrement )) / 2 &&
+                        config.animations.game.snakeIsMoving ){
+
+                        config.animations.game.snake.lastMovementTime = frame.time;
+
+                        if ( config.shapes.game.snake.queue.length > 0 ) addSnakeSegment();
+
+                        if ( config.animations.game.snake.queuedMovements.length > 0 ){
+                            config.animations.game.snake.currentDirection = config.animations.game.snake.queuedMovements.shift();
+                        } else config.animations.game.snake.currentDirection = config.animations.game.snake.previousDirection;
+
+                        if ( config.animations.game.snake.currentDirection == 'up' ) snakeMove( 'up' );
+                        else if ( config.animations.game.snake.currentDirection == 'right' ) snakeMove( 'right' );
+                        else if ( config.animations.game.snake.currentDirection == 'down' ) snakeMove( 'down' );
+                        else if ( config.animations.game.snake.currentDirection == 'left' ) snakeMove( 'left' );
+
+                        // Collision handling
+                        config.shapes.game.snake.coords.forEach( function( snakeCoord ){
+                            for ( x = 0; x < config.shapes.game.hearts.coords.length; x++ ){
+                                // Colided with heart
+                                if ( snakeCoord.x == config.shapes.game.hearts.coords[ x ].x &&
+                                    snakeCoord.y == config.shapes.game.hearts.coords[ x ].y ){
+
+                                    displaySegmentCounter();
+                                    config.cyclingBackgroundColors = true;
+
+                                    for ( y = 0; y < config.shapes.game.hearts.list.length; y++ ){
+                                        if ( config.shapes.game.hearts.coords[ x ].id == config.shapes.game.hearts.list[ y ].id() ){
+                                            config.shapes.game.hearts.list[ y ].destroy();
+                                            config.shapes.game.hearts.list.splice( y, 1 );
                                         }
-
-                                        config.shapes.game.hearts.coords.splice( x, 1 );
-                                        queueNewSnakeSegment();
                                     }
+
+                                    config.shapes.game.hearts.coords.splice( x, 1 );
+                                    queueNewSnakeSegment();
                                 }
-
-                                // Collided with self
-                                config.shapes.game.snake.coords.forEach( function( segment ){
-                                    if ( snakeCoord.x == segment.x && snakeCoord.y == segment.y &&
-                                         snakeCoord.id != segment.id ){
-
-                                            config.gameOver = true
-                                    }
-                                })
-                            });
-
-                            // Collided with boundary
-                            if ( config.shapes.game.snake.coords[ 0 ].x == 0 || config.shapes.game.snake.coords[ 0 ].y == 0 ||
-                                 config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
-                                 config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
-
-                                    config.gameOver = true
                             }
 
-                            config.shapes.game.hearts.existOnTheStage = false;
+                            // Collided with self
+                            config.shapes.game.snake.coords.forEach( function( segment ){
+                                if ( snakeCoord.x == segment.x && snakeCoord.y == segment.y && snakeCoord.id != segment.id ){
+                                    collision()
+                                }
+                            })
+                        });
 
-                            // Regenerate hearts if there are none on the stage
-                            config.shapes.game.hearts.coords.forEach( function( heartCoord ){
-                                if ( !( heartCoord.x == -1 && heartCoord.y == -1 )) config.shapes.game.hearts.existOnTheStage = true
-                            });
+                        // Collided with boundary
+                        if ( config.shapes.game.snake.coords[ 0 ].x == 0 || config.shapes.game.snake.coords[ 0 ].y == 0 ||
+                             config.shapes.game.snake.coords[ 0 ].x == config.tiles.horizontalAmount - 1 ||
+                             config.shapes.game.snake.coords[ 0 ].y == config.tiles.verticalAmount - 1 ){
 
-                            if ( !config.shapes.game.hearts.existOnTheStage ) regenerateHearts();
+                            collision()
+                        }
+
+                        config.shapes.game.hearts.existOnTheStage = false;
+
+                        // Regenerate hearts if there are none on the stage
+                        config.shapes.game.hearts.coords.forEach( function( heartCoord ){
+                            if ( !( heartCoord.x == -1 && heartCoord.y == -1 )) config.shapes.game.hearts.existOnTheStage = true
+                        });
+
+                        if ( !config.shapes.game.hearts.existOnTheStage ) regenerateHearts();
+
+                        config.shapes.game.snake.counters.active.forEach( function( counter ){
+                            counter.moveToTop();
+                        })
                     }
                 }
 
@@ -952,49 +1021,12 @@ $( function() {
                         else counter.opacity( x );
                     })
                 }
-
-                if ( config.gameOver ){
-                     config.shapes.game.snake.segments.forEach( function( segment ){
-                        i = segment.opacity() - config.animations.transitionSpeed;
-
-                        if ( i <= 0 ) segment.destroy();
-                        else segment.opacity( i );
-                    });
-
-                    config.shapes.game.hearts.list.forEach( function( heart ){
-                        i = heart.opacity() - config.animations.transitionSpeed;
-
-                        if ( i <= 0 ) heart.destroy();
-                        else heart.opacity( i );
-                    });
-
-                    config.shapes.boundary.forEach( function( boundary ){
-                        i = boundary.opacity() - config.animations.transitionSpeed;
-                        if ( i <= 0 ){
-                            i = 0;
-                            boundary.opacity( i );
-                            config.animations.loops.background.stop();
-                            config.animations.transitioningToMenu = true
-                        }
-                        boundary.opacity( i )
-                    });
-
-                    if ( config.animations.transitioningToMenu ){
-                        if ( !( config.animations.loops.menu.isRunning() )) config.animations.loops.menu.start();
-                        if ( config.animations.loops.game.isRunning() ) config.animations.loops.game.stop();
-
-                        config.animations.snakeCurrentDirection = 'up';
-                        config.animations.snakePreviousDirection = 'up';
-
-                        config.shapes.game.snake.segments = [];
-                        config.shapes.game.snake.coords = [];
-                        config.shapes.game.hearts.list = [];
-                        config.shapes.game.hearts.coords = [];
-
-                        config.gameOver = false;
-                    }
-                }
             }, config.layers.foreground );
+
+            function collision() {
+                config.animations.game.isOngoing = false;
+                config.animations.game.fadingOutShapes = true
+            }
         }
 
         function createMenuLoop() {
@@ -1002,32 +1034,32 @@ $( function() {
                 brightnessOffset = null;
 
             config.animations.loops.menu = new Kinetic.Animation( function( frame ){
-                bounciness = ( Math.sin( frame.time * 2 * Math.PI / config.animations.period )) * config.animations.menuTitleBounciness;
-                brightnessOffset = Math.abs((( Math.cos( frame.time * Math.PI / config.animations.period ) * config.animations.menuTextBrightnessVariance )));
+                bounciness = ( Math.sin( frame.time * 2 * Math.PI / config.animations.period )) * config.animations.menu.titleBounciness;
+                brightnessOffset = Math.abs((( Math.cos( frame.time * Math.PI / config.animations.period ) * config.animations.menu.textBrightnessVariance )));
 
                 config.shapes.menu.ceros.strokeWidth( config.font.strokeWidth.title + bounciness );
                 config.shapes.menu.snake.strokeWidth( config.font.strokeWidth.title + bounciness );
 
-                if ( config.animations.mouseOver1Player ){
+                if ( config.animations.menu.mouseOver1Player ){
                     config.shapes.menu.number1.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
                         config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' );
 
                     config.shapes.menu.controller1.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
                         config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.mouseOverSettings ){
+                if ( config.animations.menu.mouseOverSettings ){
                     config.shapes.menu.settings.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
                         config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.mouseOverVolume ){
+                if ( config.animations.menu.mouseovervolume ){
                     config.shapes.menu.volume.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
                         config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.mouseOverFullScreen ){
+                if ( config.animations.menu.mouseOverFullScreen ){
                     config.shapes.menu.fullscreen.fill( 'hsl(' + config.colors.menu.enabledHSL.h + ', ' +
                         config.colors.menu.enabledHSL.s + '%, ' + ( config.colors.menu.enabledHSL.l - brightnessOffset ) + '%)' )}
 
-                if ( config.animations.settingsIn && config.shapes.menu.volume.opacity() < 1 ){
+                if ( config.animations.menu.settingsIn && config.shapes.menu.volume.opacity() < 1 ){
                     config.shapes.settingShapesOpacity += config.animations.transitionSpeed;
                     config.shapes.settingShapesOpacity = config.shapes.settingShapesOpacity > 1 ?
                         1 : config.shapes.settingShapesOpacity;
@@ -1037,7 +1069,7 @@ $( function() {
                     config.shapes.menu.help.opacity( config.shapes.settingShapesOpacity );
                     config.shapes.menu.credits.opacity( config.shapes.settingShapesOpacity );
 
-                } else if ( !config.animations.settingsIn && config.shapes.menu.volume.opacity() > 0 ){
+                } else if ( !config.animations.menu.settingsIn && config.shapes.menu.volume.opacity() > 0 ){
                     config.shapes.settingShapesOpacity -= config.animations.transitionSpeed;
                     config.shapes.settingShapesOpacity = config.shapes.settingShapesOpacity < 0 ?
                         0 : config.shapes.settingShapesOpacity;
@@ -1048,19 +1080,23 @@ $( function() {
                     config.shapes.menu.credits.opacity( config.shapes.settingShapesOpacity );
                 }
 
-                if ( config.animations.transitioningToMenu || config.animations.transitioningToNewGame ){
-                    if ( config.animations.transitioningToMenu ) config.shapes.menuShapesOpacity += config.animations.transitionSpeed;
-                    if ( config.animations.transitioningToNewGame ) config.shapes.menuShapesOpacity -= config.animations.transitionSpeed;
+                if ( config.animations.game.transitioningToMenu || config.animations.menu.transitioningToGame ){
+                    if ( config.animations.game.transitioningToMenu ) config.shapes.menuShapesOpacity += config.animations.transitionSpeed;
+                    if ( config.animations.menu.transitioningToGame ) config.shapes.menuShapesOpacity -= config.animations.transitionSpeed;
+                    if ( config.animations.menu.settingsIn ) config.animations.menu.settingsIn = false;
 
                     if ( config.shapes.menuShapesOpacity >= 1 ){
                         config.shapes.menuShapesOpacity = 1;
-                        config.animations.transitioningToMenu = false;
+                        config.animations.game.transitioningToMenu = false;
+                        config.animations.loops.menu.start();
                     } else if ( config.shapes.menuShapesOpacity <= 0 ){
                         config.shapes.menuShapesOpacity = 0;
-                        config.animations.transitioningToNewGame = false;
+                        config.animations.menu.transitioningToGame = false;
+                        config.animations.game.transitioningToGame = true;
+                        config.gameStarted = true;
+                        config.animations.loops.game.start();
+                        config.animations.loops.background.start();
                     }
-
-                    if ( config.animations.settingsIn ) config.animations.settingsIn = false;
 
                     config.shapes.menu.ceros.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.snake.opacity( config.shapes.menuShapesOpacity );
@@ -1071,45 +1107,15 @@ $( function() {
                     config.shapes.menu.settings.opacity( config.shapes.menuShapesOpacity );
                     config.shapes.menu.highScores.opacity( config.shapes.menuShapesOpacity );
                 }
-
-                if ( config.animations.transitioningToNewGame ){
-                    if ( !( config.animations.loops.game.isRunning() )){
-                        if ( config.shapes.menu.ceros.opacity() - config.animations.transitionSpeed <= 0 ){
-                            config.animations.loops.game.start();
-                            config.gameStarted = true;
-                        }
-                    }
-                }
-
-                if ( config.animations.transitioningToMenu ){
-                    if ( !( config.animations.loops.game.isRunning() )){
-                        config.animations.loops.menu.start();
-                    }
-                }
-
             }, config.layers.menu );
         }
 
         function createBackgroundLoop() {
-            var i = null;
-
             config.animations.loops.background = new Kinetic.Animation( function() {
                 if ( config.cyclingBackgroundColors ){
                     config.shapes.tiles.forEach( function( tile ){
-                        tile.fill( config.randomBgColor() )
-                    })
-                }
+                        tile.fill( config.randomBgColor() )})}
 
-                if ( !config.gameOver && config.shapes.boundary[ 0 ].opacity() < 1 ){
-                    config.shapes.boundary.forEach( function( boundary ){
-                        i = boundary.opacity() + config.animations.transitionSpeed;
-                        if ( i >= 1 ){
-                            i = 1;
-                            boundary.opacity( i );
-                        }
-                        boundary.opacity( i )
-                    });
-                }
                 config.cyclingBackgroundColors = false
 
             }, config.layers.bg );
@@ -1131,10 +1137,7 @@ $( function() {
                     } else {
                         for ( var shape in config.shapes.loading ){
                             if ( config.shapes.loading.hasOwnProperty( shape )){
-                                config.shapes.loading[ shape ].opacity( config.shapes.loadingShapesOpacity );
-                            }
-                        }
-                    }
+                                config.shapes.loading[ shape ].opacity( config.shapes.loadingShapesOpacity )}}}
                 }
 
                 config.shapes.loading.wheel.setDrawFunc( function( context ){
