@@ -1,9 +1,13 @@
-define([ 'jquery', 'underscore', 'settings' ],
-    function( $, _, settings ){
-        var audio, stage, menu, game, loading;
+define([ 'jquery', 'underscore', 'settings', 'util' ],
+    function( $, _, settings, util ){
+        var init = _.once( function _init( assets ){
+            var audio = assets.audio;
+            var stage = assets.stage;
+            var menu = assets.menu;
+            var game = assets.game;
+            var loading = assets.loading;
 
-        var init = [
-            _.once( function keyEvents() {
+            ( function keyEvents() {
                 var keys = {
                     w: 87, a: 65, s: 83, d: 68,
                     up: 38, left: 37, down: 40, right: 39,
@@ -15,7 +19,7 @@ define([ 'jquery', 'underscore', 'settings' ],
                     key.stopPropagation();
 
                     if (( game.state === 'running' || game.state === 'paused' )
-                          && key.which == keys.space ){
+                        && key.which == keys.space ){
 
                         if ( game.state === 'running' ) game.state = 'paused';
                         else game.state = 'running'
@@ -37,9 +41,9 @@ define([ 'jquery', 'underscore', 'settings' ],
                         game.snake.direction.pushOrInit( direction );
                     }
                 }
-            }),
+            })();
 
-            _.once( function mouseEvents() {
+            ( function mouseEvents() {
                 menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
                     if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
                         menu.options.singlePlayer.mouseOver = true
@@ -121,13 +125,9 @@ define([ 'jquery', 'underscore', 'settings' ],
                         menu.state = 'running'
                     }
                 });
-            }),
+            })();
 
-            _.once( function audioLoadedEvent() {
-
-            }),
-
-            _.once( function transitionListener() {
+            ( function transitionListener() {
                 ( function listener() {
                     transition( loading, menu );
                     transition( menu, game );
@@ -141,6 +141,10 @@ define([ 'jquery', 'underscore', 'settings' ],
                         console.log('Adding ' + toModule.name + ' layer to stage');
 
                         stage.add( toModule.layer );
+                        stage.scale({
+                            x: window.innerWidth / util.calculate.dimensions.width(),
+                            y: window.innerWidth / util.calculate.dimensions.width()
+                        });
 
                         if ( fromModule.name === 'loading' ) fromModule.layer.moveToTop();
                         else if ( toModule.name === 'game' ) toModule.layer.setZIndex( 2 );
@@ -150,8 +154,8 @@ define([ 'jquery', 'underscore', 'settings' ],
 
 
                     if ( fromModule.name === 'loading' &&
-                         fromModule.state === 'stopping' &&
-                         !toModule.animation.isRunning() ){
+                        fromModule.state === 'stopping' &&
+                        !toModule.animation.isRunning() ){
 
                         start( toModule );
                     }
@@ -173,19 +177,11 @@ define([ 'jquery', 'underscore', 'settings' ],
                         module.animation.start()
                     }
                 }
-            })
-        ];
+            })()
+        });
 
         return {
-            start: _.once( function( assets ){
-                audio = assets.audio;
-                stage = assets.stage;
-                menu = assets.menu;
-                game = assets.game;
-                loading = assets.loading;
-
-                init.forEach( function( init ){ init() })
-            })
+            start: _.once( function( assets ){ init( assets )})
         }
     }
 );
