@@ -51,7 +51,15 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             util.animation.fade( module.layer, frame, 'out' );
 
             if ( module.layer.opacity() === 0 ){
-                module.state = 'stopped';
+
+                if ( module.name === 'menu' ){
+                    module.state = 'to game';
+                } else if ( module.name === 'game' ){
+                    module.state = 'to menu';
+                } else {
+                    module.state = 'stopped';
+                }
+
                 module.animation.stop();
                 module.layer.remove();
                 if ( after ) after()

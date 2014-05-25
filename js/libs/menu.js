@@ -63,7 +63,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         menu.options.gear.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
-                    else if ( menu.options.settings.volume.mouseOver )
+
+
+                })( settings.menu.options.font.color.enabled.h,
+                    settings.menu.options.font.color.enabled.s,
+                    settings.menu.options.font.color.enabled.l - menu.title.brightnessVariance
+                );
+
+                ( function( h, s, l ){
+                    if ( menu.options.settings.volume.mouseOver )
 
                         menu.options.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
@@ -71,11 +79,28 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         menu.options.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
-                })( settings.menu.options.font.color.enabled.h,
-                    settings.menu.options.font.color.enabled.s,
-                    settings.menu.options.font.color.enabled.l - menu.title.brightnessVariance
+                })( settings.menu.options.settings.font.color.enabled.h,
+                    settings.menu.options.settings.font.color.enabled.s,
+                    settings.menu.options.settings.font.color.enabled.l + menu.title.brightnessVariance
                 );
             }
+        },
+
+        cleanUp: function() {
+            menu.options.singlePlayer.mouseOver = false;
+            menu.options.gear.mouseOver = false;
+            menu.options.settings.volume.mouseOver = false;
+            menu.options.settings.fullScreen.mouseOver = false;
+
+            menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                node.fill( settings.menu.options.font.color.enabled.hex );
+            });
+
+            menu.options.gear.shape.fill( settings.menu.options.font.color.enabled.hex );
+            menu.options.settings.volume.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
+            menu.options.settings.fullScreen.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
+
+            menu.options.settings.group.opacity( 0 );
         },
 
         init: _.once( function( options ){
@@ -235,7 +260,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     text: '\uf028',
                     fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ),
                     fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.font.color.enabled.hex
+                    fill: settings.menu.options.settings.font.color.enabled.hex
                 });
             })();
 
@@ -247,8 +272,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     height: util.calculate.absolute.y( 2.845 ),
                     opacity: 0
                 });
-
-                menu.layer.add( menu.options.settings.volume.hitBox )
             })();
 
             ( function _fullScreen() {
@@ -258,7 +281,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     text: '\uf0b2',
                     fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
                     fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.font.color.enabled.hex
+                    fill: settings.menu.options.settings.font.color.enabled.hex
                 });
             })();
 
@@ -270,8 +293,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     height: util.calculate.absolute.y( 2.85 ),
                     opacity: 0
                 });
-
-                menu.layer.add( menu.options.settings.fullScreen.hitBox )
             })();
 
             ( function _help() {
@@ -281,7 +302,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     text: '\uf059',
                     fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
                     fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.font.color.disabled
+                    fill: settings.menu.options.settings.font.color.disabled
                 });
             })();
 
@@ -292,17 +313,22 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     text: '\u00A9',
                     fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 1.089,
                     fontFamily: settings.font.ui,
-                    fill: settings.menu.options.font.color.disabled
+                    fill: settings.menu.options.settings.font.color.disabled
                 });
             })();
 
             ( function _settingsGroup() {
                 menu.options.settings.group.add( menu.options.settings.volume.shape );
+                menu.options.settings.group.add( menu.options.settings.volume.hitBox );
                 menu.options.settings.group.add( menu.options.settings.fullScreen.shape );
+                menu.options.settings.group.add( menu.options.settings.fullScreen.hitBox );
                 menu.options.settings.group.add( menu.options.settings.help.shape );
                 menu.options.settings.group.add( menu.options.settings.credits.shape );
 
-                menu.layer.add( menu.options.settings.group )
+                menu.layer.add( menu.options.settings.group );
+
+                menu.options.settings.volume.hitBox.cache();
+                menu.options.settings.fullScreen.hitBox.cache()
             })();
 
             ( function _singlePlayerHitBox() {
@@ -345,7 +371,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         }
                     } else if ( menu.state === 'stopping' ){
 
-                        util.animation.fadeAndStop( menu, frame );
+                        util.animation.fadeAndStop( menu, frame, function() { menu.cleanUp() });
 
                     } else if ( menu.state === 'settings' ){
 

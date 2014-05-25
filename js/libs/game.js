@@ -2,7 +2,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
     var game = {
         name: 'game',
 
-        state: 'starting',
+        state: 'stopped',
 
         events: [],
 
@@ -218,9 +218,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             purge( game.counter );
 
             function purge( item ){
-//                item.group.destroyChildren();
-//                item.group.destroy();
-//                item.group = new Kinetic.Group(); //todo
+                item.group.destroyChildren();
+                item.group.destroy();
+                item.group = new Kinetic.Group();
                 item.list = []
             }
         },
@@ -415,9 +415,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                                 }
                             })
                         }
-                    } else if ( game.state === 'stopping' ){
-                        util.animation.fadeAndStop( game, frame, function() { game.cleanUp() });
-                    }
+                    } else if ( game.state === 'stopping' ) util.animation.fadeAndStop( game, frame );
 
 //todo
 //                    game.counter.list.forEach( function( counter ){

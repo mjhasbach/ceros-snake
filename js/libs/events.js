@@ -56,7 +56,7 @@ define([ 'jquery', 'underscore', 'settings' ],
                     }
                 });
 
-                menu.options.singlePlayer.hitBox.on( 'mouseup', function() {
+                menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
                     if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
                         menu.state = 'stopping';
                     }
@@ -75,7 +75,7 @@ define([ 'jquery', 'underscore', 'settings' ],
                     }
                 });
 
-                menu.options.gear.hitBox.on( 'mouseup', function() {
+                menu.options.gear.hitBox.on( 'click touchstart', function() {
                     if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
                         if ( menu.state === 'running' ) menu.state = 'settings';
                         else menu.state = 'running';
@@ -90,12 +90,12 @@ define([ 'jquery', 'underscore', 'settings' ],
 
                 menu.options.settings.volume.hitBox.on( 'mouseout', function() {
                     if ( menu.state === 'settings' ){
-                        menu.options.settings.volume.shape.fill( settings.menu.options.font.color.enabled.hex );
+                        menu.options.settings.volume.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
                         menu.options.settings.volume.mouseOver = false
                     }
                 });
 
-                menu.options.settings.volume.hitBox.on( 'mouseup', function() {
+                menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
                     if ( menu.state === 'settings' ){
                         audio.song.mp3.toggleMute();
                         menu.state = 'running';
@@ -110,12 +110,12 @@ define([ 'jquery', 'underscore', 'settings' ],
 
                 menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
                     if ( menu.state === 'settings' ){
-                        menu.options.settings.fullScreen.shape.fill( settings.menu.options.font.color.enabled.hex );
+                        menu.options.settings.fullScreen.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
                         menu.options.settings.fullScreen.mouseOver = false
                     }
                 });
 
-                menu.options.settings.fullScreen.hitBox.on( 'mouseup', function() {
+                menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
                     if ( menu.state === 'settings' ){
                         if ( screenfull.enabled ) screenfull.request();
                         menu.state = 'running'
@@ -137,7 +137,7 @@ define([ 'jquery', 'underscore', 'settings' ],
                 })();
 
                 function transition( fromModule, toModule ){
-                    if ( fromModule.state === 'stopping' && !toModule.layer.getParent() ){
+                    if ( !toModule.layer.getParent() && fromModule.state === 'stopping' ){
                         console.log('Adding ' + toModule.name + ' layer to stage');
 
                         stage.add( toModule.layer );
@@ -145,23 +145,32 @@ define([ 'jquery', 'underscore', 'settings' ],
                         if ( fromModule.name === 'loading' ) fromModule.layer.moveToTop();
                         else if ( toModule.name === 'game' ) toModule.layer.setZIndex( 2 );
 
+                        toModule.layer.draw();
                     }
 
-                    if ( fromModule.name === 'loading' ){
-                        if ( fromModule.state === 'stopping' && !toModule.animation.isRunning() ){
-                            start()
-                        }
-                    } else {
-                        if ( fromModule.state === 'stopped' && !toModule.animation.isRunning() ){
-                            start()
-                        }
+
+                    if ( fromModule.name === 'loading' &&
+                         fromModule.state === 'stopping' &&
+                         !toModule.animation.isRunning() ){
+
+                        start( toModule );
                     }
 
-                    function start() {
-                        console.log('Starting ' + toModule.name + ' animation');
+                    else if ( fromModule.state === 'to game' ){
+                        start( toModule );
+                        fromModule.state = 'stopped'
+                    }
 
-                        toModule.animation.start();
-                        toModule.state = 'starting'
+                    else if ( fromModule.state === 'to menu' ){
+                        start( toModule );
+                        fromModule.state = 'stopped';
+                    }
+
+                    function start( module ){
+                        console.log('Starting ' + module.name + ' animation');
+
+                        module.state = 'starting';
+                        module.animation.start()
                     }
                 }
             })

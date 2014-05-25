@@ -65,8 +65,8 @@ define([], function() {
 
                         color: {
                             enabled: {
-                                hex: '#372a50',
-                                h: 260,
+                                hex: '#5d4686',
+                                h: 261,
                                 s: 31,
                                 l: 40
                             },
@@ -82,9 +82,9 @@ define([], function() {
                     color: {
                         enabled: {
                             hex: '#372a50',
-                            h: 260,
+                            h: 261,
                             s: 31,
-                            l: 40
+                            l: 24
                         },
 
                         disabled: '#171221'

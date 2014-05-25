@@ -3,9 +3,13 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
         var loading = {
             name: 'loading',
 
-            state: 'starting',
+            state: 'stopped',
 
-            layer: new Kinetic.Layer()
+            layer: new Kinetic.Layer(),
+
+            start: function() {
+
+            }
         };
 
         var init = [
@@ -70,6 +74,8 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         context.strokeShape( this );
                     });
 
+
+
                     if ( loading.state === 'stopping' ) util.animation.fadeAndStop( loading, frame );
 
                 }, loading.layer );
@@ -77,6 +83,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
             _.once( function _layer() {
                 stage.add( loading.layer );
+                loading.state = 'running';
                 loading.animation.start();
             })
         ];
