@@ -96,6 +96,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
             assets.waitForAsync( function() {
                 loading.state = 'stopping';
+                assets.audio.song.mp3.play().loop();
 
                 require([ 'events' ], function( events ){
                     events.start({
