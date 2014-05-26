@@ -1,8 +1,14 @@
 define([ 'underscore', 'settings' ], function( _, settings ){
-    var width = window.innerWidth;
+    var width, height;
 
     var util = {
         calculate: {
+            absolute: {
+                size: function( i ){ return width / i },
+                x: function( i ){ return width / i },
+                y: function( i ){ return height / i }
+            },
+
             pi: function( i ){ return i * Math.PI },
 
             random: {
@@ -11,12 +17,25 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             },
 
             dimensions: {
-                width: function() {
-                    return width
+                original: {
+                    width: function() { return width },
+
+                    height: function() { return height }
                 },
 
-                height: function() {
-                    return 9 * width / 16
+                aspect: function() {
+                    var dimensions = {
+                        width: window.innerWidth,
+                        height: window.innerHeight
+                    };
+
+                    if ( 9 * dimensions.width / 16 < dimensions.height ){
+                        dimensions.height = Math.floor( 9 * dimensions.width / 16 )
+                    } else {
+                        dimensions.width = Math.floor(( dimensions.height / 9 ) * 16 )
+                    }
+
+                    return dimensions
                 }
             }
         },
@@ -58,13 +77,9 @@ define([ 'underscore', 'settings' ], function( _, settings ){
         }
     };
 
-    _.extend( util.calculate, {
-        absolute: {
-            size: function( i ){ return util.calculate.dimensions.width() / i },
-            x: function( i ){ return util.calculate.dimensions.width() / i },
-            y: function( i ){ return util.calculate.dimensions.height() / i }
-        }
-    });
+    util.calculate.dimensions.scale = function() {
+        return util.calculate.dimensions.aspect().width / util.calculate.dimensions.original.width()
+    };
 
     util.animation.stop = function( module, frame, after ){
         util.animation.fade( module.layer, frame, 'out' );
@@ -86,6 +101,13 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             if ( after ) after()
         }
     };
+
+    ( function _init() {
+        ( function _calculateDimensions() {
+            width = util.calculate.dimensions.aspect().width;
+            height = util.calculate.dimensions.aspect().height
+        })();
+    })();
 
     return util
 });

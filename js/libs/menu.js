@@ -113,7 +113,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             menu.options.settings.group.opacity( 0 );
         },
 
-        init: _.once( function( options ){
+        init: _.once( function _init( options ){
             ( function _bg() {
                 menu.background = options.background.menu;
                 menu.layer.add( menu.background.group )

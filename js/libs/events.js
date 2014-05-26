@@ -142,8 +142,8 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigscreen' ],
 
                         stage.add( toModule.layer );
                         stage.scale({
-                            x: window.innerWidth / util.calculate.dimensions.width(),
-                            y: window.innerWidth / util.calculate.dimensions.width()
+                            x: util.calculate.dimensions.scale(),
+                            y: util.calculate.dimensions.scale()
                         });
 
                         if ( fromModule.name === 'loading' ) fromModule.layer.moveToTop();
