@@ -401,9 +401,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 game.animation = new Kinetic.Animation( function( frame ){
                     if ( game.state === 'starting' ){
                         if ( game.snake.segment.list.length === 0 ){
-                            game.heart.regenerate();
                             game.snake.segment.queueNew();
-                            game.snake.segment.addNewIfNecessary()
+                            game.snake.segment.addNewIfNecessary();
+                            game.heart.regenerate()
                         }
 
                         util.animation.fade( game.layer, frame, 'in' );
