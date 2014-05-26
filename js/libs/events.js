@@ -134,12 +134,11 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigscreen' ],
                     transition( menu, game );
                     transition( game, menu );
 
-                    setTimeout( function () { listener() }, 100)
+                    setTimeout( function () { listener() }, 100 )
                 })();
 
                 function transition( fromModule, toModule ){
                     if ( !toModule.layer.getParent() && fromModule.state === 'stopping' ){
-                        console.log('Adding ' + toModule.name + ' layer to stage');
 
                         stage.add( toModule.layer );
                         stage.scale({
@@ -155,8 +154,8 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigscreen' ],
 
 
                     if ( fromModule.name === 'loading' &&
-                        fromModule.state === 'stopping' &&
-                        !toModule.animation.isRunning() ){
+                         fromModule.state === 'stopping' &&
+                         !toModule.animation.isRunning() ){
 
                         start( toModule );
                     }
@@ -172,8 +171,6 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigscreen' ],
                     }
 
                     function start( module ){
-                        console.log('Starting ' + module.name + ' animation');
-
                         module.state = 'starting';
                         module.animation.start()
                     }
