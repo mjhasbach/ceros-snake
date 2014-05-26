@@ -186,25 +186,35 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             var i;
 
             if ( options.shape ){
-                for ( i = 0; i < options.list.length; i++ ){
-                    if ( options.shape != options.list[ i ] &&
-                         options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
-                         options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
+                if ( options.list ){
+                    for ( i = 0; i < options.list.length; i++ ){
+                        if ( options.shape != options.list[ i ] &&
+                             options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
+                             options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
 
-                        return i;
+                            return i;
+                        }
                     }
-                }
-            } else {
-                for ( i = 0; i < options.list.length; i++ ){
-                    if ( options.list[ i ].x().toCoord() == options.coords.x &&
-                         options.list[ i ].y().toCoord() == options.coords.y ){
+                } else throwListError();
 
-                        return i;
+            } else if ( options.coords ){
+                if ( options.list ){
+                    for ( i = 0; i < options.list.length; i++ ){
+                        if ( options.list[ i ].x().toCoord() == options.coords.x &&
+                             options.list[ i ].y().toCoord() == options.coords.y ){
+
+                            return i;
+                        }
                     }
-                }
+                } else throwListError();
+
+            } else throw new Error( 'The collision detector was provided neither a coordinate pair nor shape to search for');
+
+            return -1;
+
+            function throwListError() {
+                throw new Error( 'The collision detector was not provided a list in which to search for the provided shape')
             }
-
-            return -1
         },
 
         isMoveCycle: function( frame ){
