@@ -71,6 +71,20 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.snake.segment.list.push( segment );
 
                         game.layer.add( segment );
+
+                        if ( game.counter.list.length > 0 ){
+                            game.snake.segment.list.last().setZIndex( getHighestCounterIndex() - 1 )
+                        }
+
+                        function getHighestCounterIndex() {
+                            var i = 0;
+
+                            game.counter.list.forEach( function( counter ){
+                                i = counter.getZIndex() > i ? counter.getZIndex() : i
+                            });
+
+                            return i
+                        }
                     }
                 }
             },
@@ -164,21 +178,26 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         counter: {
             list: [],
 
-            add: function() { // todo
-                var xOffset = 0;
+            add: function() {
+                game.counter.list.unshift(
+                    game.counter.proto.clone({
+                        x: game.snake.segment.list[ 0 ].x() - calculateMagnitudeOffset(),
+                        y: game.snake.segment.list[ 0 ].y() - settings.background.tile.size * 1.2,
+                        text: game.snake.segment.list.length + 1
+                    })
+                );
 
-                if ( game.snake.segment.list.length > 10 ) xOffset = settings.background.tile.size * 1.25;
-                else if ( game.snake.segment.list.length > 100 ) xOffset = settings.background.tile.size * 2.5;
+                game.layer.add( game.counter.list[ 0 ]);
 
-                var counter = game.counter.proto.clone({
-                    x: game.snake.segment.list[ 0 ].x() - xOffset,
-                    y: game.snake.segment.list[ 0 ].y() - settings.background.tile.size * 1.2,
-                    text: game.snake.segment.list.length + 1
-                });
+                function calculateMagnitudeOffset() {
+                    if ( game.snake.segment.list.length > 10 )
+                        return settings.background.tile.size * 1.25;
 
-                game.counter.list.push( counter );
+                    else if ( game.snake.segment.list.length > 100 )
+                        return  settings.background.tile.size * 2.5;
 
-                game.layer.add( counter );
+                    else return 0
+                }
             }
         },
 
@@ -237,22 +256,15 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.counter.list = [];
         },
 
-        init: _.once( function( options ){
+        init: _.once( function _init( options ){
             ( function _bg() {
-                game.background = options.background;
-                game.layer.add( options.background.game )
+                game.background = options.background.game;
+                game.layer.add( game.background.group )
             })();
 
             ( function _calculations() {
-                _.extend( settings.game.counter, {
-                    shadow: {
-                        blur: util.calculate.absolute.size( 100 )
-                    },
-
-                    font: {
-                        size: util.calculate.absolute.size( 11 ) * 2
-                    }
-                });
+                settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
+                settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
             })();
 
             ( function _numberToCoordinate() {
@@ -331,8 +343,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         settings.game.boundary.color.palette.unshift( settings.game.boundary.color.palette.pop() );
                         game.boundaries.lastCycleTime = frame.time
                     }
-
-
                 }
             })();
 
@@ -419,7 +429,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                                     game.counter.add();
 
-                                    // game.background.tile.cycleColors(); todo
+                                    game.background.cycleColors( game.background.list );
 
                                     game.heart.list[ index ].destroy();
                                     game.heart.list.splice( index, 1 );
@@ -427,22 +437,16 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                                 }
                             })
                         }
-                    } else if ( game.state === 'stopping' ) util.animation.fadeAndStop( game, frame, function() {
-                        game.cleanUp()
-                    });
+                    }
 
-//todo
-//                    game.counter.list.forEach( function( counter ){
-//                        counter.opacity(
-//                            counter.opacity() - settings.animation.transition.speed > 0 ?
-//                                counter.opacity() - settings.animation.transition.speed : 0
-//                        );
-//
-//                        if ( counter.opacity() === 0 ){
-//                            counter.destroy();
-//                            game.counter.list.splice( game.counter.list.indexOf( counter ), 1);
-//                        }
-//                    })
+                    else if ( game.state === 'stopping' )
+                        util.animation.stop( game, frame, function() { game.cleanUp() });
+
+                    game.counter.list.forEach( function( counter ){
+                        util.animation.fade( counter, frame, 'out', function() {
+                            counter.destroy()
+                        })
+                    })
                 }, game.layer )
             })();
         })

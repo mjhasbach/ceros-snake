@@ -50,26 +50,26 @@ define([ 'underscore', 'settings' ], function( _, settings ){
         }
     });
 
-    _.extend( util.animation, {
-        fadeAndStop: function( module, frame, after ){
-            util.animation.fade( module.layer, frame, 'out' );
+    util.animation.stop = function( module, frame, after ){
+        util.animation.fade( module.layer, frame, 'out' );
 
-            if ( module.layer.opacity() === 0 ){
+        if ( module.layer.opacity() === 0 ){
 
-                if ( module.name === 'menu' ){
-                    module.state = 'to game';
-                } else if ( module.name === 'game' ){
-                    module.state = 'to menu';
-                } else {
-                    module.state = 'stopped';
-                }
+            if ( module.name === 'menu' ){
+                module.state = 'to game';
 
-                module.animation.stop();
-                module.layer.remove();
-                if ( after ) after()
+            } else if ( module.name === 'game' ){
+                module.state = 'to menu';
+
+            } else {
+                module.state = 'stopped';
             }
+
+            module.animation.stop();
+            module.layer.remove();
+            if ( after ) after()
         }
-    });
+    };
 
     return util
 });

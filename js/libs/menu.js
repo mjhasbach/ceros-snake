@@ -106,7 +106,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
         init: _.once( function( options ){
             ( function _bg() {
                 menu.background = options.background.menu;
-                menu.layer.add( menu.background )
+                menu.layer.add( menu.background.group )
             })();
 
             ( function _ceros() {
@@ -371,7 +371,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         }
                     } else if ( menu.state === 'stopping' ){
 
-                        util.animation.fadeAndStop( menu, frame, function() { menu.cleanUp() })
+                        util.animation.stop( menu, frame, function() { menu.cleanUp() })
 
                     } else if ( menu.state === 'settings' ){
 

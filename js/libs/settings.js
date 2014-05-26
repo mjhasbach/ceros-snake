@@ -133,9 +133,9 @@ define([], function() {
             },
 
             counter: {
-                font: { color: '#0099ad' },
+                font: { color: '#713E4F' },
 
-                shadow: { color: '#00292e' }
+                shadow: { color: '#4A374B' }
             }
         }
     };

@@ -5,20 +5,16 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
             state: 'stopped',
 
-            layer: new Kinetic.Layer(),
-
-            start: function() {
-
-            }
+            layer: new Kinetic.Layer()
         };
 
-        var init = [
-            _.once( function _background() {
+        ( function _init() {
+            ( function _background() {
                 loading.background = background.loading;
-                loading.layer.add( loading.background )
-            }),
+                loading.layer.add( loading.background.group )
+            })();
 
-            _.once( function _loadingText() {
+            ( function _loadingText() {
                 loading.text = new Kinetic.Text({
                     x: util.calculate.absolute.x( 3 ),
                     y: util.calculate.absolute.y( 2.35 ),
@@ -29,9 +25,9 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                 });
 
                 loading.layer.add( loading.text )
-            }),
+            })();
 
-            _.once( function _wheel() {
+            ( function _wheel() {
                 loading.wheel = new Kinetic.Shape({
                     sceneFunc: function( context ){
                         context.beginPath();
@@ -53,9 +49,9 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                 });
 
                 loading.layer.add( loading.wheel );
-            }),
+            })();
 
-            _.once( function _animation() {
+            ( function _animation() {
                 loading.animation = new Kinetic.Animation( function( frame ){
                     loading.wheel.setDrawFunc( function( context ){
                         context.beginPath();
@@ -71,24 +67,20 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         //if ( Math.sin( frame.time / 500 ) === 0 ) background.tile.cycleColors();
 
                         context.stroke();
-                        context.strokeShape( this );
+                        context.strokeShape( this )
                     });
 
+                    if ( loading.state === 'stopping' ) util.animation.stop( loading, frame );
 
+                }, loading.layer )
+            })();
 
-                    if ( loading.state === 'stopping' ) util.animation.fadeAndStop( loading, frame );
-
-                }, loading.layer );
-            }),
-
-            _.once( function _layer() {
+            ( function _start() {
                 stage.add( loading.layer );
                 loading.state = 'running';
                 loading.animation.start();
-            })
-        ];
-
-        init.forEach( function( init ) { init() });
+            })();
+        })();
 
         require([ 'assets' ], function( assets ){
 
