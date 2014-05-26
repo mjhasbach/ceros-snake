@@ -1,1 +1,1 @@
-If you would like to change the soundtrack, simply overwrite the existing soundtrack.mp3 with a replacement, and change the value of config.song.bpm to match the new song's BPM (beats per minute).
+If you would like to change the soundtrack, simply overwrite the existing song.mp3 with a replacement, and change the value of config.song.bpm to match the new song's BPM (beats per minute).
