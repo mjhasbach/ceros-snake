@@ -111,6 +111,7 @@ define([], function() {
         game: {
             snake: {
                 color: { palette: [ '#4A374B', '#713E4F', '#8B4045' ]},
+
                 initial: {
                     coords: { x: 14, y: 8 },
                     direction: 'up'
@@ -123,8 +124,7 @@ define([], function() {
 
             heart: {
                 initial: {
-                    color: { h: 352, s: 96, l: 38 },
-                    coords: { x: 13, y: 13, l: 17 }
+                    color: { h: 359, s: 78, l: 23 }
                 },
 
                 amountOfInnerHearts: 2,
@@ -132,10 +132,6 @@ define([], function() {
                 maximum: 10,
 
                 spawnProbability: 0.3
-            },
-
-            boundary: {
-                scale: 21250
             },
 
             counter: {
@@ -146,7 +142,11 @@ define([], function() {
         }
     };
 
-    settings.game.boundary.color = { palette: settings.background.tile.color.palette };
+    settings.game.boundary = {
+        color: {
+            palette: settings.background.tile.color.palette
+        }
+    } ;
 
     settings.background.tile.quantity = {
         x: Math.round( window.innerWidth / settings.background.tile.size ),

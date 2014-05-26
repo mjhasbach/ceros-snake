@@ -363,7 +363,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                             color.l + '%)'
                     });
 
-                    color.l -= 5;
+                    color.l += 8;
 
                     game.heart.proto.add( innerHeart )
                 }
