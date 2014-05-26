@@ -318,9 +318,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 game.boundaries.right = new Kinetic.Rect({
                     x: window.innerWidth - ( settings.background.tile.size * 0.75 ),
-                    y: 0,
+                    y: settings.background.tile.size / 4,
                     width: settings.background.tile.size / 2,
-                    height: settings.background.tile.size * settings.background.tile.quantity.y,
+                    height: ( settings.background.tile.size * ( settings.background.tile.quantity.y - 0.5 )),
                     fill: settings.game.boundary.color.palette[ 0 ]
                 });
 
