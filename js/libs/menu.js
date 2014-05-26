@@ -367,21 +367,26 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         if ( menu.layer.opacity() === 1 ){
 
-                            menu.state = 'running';
+                            menu.state = 'running'
                         }
                     } else if ( menu.state === 'stopping' ){
 
-                        util.animation.fadeAndStop( menu, frame, function() { menu.cleanUp() });
+                        util.animation.fadeAndStop( menu, frame, function() { menu.cleanUp() })
 
                     } else if ( menu.state === 'settings' ){
 
                         if ( menu.options.settings.group.opacity() < 1 ){
 
-                            util.animation.fade( menu.options.settings.group, frame, 'in' );
+                            util.animation.fade( menu.options.settings.group, frame, 'in' )
                         }
                     } else if ( menu.options.settings.group.opacity() > 0 ){
 
-                        util.animation.fade( menu.options.settings.group, frame, 'out' );
+                        util.animation.fade( menu.options.settings.group, frame, 'out', function() {
+
+                            menu.options.settings.volume.mouseOver = false;
+                            menu.options.settings.fullScreen.mouseOver = false
+
+                        });
                     }
                 }, menu.layer )
             })()
