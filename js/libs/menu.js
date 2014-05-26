@@ -52,22 +52,32 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     Math.abs((( Math.cos( frame.time * Math.PI / settings.animation.period ) *
                         settings.menu.options.brightnessVariance )));
 
-                ( function( h, s, l ){
+                ( function( hF, sF, lF, hS, sS, lS ){
                     if ( menu.options.singlePlayer.mouseOver )
 
                         menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                            node.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
+                            util.color.fillAndStroke({
+                                node: node,
+                                fill: { h: hF, s: sF, l: lF },
+                                stroke: { h: hS, s: sS, l: lS }
+                            })
                         });
 
                     else if ( menu.options.gear.mouseOver )
 
-                        menu.options.gear.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
-
-
+                        util.color.fillAndStroke({
+                            node: menu.options.gear.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
 
                 })( settings.menu.options.font.color.enabled.h,
                     settings.menu.options.font.color.enabled.s,
-                    settings.menu.options.font.color.enabled.l - menu.title.brightnessVariance
+                    settings.menu.options.font.color.enabled.l - menu.title.brightnessVariance,
+
+                    settings.menu.options.stroke.color.enabled.h,
+                    settings.menu.options.stroke.color.enabled.s,
+                    settings.menu.options.stroke.color.enabled.l - menu.title.brightnessVariance
                 );
 
                 ( function( h, s, l ){
@@ -176,7 +186,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     util.calculate.absolute.x( 50 ),
                     util.calculate.absolute.x( 18 ),
                     settings.menu.options.font.color.enabled.hex,
-                    settings.menu.options.stroke.color.enabled
+                    settings.menu.options.stroke.color.enabled.hex
                 );
 
                 menu.options.multiPlayer.shape = numberControllerGroup(
@@ -231,7 +241,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                     fontFamily: 'FontAwesome',
                     fill: settings.menu.options.font.color.enabled.hex,
-                    stroke: settings.menu.options.stroke.color.enabled,
+                    stroke: settings.menu.options.stroke.color.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                 });
 

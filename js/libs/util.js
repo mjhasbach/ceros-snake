@@ -39,6 +39,22 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                     if ( node.opacity() === 0 && after ) after()
                 }
             }
+        },
+
+        color: {
+            fillAndStroke: function( options ){
+                options.node.fill( 'hsl('+
+                    options.fill.h + ', ' +
+                    options.fill.s + '%, ' +
+                    options.fill.l + '%)'
+                );
+
+                options.node.stroke( 'hsl('+
+                    options.stroke.h + ', ' +
+                    options.stroke.s + '%, ' +
+                    options.stroke.l + '%)'
+                );
+            }
         }
     };
 

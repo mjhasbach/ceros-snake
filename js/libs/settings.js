@@ -95,7 +95,13 @@ define([], function() {
                     width: 300,
 
                     color: {
-                        enabled: '#5b4686',
+                        enabled: {
+                            hex: '#5b4686',
+                            h: 260,
+                            s: 31,
+                            l: 40
+                        },
+
                         disabled: '#3b2e57'
                     }
                 }
@@ -104,7 +110,7 @@ define([], function() {
 
         game: {
             snake: {
-                color: { palete: [ '#4A374B', '#713E4F', '#8B4045' ]},
+                color: { palette: [ '#4A374B', '#713E4F', '#8B4045' ]},
                 initial: {
                     coords: { x: 14, y: 8 },
                     direction: 'up'

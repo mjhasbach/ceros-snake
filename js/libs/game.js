@@ -159,7 +159,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             isCollidingWith: {
                 itself: function() {
-                    return game.collision({ shape: game.snake.segment.list[ 0 ], list: game.snake.segment.list }) !== -1;
+                    return game.collision({ shape: game.snake.segment.list[ 0 ],
+                                            list: game.snake.segment.list }) !== -1;
                 },
 
                 boundary: function() {
@@ -248,12 +249,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             game.snake.segment.list = [];
             game.snake.segment.queue = [];
+            game.heart.list = [];
+            game.counter.list = [];
             game.snake.direction.queue = [ settings.game.snake.initial.direction ];
             game.snake.direction.current = settings.game.snake.initial.direction;
-
-            game.heart.list = [];
-
-            game.counter.list = [];
         },
 
         init: _.once( function _init( options ){
@@ -371,7 +370,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             })();
 
             ( function _segmentPrototype() {
-                var palette = settings.game.snake.color.palete;
+                var palette = settings.game.snake.color.palette;
 
                 game.snake.proto = new Kinetic.Group();
 
