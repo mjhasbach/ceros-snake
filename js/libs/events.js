@@ -1,5 +1,5 @@
-define([ 'jquery', 'underscore', 'settings', 'util' ],
-    function( $, _, settings, util ){
+define([ 'jquery', 'underscore', 'settings', 'util', 'bigscreen' ],
+    function( $, _, settings, util, bigscreen ){
         var init = _.once( function _init( assets ){
             var audio = assets.audio;
             var stage = assets.stage;
@@ -121,7 +121,8 @@ define([ 'jquery', 'underscore', 'settings', 'util' ],
 
                 menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
                     if ( menu.state === 'settings' ){
-                        if ( screenfull.enabled ) screenfull.request();
+                        if ( bigscreen.enabled ) bigscreen.toggle();
+
                         menu.state = 'running'
                     }
                 });
