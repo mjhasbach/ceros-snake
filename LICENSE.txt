@@ -1,13 +1,29 @@
 Ceros name and logo copyright Ceros Inc. All rights reserved.
 Ceros Snake copyright Matthew Hasbach under the MIT license.
 
+BigScreen copyright Brad Dougherty under the Apache License Version 2.0.
+https://github.com/bdougherty/BigScreen/blob/master/LICENSE
+
 Buzz copyright Jay Salvat under the MIT license.
+https://github.com/jaysalvat/buzz/blob/master/MIT-LICENSE
+
+Epic Song copyright BoxCat Games under the CC BY 3.0 licence.
+http://creativecommons.org/licenses/by/3.0/
+
 jQuery copyright jQuery Foundation under the MIT license.
+https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt
+
 KineticJS copyright Eric Rowell under the MIT license.
+https://github.com/ericdrowell/KineticJS/wiki/License
+
 RequireJS copyright The Dojo Foundation under the MIT license.
+https://github.com/jrburke/requirejs/blob/master/LICENSE
+
 RequireJS Plugins copyright Miller Medeiros under the MIT license.
-Screenfull copyright Sindre Sorhus under the MIT license.
+https://github.com/millermedeiros/requirejs-plugins/blob/master/README.mdown
+
 Underscore copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors under the MIT license.
+https://github.com/jashkenas/underscore/blob/master/LICENSE
 
 The MIT license:
 
@@ -28,8 +44,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
-Epic Song copyright BoxCat Games under the CC BY 3.0 licence.
-
-The CC BY 3.0 license can be found here: http://creativecommons.org/licenses/by/3.0/
