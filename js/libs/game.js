@@ -213,16 +213,18 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         },
 
         cleanUp: function() {
-            purge( game.heart );
-            purge( game.snake.segment );
-            purge( game.counter );
+            game.snake.segment.list.forEach( function( segment ){ segment.destroy() });
+            game.heart.list.forEach( function( heart ){ heart.destroy() });
+            game.counter.list.forEach( function( counter ){ counter.destroy() });
 
-            function purge( item ){
-                item.group.destroyChildren();
-                item.group.destroy();
-                item.group = new Kinetic.Group();
-                item.list = []
-            }
+            game.snake.segment.list = [];
+            game.snake.segment.queue = [];
+            game.snake.direction.queue = [ settings.game.snake.initial.direction ];
+            game.snake.direction.current = settings.game.snake.initial.direction;
+
+            game.heart.list = [];
+
+            game.counter.list = [];
         },
 
         init: _.once( function( options ){
@@ -415,7 +417,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                                 }
                             })
                         }
-                    } else if ( game.state === 'stopping' ) util.animation.fadeAndStop( game, frame );
+                    } else if ( game.state === 'stopping' ) util.animation.fadeAndStop( game, frame, function() {
+                        game.cleanUp()
+                    });
 
 //todo
 //                    game.counter.list.forEach( function( counter ){
