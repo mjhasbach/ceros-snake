@@ -4,8 +4,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
         state: 'stopped',
 
-        events: [],
-
         layer: new Kinetic.Layer({ opacity: 0 }),
 
         heart: {
