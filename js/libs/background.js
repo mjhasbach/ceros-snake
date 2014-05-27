@@ -26,11 +26,18 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             function Background() {
                 var bg = {
                     list: [],
+
                     group: new Kinetic.Group,
-                    cycleColors: cycleColors,
+
                     tile: {
                         quantity: background.tile.quantity,
                         size: background.tile.size
+                    },
+
+                    cycleColors: function( list ){
+                        list.forEach( function( tile ){
+                            tile.fill( settings.background.tile.color.random() )
+                        })
                     }
                 };
 
@@ -49,12 +56,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 }
 
                 return bg
-            }
-
-            function cycleColors( list ){
-                list.forEach( function( tile ){
-                    tile.fill( settings.background.tile.color.random() )
-                });
             }
         })()
     })();
