@@ -73,15 +73,22 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.layer.add( segment );
 
                         if ( game.counter.list.length > 0 ){
-                            game.snake.segment.list.last().setZIndex( getLowestCounterIndex() - 1 )
+                            game.snake.segment.list.last().setZIndex( lowerThanCounters() );
+
                         }
 
-                        function getLowestCounterIndex() {
-                            var i = Infinity;
+                        function lowerThanCounters() {
+                            var i;
 
-                            game.counter.list.forEach( function( counter ){
-                                i = counter.getZIndex() < i ? counter.getZIndex() : i
-                            });
+                            if ( game.counter.list.length > 0 ){
+                                i = Infinity;
+
+                                game.counter.list.forEach( function( counter ){
+                                    i = counter.getZIndex() < i ? counter.getZIndex() - 1 : i;
+                                });
+                            } else {
+                                i = game.snake.segment.list[ 0 ].getZIndex()
+                            }
 
                             return i
                         }

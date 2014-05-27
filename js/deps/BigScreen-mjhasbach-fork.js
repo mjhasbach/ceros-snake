@@ -4,6 +4,8 @@
 
     var keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
     var iOS7 = /i(Pad|Phone|Pod)/.test(navigator.userAgent) && parseInt(navigator.userAgent.replace(/^.*OS (\d+)_(\d+).*$/, '$1.$2'), 10) >= 7;
+    var commonJS = typeof module !== 'undefined' && module.exports;
+    var requireJS  = typeof define == 'function' && typeof define.amd == 'object';
 
     var fn = (function() {
         var testElement = document.createElement('video');
@@ -18,7 +20,7 @@
 
         var properties = {};
 
-        // Loop through each property/event/function and find the ones that work
+        // Loop thorugh each property/event/function and find the ones that work
         // in this browser.
         for (var prop in browserProperties) {
             for (var i = 0, length = browserProperties[prop].length; i < length; i++) {
@@ -402,15 +404,19 @@
         }, false);
     }
 
-    // Export CommonJS module
-    if (typeof module !== 'undefined' && module.exports){
-        module.exports = bigscreen;
-    }
-    // Export RequireJS module
-    else if (typeof define == 'function' && typeof define.amd == 'object'){
+    // Externalize the BigScreen AMD / RequireJS object.
+    if (requireJS) {
         define(bigscreen);
     }
-    // Export global module
+
+    // Externalize the CommonJS object. Use array notation to play nicer with
+    // Closure Compiler.
+    else if (commonJS) {
+        module['exports'] = bigscreen;
+    }
+
+    // Externalize the BigScreen object. Use array notation to play nicer with
+    // Closure Compiler.
     else {
         window['BigScreen'] = bigscreen;
     }
