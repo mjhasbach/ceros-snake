@@ -72,7 +72,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                     });
 
                     if ( sine.directionChanged( Math.sin( frame.time / 500 ))){
-                        loading.background.cycleColors();
+                        loading.background.cycleColors( loading.background.list );
                     }
 
                     sine.update( Math.sin( frame.time / 500 ));

@@ -150,14 +150,14 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             isCollidingWith: {
                 itself: function() {
                     return game.collision({ shape: game.snake.segment.list[ 0 ],
-                                            list: game.snake.segment.list }) !== -1;
+                        list: game.snake.segment.list }) !== -1;
                 },
 
                 boundary: function() {
                     return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                           game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
-                           game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                           game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
+                        game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
+                        game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
+                        game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
                 },
 
                 heart: function( cb ){
@@ -173,8 +173,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 if ( options.list ){
                     for ( i = 0; i < options.list.length; i++ ){
                         if ( options.shape != options.list[ i ] &&
-                             options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
-                             options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
+                            options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
+                            options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
 
                             return i;
                         }
@@ -185,7 +185,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 if ( options.list ){
                     for ( i = 0; i < options.list.length; i++ ){
                         if ( options.list[ i ].x().toCoord() == options.coords.x &&
-                             options.list[ i ].y().toCoord() == options.coords.y ){
+                            options.list[ i ].y().toCoord() == options.coords.y ){
 
                             return i;
                         }
@@ -203,7 +203,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
         isMoveCycle: function( frame ){
             return frame.time - game.snake.lastMovementTime >= ( settings.animation.period -
-                    ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
+                ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
         },
 
         cleanUp: function() {
@@ -429,7 +429,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                                 game.counter.add();
 
-                                game.background.cycleColors();
+                                game.background.cycleColors( game.background.list );
 
                                 game.heart.list[ index ].destroy();
                                 game.heart.list.splice( index, 1 );
