@@ -167,6 +167,14 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 menu.options.singlePlayer.mouseOver = false;
 
+                menu.options.singlePlayer.shape = numberControllerGroup(
+                    1,
+                    util.calculate.absolute.x( 50 ),
+                    util.calculate.absolute.x( 18 ),
+                    settings.menu.options.font.color.enabled.hex,
+                    settings.menu.options.stroke.color.enabled.hex
+                );
+
                 menu.options.singlePlayer.hitBox = new Kinetic.Rect({
                     x: util.calculate.absolute.x( 50 ),
                     y: util.calculate.absolute.y( 1.21 ),
@@ -176,14 +184,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 });
 
                 menu.layer.add( menu.options.singlePlayer.hitBox );
-
-                menu.options.singlePlayer.shape = numberControllerGroup(
-                    1,
-                    util.calculate.absolute.x( 50 ),
-                    util.calculate.absolute.x( 18 ),
-                    settings.menu.options.font.color.enabled.hex,
-                    settings.menu.options.stroke.color.enabled.hex
-                );
 
                 menu.options.multiPlayer = {
                     shape: numberControllerGroup(
@@ -234,16 +234,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             ( function _gear() {
                 menu.options.gear = {};
 
-                menu.options.gear.hitBox = new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 2.51 ),
-                    y: util.calculate.absolute.y( settings.menu.options.y ) + util.calculate.absolute.y( 105 ),
-                    width: util.calculate.absolute.x( 12.85 ),
-                    height: util.calculate.absolute.y( 7.17 ),
-                    opacity: 0
-                });
-
-                menu.layer.add( menu.options.gear.hitBox );
-
                 menu.options.gear.mouseOver = false;
 
                 menu.options.gear.shape = new Kinetic.Text({
@@ -257,7 +247,17 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                 });
 
-                menu.layer.add( menu.options.gear.shape )
+                menu.layer.add( menu.options.gear.shape );
+
+                menu.options.gear.hitBox = new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.51 ),
+                    y: util.calculate.absolute.y( settings.menu.options.y ) + util.calculate.absolute.y( 105 ),
+                    width: util.calculate.absolute.x( 12.85 ),
+                    height: util.calculate.absolute.y( 7.17 ),
+                    opacity: 0
+                });
+
+                menu.layer.add( menu.options.gear.hitBox );
             })();
 
             ( function _highScores() {

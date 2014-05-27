@@ -98,7 +98,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                 assets.audio.song.mp3.play().loop();
 
                 require([ 'events' ], function( events ){
-                    events.start({
+                    events.init({
                         loading: loading,
                         stage: stage,
                         audio: assets.audio,
