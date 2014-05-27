@@ -21,8 +21,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 }
 
                 function generateHeart() {
-                    var x = util.calculate.random.int( 2, settings.background.tile.quantity.x - 1 ),
-                        y = util.calculate.random.int( 2, settings.background.tile.quantity.y - 1 );
+                    var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
+                        y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
 
                     if ( game.collision({ coords: { x: x, y: y }, list: game.heart.list }) === -1 &&
                          game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
@@ -56,8 +56,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         segment.x = game.snake.segment.list.last().x();
                         segment.y = game.snake.segment.list.last().y();
                     } else {
-                        segment.x = settings.game.snake.initial.coords.x * settings.background.tile.size;
-                        segment.y = settings.game.snake.initial.coords.y * settings.background.tile.size;
+                        segment.x = settings.game.snake.initial.coords.x * game.background.tile.size;
+                        segment.y = settings.game.snake.initial.coords.y * game.background.tile.size;
                     }
 
                     segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
@@ -140,18 +140,18 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 function move( to ){
                     if ( game.snake.direction.current === 'up' ){
                         game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() - settings.background.tile.size );
+                        game.snake.segment.list[0].y( to.y() - game.background.tile.size );
 
                     } else if ( game.snake.direction.current === 'right' ){
-                        game.snake.segment.list[0].x( to.x() + settings.background.tile.size );
+                        game.snake.segment.list[0].x( to.x() + game.background.tile.size );
                         game.snake.segment.list[0].y( to.y() )
 
                     } else if ( game.snake.direction.current === 'down' ){
                         game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() + settings.background.tile.size )
+                        game.snake.segment.list[0].y( to.y() + game.background.tile.size )
 
                     } else {
-                        game.snake.segment.list[0].x( to.x() - settings.background.tile.size );
+                        game.snake.segment.list[0].x( to.x() - game.background.tile.size );
                         game.snake.segment.list[0].y( to.y() );
                     }
                 }
@@ -165,9 +165,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 boundary: function() {
                     return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                           game.snake.segment.list[ 0 ].x().toCoord() == settings.background.tile.quantity.x ||
+                           game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
                            game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                           game.snake.segment.list[ 0 ].y().toCoord() == settings.background.tile.quantity.y;
+                           game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
                 },
 
                 heart: function( cb ){
@@ -183,7 +183,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 game.counter.list.unshift(
                     game.counter.proto.clone({
                         x: game.snake.segment.list[ 0 ].x() - calculateMagnitudeOffset(),
-                        y: game.snake.segment.list[ 0 ].y() - settings.background.tile.size * 1.2,
+                        y: game.snake.segment.list[ 0 ].y() - game.background.tile.size * 1.2,
                         text: game.snake.segment.list.length + 1
                     })
                 );
@@ -192,10 +192,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 function calculateMagnitudeOffset() {
                     if ( game.snake.segment.list.length > 10 )
-                        return settings.background.tile.size * 1.25;
+                        return game.background.tile.size * 1.25;
 
                     else if ( game.snake.segment.list.length > 100 )
-                        return  settings.background.tile.size * 2.5;
+                        return  game.background.tile.size * 2.5;
 
                     else return 0
                 }
@@ -268,11 +268,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             ( function _numberToCoordinate() {
                 Number.prototype.toCoord = function() {
-                    return ( this / settings.background.tile.size ) + 2
+                    return ( this / game.background.tile.size ) + 2
                 };
 
                 Number.prototype.fromCoord = function() {
-                    return ( this - 2 ) * settings.background.tile.size
+                    return ( this - 2 ) * game.background.tile.size
                 };
             })();
 
@@ -280,11 +280,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 game.boundaries = {};
 
                 game.boundaries.top = new Kinetic.Rect({
-                    x: settings.background.tile.size / 4,
-                    y: settings.background.tile.size / 4,
-                    width: ( settings.background.tile.size * settings.background.tile.quantity.x ) -
-                        settings.background.tile.size ,
-                    height: settings.background.tile.size / 2,
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size / 4,
+                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                        game.background.tile.size ,
+                    height: game.background.tile.size / 2,
                     fill: settings.game.boundary.color.palette[ 0 ]
                 });
 
@@ -292,11 +292,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
 
                 game.boundaries.left = new Kinetic.Rect({
-                    x: settings.background.tile.size / 4,
-                    y: settings.background.tile.size / 4,
-                    width: settings.background.tile.size / 2,
-                    height: ( settings.background.tile.size * settings.background.tile.quantity.y ) -
-                        settings.background.tile.size,
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size / 4,
+                    width: game.background.tile.size / 2,
+                    height: ( game.background.tile.size * game.background.tile.quantity.y ) -
+                        game.background.tile.size,
                     fill: settings.game.boundary.color.palette[ 0 ]
                 });
 
@@ -304,11 +304,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
 
                 game.boundaries.bottom = new Kinetic.Rect({
-                    x: settings.background.tile.size / 4,
-                    y: settings.background.tile.size * ( settings.background.tile.quantity.y - 0.75 ),
-                    width: ( settings.background.tile.size * settings.background.tile.quantity.x ) -
-                        settings.background.tile.size ,
-                    height: settings.background.tile.size / 2,
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
+                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                        game.background.tile.size ,
+                    height: game.background.tile.size / 2,
                     fill: settings.game.boundary.color.palette[ 0 ]
                 });
 
@@ -316,10 +316,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
 
                 game.boundaries.right = new Kinetic.Rect({
-                    x: window.innerWidth - ( settings.background.tile.size * 0.75 ),
-                    y: settings.background.tile.size / 4,
-                    width: settings.background.tile.size / 2,
-                    height: ( settings.background.tile.size * ( settings.background.tile.quantity.y - 0.5 )),
+                    x: util.calculate.dimensions.original.width() -
+                        ( game.background.tile.size * 0.75 ),
+                    y: game.background.tile.size / 4,
+                    width: game.background.tile.size / 2,
+                    height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
                     fill: settings.game.boundary.color.palette[ 0 ]
                 });
 
@@ -352,9 +353,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
                     var innerHeart = new Kinetic.Text({
-                        x: settings.background.tile.size + i * (( settings.background.tile.size * 0.33 ) / 2 ),
-                        y: settings.background.tile.size + i * (( settings.background.tile.size * 0.33 ) / 2 ),
-                        fontSize: settings.background.tile.size - i * ( settings.background.tile.size * 0.33 ),
+                        x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                        y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                        fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
                         fontFamily: 'FontAwesome',
                         text: '\uf004',
                         fill: 'hsl(' +
@@ -376,10 +377,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
                     var rect = new Kinetic.Rect({
-                        x: settings.background.tile.size + i * (( settings.background.tile.size * 0.33 ) / 2 ),
-                        y: settings.background.tile.size + i * (( settings.background.tile.size * 0.33 ) / 2 ),
-                        width: settings.background.tile.size - i * ( settings.background.tile.size * 0.33 ),
-                        height: settings.background.tile.size - i * ( settings.background.tile.size * 0.33 ),
+                        x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                        y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                        width: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                        height: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
                         fill: palette[ i ]
                     });
 

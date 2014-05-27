@@ -1,14 +1,21 @@
-define([ 'Kinetic', 'underscore', 'settings' ], function( Kinetic, _, settings ){
+define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, settings, util ){
     var background = {};
 
     ( function _init() {
+        ( function _calculations() {
+            background.tile = {};
+
+            background.tile.quantity = { x: 32, y: 18 };
+
+            background.tile.size = util.calculate.dimensions.original.width() /
+                background.tile.quantity.x;
+        })();
+
         ( function _tilePrototype() {
-            background.tile = {
-                proto: new Kinetic.Rect({
-                    width: settings.background.tile.size,
-                    height: settings.background.tile.size
-                })
-            }
+            background.tile.proto = new Kinetic.Rect({
+                width: background.tile.size,
+                height: background.tile.size
+            })
         })();
 
         ( function _backgrounds() {
@@ -20,15 +27,19 @@ define([ 'Kinetic', 'underscore', 'settings' ], function( Kinetic, _, settings )
                 var bg = {
                     list: [],
                     group: new Kinetic.Group,
-                    cycleColors: cycleColors
+                    cycleColors: cycleColors,
+                    tile: {
+                        quantity: background.tile.quantity,
+                        size: background.tile.size
+                    }
                 };
 
-                for ( var x = 0; x < settings.background.tile.quantity.x; x++ ){
-                    for ( var y = 0; y < settings.background.tile.quantity.y; y++ ){
+                for ( var x = 0; x < background.tile.quantity.x; x++ ){
+                    for ( var y = 0; y < background.tile.quantity.y; y++ ){
                         bg.list.unshift(
                             background.tile.proto.clone({
-                                x: x * settings.background.tile.size,
-                                y: y * settings.background.tile.size,
+                                x: x * background.tile.size,
+                                y: y * background.tile.size,
                                 fill: settings.background.tile.color.random()
                             })
                         );

@@ -22,9 +22,7 @@ define([], function() {
                         "#12121a", "#100f17", "#131218", "#151219", "#201a26", "#1e1a29",
                         "#15131e", "#14121d"
                     ]
-                },
-
-                size: window.innerWidth / 32
+                }
             }
         },
 
@@ -146,11 +144,6 @@ define([], function() {
         color: {
             palette: settings.background.tile.color.palette
         }
-    } ;
-
-    settings.background.tile.quantity = {
-        x: Math.round( window.innerWidth / settings.background.tile.size ),
-        y: Math.round( 9 * ( window.innerWidth / settings.background.tile.size ) / 16)
     };
 
     settings.background.tile.color.random = function() {
