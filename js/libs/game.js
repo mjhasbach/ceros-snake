@@ -72,26 +72,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                         game.layer.add( segment );
 
-                        if ( game.counter.list.length > 0 ){
-                            game.snake.segment.list.last().setZIndex( lowerThanCounters() );
-
-                        }
-
-                        function lowerThanCounters() {
-                            var i;
-
-                            if ( game.counter.list.length > 0 ){
-                                i = Infinity;
-
-                                game.counter.list.forEach( function( counter ){
-                                    i = counter.getZIndex() < i ? counter.getZIndex() - 1 : i;
-                                });
-                            } else {
-                                i = game.snake.segment.list[ 0 ].getZIndex()
-                            }
-
-                            return i
-                        }
+                        game.snake.segment.list.last().setZIndex(
+                            game.counter.group.getZIndex() - 1
+                        )
                     }
                 }
             },
@@ -183,32 +166,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         },
 
-        counter: {
-            list: [],
-
-            add: function() {
-                game.counter.list.unshift(
-                    game.counter.proto.clone({
-                        x: game.snake.segment.list[ 0 ].x() - calculateMagnitudeOffset(),
-                        y: game.snake.segment.list[ 0 ].y() - game.background.tile.size * 1.2,
-                        text: game.snake.segment.list.length + 1
-                    })
-                );
-
-                game.layer.add( game.counter.list[ 0 ]);
-
-                function calculateMagnitudeOffset() {
-                    if ( game.snake.segment.list.length > 10 )
-                        return game.background.tile.size * 1.25;
-
-                    else if ( game.snake.segment.list.length > 100 )
-                        return  game.background.tile.size * 2.5;
-
-                    else return 0
-                }
-            }
-        },
-
         collision: function( options ){
             var i;
 
@@ -260,203 +217,238 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.counter.list = [];
             game.snake.direction.queue = [ settings.game.snake.initial.direction ];
             game.snake.direction.current = settings.game.snake.initial.direction;
-        },
+        }
+    };
 
-        init: _.once( function _init( options ){
-            ( function _bg() {
-                game.background = options.background.game;
-                game.layer.add( game.background.group )
-            })();
+    game.init = function( options ){
+        ( function _bg() {
+            game.background = options.background.game;
+            game.layer.add( game.background.group )
+        })();
 
-            ( function _calculations() {
-                settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
-                settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
-            })();
+        ( function _calculations() {
+            settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
+            settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
+        })();
 
-            ( function _numberToCoordinate() {
-                Number.prototype.toCoord = function() {
-                    return ( this / game.background.tile.size ) + 2
-                };
+        ( function _numberToCoordinate() {
+            Number.prototype.toCoord = function() {
+                return ( this / game.background.tile.size ) + 2
+            };
 
-                Number.prototype.fromCoord = function() {
-                    return ( this - 2 ) * game.background.tile.size
-                };
-            })();
+            Number.prototype.fromCoord = function() {
+                return ( this - 2 ) * game.background.tile.size
+            };
+        })();
 
-            ( function _boundary() {
-                game.boundaries = {};
+        ( function _boundary() {
+            game.boundaries = {};
 
-                game.boundaries.top = new Kinetic.Rect({
-                    x: game.background.tile.size / 4,
-                    y: game.background.tile.size / 4,
-                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
-                        game.background.tile.size ,
-                    height: game.background.tile.size / 2,
-                    fill: settings.game.boundary.color.palette[ 0 ]
-                });
+            game.boundaries.top = new Kinetic.Rect({
+                x: game.background.tile.size / 4,
+                y: game.background.tile.size / 4,
+                width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                    game.background.tile.size ,
+                height: game.background.tile.size / 2,
+                fill: settings.game.boundary.color.palette[ 0 ]
+            });
 
-                game.layer.add( game.boundaries.top );
-
-
-                game.boundaries.left = new Kinetic.Rect({
-                    x: game.background.tile.size / 4,
-                    y: game.background.tile.size / 4,
-                    width: game.background.tile.size / 2,
-                    height: ( game.background.tile.size * game.background.tile.quantity.y ) -
-                        game.background.tile.size,
-                    fill: settings.game.boundary.color.palette[ 0 ]
-                });
-
-                game.layer.add( game.boundaries.left );
+            game.layer.add( game.boundaries.top );
 
 
-                game.boundaries.bottom = new Kinetic.Rect({
-                    x: game.background.tile.size / 4,
-                    y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
-                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
-                        game.background.tile.size ,
-                    height: game.background.tile.size / 2,
-                    fill: settings.game.boundary.color.palette[ 0 ]
-                });
+            game.boundaries.left = new Kinetic.Rect({
+                x: game.background.tile.size / 4,
+                y: game.background.tile.size / 4,
+                width: game.background.tile.size / 2,
+                height: ( game.background.tile.size * game.background.tile.quantity.y ) -
+                    game.background.tile.size,
+                fill: settings.game.boundary.color.palette[ 0 ]
+            });
 
-                game.layer.add( game.boundaries.bottom );
-
-
-                game.boundaries.right = new Kinetic.Rect({
-                    x: util.calculate.dimensions.original.width() -
-                        ( game.background.tile.size * 0.75 ),
-                    y: game.background.tile.size / 4,
-                    width: game.background.tile.size / 2,
-                    height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
-                    fill: settings.game.boundary.color.palette[ 0 ]
-                });
-
-                game.layer.add( game.boundaries.right );
+            game.layer.add( game.boundaries.left );
 
 
-                game.boundaries.lastCycleTime = 0;
+            game.boundaries.bottom = new Kinetic.Rect({
+                x: game.background.tile.size / 4,
+                y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
+                width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                    game.background.tile.size ,
+                height: game.background.tile.size / 2,
+                fill: settings.game.boundary.color.palette[ 0 ]
+            });
+
+            game.layer.add( game.boundaries.bottom );
 
 
-                game.boundaries.cycleColors = function( frame ){
-                    if ( frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8 ){
+            game.boundaries.right = new Kinetic.Rect({
+                x: util.calculate.dimensions.original.width() -
+                    ( game.background.tile.size * 0.75 ),
+                y: game.background.tile.size / 4,
+                width: game.background.tile.size / 2,
+                height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
+                fill: settings.game.boundary.color.palette[ 0 ]
+            });
 
-                        ( function( color ){
-                            game.boundaries.top.fill( color );
-                            game.boundaries.left.fill( color );
-                            game.boundaries.bottom.fill( color );
-                            game.boundaries.right.fill( color );
-                        })( settings.background.tile.color.random() );
+            game.layer.add( game.boundaries.right );
 
-                        settings.game.boundary.color.palette.unshift( settings.game.boundary.color.palette.pop() );
-                        game.boundaries.lastCycleTime = frame.time
-                    }
+
+            game.boundaries.lastCycleTime = 0;
+
+
+            game.boundaries.cycleColors = function( frame ){
+                if ( frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8 ){
+
+                    ( function( color ){
+                        game.boundaries.top.fill( color );
+                        game.boundaries.left.fill( color );
+                        game.boundaries.bottom.fill( color );
+                        game.boundaries.right.fill( color );
+                    })( settings.background.tile.color.random() );
+
+                    settings.game.boundary.color.palette.unshift( settings.game.boundary.color.palette.pop() );
+                    game.boundaries.lastCycleTime = frame.time
                 }
-            })();
+            }
+        })();
 
-            ( function _heartPrototype() {
-                var color = settings.game.heart.initial.color;
+        ( function _heartPrototype() {
+            var color = settings.game.heart.initial.color;
 
-                game.heart.proto = new Kinetic.Group();
+            game.heart.proto = new Kinetic.Group();
 
-                for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
-                    var innerHeart = new Kinetic.Text({
-                        x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                        y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                        fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
-                        fontFamily: 'FontAwesome',
-                        text: '\uf004',
-                        fill: 'hsl(' +
-                            color.h + ', ' +
-                            color.s + '%, ' +
-                            color.l + '%)'
-                    });
+            for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
+                var innerHeart = new Kinetic.Text({
+                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    fontFamily: 'FontAwesome',
+                    text: '\uf004',
+                    fill: 'hsl(' +
+                        color.h + ', ' +
+                        color.s + '%, ' +
+                        color.l + '%)'
+                });
 
-                    color.l += 8;
+                color.l += 8;
 
-                    game.heart.proto.add( innerHeart )
-                }
-            })();
+                game.heart.proto.add( innerHeart )
+            }
+        })();
 
-            ( function _segmentPrototype() {
-                var palette = settings.game.snake.color.palette;
+        ( function _segmentPrototype() {
+            var palette = settings.game.snake.color.palette;
 
-                game.snake.proto = new Kinetic.Group();
+            game.snake.proto = new Kinetic.Group();
 
-                for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
-                    var rect = new Kinetic.Rect({
-                        x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                        y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                        width: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
-                        height: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
-                        fill: palette[ i ]
-                    });
+            for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
+                var rect = new Kinetic.Rect({
+                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    width: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    height: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    fill: palette[ i ]
+                });
 
-                    game.snake.proto.add( rect )
-                }
-            })();
+                game.snake.proto.add( rect )
+            }
+        })();
 
-            ( function _counterPrototype() {
-                game.counter.proto = new Kinetic.Text({
-                    fontSize: settings.game.counter.font.size,
-                    fontFamily: settings.font.ui,
-                    fill: settings.game.counter.font.color,
-                    shadowColor: settings.game.counter.shadow.color,
-                    shadowBlur: settings.game.counter.shadow.blur
-                })
-            })();
+        ( function _counter() {
+            game.counter = {};
 
-            ( function _animation() {
-                game.animation = new Kinetic.Animation( function( frame ){
-                    if ( game.state === 'starting' ){
-                        if ( game.snake.segment.list.length === 0 ){
-                            game.snake.segment.queueNew();
-                            game.snake.segment.addNewIfNecessary();
-                            game.heart.regenerate()
-                        }
+            game.counter.list = [];
 
-                        util.animation.fade( game.layer, frame, 'in' );
+            game.counter.group = new Kinetic.Group();
 
-                        if ( game.layer.opacity() === 1 ) game.state = 'running'
+            game.layer.add( game.counter.group );
 
-                    } else if ( game.state === 'running' ){
-                        game.boundaries.cycleColors( frame );
+            game.counter.proto = new Kinetic.Text({
+                fontSize: settings.game.counter.font.size,
+                fontFamily: settings.font.ui,
+                fill: settings.game.counter.font.color,
+                shadowColor: settings.game.counter.shadow.color,
+                shadowBlur: settings.game.counter.shadow.blur
+            });
 
-                        if ( game.isMoveCycle( frame )){
+            game.counter.remove = function( counter ){
+                counter.destroy();
+                game.counter.list.splice( game.counter.list.indexOf( counter ), 1 );
+            };
 
-                            game.snake.lastMovementTime = frame.time;
-                            game.snake.move();
-                            game.snake.segment.addNewIfNecessary();
-
-                            if ( game.snake.isCollidingWith.itself() ) game.state = 'stopping';
-                            if ( game.snake.isCollidingWith.boundary() ) game.state = 'stopping';
-
-                            game.snake.isCollidingWith.heart( function( index ){
-                                if ( index !== -1 ){
-                                    game.snake.segment.queueNew();
-
-                                    game.counter.add();
-
-                                    game.background.cycleColors( game.background.list );
-
-                                    game.heart.list[ index ].destroy();
-                                    game.heart.list.splice( index, 1 );
-                                    if ( game.heart.list.length === 0 ) game.heart.regenerate();
-                                }
-                            })
-                        }
-                    }
-
-                    else if ( game.state === 'stopping' )
-                        util.animation.stop( game, frame, function() { game.cleanUp() });
-
-                    game.counter.list.forEach( function( counter ){
-                        util.animation.fade( counter, frame, 'out', function() {
-                            counter.destroy()
-                        })
+            game.counter.add = function() {
+                game.counter.list.unshift(
+                    game.counter.proto.clone({
+                        x: game.snake.segment.list[ 0 ].x() - calculateMagnitudeOffset(),
+                        y: game.snake.segment.list[ 0 ].y() - game.background.tile.size * 1.2,
+                        text: game.snake.segment.list.length + 1
                     })
-                }, game.layer )
-            })();
-        })
+                );
+
+                game.counter.group.add( game.counter.list[ 0 ]);
+
+                function calculateMagnitudeOffset() {
+                    if ( game.snake.segment.list.length > 10 )
+                        return game.background.tile.size * 1.25;
+
+                    else if ( game.snake.segment.list.length > 100 )
+                        return  game.background.tile.size * 2.5;
+
+                    else return 0
+                }
+            };
+        })();
+
+        ( function _animation() {
+            game.animation = new Kinetic.Animation( function( frame ){
+                if ( game.state === 'starting' ){
+                    if ( game.snake.segment.list.length === 0 ){
+                        game.snake.segment.queueNew();
+                        game.snake.segment.addNewIfNecessary();
+                        game.heart.regenerate()
+                    }
+
+                    util.animation.fade( game.layer, frame, 'in' );
+
+                    if ( game.layer.opacity() === 1 ) game.state = 'running'
+
+                } else if ( game.state === 'running' ){
+                    game.boundaries.cycleColors( frame );
+
+                    if ( game.isMoveCycle( frame )){
+
+                        game.snake.lastMovementTime = frame.time;
+                        game.snake.move();
+                        game.snake.segment.addNewIfNecessary();
+
+                        if ( game.snake.isCollidingWith.itself() ) game.state = 'stopping';
+                        if ( game.snake.isCollidingWith.boundary() ) game.state = 'stopping';
+
+                        game.snake.isCollidingWith.heart( function( index ){
+                            if ( index !== -1 ){
+                                game.snake.segment.queueNew();
+
+                                game.counter.add();
+
+                                game.background.cycleColors( game.background.list );
+
+                                game.heart.list[ index ].destroy();
+                                game.heart.list.splice( index, 1 );
+                                if ( game.heart.list.length === 0 ) game.heart.regenerate();
+                            }
+                        })
+                    }
+                }
+
+                else if ( game.state === 'stopping' )
+                    util.animation.stop( game, frame, function() { game.cleanUp() });
+
+                game.counter.list.forEach( function( counter ){
+                    util.animation.fade( counter, frame, 'out', function() {
+                        game.counter.remove( counter )
+                    })
+                })
+            }, game.layer )
+        })();
     };
 
     Array.prototype.last = function() {
