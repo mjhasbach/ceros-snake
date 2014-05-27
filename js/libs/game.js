@@ -7,8 +7,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         layer: new Kinetic.Layer({ opacity: 0 }),
 
         heart: {
-            list: [],
-
             regenerate: function() {
                 generateHeart();
 
@@ -40,13 +38,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         },
 
         snake: {
-            lastMovementTime: 0,
-
             segment: {
-                queue: [],
-
-                list: [],
-
                 queueNew: function() {
                     var segment = {};
 
@@ -309,10 +301,12 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
-        ( function _heartPrototype() {
-            var color = settings.game.heart.initial.color;
+        ( function _heart() {
+            game.heart.list = [];
 
             game.heart.proto = new Kinetic.Group();
+
+            var color = settings.game.heart.initial.color;
 
             for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
                 var innerHeart = new Kinetic.Text({
@@ -333,10 +327,13 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
-        ( function _segmentPrototype() {
-            var palette = settings.game.snake.color.palette;
-
+        ( function _snake() {
+            game.snake.lastMovementTime = 0;
+            game.snake.segment.queue = [];
+            game.snake.segment.list = [];
             game.snake.proto = new Kinetic.Group();
+
+            var palette = settings.game.snake.color.palette;
 
             for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
                 var rect = new Kinetic.Rect({
