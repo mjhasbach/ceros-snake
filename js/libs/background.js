@@ -25,25 +25,26 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             function Background() {
                 var bg = {
-                    list: [],
-
                     group: new Kinetic.Group,
 
                     tile: {
-                        quantity: background.tile.quantity,
-                        size: background.tile.size
-                    },
+                        list: [],
 
-                    cycleColors: function( list ){
-                        list.forEach( function( tile ){
-                            tile.fill( settings.background.tile.color.random() )
-                        })
+                        quantity: background.tile.quantity,
+
+                        size: background.tile.size
                     }
                 };
 
+                bg.cycleColors = function() {
+                    this.forEach( function( tile ){
+                        tile.fill( settings.background.tile.color.random() )
+                    })
+                }.bind( bg.tile.list );
+
                 for ( var x = 0; x < background.tile.quantity.x; x++ ){
                     for ( var y = 0; y < background.tile.quantity.y; y++ ){
-                        bg.list.unshift(
+                        bg.tile.list.unshift(
                             background.tile.proto.clone({
                                 x: x * background.tile.size,
                                 y: y * background.tile.size,
@@ -51,7 +52,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             })
                         );
 
-                        bg.group.add( bg.list[ 0 ])
+                        bg.group.add( bg.tile.list[ 0 ])
                     }
                 }
 
