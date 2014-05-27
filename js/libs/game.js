@@ -6,125 +6,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
         layer: new Kinetic.Layer({ opacity: 0 }),
 
-        snake: {
-            segment: {
-                queueNew: function() {
-                    var segment = {};
-
-                    if ( game.snake.segment.list.length > 0 ){
-                        segment.x = game.snake.segment.list.last().x();
-                        segment.y = game.snake.segment.list.last().y();
-                    } else {
-                        segment.x = settings.game.snake.initial.coords.x * game.background.tile.size;
-                        segment.y = settings.game.snake.initial.coords.y * game.background.tile.size;
-                    }
-
-                    segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
-                    game.snake.segment.queue.push( segment.shape );
-                },
-
-                addNewIfNecessary: function() {
-                    if ( game.snake.segment.queue.length > 0 ){
-                        var segment = game.snake.segment.queue.shift();
-
-                        game.snake.segment.list.push( segment );
-
-                        game.layer.add( segment );
-
-                        game.snake.segment.list.last().setZIndex(
-                            game.counter.group.getZIndex() - 1
-                        )
-                    }
-                }
-            },
-
-            direction: {
-                queue: [ settings.game.snake.initial.direction ],
-
-                current: settings.game.snake.initial.direction,
-
-                changeIfNecessary: function() {
-                    if ( game.snake.direction.queue.length > 0 ){
-                        game.snake.direction.current = game.snake.direction.queue.shift()
-                    }
-                },
-
-                currentIsNotOppositeOf: function( direction ){
-                    if ( game.snake.segment.list.length === 1 ){
-                        return true
-                    } else {
-                        var opposite;
-
-                        if ( game.snake.direction.current === 'up' ) opposite = 'down';
-                        else if ( game.snake.direction.current === 'down' ) opposite = 'up';
-                        else if ( game.snake.direction.current === 'left' ) opposite = 'right';
-                        else if ( game.snake.direction.current === 'right' ) opposite = 'left';
-
-                        return !( direction == opposite );
-                    }
-                },
-
-                lastQueuedIsNotSameAs: function( direction ){
-                    return !( game.snake.direction.queue.last() == direction )
-                },
-
-                pushOrInit: function( direction ){
-                    if ( game.state === 'starting'){
-                        game.snake.direction.queue[0] = direction
-
-                    } else game.snake.direction.queue.push( direction )
-                }
-            },
-
-            move: function() {
-                game.snake.direction.changeIfNecessary();
-
-                if ( game.snake.segment.list.length > 1 ){
-                    game.snake.segment.list.unshift( game.snake.segment.list.pop() );
-                    move( game.snake.segment.list[1] )
-                } else {
-                    move( game.snake.segment.list[0] )
-                }
-
-                function move( to ){
-                    if ( game.snake.direction.current === 'up' ){
-                        game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() - game.background.tile.size );
-
-                    } else if ( game.snake.direction.current === 'right' ){
-                        game.snake.segment.list[0].x( to.x() + game.background.tile.size );
-                        game.snake.segment.list[0].y( to.y() )
-
-                    } else if ( game.snake.direction.current === 'down' ){
-                        game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() + game.background.tile.size )
-
-                    } else {
-                        game.snake.segment.list[0].x( to.x() - game.background.tile.size );
-                        game.snake.segment.list[0].y( to.y() );
-                    }
-                }
-            },
-
-            isCollidingWith: {
-                itself: function() {
-                    return game.collision({ shape: game.snake.segment.list[ 0 ],
-                        list: game.snake.segment.list }) !== -1;
-                },
-
-                boundary: function() {
-                    return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                        game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
-                        game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                        game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
-                },
-
-                heart: function( cb ){
-                    cb( game.collision({ shape: game.snake.segment.list[ 0 ], list: game.heart.list }) )
-                }
-            }
-        },
-
         collision: function( options ){
             var i;
 
@@ -194,14 +75,14 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
-        ( function _bg() {
-            game.background = options.background.game;
-            game.layer.add( game.background.group )
-        })();
-
         ( function _calculations() {
             settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
             settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
+        })();
+
+        ( function _bg() {
+            game.background = options.background.game;
+            game.layer.add( game.background.group )
         })();
 
         ( function _boundary() {
@@ -279,28 +160,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             game.heart.list = [];
 
-            game.heart.proto = new Kinetic.Group();
-
-            var color = settings.game.heart.initial.color;
-
-            for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
-                var innerHeart = new Kinetic.Text({
-                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
-                    fontFamily: 'FontAwesome',
-                    text: '\uf004',
-                    fill: 'hsl(' +
-                        color.h + ', ' +
-                        color.s + '%, ' +
-                        color.l + '%)'
-                });
-
-                color.l += 8;
-
-                game.heart.proto.add( innerHeart )
-            }
-
             game.heart.generate = function() {
                 var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
                     y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
@@ -329,12 +188,156 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     }
                 }
             };
+
+            game.heart.proto = new Kinetic.Group();
+
+            var color = settings.game.heart.initial.color;
+
+            for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
+                var innerHeart = new Kinetic.Text({
+                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
+                    fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    fontFamily: 'FontAwesome',
+                    text: '\uf004',
+                    fill: 'hsl(' +
+                        color.h + ', ' +
+                        color.s + '%, ' +
+                        color.l + '%)'
+                });
+
+                color.l += 8;
+
+                game.heart.proto.add( innerHeart )
+            }
         })();
 
         ( function _snake() {
+            game.snake = {};
+
             game.snake.lastMovementTime = 0;
-            game.snake.segment.queue = [];
-            game.snake.segment.list = [];
+
+            game.snake.segment = {
+                queue: [],
+
+                list: [],
+
+                queueNew: function() {
+                    var segment = {};
+
+                    if ( game.snake.segment.list.length > 0 ){
+                        segment.x = game.snake.segment.list.last().x();
+                        segment.y = game.snake.segment.list.last().y();
+                    } else {
+                        segment.x = settings.game.snake.initial.coords.x * game.background.tile.size;
+                        segment.y = settings.game.snake.initial.coords.y * game.background.tile.size;
+                    }
+
+                    segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
+                    game.snake.segment.queue.push( segment.shape );
+                },
+
+                addNewIfNecessary: function() {
+                    if ( game.snake.segment.queue.length > 0 ){
+                        var segment = game.snake.segment.queue.shift();
+
+                        game.snake.segment.list.push( segment );
+
+                        game.layer.add( segment );
+
+                        game.snake.segment.list.last().setZIndex(
+                                game.counter.group.getZIndex() - 1
+                        )
+                    }
+                }
+            };
+
+            game.snake.direction = {
+                queue: [ settings.game.snake.initial.direction ],
+
+                current: settings.game.snake.initial.direction,
+
+                changeIfNecessary: function() {
+                    if ( game.snake.direction.queue.length > 0 ){
+                        game.snake.direction.current = game.snake.direction.queue.shift()
+                    }
+                },
+
+                currentIsNotOppositeOf: function( direction ){
+                    if ( game.snake.segment.list.length === 1 ){
+                        return true
+                    } else {
+                        var opposite;
+
+                        if ( game.snake.direction.current === 'up' ) opposite = 'down';
+                        else if ( game.snake.direction.current === 'down' ) opposite = 'up';
+                        else if ( game.snake.direction.current === 'left' ) opposite = 'right';
+                        else if ( game.snake.direction.current === 'right' ) opposite = 'left';
+
+                        return !( direction == opposite );
+                    }
+                },
+
+                lastQueuedIsNotSameAs: function( direction ){
+                    return !( game.snake.direction.queue.last() == direction )
+                },
+
+                pushOrInit: function( direction ){
+                    if ( game.state === 'starting'){
+                        game.snake.direction.queue[0] = direction
+
+                    } else game.snake.direction.queue.push( direction )
+                }
+            };
+
+            game.snake.move = function() {
+                game.snake.direction.changeIfNecessary();
+
+                if ( game.snake.segment.list.length > 1 ){
+                    game.snake.segment.list.unshift( game.snake.segment.list.pop() );
+                    move( game.snake.segment.list[1] )
+                } else {
+                    move( game.snake.segment.list[0] )
+                }
+
+                function move( to ){
+                    if ( game.snake.direction.current === 'up' ){
+                        game.snake.segment.list[0].x( to.x() );
+                        game.snake.segment.list[0].y( to.y() - game.background.tile.size );
+
+                    } else if ( game.snake.direction.current === 'right' ){
+                        game.snake.segment.list[0].x( to.x() + game.background.tile.size );
+                        game.snake.segment.list[0].y( to.y() )
+
+                    } else if ( game.snake.direction.current === 'down' ){
+                        game.snake.segment.list[0].x( to.x() );
+                        game.snake.segment.list[0].y( to.y() + game.background.tile.size )
+
+                    } else {
+                        game.snake.segment.list[0].x( to.x() - game.background.tile.size );
+                        game.snake.segment.list[0].y( to.y() );
+                    }
+                }
+            };
+
+            game.snake.isCollidingWith = {
+                itself: function() {
+                    return game.collision({ shape: game.snake.segment.list[ 0 ],
+                        list: game.snake.segment.list }) !== -1;
+                },
+
+                boundary: function() {
+                    return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
+                        game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
+                        game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
+                        game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
+                },
+
+                heart: function( cb ){
+                    cb( game.collision({ shape: game.snake.segment.list[ 0 ], list: game.heart.list }) )
+                }
+            };
+
             game.snake.proto = new Kinetic.Group();
 
             var palette = settings.game.snake.color.palette;
