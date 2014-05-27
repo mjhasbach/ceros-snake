@@ -3,8 +3,6 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
         var loading = {
             name: 'loading',
 
-            state: 'stopped',
-
             layer: new Kinetic.Layer()
         };
 
@@ -84,29 +82,31 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
             ( function _start() {
                 stage.add( loading.layer );
+
                 loading.state = 'running';
                 loading.animation.start();
+
+                require([ 'assets' ], function( assets ){
+
+                    assets.init({ background: background });
+
+                    assets.waitForAsync( function() {
+                        loading.state = 'stopping';
+
+                        assets.audio.song.mp3.play().loop();
+
+                        require([ 'events' ], function( events ){
+                            events.init({
+                                loading: loading,
+                                stage: stage,
+                                audio: assets.audio,
+                                menu: assets.menu,
+                                game: assets.game
+                            })
+                        })
+                    });
+                })
             })();
         })();
-
-        require([ 'assets' ], function( assets ){
-
-            assets.init({ background: background });
-
-            assets.waitForAsync( function() {
-                loading.state = 'stopping';
-                assets.audio.song.mp3.play().loop();
-
-                require([ 'events' ], function( events ){
-                    events.init({
-                        loading: loading,
-                        stage: stage,
-                        audio: assets.audio,
-                        menu: assets.menu,
-                        game: assets.game
-                    })
-                })
-            });
-        })
     }
 );
