@@ -6,37 +6,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
         layer: new Kinetic.Layer({ opacity: 0 }),
 
-        heart: {
-            regenerate: function() {
-                generateHeart();
-
-                for ( var i = 0; i < settings.game.heart.maximum - 1; i++ ){
-                    if ( util.calculate.random.float( 0, 100 ) < settings.game.heart.spawnProbability * 100 ){
-                        generateHeart()
-                    }
-                }
-
-                function generateHeart() {
-                    var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
-                        y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
-
-                    if ( game.collision({ coords: { x: x, y: y }, list: game.heart.list }) === -1 &&
-                         game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
-
-                        var heart = game.heart.proto.clone({
-                            x: x.fromCoord(),
-                            y: y.fromCoord()
-                        });
-
-                        game.heart.list.push( heart );
-                        game.layer.add( heart );
-                        heart.setZIndex( 2 );
-
-                    } else generateHeart();
-                }
-            }
-        },
-
         snake: {
             segment: {
                 queueNew: function() {
@@ -211,6 +180,20 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
     };
 
     game.init = function( options ){
+        ( function _prototypes() {
+            Number.prototype.toCoord = function() {
+                return ( this / game.background.tile.size ) + 2
+            };
+
+            Number.prototype.fromCoord = function() {
+                return ( this - 2 ) * game.background.tile.size
+            };
+
+            Array.prototype.last = function() {
+                return this[ this.length - 1 ];
+            }
+        })();
+
         ( function _bg() {
             game.background = options.background.game;
             game.layer.add( game.background.group )
@@ -219,16 +202,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         ( function _calculations() {
             settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
             settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
-        })();
-
-        ( function _numberToCoordinate() {
-            Number.prototype.toCoord = function() {
-                return ( this / game.background.tile.size ) + 2
-            };
-
-            Number.prototype.fromCoord = function() {
-                return ( this - 2 ) * game.background.tile.size
-            };
         })();
 
         ( function _boundary() {
@@ -302,6 +275,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         })();
 
         ( function _heart() {
+            game.heart = {};
+
             game.heart.list = [];
 
             game.heart.proto = new Kinetic.Group();
@@ -325,6 +300,35 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 game.heart.proto.add( innerHeart )
             }
+
+            game.heart.generate = function() {
+                var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
+                    y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
+
+                if ( game.collision({ coords: { x: x, y: y }, list: game.heart.list }) === -1 &&
+                    game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
+
+                    var heart = game.heart.proto.clone({
+                        x: x.fromCoord(),
+                        y: y.fromCoord()
+                    });
+
+                    game.heart.list.push( heart );
+                    game.layer.add( heart );
+                    heart.setZIndex( 2 );
+
+                } else game.heart.generate();
+            };
+
+            game.heart.regenerate = function() {
+                game.heart.generate();
+
+                for ( var i = 0; i < settings.game.heart.maximum - 1; i++ ){
+                    if ( util.calculate.random.float( 0, 100 ) < settings.game.heart.spawnProbability * 100 ){
+                        game.heart.generate()
+                    }
+                }
+            };
         })();
 
         ( function _snake() {
@@ -444,10 +448,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 })
             }, game.layer )
         })();
-    };
-
-    Array.prototype.last = function() {
-        return this[ this.length - 1 ];
     };
 
     return game;
