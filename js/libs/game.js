@@ -429,7 +429,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                                 game.counter.add();
 
-                                game.background.cycleColors( game.background.list );
+                                game.background.cycleColors();
 
                                 game.heart.list[ index ].destroy();
                                 game.heart.list.splice( index, 1 );

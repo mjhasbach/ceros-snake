@@ -25,20 +25,21 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             function Background() {
                 var bg = {
-                    list: [],
-
                     group: new Kinetic.Group,
 
                     tile: {
+                        list: [],
+
                         quantity: background.tile.quantity,
+
                         size: background.tile.size
                     },
 
-                    cycleColors: function( list ){
-                        list.forEach( function( tile ){
+                    cycleColors: function() {
+                        this.tile.list.forEach( function( tile ){
                             tile.fill( settings.background.tile.color.random() )
                         })
-                    }
+                    }.bind( this )
                 };
 
                 for ( var x = 0; x < background.tile.quantity.x; x++ ){
