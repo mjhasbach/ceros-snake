@@ -4,12 +4,12 @@ define([ 'buzz', 'settings' ], function( buzz, settings ){
             isLoaded: false,
 
             mp3: new buzz.sound( settings.song.path )
+                .bind( 'loadeddata', function() {
+                    audio.song.isLoaded = true
+                }
+            )
         }
     };
-
-    audio.song.mp3.bind( 'loadeddata', function() {
-        audio.song.isLoaded = true
-    });
 
     return audio
 });
