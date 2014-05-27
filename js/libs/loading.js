@@ -52,9 +52,12 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
             })();
 
             ( function _animation() {
+                var sine = new util.SineHelper();
+
                 loading.animation = new Kinetic.Animation( function( frame ){
                     loading.wheel.setDrawFunc( function( context ){
                         context.beginPath();
+
                         context.arc(
                             util.calculate.absolute.x( 1.99 ),
                             util.calculate.absolute.y( 1.99 ),
@@ -64,11 +67,19 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                             true
                         );
 
-                        //if ( Math.sin( frame.time / 500 ) === 0 ) background.tile.cycleColors();
-
                         context.stroke();
-                        context.strokeShape( this )
+                        context.strokeShape( this );
                     });
+
+                    if ( sine.isAtMaximum( Math.sin( frame.time / 500 ))){
+                        loading.background.cycleColors( loading.background.list );
+                    }
+
+                    if ( sine.isAtMinimum( Math.sin( frame.time / 500 ))){
+                        loading.background.cycleColors( loading.background.list );
+                    }
+
+                    sine.update( Math.sin( frame.time / 500 ));
 
                     if ( loading.state === 'stopping' ) util.animation.stop( loading, frame );
 

@@ -74,6 +74,34 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                     options.stroke.l + '%)'
                 );
             }
+        },
+
+        SineHelper: function() {
+            var sine = this;
+
+            this.lastDirection = 'up';
+
+            this.lastSine = 0;
+
+            this.getDirection = function( s ){
+                if ( s > sine.lastSine ) return 'up';
+                else return 'down'
+            };
+
+            this.update = function( s ){
+                sine.lastDirection = sine.getDirection( s );
+                sine.lastSine = s;
+            };
+
+            this.isAtMinimum = function( s ){
+                return sine.lastDirection !== sine.getDirection( s ) && s < 0;
+            };
+
+            this.isAtMaximum = function( s ){
+                return sine.lastDirection !== sine.getDirection( s ) && s > 0;
+            };
+
+            return sine
         }
     };
 
