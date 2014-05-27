@@ -93,12 +93,8 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 sine.lastSine = s;
             };
 
-            this.isAtMinimum = function( s ){
-                return sine.lastDirection !== sine.getDirection( s ) && s < 0;
-            };
-
-            this.isAtMaximum = function( s ){
-                return sine.lastDirection !== sine.getDirection( s ) && s > 0;
+            this.directionChanged = function( s ){
+                return sine.lastDirection !== sine.getDirection( s )
             };
 
             return sine

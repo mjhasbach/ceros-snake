@@ -71,11 +71,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         context.strokeShape( this );
                     });
 
-                    if ( sine.isAtMaximum( Math.sin( frame.time / 500 ))){
-                        loading.background.cycleColors( loading.background.list );
-                    }
-
-                    if ( sine.isAtMinimum( Math.sin( frame.time / 500 ))){
+                    if ( sine.directionChanged( Math.sin( frame.time / 500 ))){
                         loading.background.cycleColors( loading.background.list );
                     }
 
