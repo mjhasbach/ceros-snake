@@ -11,7 +11,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 background.tile.quantity.x;
         })();
 
-        ( function _tilePrototype() {
+        ( function _tile() {
             background.tile.proto = new Kinetic.Rect({
                 width: background.tile.size,
                 height: background.tile.size
