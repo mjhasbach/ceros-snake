@@ -155,8 +155,8 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
 
                         if ( fromModule.name === 'loading' &&
-                            fromModule.state === 'stopping' &&
-                            !toModule.animation.isRunning() ){
+                             fromModule.state === 'stopping' &&
+                             !toModule.animation.isRunning() ){
 
                             start( toModule );
                         }
