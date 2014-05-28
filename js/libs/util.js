@@ -126,12 +126,9 @@ define([ 'underscore', 'settings' ], function( _, settings ){
         }
     };
 
-    ( function _init() {
-        ( function _calculateDimensions() {
-            width = util.calculate.dimensions.aspect().width;
-            height = util.calculate.dimensions.aspect().height
-        })();
-    })();
+    width = util.calculate.dimensions.aspect().width;
+
+    height = util.calculate.dimensions.aspect().height;
 
     return util
 });
