@@ -13,8 +13,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 if ( options.list ){
                     for ( i = 0; i < options.list.length; i++ ){
                         if ( options.shape != options.list[ i ] &&
-                            options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
-                            options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
+                             options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
+                             options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
 
                             return i;
                         }
@@ -25,7 +25,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 if ( options.list ){
                     for ( i = 0; i < options.list.length; i++ ){
                         if ( options.list[ i ].x().toCoord() == options.coords.x &&
-                            options.list[ i ].y().toCoord() == options.coords.y ){
+                             options.list[ i ].y().toCoord() == options.coords.y ){
 
                             return i;
                         }
@@ -165,7 +165,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
 
                 if ( game.collision({ coords: { x: x, y: y }, list: game.heart.list }) === -1 &&
-                    game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
+                     game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
 
                     var heart = game.heart.proto.clone({
                         x: x.fromCoord(),
