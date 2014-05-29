@@ -250,10 +250,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 menu.layer.add( menu.options.gear.shape );
 
                 menu.options.gear.hitBox = new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 2.51 ),
-                    y: util.calculate.absolute.y( settings.menu.options.y ) + util.calculate.absolute.y( 105 ),
-                    width: util.calculate.absolute.x( 12.85 ),
-                    height: util.calculate.absolute.y( 7.17 ),
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
                     opacity: 0
                 });
 
