@@ -176,10 +176,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 );
 
                 menu.options.singlePlayer.hitBox = new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 50 ),
-                    y: util.calculate.absolute.y( 1.21 ),
-                    width: util.calculate.absolute.x( 6.5 ),
-                    height: util.calculate.absolute.y( 8.9 ),
+                    x: util.calculate.absolute.x( 62 ),
+                    y: util.calculate.absolute.y( 1.214 ),
+                    width: util.calculate.absolute.x( 6.25 ),
+                    height: util.calculate.absolute.y( 8.46 ),
                     opacity: 0
                 });
 
