@@ -189,6 +189,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 }
             };
 
+            game.heart.destroy = function( index ){
+                game.heart.list[ index ].destroy();
+                game.heart.list.splice( index, 1 )
+            };
+
             game.heart.proto = new Kinetic.Group();
 
             var color = settings.game.heart.initial.color;
@@ -427,15 +432,15 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                         game.snake.isCollidingWith.heart( function( index ){
                             if ( index !== -1 ){
-                                game.snake.segment.queueNew();
+                                game.heart.destroy( index );
 
                                 game.counter.add();
 
                                 game.background.cycleColors();
 
-                                game.heart.list[ index ].destroy();
-                                game.heart.list.splice( index, 1 );
-                                if ( game.heart.list.length === 0 ) game.heart.regenerate();
+                                game.snake.segment.queueNew();
+
+                                if ( game.heart.list.length === 0 ) game.heart.regenerate()
                             }
                         })
                     }
