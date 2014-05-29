@@ -409,9 +409,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.heart.regenerate()
                     }
 
-                    util.animation.fade( game.layer, frame, 'in' );
-
-                    if ( game.layer.opacity() === 1 ) game.state = 'running'
+                    util.animation.fade( game.layer, frame, 'in', function() {
+                        game.state = 'running'
+                    })
 
                 } else if ( game.state === 'running' ){
                     game.boundaries.cycleColors( frame );
