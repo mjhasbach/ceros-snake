@@ -111,7 +111,7 @@ define([], function() {
                 color: { palette: [ '#4A374B', '#713E4F', '#8B4045' ]},
 
                 initial: {
-                    coords: { x: 14, y: 8 },
+                    coords: { x: 16, y: 10 },
                     direction: 'up'
                 },
 

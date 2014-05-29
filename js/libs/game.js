@@ -229,8 +229,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         segment.x = game.snake.segment.list.last().x();
                         segment.y = game.snake.segment.list.last().y();
                     } else {
-                        segment.x = settings.game.snake.initial.coords.x * game.background.tile.size;
-                        segment.y = settings.game.snake.initial.coords.y * game.background.tile.size;
+                        segment.x = settings.game.snake.initial.coords.x.fromCoord();
+                        segment.y = settings.game.snake.initial.coords.y.fromCoord();
                     }
 
                     segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
