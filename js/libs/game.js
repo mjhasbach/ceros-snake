@@ -123,18 +123,19 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             game.boundaries.lastCycleTime = 0;
 
+            game.boundaries.areReadyToCycle = function( frame ){
+                return frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8
+            };
+
             game.boundaries.cycleColors = function( frame ){
-                if ( frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8 ){
+                ( function( color ){
+                    game.boundaries.top.fill( color );
+                    game.boundaries.left.fill( color );
+                    game.boundaries.bottom.fill( color );
+                    game.boundaries.right.fill( color );
+                })( settings.background.tile.color.random() );
 
-                    ( function( color ){
-                        game.boundaries.top.fill( color );
-                        game.boundaries.left.fill( color );
-                        game.boundaries.bottom.fill( color );
-                        game.boundaries.right.fill( color );
-                    })( settings.background.tile.color.random() );
-
-                    game.boundaries.lastCycleTime = frame.time
-                }
+                game.boundaries.lastCycleTime = frame.time
             }
         })();
 
@@ -407,7 +408,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     })
 
                 } else if ( game.state === 'running' ){
-                    game.boundaries.cycleColors( frame );
+                    if ( game.boundaries.areReadyToCycle( frame )){
+                        game.boundaries.cycleColors( frame );
+                    }
 
                     if ( game.snake.isReadyToMove( frame )){
 
