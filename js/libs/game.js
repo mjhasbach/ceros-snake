@@ -427,7 +427,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                                 game.counter.add();
 
-                                game.background.cycleColors();
+                                game.background.cycleColors( frame );
 
                                 game.snake.segment.queueNew();
 
