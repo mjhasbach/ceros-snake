@@ -94,7 +94,13 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             };
 
             this.directionChanged = function( s ){
-                return sine.lastDirection !== sine.getDirection( s )
+                if ( sine.lastDirection !== sine.getDirection( s )){
+                    sine.update( s );
+                    return true
+                } else {
+                    sine.update( s );
+                    return false
+                }
             };
 
             return sine

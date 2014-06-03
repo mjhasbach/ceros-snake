@@ -20,12 +20,22 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
         ( function _backgrounds() {
             background.loading = new Background();
+
+            background.loading.sine = new util.SineHelper();
+
+            background.loading.isReadyToCycle = function( sine ){
+                return background.loading.sine.directionChanged( sine )
+            };
+
             background.menu = new Background();
             background.game = new Background();
+            background.highScores = new Background();
 
             function Background() {
                 var bg = {
                     group: new Kinetic.Group,
+
+                    lastCycleTime: null,
 
                     tile: {
                         list: [],
@@ -36,11 +46,13 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     }
                 };
 
-                bg.cycleColors = function() {
-                    this.forEach( function( tile ){
+                bg.cycleColors = function( frame ) {
+                    this.tile.list.forEach( function( tile ){
                         tile.fill( settings.background.tile.color.random() )
-                    })
-                }.bind( bg.tile.list );
+                    });
+
+                    this.lastCycleTime = frame.time;
+                }.bind( bg );
 
                 for ( var x = 0; x < background.tile.quantity.x; x++ ){
                     for ( var y = 0; y < background.tile.quantity.y; y++ ){
