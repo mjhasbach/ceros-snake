@@ -140,12 +140,6 @@ define([], function() {
         }
     };
 
-    settings.game.boundary = {
-        color: {
-            palette: settings.background.tile.color.palette
-        }
-    };
-
     settings.background.tile.color.random = function() {
         return settings.background.tile.color.palette[ Math.round( Math.random() * ( settings.background.tile.color.palette.length - 1 ))]
     };

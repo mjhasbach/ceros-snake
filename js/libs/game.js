@@ -83,56 +83,50 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         ( function _boundary() {
             game.boundaries = {};
 
-            game.boundaries.top = new Kinetic.Rect({
-                x: game.background.tile.size / 4,
-                y: game.background.tile.size / 4,
-                width: ( game.background.tile.size * game.background.tile.quantity.x ) -
-                    game.background.tile.size ,
-                height: game.background.tile.size / 2,
-                fill: settings.game.boundary.color.palette[ 0 ]
-            });
+            ( function( color ){
+                game.boundaries.top = new Kinetic.Rect({
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size / 4,
+                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                        game.background.tile.size ,
+                    height: game.background.tile.size / 2,
+                    fill: color
+                });
+
+                game.boundaries.left = new Kinetic.Rect({
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size / 4,
+                    width: game.background.tile.size / 2,
+                    height: ( game.background.tile.size * game.background.tile.quantity.y ) -
+                        game.background.tile.size,
+                    fill: color
+                });
+
+                game.boundaries.bottom = new Kinetic.Rect({
+                    x: game.background.tile.size / 4,
+                    y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
+                    width: ( game.background.tile.size * game.background.tile.quantity.x ) -
+                        game.background.tile.size ,
+                    height: game.background.tile.size / 2,
+                    fill: color
+                });
+
+                game.boundaries.right = new Kinetic.Rect({
+                    x: util.calculate.dimensions.original.width() -
+                        ( game.background.tile.size * 0.75 ),
+                    y: game.background.tile.size / 4,
+                    width: game.background.tile.size / 2,
+                    height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
+                    fill: color
+                })
+            })( settings.background.tile.color.random() );
 
             game.layer.add( game.boundaries.top );
-
-
-            game.boundaries.left = new Kinetic.Rect({
-                x: game.background.tile.size / 4,
-                y: game.background.tile.size / 4,
-                width: game.background.tile.size / 2,
-                height: ( game.background.tile.size * game.background.tile.quantity.y ) -
-                    game.background.tile.size,
-                fill: settings.game.boundary.color.palette[ 0 ]
-            });
-
             game.layer.add( game.boundaries.left );
-
-
-            game.boundaries.bottom = new Kinetic.Rect({
-                x: game.background.tile.size / 4,
-                y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
-                width: ( game.background.tile.size * game.background.tile.quantity.x ) -
-                    game.background.tile.size ,
-                height: game.background.tile.size / 2,
-                fill: settings.game.boundary.color.palette[ 0 ]
-            });
-
             game.layer.add( game.boundaries.bottom );
-
-
-            game.boundaries.right = new Kinetic.Rect({
-                x: util.calculate.dimensions.original.width() -
-                    ( game.background.tile.size * 0.75 ),
-                y: game.background.tile.size / 4,
-                width: game.background.tile.size / 2,
-                height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
-                fill: settings.game.boundary.color.palette[ 0 ]
-            });
-
             game.layer.add( game.boundaries.right );
 
-
             game.boundaries.lastCycleTime = 0;
-
 
             game.boundaries.cycleColors = function( frame ){
                 if ( frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8 ){
@@ -144,7 +138,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.boundaries.right.fill( color );
                     })( settings.background.tile.color.random() );
 
-                    settings.game.boundary.color.palette.unshift( settings.game.boundary.color.palette.pop() );
                     game.boundaries.lastCycleTime = frame.time
                 }
             }
