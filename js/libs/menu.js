@@ -373,12 +373,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                     if ( menu.state === 'starting' ){
 
-                        util.animation.fade( menu.layer, frame, 'in' );
-
-                        if ( menu.layer.opacity() === 1 ){
-
+                        util.animation.fade( menu.layer, frame, 'in', function() {
                             menu.state = 'running'
-                        }
+                        })
                     } else if ( menu.state === 'stopping' ){
 
                         util.animation.stop( menu, frame, function() { menu.cleanUp() })
