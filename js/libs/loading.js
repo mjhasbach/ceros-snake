@@ -87,11 +87,8 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                 loading.animation.start();
 
                 require([ 'assets' ], function( assets ){
-
-                    assets.init({ background: background });
-
                     assets.waitForAsync( function() {
-                        loading.state = 'stopping';
+                        assets.init({ background: background });
 
                         assets.audio.song.mp3.play().loop();
 
@@ -102,11 +99,13 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                                 audio: assets.audio,
                                 menu: assets.menu,
                                 game: assets.game
-                            })
+                            });
+
+                            loading.state = 'stopping'
                         })
-                    });
+                    })
                 })
-            })();
-        })();
+            })()
+        })()
     }
 );
