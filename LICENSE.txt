@@ -10,10 +10,10 @@ https://github.com/jaysalvat/buzz/blob/master/MIT-LICENSE
 Epic Song copyright BoxCat Games under the CC BY 3.0 licence.
 http://creativecommons.org/licenses/by/3.0/
 
-Font Awesome Fonts copyright Dave Gandy under the SIL OFL 1.1.
+Font Awesome Code copyright Dave Gandy under the MIT License.
 http://fortawesome.github.io/Font-Awesome/license/
 
-Font Awesome Code copyright Dave Gandy under the MIT License.
+Font Awesome Fonts copyright Dave Gandy under the SIL OFL 1.1.
 http://fortawesome.github.io/Font-Awesome/license/
 
 jQuery copyright jQuery Foundation under the MIT license.
