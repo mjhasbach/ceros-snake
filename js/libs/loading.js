@@ -100,8 +100,6 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                                 menu: assets.menu,
                                 game: assets.game
                             });
-
-
                         })
                     })
                 })
