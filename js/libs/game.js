@@ -75,11 +75,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
-        ( function _calculations() {
-            settings.game.counter.shadow.blur = util.calculate.absolute.size( 100 );
-            settings.game.counter.font.size = util.calculate.absolute.size( 11 ) * 2;
-        })();
-
         ( function _bg() {
             game.background = options.background.game;
             game.layer.add( game.background.group )
@@ -370,11 +365,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.layer.add( game.counter.group );
 
             game.counter.proto = new Kinetic.Text({
-                fontSize: settings.game.counter.font.size,
+                fontSize: util.calculate.absolute.size( 11 ) * 2,
                 fontFamily: settings.font.ui,
                 fill: settings.game.counter.font.color,
                 shadowColor: settings.game.counter.shadow.color,
-                shadowBlur: settings.game.counter.shadow.blur
+                shadowBlur: util.calculate.absolute.size( 100 )
             });
 
             game.counter.remove = function( counter ){
