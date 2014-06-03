@@ -101,7 +101,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                                 game: assets.game
                             });
 
-                            loading.state = 'stopping'
+
                         })
                     })
                 })

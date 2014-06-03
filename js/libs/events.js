@@ -176,6 +176,10 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                             module.animation.start()
                         }
                     }
+                })();
+
+                ( function transitionToMenu() {
+                    loading.state = 'stopping'
                 })()
             }
         }
