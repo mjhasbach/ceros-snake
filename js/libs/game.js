@@ -41,11 +41,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         },
 
-        isMoveCycle: function( frame ){
-            return frame.time - game.snake.lastMovementTime >= ( settings.animation.period -
-                ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
-        },
-
         cleanUp: function() {
             game.snake.segment.list.forEach( function( segment ){ segment.destroy() });
             game.heart.list.forEach( function( heart ){ heart.destroy() });
@@ -208,8 +203,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         ( function _snake() {
             game.snake = {};
 
-            game.snake.lastMovementTime = 0;
-
             game.snake.segment = {
                 queue: [],
 
@@ -281,6 +274,13 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                     } else game.snake.direction.queue.push( direction )
                 }
+            };
+
+            game.snake.lastMovementTime = 0;
+
+            game.snake.isReadyToMove = function( frame ){
+                return frame.time - game.snake.lastMovementTime >= ( settings.animation.period -
+                    ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
             };
 
             game.snake.move = function() {
@@ -409,7 +409,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 } else if ( game.state === 'running' ){
                     game.boundaries.cycleColors( frame );
 
-                    if ( game.isMoveCycle( frame )){
+                    if ( game.snake.isReadyToMove( frame )){
 
                         game.snake.lastMovementTime = frame.time;
                         game.snake.move();
