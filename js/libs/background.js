@@ -47,12 +47,12 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 };
 
                 bg.cycleColors = function( frame ) {
-                    this.tile.list.forEach( function( tile ){
+                    bg.tile.list.forEach( function( tile ){
                         tile.fill( settings.background.tile.color.random() )
                     });
 
-                    this.lastCycleTime = frame.time;
-                }.bind( bg );
+                    bg.lastCycleTime = frame.time;
+                };
 
                 for ( var x = 0; x < background.tile.quantity.x; x++ ){
                     for ( var y = 0; y < background.tile.quantity.y; y++ ){
