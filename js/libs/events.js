@@ -8,7 +8,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                 var game = assets.game;
                 var loading = assets.loading;
 
-                ( function keyEvents() {
+                ( function _keyEvents() {
                     var keys = {
                         w: 87, a: 65, s: 83, d: 68,
                         up: 38, left: 37, down: 40, right: 39,
@@ -44,7 +44,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     }
                 })();
 
-                ( function mouseEvents() {
+                ( function _mouseEvents() {
                     menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
                         if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
                             menu.options.singlePlayer.mouseOver = true
@@ -129,7 +129,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     });
                 })();
 
-                ( function transitionListener() {
+                ( function _transitionListener() {
                     ( function listener() {
                         transition( loading, menu );
                         transition( menu, game );
@@ -178,7 +178,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     }
                 })();
 
-                ( function transitionToMenu() {
+                ( function _transitionToMenu() {
                     loading.state = 'stopping'
                 })()
             }
