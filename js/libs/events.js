@@ -148,7 +148,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                             });
 
                             if ( fromModule.name === 'loading' ) fromModule.layer.moveToTop();
-                            else if ( toModule.name === 'game' ) toModule.layer.setZIndex( 2 );
+                            else if ( toModule.name === 'game' ) toModule.layer.moveToBottom();
 
                             toModule.layer.draw();
                         }
