@@ -378,7 +378,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         })
                     } else if ( menu.state === 'stopping' ){
 
-                        util.animation.stop( menu, frame, function() { menu.cleanUp() })
+                        util.animation.stop( menu, frame )
 
                     } else if ( menu.state === 'settings' ){
 

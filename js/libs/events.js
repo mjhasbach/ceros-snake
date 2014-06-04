@@ -26,7 +26,10 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                             else game.state = 'running'
                         }
 
-                        if ( game.state === 'running' || game.state === 'starting' ){
+                        if ( game.state === 'starting' ||
+                             game.state === 'counting down' ||
+                             game.state === 'running' ){
+
                             handleNewDirection( key.which, [ keys.up, keys.w ], 'up');
                             handleNewDirection( key.which, [ keys.left, keys.a ], 'left');
                             handleNewDirection( key.which, [ keys.down, keys.s ], 'down');
@@ -135,50 +138,60 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                         transition( menu, game );
                         transition( game, menu );
 
-                        setTimeout( function () { listener() }, 100 )
+                        setTimeout( function() { listener() }, 100 )
                     })();
 
                     function transition( fromModule, toModule ){
                         if ( !toModule.layer.getParent() && fromModule.state === 'stopping' ){
+                            if ( settings.debug )
+                                console.log( 'Starting module "' + toModule.name + '"' );
 
-                            stage.add( toModule.layer );
+                            start( toModule );
+                        }
+
+                        if ( fromModule.layer.opacity() === 0 && fromModule.state === 'stopping' ){
+                            if ( settings.debug )
+                                console.log( 'Stopping module "' + fromModule.name + '"' );
+
+                            stop( fromModule );
+
+                            if ( toModule.name === 'game' ){
+                                toModule.countDown.shape.opacity( 1 );
+                                toModule.state = 'counting down'
+                            }
+                        }
+
+                        function start( module ){
+                            stage.add( module.layer );
+
+                            module.layer.opacity( 1 );
+
+                            module.layer.moveToBottom();
+
                             stage.scale({
                                 x: util.calculate.dimensions.scale(),
                                 y: util.calculate.dimensions.scale()
                             });
 
-                            if ( fromModule.name === 'loading' ) fromModule.layer.moveToTop();
-                            else if ( toModule.name === 'game' ) toModule.layer.moveToBottom();
+                            module.animation.start();
 
-                            toModule.layer.draw();
-                        }
-
-
-                        if ( fromModule.name === 'loading' &&
-                             fromModule.state === 'stopping' &&
-                             !toModule.animation.isRunning() ){
-
-                            start( toModule );
-                        }
-
-                        else if ( fromModule.state === 'to game' ){
-                            start( toModule );
-                            fromModule.state = 'stopped'
-                        }
-
-                        else if ( fromModule.state === 'to menu' ){
-                            start( toModule );
-                            fromModule.state = 'stopped';
-                        }
-
-                        function start( module ){
                             module.state = 'starting';
-                            module.animation.start()
+                        }
+
+                        function stop( module ){
+                            module.animation.stop();
+
+                            module.layer.remove();
+
+                            if ( module.cleanUp ) module.cleanUp();
+
+                            module.state = 'stopped';
                         }
                     }
                 })();
 
                 ( function _transitionToMenu() {
+                    assets.audio.song.mp3.play().loop();
                     loading.state = 'stopping'
                 })()
             }
