@@ -2,8 +2,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
     var game = {
         name: 'game',
 
-        referrer: null,
-
         state: 'stopped',
 
         layer: new Kinetic.Layer(),
