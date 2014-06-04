@@ -69,7 +69,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 })( settings.menu.options.settings.font.color.enabled.h,
                     settings.menu.options.settings.font.color.enabled.s,
-                    settings.menu.options.settings.font.color.enabled.l + menu.title.brightnessVariance
+                    settings.menu.options.settings.font.color.enabled.l + ( menu.title.brightnessVariance * 2 )
                 );
             }
         },
