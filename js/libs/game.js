@@ -366,7 +366,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 fontFamily: settings.font.ui,
                 fill: settings.game.counter.font.color,
                 shadowColor: settings.game.counter.shadow.color,
-                shadowBlur: util.calculate.absolute.size( 100 )
+                shadowBlur: util.calculate.absolute.size( settings.game.counter.shadow.blur )
             });
 
             game.counter.remove = function( counter ){
@@ -407,9 +407,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     fontSize: util.calculate.absolute.size( 1.6 ),
                     fontFamily: settings.font.ui,
                     text: '3',
-                    fill: settings.game.counter.font.color,
-                    shadowColor: settings.game.counter.shadow.color,
-                    shadowBlur: util.calculate.absolute.size( 100 ),
+                    fill: settings.game.countDown.font.color,
+                    shadowColor: settings.game.countDown.shadow.color,
+                    shadowBlur: util.calculate.absolute.size( settings.game.countDown.shadow.blur ),
                     opacity: 0
                 }),
 
