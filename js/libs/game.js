@@ -2,9 +2,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
     var game = {
         name: 'game',
 
+        referrer: null,
+
         state: 'stopped',
 
-        layer: new Kinetic.Layer({ opacity: 0 }),
+        layer: new Kinetic.Layer(),
 
         collision: function( options ){
             var i;
@@ -52,6 +54,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.counter.list = [];
             game.snake.direction.queue = [ settings.game.snake.initial.direction ];
             game.snake.direction.current = settings.game.snake.initial.direction;
+            game.countDown.shape.text( '3' );
         }
     };
 
@@ -270,10 +273,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 },
 
                 pushOrInit: function( direction ){
-                    if ( game.state === 'starting'){
-                        game.snake.direction.queue[0] = direction
+                    if ( game.state === 'running' ){
+                        game.snake.direction.queue.push( direction )
 
-                    } else game.snake.direction.queue.push( direction )
+                    } else game.snake.direction.queue[0] = direction
                 }
             };
 
@@ -394,18 +397,57 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             };
         })();
 
+        ( function _countDown() {
+            var _number;
+
+            game.countDown = {
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( 2.85 ),
+                    y: util.calculate.absolute.y( 30 * -1 ),
+                    fontSize: util.calculate.absolute.size( 1.6 ),
+                    fontFamily: settings.font.ui,
+                    text: '3',
+                    fill: settings.game.counter.font.color,
+                    shadowColor: settings.game.counter.shadow.color,
+                    shadowBlur: util.calculate.absolute.size( 100 ),
+                    opacity: 0
+                }),
+
+                animation: function( frame ){
+                    _number = parseFloat( game.countDown.shape.text() );
+
+                    if ( _number > 0 ){
+                        util.animation.fade( game.countDown.shape, frame, 'out', function() {
+
+                            game.countDown.shape.text( _number -= 1 );
+
+                            if ( _number > 0 ) {
+                                if ( settings.debug )
+                                    console.log( 'Countdown is at ' + _number + ' (' + ( _number + 1 ) + ' faded out)');
+
+                                game.countDown.shape.opacity( 1 )
+
+                            } else if ( settings.debug ) console.log( 'Countdown is done!' );
+                        })
+                    } else game.state = 'running'
+                }
+            };
+
+            game.layer.add( game.countDown.shape )
+        })();
+
         ( function _animation() {
             game.animation = new Kinetic.Animation( function( frame ){
                 if ( game.state === 'starting' ){
                     if ( game.snake.segment.list.length === 0 ){
                         game.snake.segment.queueNew();
                         game.snake.segment.addNewIfNecessary();
-                        game.heart.regenerate()
-                    }
 
-                    util.animation.fade( game.layer, frame, 'in', function() {
-                        game.state = 'running'
-                    })
+                        game.heart.regenerate();
+                    }
+                } else if ( game.state === 'counting down' ){
+
+                    game.countDown.animation( frame )
 
                 } else if ( game.state === 'running' ){
                     if ( game.boundaries.areReadyToCycle( frame )){
@@ -438,7 +480,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 }
 
                 else if ( game.state === 'stopping' )
-                    util.animation.stop( game, frame, function() { game.cleanUp() });
+                    util.animation.stop( game, frame );
 
                 game.counter.list.forEach( function( counter ){
                     util.animation.fade( counter, frame, 'out', function() {

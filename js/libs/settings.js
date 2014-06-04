@@ -1,5 +1,7 @@
 define([], function() {
     var settings = {
+        debug: false,
+
         font: { ui: 'New Rocker' },
 
         animation: { transition: { speed: 1000 }},
@@ -136,6 +138,36 @@ define([], function() {
                 font: { color: '#AE1E35' },
 
                 shadow: { color: '#670D0F' }
+            }
+        },
+
+        highScores: {
+            score: {
+                database: {
+
+                },
+
+                current: {
+                    x: 5,
+                    y: 5,
+                    size: 20,
+                    fill: { color: '#372a50' },
+                    stroke: {
+                        color: '#5b4686',
+                        width: 0
+                    }
+                }
+            },
+
+            toMenu: {
+                x: 5,
+                y: 5,
+                size: 20,
+                fill: { color: '#372a50' },
+                stroke: {
+                    color: '#5b4686',
+                    width: 0
+                }
             }
         }
     };

@@ -67,11 +67,11 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         context.strokeShape( this );
                     });
 
-                    if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 ))){
+                    if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 )))
                         loading.background.cycleColors( frame );
-                    }
 
-                    if ( loading.state === 'stopping' ) util.animation.stop( loading, frame );
+                    if ( loading.state === 'stopping' )
+                        util.animation.stop( loading, frame )
 
                 }, loading.layer )
             })();
@@ -86,8 +86,6 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                     assets.waitForAsync( function() {
                         assets.init({ background: background });
 
-                        assets.audio.song.mp3.play().loop();
-
                         require([ 'events' ], function( events ){
                             events.init({
                                 loading: loading,
@@ -95,7 +93,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                                 audio: assets.audio,
                                 menu: assets.menu,
                                 game: assets.game
-                            });
+                            })
                         })
                     })
                 })
