@@ -139,36 +139,6 @@ define([], function() {
 
                 shadow: { color: '#670D0F' }
             }
-        },
-
-        highScores: {
-            score: {
-                database: {
-
-                },
-
-                current: {
-                    x: 5,
-                    y: 5,
-                    size: 20,
-                    fill: { color: '#372a50' },
-                    stroke: {
-                        color: '#5b4686',
-                        width: 0
-                    }
-                }
-            },
-
-            toMenu: {
-                x: 5,
-                y: 5,
-                size: 20,
-                fill: { color: '#372a50' },
-                stroke: {
-                    color: '#5b4686',
-                    width: 0
-                }
-            }
         }
     };
 
