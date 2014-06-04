@@ -29,7 +29,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             background.menu = new Background();
             background.game = new Background();
-            background.highScores = new Background();
 
             function Background() {
                 var bg = {
