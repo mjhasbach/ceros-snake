@@ -285,7 +285,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
             };
 
-            game.snake.move = function() {
+            game.snake.move = function( frame ){
                 game.snake.direction.changeIfNecessary();
 
                 if ( game.snake.segment.list.length > 1 ){
@@ -294,6 +294,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 } else {
                     move( game.snake.segment.list[0] )
                 }
+
+                game.snake.lastMovementTime = frame.time;
 
                 function move( to ){
                     if ( game.snake.direction.current === 'up' ){
@@ -454,8 +456,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                     if ( game.snake.isReadyToMove( frame )){
 
-                        game.snake.lastMovementTime = frame.time;
-                        game.snake.move();
+                        game.snake.move( frame );
                         game.snake.segment.addNewIfNecessary();
 
                         if ( game.snake.isCollidingWith.itself() ) game.state = 'stopping';
