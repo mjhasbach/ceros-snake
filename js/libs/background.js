@@ -2,16 +2,14 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
     var background = {};
 
     ( function _init() {
-        ( function _calculations() {
+        ( function _tile() {
             background.tile = {};
 
             background.tile.quantity = { x: 32, y: 18 };
 
             background.tile.size = util.calculate.dimensions.original.width() /
                 background.tile.quantity.x;
-        })();
 
-        ( function _tile() {
             background.tile.proto = new Kinetic.Rect({
                 width: background.tile.size,
                 height: background.tile.size
