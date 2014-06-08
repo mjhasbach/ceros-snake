@@ -105,8 +105,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                     menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
                         if ( menu.state === 'settings' ){
-                            audio.song.mp3.toggleMute();
-                            menu.state = 'running';
+                            audio.song.mp3.toggleMute()
                         }
                     });
 
@@ -125,9 +124,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                     menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
                         if ( menu.state === 'settings' ){
-                            if ( bigScreen.enabled ) bigScreen.toggle();
-
-                            menu.state = 'running'
+                            if ( bigScreen.enabled ) bigScreen.toggle()
                         }
                     });
                 })();
