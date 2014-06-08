@@ -59,7 +59,12 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         );
                     }
 
-                    background.game.countDown.number--
+                    background.game.countDown.number--;
+
+                    if ( settings.debug && background.game.countDown.number > 0 )
+                        console.log( 'Countdown at "' + background.game.countDown.number + '"' );
+
+                    else console.log( 'Stopping countdown' )
                 }
             };
 
