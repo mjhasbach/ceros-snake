@@ -155,10 +155,8 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                             stop( fromModule );
 
-                            if ( toModule.name === 'game' ){
-                                toModule.countDown.shape.opacity( 1 );
+                            if ( toModule.name === 'game' )
                                 toModule.state = 'counting down'
-                            }
                         }
 
                         function start( module ){

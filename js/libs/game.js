@@ -52,7 +52,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.counter.list = [];
             game.snake.direction.queue = [ settings.game.snake.initial.direction ];
             game.snake.direction.current = settings.game.snake.initial.direction;
-            game.countDown.shape.text( '3' );
+
+            game.background.cleanUp()
         }
     };
 
@@ -115,7 +116,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
                     fill: color
                 })
-            })( settings.background.tile.color.random() );
+            })( game.background.random.color.tile() );
 
             game.layer.add( game.boundaries.top );
             game.layer.add( game.boundaries.left );
@@ -128,13 +129,13 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 return frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8
             };
 
-            game.boundaries.cycleColors = function( frame ){
+            game.boundaries.animation = function( frame ){
                 ( function( color ){
                     game.boundaries.top.fill( color );
                     game.boundaries.left.fill( color );
                     game.boundaries.bottom.fill( color );
                     game.boundaries.right.fill( color );
-                })( settings.background.tile.color.random() );
+                })( game.background.random.color.tile() );
 
                 game.boundaries.lastCycleTime = frame.time
             }
@@ -234,7 +235,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.layer.add( segment );
 
                         game.snake.segment.list.last().setZIndex(
-                                game.counter.group.getZIndex() - 1
+                            game.counter.group.getZIndex() - 1
                         )
                     }
                 }
@@ -337,7 +338,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             game.snake.proto = new Kinetic.Group();
 
-            var palette = settings.game.snake.color.palette;
+            var palette = settings.game.snake.colors;
 
             for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
                 var rect = new Kinetic.Rect({
@@ -397,61 +398,28 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             };
         })();
 
-        ( function _countDown() {
-            var _number;
-
-            game.countDown = {
-                shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( 2.85 ),
-                    y: util.calculate.absolute.y( 30 * -1 ),
-                    fontSize: util.calculate.absolute.size( 1.6 ),
-                    fontFamily: settings.font.ui,
-                    text: '3',
-                    fill: settings.game.countDown.font.color,
-                    shadowColor: settings.game.countDown.shadow.color,
-                    shadowBlur: util.calculate.absolute.size( settings.game.countDown.shadow.blur ),
-                    opacity: 0
-                }),
-
-                animation: function( frame ){
-                    _number = parseFloat( game.countDown.shape.text() );
-
-                    if ( _number > 0 ){
-                        util.animation.fade( game.countDown.shape, frame, 'out', function() {
-
-                            game.countDown.shape.text( _number -= 1 );
-
-                            if ( _number > 0 ) {
-                                if ( settings.debug )
-                                    console.log( 'Countdown is at ' + _number + ' (' + ( _number + 1 ) + ' faded out)');
-
-                                game.countDown.shape.opacity( 1 )
-
-                            } else if ( settings.debug ) console.log( 'Countdown is done!' );
-                        })
-                    } else game.state = 'running'
-                }
-            };
-
-            game.layer.add( game.countDown.shape )
-        })();
-
         ( function _animation() {
             game.animation = new Kinetic.Animation( function( frame ){
-                if ( game.state === 'starting' ){
-                    if ( game.snake.segment.list.length === 0 ){
-                        game.snake.segment.queueNew();
-                        game.snake.segment.addNewIfNecessary();
 
-                        game.heart.regenerate();
-                    }
+                if ( game.state === 'starting' ){
+                    game.snake.segment.queueNew();
+                    game.snake.segment.addNewIfNecessary();
+
+                    game.heart.regenerate();
+
+                    game.state = 'waiting'
+
                 } else if ( game.state === 'counting down' ){
 
-                    game.countDown.animation( frame )
+                    game.background.countDown.animation( frame );
+
+                    if ( game.background.countDown.number === 0 )
+
+                        game.state = 'running';
 
                 } else if ( game.state === 'running' ){
                     if ( game.boundaries.areReadyToCycle( frame )){
-                        game.boundaries.cycleColors( frame );
+                        game.boundaries.animation( frame );
                     }
 
                     if ( game.snake.isReadyToMove( frame )){
@@ -468,7 +436,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                                 game.counter.add();
 
-                                game.background.cycleColors( frame );
+                                game.background.animation.randomize( frame );
 
                                 game.snake.segment.queueNew();
 
