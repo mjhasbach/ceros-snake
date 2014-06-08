@@ -59,7 +59,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                             util.calculate.absolute.y( 1.99 ),
                             util.calculate.absolute.x( 4.5 ),
                             util.calculate.pi(( Math.sin( frame.time / 500 ))),
-                            util.calculate.pi(( Math.sin( frame.time / 500 )) * 2),
+                            util.calculate.pi(( Math.sin( frame.time / 500 )) * 2 ),
                             true
                         );
 
