@@ -141,20 +141,25 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                     function transition( fromModule, toModule ){
                         if ( !toModule.layer.getParent() && fromModule.state === 'stopping' ){
+                            start( toModule );
+
                             if ( settings.debug )
                                 console.log( 'Starting module "' + toModule.name + '"' );
-
-                            start( toModule );
                         }
 
                         if ( fromModule.layer.opacity() === 0 && fromModule.state === 'stopping' ){
+                            stop( fromModule );
+
                             if ( settings.debug )
                                 console.log( 'Stopping module "' + fromModule.name + '"' );
 
-                            stop( fromModule );
+                            if ( toModule.name === 'game' ){
+                                toModule.state = 'counting down';
 
-                            if ( toModule.name === 'game' )
-                                toModule.state = 'counting down'
+                                if ( settings.debug )
+                                    console.log( 'Initiating countdown' );
+                            }
+
                         }
 
                         function start( module ){
