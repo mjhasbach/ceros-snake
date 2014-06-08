@@ -43,27 +43,30 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             background.game.countDown.number = background.game.countDown.queue.length + 1;
 
             background.game.countDown.animation = function( frame ){
-                if ( background.game.countDown.isReadyToCycle( frame ) &&
-                     background.game.countDown.number > 0 ){
+                ( function( countDown ){
+                    if ( countDown.isReadyToCycle( frame ) && countDown.number > 0 ){
 
-                    background.game.animation.randomize( frame );
+                        background.game.animation.randomize( frame );
 
-                    if ( background.game.countDown.number > 1 ){
-                        background.game.countDown.queue.push(
-                            background.game.countDown.queue.shift()(
+                        if ( countDown.number > 1 ){
+
+                            countDown.queue[ 0 ](
                                 settings.background.countDown.coords.x,
                                 settings.background.countDown.coords.y
-                            )
-                        );
+                            );
+
+                            countDown.queue.push( countDown.queue.shift() )
+                        }
+
+                        countDown.number--;
+
+                        if ( settings.debug && countDown.number > 0 )
+
+                            console.log( 'Countdown at "' + countDown.number + '"' );
+
+                        else console.log( 'Stopping countdown' )
                     }
-
-                    background.game.countDown.number--;
-
-                    if ( settings.debug && background.game.countDown.number > 0 )
-                        console.log( 'Countdown at "' + background.game.countDown.number + '"' );
-
-                    else console.log( 'Stopping countdown' )
-                }
+                })( background.game.countDown );
             };
 
             background.menu = new Background();
@@ -105,7 +108,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         draw: {
                             number: { // Randomly change the color of background tiles into shapes of numbers at the specified coordinates
-                                one: function one( xCoord, yCoord ){
+                                one: function( xCoord, yCoord ){
                                     var x, y;
 
                                     // Top
@@ -128,11 +131,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                             randomDrawColor( x, y )
                                         }
                                     }
-
-                                    return one
                                 },
 
-                                two: function two( xCoord, yCoord ){
+                                two: function( xCoord, yCoord ){
                                     var x, y;
 
                                     // Top
@@ -169,11 +170,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                             randomDrawColor( x, y )
                                         }
                                     }
-
-                                    return two
                                 },
 
-                                three: function three( xCoord, yCoord ){
+                                three: function( xCoord, yCoord ){
                                     var x, y;
 
                                     // Top
@@ -203,8 +202,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                             randomDrawColor( x, y )
                                         }
                                     }
-
-                                    return three
                                 }
                             }
                         }
