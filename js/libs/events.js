@@ -38,11 +38,12 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
-                        if ( _.indexOf( expectedKeys, pressedKey ) != -1 &&
-                            game.snake.direction.currentIsNotOppositeOf( direction ) &&
-                            game.snake.direction.lastQueuedIsNotSameAs( direction )){
+                        if ( _.indexOf( expectedKeys, pressedKey ) != -1 ){
+                            if ( !( game.snake.direction.currentOrLastQueuedIsOppositeOf( direction ) ||
+                                    game.snake.direction.lastQueuedIsSameAs( direction ))){
 
-                            game.snake.direction.pushOrInit( direction );
+                                game.snake.direction.pushOrInit( direction );
+                            }
                         }
                     }
                 })();

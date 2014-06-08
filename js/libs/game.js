@@ -252,23 +252,24 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     }
                 },
 
-                currentIsNotOppositeOf: function( direction ){
+                currentOrLastQueuedIsOppositeOf: function( direction ){
                     if ( game.snake.segment.list.length === 1 ){
-                        return true
+                        return false
                     } else {
                         var opposite;
 
-                        if ( game.snake.direction.current === 'up' ) opposite = 'down';
-                        else if ( game.snake.direction.current === 'down' ) opposite = 'up';
-                        else if ( game.snake.direction.current === 'left' ) opposite = 'right';
-                        else if ( game.snake.direction.current === 'right' ) opposite = 'left';
+                        if ( direction === 'up' ) opposite = 'down';
+                        else if ( direction === 'down' ) opposite = 'up';
+                        else if ( direction === 'left' ) opposite = 'right';
+                        else if ( direction === 'right' ) opposite = 'left';
 
-                        return !( direction == opposite );
+                        return game.snake.direction.current == opposite ||
+                               game.snake.direction.queue.last() == opposite
                     }
                 },
 
-                lastQueuedIsNotSameAs: function( direction ){
-                    return !( game.snake.direction.queue.last() == direction )
+                lastQueuedIsSameAs: function( direction ){
+                    return game.snake.direction.queue.last() == direction
                 },
 
                 pushOrInit: function( direction ){
