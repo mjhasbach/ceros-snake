@@ -81,11 +81,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         if ( i === 0 ){
                             background.game.animation.draw.number[
                                 numberToText( numbers[ i ])
-                                ]( 9, 6 )
+                            ]( 9, 6 )
                         } else {
                             background.game.animation.draw.number[
                                 numberToText( numbers[ i ])
-                                ]( 19, 6 )
+                            ]( 19, 6 )
                         }
                     }
                 } else {
@@ -93,15 +93,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         if ( i === 0 ){
                             background.game.animation.draw.number[
                                 numberToText( numbers[ i ])
-                                ]( 4, 6 )
+                            ]( 4, 6 )
                         } else if ( i === 1 ){
                             background.game.animation.draw.number[
                                 numberToText( numbers[ i ])
-                                ]( 14, 6 )
+                            ]( 14, 6 )
                         } else {
                             background.game.animation.draw.number[
                                 numberToText( numbers[ i ])
-                                ]( 24, 6 )
+                            ]( 24, 6 )
                         }
                     }
                 }
