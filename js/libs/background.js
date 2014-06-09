@@ -28,23 +28,25 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             background.game = new Background();
 
-            background.game.countDown = {};
+            background.game.count = {};
 
-            background.game.countDown.queue = [
+            background.game.count.down = {};
+
+            background.game.count.down.queue = [
                 background.game.animation.draw.number.three,
                 background.game.animation.draw.number.two,
                 background.game.animation.draw.number.one
             ];
 
-            background.game.countDown.isReadyToCycle = function( frame ){
+            background.game.count.down.number = background.game.count.down.queue.length + 1;
+
+            background.game.count.down.isReadyToCycle = function ( frame ){
                 return frame.time - background.game.lastCycleTime >= settings.animation.period * 2
             };
 
-            background.game.countDown.number = background.game.countDown.queue.length + 1;
-
-            background.game.countDown.animation = function( frame ){
-                ( function( countDown ){
-                    if ( countDown.isReadyToCycle( frame ) && countDown.number > 0 ){
+            background.game.count.down.animation = function ( frame ){
+                ( function ( countDown ){
+                    if ( countDown.isReadyToCycle( frame )){
 
                         background.game.animation.randomize( frame );
 
@@ -60,14 +62,54 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         countDown.number--;
 
-                        if ( settings.debug && countDown.number > 0 )
-
-                            console.log( 'Countdown at "' + countDown.number + '"' );
-
-                        else console.log( 'Stopping countdown' )
+                        if ( settings.debug )
+                            console.log( 'Countdown at "' + countDown.number + '"' )
                     }
-                })( background.game.countDown );
+                })( background.game.count.down )
             };
+
+            background.game.count.segments = function( segments ){
+                var i, numbers = ( segments.length + 1 ).toString();
+
+                if ( numbers.length === 1 ){
+                    background.game.animation.draw.number[ numberToText( numbers )](
+                        settings.background.countDown.coords.x,
+                        settings.background.countDown.coords.y
+                    )
+                } else if ( numbers.length === 2 ){
+                    for ( i = 0; i < numbers.length; i++ ){
+                        if ( i === 0 ){
+                            background.game.animation.draw.number[
+                                numberToText( numbers[ i ])
+                                ]( 9, 6 )
+                        } else {
+                            background.game.animation.draw.number[
+                                numberToText( numbers[ i ])
+                                ]( 19, 6 )
+                        }
+                    }
+                } else {
+                    for ( i = 0; i < numbers.length; i++ ){
+                        if ( i === 0 ){
+                            background.game.animation.draw.number[
+                                numberToText( numbers[ i ])
+                                ]( 4, 6 )
+                        } else if ( i === 1 ){
+                            background.game.animation.draw.number[
+                                numberToText( numbers[ i ])
+                                ]( 14, 6 )
+                        } else {
+                            background.game.animation.draw.number[
+                                numberToText( numbers[ i ])
+                                ]( 24, 6 )
+                        }
+                    }
+                }
+
+                if ( settings.debug )
+                    console.log( 'Snake is ' + numbers + ' segments long' )
+            };
+
 
             background.menu = new Background();
 
@@ -103,7 +145,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                 tile.fill( bg.random.color.tile() )
                             });
 
-                            bg.lastCycleTime = frame.time;
+                            if ( frame ) bg.lastCycleTime = frame.time
                         },
 
                         draw: {
@@ -437,10 +479,12 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     },
 
                     cleanUp: function() {
+                        bg.animation.randomize();
+
                         bg.lastCycleTime = 0;
 
-                        if ( typeof bg.countDown.number === 'number' )
-                            bg.countDown.number = background.game.countDown.queue.length + 1
+                        if ( typeof bg.count.down.number === 'number' )
+                            bg.count.down.number = background.game.count.down.queue.length + 1
                     }
                 };
 
@@ -469,6 +513,13 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 }
 
                 return bg
+            }
+
+            function numberToText( number ){
+                return [
+                    'zero', 'one', 'two', 'three', 'four',
+                    'five', 'six', 'seven', 'eight', 'nine'
+                ][ parseFloat( number )]
             }
         })()
     })();

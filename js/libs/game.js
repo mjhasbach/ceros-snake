@@ -44,12 +44,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
         cleanUp: function() {
             game.snake.segment.list.forEach( function( segment ){ segment.destroy() });
             game.heart.list.forEach( function( heart ){ heart.destroy() });
-            game.counter.list.forEach( function( counter ){ counter.destroy() });
 
             game.snake.segment.list = [];
             game.snake.segment.queue = [];
             game.heart.list = [];
-            game.counter.list = [];
             game.snake.direction.queue = [ settings.game.snake.initial.direction ];
             game.snake.direction.current = settings.game.snake.initial.direction;
 
@@ -232,11 +230,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                         game.snake.segment.list.push( segment );
 
-                        game.layer.add( segment );
-
-                        game.snake.segment.list.last().setZIndex(
-                            game.counter.group.getZIndex() - 1
-                        )
+                        game.layer.add( segment )
                     }
                 }
             };
@@ -354,51 +348,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
-        ( function _counter() {
-            game.counter = {};
-
-            game.counter.list = [];
-
-            game.counter.group = new Kinetic.Group();
-
-            game.layer.add( game.counter.group );
-
-            game.counter.proto = new Kinetic.Text({
-                fontSize: util.calculate.absolute.size( 11 ) * 2,
-                fontFamily: settings.font.ui,
-                fill: settings.game.counter.font.color,
-                shadowColor: settings.game.counter.shadow.color,
-                shadowBlur: util.calculate.absolute.size( settings.game.counter.shadow.blur )
-            });
-
-            game.counter.remove = function( counter ){
-                counter.destroy();
-                game.counter.list.splice( game.counter.list.indexOf( counter ), 1 );
-            };
-
-            game.counter.add = function() {
-                game.counter.list.unshift(
-                    game.counter.proto.clone({
-                        x: game.snake.segment.list[ 0 ].x() - calculateMagnitudeOffset(),
-                        y: game.snake.segment.list[ 0 ].y() - game.background.tile.size * 1.2,
-                        text: game.snake.segment.list.length + 1
-                    })
-                );
-
-                game.counter.group.add( game.counter.list[ 0 ]);
-
-                function calculateMagnitudeOffset() {
-                    if ( game.snake.segment.list.length > 10 )
-                        return game.background.tile.size * 1.25;
-
-                    else if ( game.snake.segment.list.length > 100 )
-                        return  game.background.tile.size * 2.5;
-
-                    else return 0
-                }
-            };
-        })();
-
         ( function _animation() {
             game.animation = new Kinetic.Animation( function( frame ){
 
@@ -412,9 +361,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 } else if ( game.state === 'counting down' ){
 
-                    game.background.countDown.animation( frame );
+                    game.background.count.down.animation( frame );
 
-                    if ( game.background.countDown.number === 0 )
+                    if ( game.background.count.down.number === 1 )
 
                         game.state = 'running';
 
@@ -435,9 +384,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                             if ( index !== -1 ){
                                 game.heart.destroy( index );
 
-                                game.counter.add();
-
                                 game.background.animation.randomize( frame );
+
+                                game.background.count.segments( game.snake.segment.list );
 
                                 game.snake.segment.queueNew();
 
@@ -448,13 +397,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 }
 
                 else if ( game.state === 'stopping' )
-                    util.animation.stop( game, frame );
 
-                game.counter.list.forEach( function( counter ){
-                    util.animation.fade( counter, frame, 'out', function() {
-                        game.counter.remove( counter )
-                    })
-                })
+                    util.animation.stop( game, frame )
+
             }, game.layer )
         })();
     };
