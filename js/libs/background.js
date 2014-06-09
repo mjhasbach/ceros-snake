@@ -72,7 +72,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 var i, numbers = ( segments.length + 1 ).toString();
 
                 if ( numbers.length === 1 ){
-                    background.game.animation.draw.number[ numberToText( numbers )](
+                    background.game.animation.draw.number[ util.numberToText( numbers )](
                         settings.background.countDown.coords.x,
                         settings.background.countDown.coords.y
                     )
@@ -80,11 +80,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     for ( i = 0; i < numbers.length; i++ ){
                         if ( i === 0 ){
                             background.game.animation.draw.number[
-                                numberToText( numbers[ i ])
+                                util.numberToText( numbers[ i ])
                             ]( 9, 6 )
                         } else {
                             background.game.animation.draw.number[
-                                numberToText( numbers[ i ])
+                                util.numberToText( numbers[ i ])
                             ]( 19, 6 )
                         }
                     }
@@ -92,15 +92,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     for ( i = 0; i < numbers.length; i++ ){
                         if ( i === 0 ){
                             background.game.animation.draw.number[
-                                numberToText( numbers[ i ])
+                                util.numberToText( numbers[ i ])
                             ]( 4, 6 )
                         } else if ( i === 1 ){
                             background.game.animation.draw.number[
-                                numberToText( numbers[ i ])
+                                util.numberToText( numbers[ i ])
                             ]( 14, 6 )
                         } else {
                             background.game.animation.draw.number[
-                                numberToText( numbers[ i ])
+                                util.numberToText( numbers[ i ])
                             ]( 24, 6 )
                         }
                     }
@@ -519,13 +519,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 }
 
                 return bg
-            }
-
-            function numberToText( number ){
-                return [
-                    'zero', 'one', 'two', 'three', 'four',
-                    'five', 'six', 'seven', 'eight', 'nine'
-                ][ parseFloat( number )]
             }
         })()
     })();
