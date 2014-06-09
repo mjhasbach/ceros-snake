@@ -12,12 +12,20 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     var keys = {
                         w: 87, a: 65, s: 83, d: 68,
                         up: 38, left: 37, down: 40, right: 39,
-                        space: 32
+                        space: 32,
+                        escape: 27
                     };
 
                     $( "*" ).keyup( function( key ){
                         key.preventDefault();
                         key.stopPropagation();
+
+                        console.log( 'key.which = ' + key.which );
+
+                        if ( key.which == keys.escape ){
+                            if ( bigScreen.enabled && !stage.isFullScreen )
+                                bigScreen.toggle()
+                        }
 
                         if (( game.state === 'running' || game.state === 'paused' ) &&
                               key.which == keys.space ){
@@ -134,6 +142,14 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                             if ( bigScreen.enabled ) bigScreen.toggle()
                         }
                     });
+                })();
+
+                ( function _fullScreenEvent() {
+                    stage.isFullScreen = false;
+
+                    bigScreen.onchange  = function() {
+                        setTimeout( function() { stage.isFullScreen = !stage.isFullScreen }, 10 )
+                    };
                 })();
 
                 ( function _transitionListener() {

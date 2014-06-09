@@ -14,4 +14,5 @@ Enjoy =)
 - Left: A or Left Arrow
 - Down: S or Down Arrow
 - Right: D or Right Arrow
-- Pause: Spacebar
+- Pause: Space Bar
+- Toggle Full-Screen: Escape
