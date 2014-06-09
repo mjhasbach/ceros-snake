@@ -400,8 +400,6 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                             if ( index !== -1 ){
                                 game.heart.destroy( index );
 
-                                game.background.animation.randomize( frame );
-
                                 game.background.count.segments( game.snake.segment.list );
 
                                 game.snake.segment.queueNew();

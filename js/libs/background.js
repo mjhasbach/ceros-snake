@@ -71,6 +71,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             background.game.count.segments = function( segments ){
                 var i, numbers = ( segments.length + 1 ).toString();
 
+                background.game.animation.randomize();
+
                 if ( numbers.length === 1 ){
                     background.game.animation.draw.number[ util.numberToText( numbers )](
                         settings.background.countDown.coords.x,
