@@ -143,6 +143,21 @@ define([], function() {
                 maximum: 10,
 
                 spawnProbability: 0.3
+            },
+
+            paused: {
+                x: 18.5,
+
+                y: 4,
+
+                size: 3.55,
+
+                font: { color: '#12101b' },
+
+                shadow: {
+                    color: '#7878a7',
+                    blur: 35
+                }
             }
         }
     };

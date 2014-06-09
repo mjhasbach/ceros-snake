@@ -348,6 +348,22 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             }
         })();
 
+        ( function _paused() {
+            game.paused = new Kinetic.Text({
+                x: util.calculate.absolute.x( settings.game.paused.x ),
+                y: util.calculate.absolute.y( settings.game.paused.y ),
+                text: 'Paused',
+                fontSize: util.calculate.absolute.size( settings.game.paused.size ),
+                fontFamily: settings.font.ui,
+                fill: settings.game.paused.font.color,
+                shadowColor: settings.game.paused.shadow.color,
+                shadowBlur: util.calculate.absolute.size( settings.game.paused.shadow.blur ),
+                opacity: 0
+            });
+
+            game.layer.add( game.paused )
+        })();
+
         ( function _animation() {
             game.animation = new Kinetic.Animation( function( frame ){
 
