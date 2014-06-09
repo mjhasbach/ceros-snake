@@ -15,4 +15,4 @@ Enjoy =)
 - Down: S or Down Arrow
 - Right: D or Right Arrow
 - Pause: Space Bar
-- Toggle Full-Screen: Escape
+- Toggle Full-Screen: F
