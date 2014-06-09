@@ -130,11 +130,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     random: {
                         color: {
                             tile: function() {
-                                return settings.background.tile.colors[ Math.round( Math.random() * ( settings.background.tile.colors.length - 1 ))]
+                                return settings.background.tile.colors[
+                                    Math.round( Math.random() * ( settings.background.tile.colors.length - 1 ))
+                                ]
                             },
 
                             draw: function() {
-                                return settings.background.draw.colors[ Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))]
+                                return settings.background.draw.colors[
+                                    Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))
+                                ]
                             }
                         }
                     },
@@ -149,7 +153,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         },
 
                         draw: {
-                            number: { // Randomly change the color of background tiles into shapes of numbers at the specified coordinates
+                            // Randomly change the color of background tiles into
+                            // shapes of numbers at the specified coordinates
+                            number: {
                                 zero: function( xCoord, yCoord ){
                                     // Top
                                     for( x = xCoord; x < xCoord + 8; x++ ){
