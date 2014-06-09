@@ -155,9 +155,6 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                             if ( toModule.name === 'game' ){
                                 toModule.state = 'counting down';
-
-                                if ( settings.debug )
-                                    console.log( 'Initiating countdown' );
                             }
 
                         }
@@ -199,5 +196,3 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
         }
     }
 );
-
-
