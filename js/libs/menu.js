@@ -277,79 +277,79 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 menu.layer.add( menu.options.highScores.shape )
             })();
 
-            ( function _volume() {
-                menu.options.settings.volume = {};
+            ( function _settingsGroup() {
+                ( function _volume() {
+                    menu.options.settings.volume = {};
 
-                menu.options.settings.volume.mouseOver = false;
+                    menu.options.settings.volume.mouseOver = false;
 
-                menu.options.settings.volume.shape = new Kinetic.Text({
-                    x: util.calculate.absolute.x( 32 ),
-                    y: util.calculate.absolute.y( 5.9 ),
-                    text: '\uf028',
-                    fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ),
-                    fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.settings.font.color.enabled.hex
-                });
+                    menu.options.settings.volume.shape = new Kinetic.Text({
+                        x: util.calculate.absolute.x( 32 ),
+                        y: util.calculate.absolute.y( 5.9 ),
+                        text: '\uf028',
+                        fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ),
+                        fontFamily: 'FontAwesome',
+                        fill: settings.menu.options.settings.font.color.enabled.hex
+                    });
 
-                menu.options.settings.volume.hitBox = new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 32 ),
-                    y: util.calculate.absolute.y( 4.67 ),
-                    width: util.calculate.absolute.x( 4.31 ),
-                    height: util.calculate.absolute.y( 2.845 ),
-                    opacity: 0
-                });
-            })();
+                    menu.options.settings.volume.hitBox = new Kinetic.Rect({
+                        x: util.calculate.absolute.x( 32 ),
+                        y: util.calculate.absolute.y( 4.67 ),
+                        width: util.calculate.absolute.x( 4.31 ),
+                        height: util.calculate.absolute.y( 2.845 ),
+                        opacity: 0
+                    });
+                })();
 
-            ( function _fullScreen() {
-                menu.options.settings.fullScreen = {};
+                ( function _fullScreen() {
+                    menu.options.settings.fullScreen = {};
 
-                menu.options.settings.fullScreen.mouseOver = false;
+                    menu.options.settings.fullScreen.mouseOver = false;
 
-                menu.options.settings.fullScreen.shape = new Kinetic.Text({
-                    x: util.calculate.absolute.x( 3.31 ),
-                    y: util.calculate.absolute.y( 5.36 ),
-                    text: '\uf0b2',
-                    fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
-                    fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.settings.font.color.enabled.hex
-                });
-
-                menu.options.settings.fullScreen.hitBox = new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 3.31 ),
-                    y: util.calculate.absolute.y( 4.67 ),
-                    width: util.calculate.absolute.x( 5.07 ),
-                    height: util.calculate.absolute.y( 2.85 ),
-                    opacity: 0
-                });
-            })();
-
-            ( function _help() {
-                menu.options.settings.help = {
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( 1.86 ),
-                        y: util.calculate.absolute.y( 5.35 ),
-                        text: '\uf059',
+                    menu.options.settings.fullScreen.shape = new Kinetic.Text({
+                        x: util.calculate.absolute.x( 3.31 ),
+                        y: util.calculate.absolute.y( 5.36 ),
+                        text: '\uf0b2',
                         fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
                         fontFamily: 'FontAwesome',
-                        fill: settings.menu.options.settings.font.color.disabled
-                    })
-                }
-            })();
+                        fill: settings.menu.options.settings.font.color.enabled.hex
+                    });
 
-            ( function _credits() {
-                menu.options.settings.credits = {
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( 1.32 ),
-                        y: util.calculate.absolute.y( 6.1 ),
-                        text: '\u00A9',
-                        fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 1.089,
-                        fontFamily: settings.font.ui,
-                        fill: settings.menu.options.settings.font.color.disabled
-                    })
-                }
-            })();
+                    menu.options.settings.fullScreen.hitBox = new Kinetic.Rect({
+                        x: util.calculate.absolute.x( 3.31 ),
+                        y: util.calculate.absolute.y( 4.67 ),
+                        width: util.calculate.absolute.x( 5.07 ),
+                        height: util.calculate.absolute.y( 2.85 ),
+                        opacity: 0
+                    });
+                })();
 
-            ( function _settingsGroup() {
+                ( function _help() {
+                    menu.options.settings.help = {
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( 1.86 ),
+                            y: util.calculate.absolute.y( 5.35 ),
+                            text: '\uf059',
+                            fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
+                            fontFamily: 'FontAwesome',
+                            fill: settings.menu.options.settings.font.color.disabled
+                        })
+                    }
+                })();
+
+                ( function _credits() {
+                    menu.options.settings.credits = {
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( 1.32 ),
+                            y: util.calculate.absolute.y( 6.1 ),
+                            text: '\u00A9',
+                            fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 1.089,
+                            fontFamily: settings.font.ui,
+                            fill: settings.menu.options.settings.font.color.disabled
+                        })
+                    }
+                })();
+
                 menu.options.settings.group = new Kinetic.Group({ opacity: 0 });
 
                 menu.options.settings.group.add( menu.options.settings.volume.shape );
