@@ -315,19 +315,28 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             game.snake.isCollidingWith = {
                 itself: function() {
-                    return game.collision({ shape: game.snake.segment.list[ 0 ],
-                        list: game.snake.segment.list }) !== -1;
+                    return game.collision({
+                            shape: game.snake.segment.list[ 0 ],
+                            list: game.snake.segment.list
+                    }) !== -1;
                 },
 
                 boundary: function() {
                     return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                        game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
-                        game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                        game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
+                           game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
+                           game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
+                           game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y;
                 },
 
                 heart: function( cb ){
-                    cb( game.collision({ shape: game.snake.segment.list[ 0 ], list: game.heart.list }) )
+                    var index = game.collision({
+                        shape: game.snake.segment.list[ 0 ],
+                        list: game.heart.list
+                    });
+
+                    var collision = index !== -1;
+
+                    cb( collision, index )
                 }
             };
 
@@ -396,8 +405,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         if ( game.snake.isCollidingWith.itself() ) game.state = 'stopping';
                         if ( game.snake.isCollidingWith.boundary() ) game.state = 'stopping';
 
-                        game.snake.isCollidingWith.heart( function( index ){
-                            if ( index !== -1 ){
+                        game.snake.isCollidingWith.heart( function( collision, index ){
+                            if ( collision ){
                                 game.heart.destroy( index );
 
                                 game.background.count.segments( game.snake.segment.list );
