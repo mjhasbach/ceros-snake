@@ -262,7 +262,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                         }
                                     }
 
-                                    // Back
+                                    // Right
                                     for( x = xCoord + 6; x < xCoord + 8; x++ ){
                                         for ( y = yCoord + 2; y < yCoord + 8; y++ ){
                                             randomDrawColor( x, y )
