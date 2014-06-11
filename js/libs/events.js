@@ -59,7 +59,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     }
                 })();
 
-                ( function _mouseEvents() {
+                ( function _mouseAndTouchEvents() {
                     menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
                         if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.singlePlayer.mouseOver = true
