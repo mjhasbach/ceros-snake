@@ -61,13 +61,13 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
 
                 ( function _mouseEvents() {
                     menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.singlePlayer.mouseOver = true
                         }
                     });
 
                     menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.singlePlayer.shape.getChildren().each( function( node ){
                                 node.fill( settings.menu.options.font.color.enabled.hex );
                             });
@@ -77,26 +77,26 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                     });
 
                     menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.state = 'stopping';
                         }
                     });
 
                     menu.options.gear.hitBox.on( 'mouseover', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.gear.mouseOver = true
                         }
                     });
 
                     menu.options.gear.hitBox.on( 'mouseout', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.gear.shape.fill( settings.menu.options.font.color.enabled.hex );
                             menu.options.gear.mouseOver = false
                         }
                     });
 
                     menu.options.gear.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state !== 'stopping' && menu.state !== 'stopped' ){
+                        if ( menu.state.indexOf( 'stop' ) === -1 ){
                             if ( menu.state === 'running' ) menu.state = 'settings';
                             else menu.state = 'running';
                         }
