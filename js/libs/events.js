@@ -164,7 +164,7 @@ define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
                             if ( settings.debug )
                                 console.log( 'Stopping module "' + fromModule.name + '"' );
 
-                            if ( toModule.name === 'game' ){
+                            if ( toModule === game ){
                                 toModule.state = 'counting down';
                             }
 
