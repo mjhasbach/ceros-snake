@@ -107,6 +107,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
         },
 
         number: {
+            isBetween: function( number, min, max ){
+                return number > min && number < max;
+            },
+
             toText: function( number ){
                 if ( number < 10 )
                     return [
