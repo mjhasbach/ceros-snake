@@ -2,11 +2,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
     function( $, _, bigScreen, settings, util ){
         return {
             init: function( assets ){
-                var audio = assets.audio;
-                var stage = assets.stage;
-                var menu = assets.menu;
-                var game = assets.game;
-                var loading = assets.loading;
+                var audio = assets.audio,
+                    stage = assets.stage,
+                    loading = assets.loading,
+                    menu = assets.menu,
+                    game = assets.game;
 
                 ( function _keyEvents() {
                     var keys = {
