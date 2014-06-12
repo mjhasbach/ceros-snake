@@ -106,7 +106,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             background.game.animation.randomize();
 
                             if ( numbers.length === 1 ){
-                                background.game.animation.draw.number[ util.numberToText( numbers )](
+                                background.game.animation.draw.number[ util.number.toText( numbers )](
                                     settings.background.countDown.coords.x,
                                     settings.background.countDown.coords.y
                                 )
@@ -114,11 +114,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                 for ( i = 0; i < numbers.length; i++ ){
                                     if ( i === 0 ){
                                         background.game.animation.draw.number[
-                                            util.numberToText( numbers[ i ])
+                                            util.number.toText( numbers[ i ])
                                         ]( 9, 6 )
                                     } else {
                                         background.game.animation.draw.number[
-                                            util.numberToText( numbers[ i ])
+                                            util.number.toText( numbers[ i ])
                                         ]( 19, 6 )
                                     }
                                 }
@@ -126,15 +126,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                 for ( i = 0; i < numbers.length; i++ ){
                                     if ( i === 0 ){
                                         background.game.animation.draw.number[
-                                            util.numberToText( numbers[ i ])
+                                            util.number.toText( numbers[ i ])
                                         ]( 4, 6 )
                                     } else if ( i === 1 ){
                                         background.game.animation.draw.number[
-                                            util.numberToText( numbers[ i ])
+                                            util.number.toText( numbers[ i ])
                                         ]( 14, 6 )
                                     } else {
                                         background.game.animation.draw.number[
-                                            util.numberToText( numbers[ i ])
+                                            util.number.toText( numbers[ i ])
                                         ]( 24, 6 )
                                     }
                                 }
