@@ -16,7 +16,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         f: 70
                     };
 
-                    $( "*" ).keyup( function( key ){
+                    $( '*' ).keyup( function( key ){
                         key.preventDefault();
                         key.stopPropagation();
 
@@ -41,10 +41,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                              game.state === 'counting down' ||
                              game.state === 'running' ){
 
-                            handleNewDirection( key.which, [ keys.up, keys.w ], 'up');
-                            handleNewDirection( key.which, [ keys.left, keys.a ], 'left');
-                            handleNewDirection( key.which, [ keys.down, keys.s ], 'down');
-                            handleNewDirection( key.which, [ keys.right, keys.d ], 'right');
+                            handleNewDirection( key.which, [ keys.up, keys.w ], 'up' );
+                            handleNewDirection( key.which, [ keys.left, keys.a ], 'left' );
+                            handleNewDirection( key.which, [ keys.down, keys.s ], 'down' );
+                            handleNewDirection( key.which, [ keys.right, keys.d ], 'right' );
                         }
                     });
 
@@ -90,7 +90,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     menu.options.gear.hitBox.on( 'mouseout', function() {
                         if ( menu.state.indexOf( 'stop' ) === -1 ){
-                            menu.options.gear.shape.fill( settings.menu.options.font.color.enabled.hex );
+                            menu.options.gear.shape.fill(
+                                settings.menu.options.font.color.enabled.hex
+                            );
+
                             menu.options.gear.mouseOver = false
                         }
                     });
@@ -110,7 +113,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     menu.options.settings.volume.hitBox.on( 'mouseout', function() {
                         if ( menu.state === 'settings' ){
-                            menu.options.settings.volume.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
+                            menu.options.settings.volume.shape.fill(
+                                settings.menu.options.settings.font.color.enabled.hex
+                            );
+
                             menu.options.settings.volume.mouseOver = false
                         }
                     });
@@ -129,7 +135,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
                         if ( menu.state === 'settings' ){
-                            menu.options.settings.fullScreen.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
+                            menu.options.settings.fullScreen.shape.fill(
+                                settings.menu.options.settings.font.color.enabled.hex
+                            );
+
                             menu.options.settings.fullScreen.mouseOver = false
                         }
                     });
