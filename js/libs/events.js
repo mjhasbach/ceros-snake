@@ -1,5 +1,5 @@
-define([ 'jquery', 'underscore', 'settings', 'util', 'bigScreen' ],
-    function( $, _, settings, util, bigScreen ){
+define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
+    function( $, _, bigScreen, settings, util ){
         return {
             init: function( assets ){
                 var audio = assets.audio;
