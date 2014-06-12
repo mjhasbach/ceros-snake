@@ -112,7 +112,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             },
 
             toText: function( number ){
-                if ( number < 10 )
+                if ( util.number.isBetween( number, 0, 9 ))
                     return [
                         'zero', 'one', 'two', 'three', 'four',
                         'five', 'six', 'seven', 'eight', 'nine'
