@@ -106,14 +106,16 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             return sine
         },
 
-        numberToText: function( number ){
-            if ( number < 10 )
-                return [
-                    'zero', 'one', 'two', 'three', 'four',
-                    'five', 'six', 'seven', 'eight', 'nine'
-                ][ parseFloat( number )];
+        number: {
+            toText: function( number ){
+                if ( number < 10 )
+                    return [
+                        'zero', 'one', 'two', 'three', 'four',
+                        'five', 'six', 'seven', 'eight', 'nine'
+                    ][ parseFloat( number )];
 
-            else throw new Error( 'util.numberToText() can only handle numbers 0-9')
+                else throw new Error( 'util.numberToText() can only handle numbers 0-9')
+            }
         }
     };
 
