@@ -69,7 +69,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
                         if ( menu.state.indexOf( 'stop' ) === -1 ){
                             menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                                node.fill( settings.menu.options.font.color.enabled.hex );
+                                node.fill(
+                                    settings.menu.options.font.color.enabled.hex
+                                );
                             });
 
                             menu.options.singlePlayer.mouseOver = false
