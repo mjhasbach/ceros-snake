@@ -86,7 +86,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     x: game.background.tile.size / 4,
                     y: game.background.tile.size / 4,
                     width: ( game.background.tile.size * game.background.tile.quantity.x ) -
-                        game.background.tile.size ,
+                        game.background.tile.size,
                     height: game.background.tile.size / 2,
                     fill: color
                 });
@@ -115,7 +115,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         ( game.background.tile.size * 0.75 ),
                     y: game.background.tile.size / 4,
                     width: game.background.tile.size / 2,
-                    height: ( game.background.tile.size * ( game.background.tile.quantity.y - 0.5 )),
+                    height: ( game.background.tile.size *
+                        ( game.background.tile.quantity.y - 0.5 )),
                     fill: color
                 })
             })( game.background.random.color.tile() );
@@ -193,15 +194,15 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
                 var innerHeart = new Kinetic.Text({
-                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    fontSize: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    x: game.background.tile.size + i *
+                        (( game.background.tile.size * 0.33 ) / 2 ),
+                    y: game.background.tile.size + i *
+                        (( game.background.tile.size * 0.33 ) / 2 ),
+                    fontSize: game.background.tile.size - i *
+                        ( game.background.tile.size * 0.33 ),
                     fontFamily: 'FontAwesome',
                     text: '\uf004',
-                    fill: 'hsl(' +
-                        color.h + ', ' +
-                        color.s + '%, ' +
-                        color.l + '%)'
+                    fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)'
                 });
 
                 color.l += 8;
@@ -279,7 +280,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     if ( game.state === 'running' ){
                         game.snake.direction.queue.push( direction )
 
-                    } else game.snake.direction.queue[0] = direction
+                    } else game.snake.direction.queue[ 0 ] = direction
                 }
             };
 
@@ -295,29 +296,29 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 if ( game.snake.segment.list.length > 1 ){
                     game.snake.segment.list.unshift( game.snake.segment.list.pop() );
-                    move( game.snake.segment.list[1] )
+                    move( game.snake.segment.list[ 1 ])
                 } else {
-                    move( game.snake.segment.list[0] )
+                    move( game.snake.segment.list[ 0 ])
                 }
 
                 game.snake.lastMovementTime = frame.time;
 
                 function move( to ){
                     if ( game.snake.direction.current === 'up' ){
-                        game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() - game.background.tile.size );
+                        game.snake.segment.list[ 0 ].x( to.x() );
+                        game.snake.segment.list[ 0 ].y( to.y() - game.background.tile.size );
 
                     } else if ( game.snake.direction.current === 'right' ){
-                        game.snake.segment.list[0].x( to.x() + game.background.tile.size );
-                        game.snake.segment.list[0].y( to.y() )
+                        game.snake.segment.list[ 0 ].x( to.x() + game.background.tile.size );
+                        game.snake.segment.list[ 0 ].y( to.y() )
 
                     } else if ( game.snake.direction.current === 'down' ){
-                        game.snake.segment.list[0].x( to.x() );
-                        game.snake.segment.list[0].y( to.y() + game.background.tile.size )
+                        game.snake.segment.list[ 0 ].x( to.x() );
+                        game.snake.segment.list[ 0 ].y( to.y() + game.background.tile.size )
 
                     } else {
-                        game.snake.segment.list[0].x( to.x() - game.background.tile.size );
-                        game.snake.segment.list[0].y( to.y() );
+                        game.snake.segment.list[ 0 ].x( to.x() - game.background.tile.size );
+                        game.snake.segment.list[ 0 ].y( to.y() );
                     }
                 }
             };
@@ -355,10 +356,14 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
             for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
                 var rect = new Kinetic.Rect({
-                    x: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    y: game.background.tile.size + i * (( game.background.tile.size * 0.33 ) / 2 ),
-                    width: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
-                    height: game.background.tile.size - i * ( game.background.tile.size * 0.33 ),
+                    x: game.background.tile.size + i *
+                        (( game.background.tile.size * 0.33 ) / 2 ),
+                    y: game.background.tile.size + i *
+                        (( game.background.tile.size * 0.33 ) / 2 ),
+                    width: game.background.tile.size - i *
+                        ( game.background.tile.size * 0.33 ),
+                    height: game.background.tile.size - i *
+                        ( game.background.tile.size * 0.33 ),
                     fill: palette[ i ]
                 });
 
