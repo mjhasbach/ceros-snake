@@ -32,12 +32,15 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     }
                 } else throwListError();
 
-            } else throw new Error( 'The collision detector was provided neither a coordinate pair nor shape to search for');
+            } else throw new
+                Error( 'The collision detector was provided neither' +
+                       ' a coordinate pair nor shape to search for' );
 
             return -1;
 
             function throwListError() {
-                throw new Error( 'The collision detector was not provided a list in which to search for the provided shape')
+                throw new Error( 'The collision detector was not provided a list' +
+                                 ' in which to search for the provided shape' )
             }
         },
 
@@ -99,7 +102,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
                 game.boundaries.bottom = new Kinetic.Rect({
                     x: game.background.tile.size / 4,
-                    y: game.background.tile.size * ( game.background.tile.quantity.y - 0.75 ),
+                    y: game.background.tile.size *
+                        ( game.background.tile.quantity.y - 0.75 ),
                     width: ( game.background.tile.size * game.background.tile.quantity.x ) -
                         game.background.tile.size ,
                     height: game.background.tile.size / 2,
@@ -124,7 +128,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.boundaries.lastCycleTime = 0;
 
             game.boundaries.areReadyToCycle = function( frame ){
-                return frame.time - game.boundaries.lastCycleTime >= settings.animation.period / 8
+                return frame.time - game.boundaries.lastCycleTime >=
+                    settings.animation.period / 8
             };
 
             game.boundaries.animation = function( frame ){
@@ -148,8 +153,10 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
                     y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 );
 
-                if ( game.collision({ coords: { x: x, y: y }, list: game.heart.list }) === -1 &&
-                     game.collision({ coords: { x: x, y: y }, list: game.snake.segment.list }) === -1 ){
+                if ( game.collision({ coords: { x: x, y: y },
+                                      list: game.heart.list }) === -1 &&
+                     game.collision({ coords: { x: x, y: y },
+                                      list: game.snake.segment.list }) === -1 ){
 
                     var heart = game.heart.proto.clone({
                         x: x.fromCoord(),
@@ -167,7 +174,9 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 game.heart.generate();
 
                 for ( var i = 0; i < settings.game.heart.maximum - 1; i++ ){
-                    if ( util.calculate.random.float( 0, 100 ) < settings.game.heart.spawnProbability * 100 ){
+                    if ( util.calculate.random.float( 0, 100 ) <
+                         settings.game.heart.spawnProbability * 100 ){
+
                         game.heart.generate()
                     }
                 }
@@ -316,8 +325,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
             game.snake.isCollidingWith = {
                 itself: function() {
                     return game.collision({
-                            shape: game.snake.segment.list[ 0 ],
-                            list: game.snake.segment.list
+                        shape: game.snake.segment.list[ 0 ],
+                        list: game.snake.segment.list
                     }) !== -1;
                 },
 
