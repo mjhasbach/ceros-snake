@@ -74,6 +74,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             }
         },
 
+        isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
+
         cleanUp: function() {
             menu.options.singlePlayer.mouseOver = false;
             menu.options.gear.mouseOver = false;
