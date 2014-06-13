@@ -40,6 +40,12 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             }
         },
 
+        module: {
+            isNotStoppingOrStopped: function() {
+                return this.state.indexOf( 'stop' ) === -1
+            }
+        },
+
         animation: {
             fade: function( node, frame, type, after ){
                 if ( type === 'in' ){
@@ -62,13 +68,13 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
         color: {
             fillAndStroke: function( options ){
-                options.node.fill( 'hsl('+
+                options.node.fill( 'hsl(' +
                     options.fill.h + ', ' +
                     options.fill.s + '%, ' +
                     options.fill.l + '%)'
                 );
 
-                options.node.stroke( 'hsl('+
+                options.node.stroke( 'hsl(' +
                     options.stroke.h + ', ' +
                     options.stroke.s + '%, ' +
                     options.stroke.l + '%)'
