@@ -61,13 +61,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                 ( function _mouseAndTouchEvents() {
                     menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             menu.options.singlePlayer.mouseOver = true
                         }
                     });
 
                     menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             menu.options.singlePlayer.shape.getChildren().each( function( node ){
                                 node.fill(
                                     settings.menu.options.font.color.enabled.hex
@@ -79,19 +79,19 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             menu.state = 'stopping';
                         }
                     });
 
                     menu.options.gear.hitBox.on( 'mouseover', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             menu.options.gear.mouseOver = true
                         }
                     });
 
                     menu.options.gear.hitBox.on( 'mouseout', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             menu.options.gear.shape.fill(
                                 settings.menu.options.font.color.enabled.hex
                             );
@@ -101,7 +101,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     menu.options.gear.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state.indexOf( 'stop' ) === -1 ){
+                        if ( menu.isNotStoppingOrStopped() ){
                             if ( menu.state === 'running' ) menu.state = 'settings';
                             else menu.state = 'running';
                         }
