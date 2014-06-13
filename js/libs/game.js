@@ -32,9 +32,8 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     }
                 } else throwListError();
 
-            } else throw new
-                Error( 'The collision detector was provided neither' +
-                       ' a coordinate pair nor shape to search for' );
+            } else throw new Error( 'The collision detector was provided neither' +
+                                    ' a coordinate pair nor shape to search for' );
 
             return -1;
 
