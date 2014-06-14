@@ -61,6 +61,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
             };
 
             highScores.back = {
+                mouseOver: false,
+
                 shape: new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.back.x ),
                     y: util.calculate.absolute.y( _s.back.y ),
@@ -134,6 +136,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                 });
 
                 highScores.submit = {
+                    mouseOver: false,
+
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( _s.submit.x ),
                         y: util.calculate.absolute.y( _s.submit.y ),
@@ -190,6 +194,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                 });
 
                 highScores.previous = {
+                    mouseOver: false,
+
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( _s.previous.x ),
                         y: util.calculate.absolute.y( _s.previous.y ),
@@ -211,6 +217,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                 };
 
                 highScores.next = {
+                    mouseOver: false,
+
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( _s.next.x ),
                         y: util.calculate.absolute.y( _s.next.y ),
