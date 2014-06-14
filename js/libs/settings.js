@@ -98,22 +98,7 @@ define([], function() {
 
                 controller: { size: 9 },
 
-                settings: {
-                    font: {
-                        size: 4,
-
-                        color: {
-                            enabled: {
-                                hex: '#5d4686',
-                                h: 261,
-                                s: 31,
-                                l: 40
-                            },
-
-                            disabled: '#171221'
-                        }
-                    }
-                },
+                settings: { font: { size: 4 }},
 
                 font: { size: 11 },
 
