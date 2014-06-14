@@ -51,9 +51,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     settings.font.colors.fill.enabled.s,
                     settings.font.colors.fill.enabled.l - brightnessVariance,
 
-                    settings.menu.options.stroke.color.enabled.h,
-                    settings.menu.options.stroke.color.enabled.s,
-                    settings.menu.options.stroke.color.enabled.l - brightnessVariance
+                    settings.font.colors.stroke.enabled.h,
+                    settings.font.colors.stroke.enabled.s,
+                    settings.font.colors.stroke.enabled.l - brightnessVariance
                 );
 
                 ( function( h, s, l ){
@@ -172,7 +172,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     util.calculate.absolute.x( 50 ),
                     util.calculate.absolute.x( 18 ),
                     settings.font.colors.fill.enabled.hex,
-                    settings.menu.options.stroke.color.enabled.hex
+                    settings.font.colors.stroke.enabled.hex
                 );
 
                 menu.options.singlePlayer.hitBox = new Kinetic.Rect({
@@ -191,7 +191,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         util.calculate.absolute.x( 5 ),
                         util.calculate.absolute.x( 3.99 ),
                         settings.font.colors.fill.disabled,
-                        settings.menu.options.stroke.color.disabled
+                        settings.font.colors.stroke.disabled
                     )
                 };
 
@@ -243,7 +243,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                     fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
-                    stroke: settings.menu.options.stroke.color.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                 });
 
@@ -269,7 +269,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                         fontFamily: settings.font.face,
                         fill: settings.font.colors.fill.disabled,
-                        stroke: settings.menu.options.stroke.color.disabled,
+                        stroke: settings.font.colors.stroke.disabled,
                         strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                     })
                 };
