@@ -159,6 +159,102 @@ define([], function() {
                     blur: 35
                 }
             }
+        },
+
+        highScores: {
+            database: 'https://ceros-snake.firebaseio.com/scores',
+
+            limit: 100,
+
+            scoreLabel: {
+                x: 1,
+                y: 1,
+                fill: 'asdf',
+                size: 0,
+                stroke: {
+                    color: 'asdf',
+                    width: 0
+                }
+            },
+
+            name: {
+                field: {
+                    x: 1,
+                    y: 1,
+                    fill: 'asdf',
+                    size: 0,
+                    stroke: {
+                        color: 'asdf',
+                        width: 0
+                    }
+                },
+
+                label: {
+                    x: 1,
+                    y: 1,
+                    fill: 'asdf',
+                    size: 0,
+                    stroke: {
+                        color: 'asdf',
+                        width: 0
+                    }
+                },
+
+                scoreHolder: {
+                    x: 1,
+                    y: 1,
+                    fill: 'asdf',
+                    size: 0,
+                    stroke: {
+                        color: 'asdf',
+                        width: 0
+                    }
+                }
+            },
+
+            previous: {
+                x: 1,
+                y: 1,
+                fill: 'asdf',
+                size: 0,
+                stroke: {
+                    color: 'asdf',
+                    width: 0
+                }
+            },
+
+            next: {
+                x: 1,
+                y: 1,
+                fill: 'asdf',
+                size: 0,
+                stroke: {
+                    color: 'asdf',
+                    width: 0
+                }
+            },
+
+            submit: {
+                x: 1,
+                y: 1,
+                fill: 'asdf',
+                size: 0,
+                stroke: {
+                    color: 'asdf',
+                    width: 0
+                }
+            },
+
+            back: {
+                x: 1,
+                y: 1,
+                fill: 'asdf',
+                size: 0,
+                stroke: {
+                    color: 'asdf',
+                    width: 0
+                }
+            }
         }
     };
 
