@@ -231,21 +231,21 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     })
                 };
 
-                highScores.view.index = 0;
+                highScores.index = 0;
 
-                highScores.view.update = function( index ){
+                highScores.view.update = function() {
                     highScores.background.count.segments(
-                        highScores.database.scores[ index ].score
+                        highScores.database.scores[ highScores.index ].score
                     );
 
                     highScores.name.scoreHolder.text(
-                        highScores.database.scores[ index ].name
+                        highScores.database.scores[ highScores.index ].name
                     )
                 };
 
                 highScores.view.animation = new Kinetic.Animation( function( frame ){
                     if ( highScores.view.state === 'starting' ){
-                        highScores.view.update( 0 );
+                        highScores.view.update();
 
                         highScores.view.state = 'running'
 
