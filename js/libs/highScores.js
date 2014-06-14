@@ -247,6 +247,37 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     )
                 };
 
+                highScores.view.mouseOverCheck = function( frame ){
+                    var brightnessVariance = util.calculate.brightnessVariance( frame );
+
+                    ( function( hF, sF, lF, hS, sS, lS ){
+                        if ( highScores.previous.mouseOver )
+                            highScores.previous.shape.fill(
+                                'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
+                            );
+
+                        else if ( highScores.next.mouseOver )
+                            highScores.next.shape.fill(
+                                'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
+                            );
+
+                        else if ( highScores.back.mouseOver )
+                            util.color.fillAndStroke({
+                                node: highScores.back.shape,
+                                fill: { h: hF, s: sF, l: lF },
+                                stroke: { h: hS, s: sS, l: lS }
+                            });
+
+                    })( settings.font.colors.fill.enabled.h,
+                        settings.font.colors.fill.enabled.s,
+                        settings.font.colors.fill.enabled.l - brightnessVariance,
+
+                        settings.font.colors.stroke.enabled.h,
+                        settings.font.colors.stroke.enabled.s,
+                        settings.font.colors.stroke.enabled.l - brightnessVariance
+                    );
+                };
+
                 highScores.view.animation = new Kinetic.Animation( function( frame ){
                     if ( highScores.view.state === 'starting' ){
                         highScores.view.update();
@@ -254,10 +285,9 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         highScores.view.state = 'running'
 
                     } else if ( highScores.view.state === 'running' ){
-
+                        highScores.view.mouseOverCheck( frame )
 
                     } else if ( highScores.view.state === 'stopping' ){
-
                         highScores.view.animation.stop( highScores.view, frame )
                     }
                 }, highScores.view.layer );
