@@ -376,7 +376,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 y: util.calculate.absolute.y( settings.game.paused.y ),
                 text: 'Paused',
                 fontSize: util.calculate.absolute.size( settings.game.paused.size ),
-                fontFamily: settings.font.ui,
+                fontFamily: settings.font.face,
                 fill: settings.game.paused.font.color,
                 shadowColor: settings.game.paused.shadow.color,
                 shadowBlur: util.calculate.absolute.size( settings.game.paused.shadow.blur ),
