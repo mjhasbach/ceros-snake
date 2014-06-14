@@ -26,10 +26,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             settings: {},
 
             mouseOverCheck: function( frame ){
-                menu.title.brightnessVariance =
-                    Math.abs((( Math.cos( frame.time * Math.PI / settings.animation.period ) *
-                        settings.mouseOver.brightnessVariance )));
-
+                var brightnessVariance = Math.abs(((
+                    Math.cos( frame.time * Math.PI / settings.animation.period ) *
+                    settings.mouseOver.brightnessVariance
+                )));
+                
                 ( function( hF, sF, lF, hS, sS, lS ){
                     if ( menu.options.singlePlayer.mouseOver )
 
@@ -51,11 +52,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 })( settings.menu.options.font.color.enabled.h,
                     settings.menu.options.font.color.enabled.s,
-                    settings.menu.options.font.color.enabled.l - menu.title.brightnessVariance,
+                    settings.menu.options.font.color.enabled.l - brightnessVariance,
 
                     settings.menu.options.stroke.color.enabled.h,
                     settings.menu.options.stroke.color.enabled.s,
-                    settings.menu.options.stroke.color.enabled.l - menu.title.brightnessVariance
+                    settings.menu.options.stroke.color.enabled.l - brightnessVariance
                 );
 
                 ( function( h, s, l ){
@@ -69,7 +70,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 })( settings.menu.options.settings.font.color.enabled.h,
                     settings.menu.options.settings.font.color.enabled.s,
-                    settings.menu.options.settings.font.color.enabled.l + ( menu.title.brightnessVariance * 2 )
+                    settings.menu.options.settings.font.color.enabled.l + ( brightnessVariance * 2 )
                 );
             }
         },
