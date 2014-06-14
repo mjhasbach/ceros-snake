@@ -182,34 +182,76 @@ define([], function() {
             name: {
                 field: {
                     x: 1,
+
                     y: 1,
-                    fill: 'asdf',
+
                     size: 0,
+
+                    fill: {
+                        hex: '#372a50',
+                        h: 261,
+                        s: 31,
+                        l: 24
+                    },
+
                     stroke: {
-                        color: 'asdf',
-                        width: 0
+                        width: 0,
+                        color: {
+                            hex: '#5b4686',
+                            h: 260,
+                            s: 31,
+                            l: 40
+                        }
                     }
                 },
 
                 label: {
                     x: 1,
+
                     y: 1,
-                    fill: 'asdf',
+
                     size: 0,
+
+                    fill: {
+                        hex: '#372a50',
+                        h: 261,
+                        s: 31,
+                        l: 24
+                    },
+
                     stroke: {
-                        color: 'asdf',
-                        width: 0
+                        width: 0,
+                        color: {
+                            hex: '#5b4686',
+                            h: 260,
+                            s: 31,
+                            l: 40
+                        }
                     }
                 },
 
                 scoreHolder: {
                     x: 1,
+
                     y: 1,
-                    fill: 'asdf',
+
                     size: 0,
+
+                    fill: {
+                        hex: '#372a50',
+                        h: 261,
+                        s: 31,
+                        l: 24
+                    },
+
                     stroke: {
-                        color: 'asdf',
-                        width: 0
+                        width: 0,
+                        color: {
+                            hex: '#5b4686',
+                            h: 260,
+                            s: 31,
+                            l: 40
+                        }
                     }
                 }
             },
@@ -238,23 +280,51 @@ define([], function() {
 
             submit: {
                 x: 1,
+
                 y: 1,
-                fill: 'asdf',
+
                 size: 0,
+
+                fill: {
+                    hex: '#372a50',
+                    h: 261,
+                    s: 31,
+                    l: 24
+                },
+
                 stroke: {
-                    color: 'asdf',
-                    width: 0
+                    width: 0,
+                    color: {
+                        hex: '#5b4686',
+                        h: 260,
+                        s: 31,
+                        l: 40
+                    }
                 }
             },
 
             back: {
                 x: 1,
+
                 y: 1,
-                fill: 'asdf',
+
                 size: 0,
+
+                fill: {
+                    hex: '#372a50',
+                    h: 261,
+                    s: 31,
+                    l: 24
+                },
+
                 stroke: {
-                    color: 'asdf',
-                    width: 0
+                    width: 0,
+                    color: {
+                        hex: '#5b4686',
+                        h: 260,
+                        s: 31,
+                        l: 40
+                    }
                 }
             }
         }
