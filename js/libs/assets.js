@@ -14,7 +14,8 @@ define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
 
         assets.init = function( options ){
             assets.game.init( options );
-            assets.menu.init( options )
+            assets.menu.init( options );
+            assets.highScores.init( options )
         };
 
         return assets
