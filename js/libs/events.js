@@ -6,7 +6,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     stage = assets.stage,
                     loading = assets.loading,
                     menu = assets.menu,
-                    game = assets.game;
+                    game = assets.game,
+                    highScores = assets.highScores;
 
                 ( function _keyEvents() {
                     var keys = {
@@ -150,6 +151,23 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             if ( bigScreen.enabled ) bigScreen.toggle()
                         }
                     });
+                })();
+
+                ( function _databaseEvents() {
+                    highScores.database.highest.on( 'value', function( scores ){
+                        highScores.database.scores = [];
+
+                        scores.forEach( function( score ){
+                            highScores.database.scores.push({
+                                name: score.val().name,
+                                score: score.val().score
+                            })
+                        });
+
+                        highScores.database.scores.sort( function( a, b ) {
+                            return b.score - a.score
+                        })
+                    })
                 })();
 
                 ( function _transitionListener() {
