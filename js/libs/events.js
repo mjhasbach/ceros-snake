@@ -161,6 +161,68 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
                         })();
                     })();
+
+                    ( function _highScores() {
+                        ( function _submit() {
+                            highScores.submit.shape.on( 'mouseover', function() {
+                                if ( highScores.add.isNotStoppingOrStopped() ){
+                                    highScores.submit.mouseOver = true
+                                }
+                            });
+
+                            highScores.submit.shape.on( 'mouseout', function() {
+                                if ( highScores.add.isNotStoppingOrStopped() ){
+                                    highScores.submit.shape.fill(
+                                        settings.highScores.submit.fill
+                                    );
+
+                                    highScores.submit.mouseOver = false
+                                }
+                            });
+
+                            highScores.submit.shape.on( 'click touchstart', function() {
+                                if ( highScores.add.isNotStoppingOrStopped() ){
+                                    highScores.database.addScore();
+
+                                    highScores.add.state = 'stopping'
+                                }
+                            });
+                        })();
+
+                        ( function _back() {
+                            highScores.back.shape.on( 'mouseover', function() {
+                                if ( highScores.isNotStoppingOrStopped() ){
+                                    highScores.back.mouseOver = true
+                                }
+                            });
+
+                            highScores.back.shape.on( 'mouseout', function() {
+                                if ( highScores.isNotStoppingOrStopped() ){
+                                    highScores.back.shape.fill(
+                                        settings.highScores.back.fill
+                                    );
+
+                                    highScores.back.mouseOver = false
+                                }
+                            });
+
+                            highScores.back.shape.on( 'click touchstart', function() {
+                                if ( highScores.add.isNotStoppingOrStopped() )
+                                    highScores.add.state = 'stopping';
+
+                                else if ( highScores.view.isNotStoppingOrStopped() )
+                                    highScores.view.state = 'stopping';
+                            });
+                        })();
+
+                        ( function _previous() {
+
+                        })();
+
+                        ( function _next() {
+
+                        })();
+                    })();
                 })();
 
                 ( function _databaseEvents() {
