@@ -174,7 +174,7 @@ define([], function() {
                 fill: '#372a50',
                 size: 0,
                 stroke: {
-                    color: 'asdf',
+                    color: '#5b4686',
                     width: 0
                 }
             },
