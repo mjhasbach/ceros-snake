@@ -231,6 +231,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     })
                 };
 
+                highScores.view.index = 0;
+
                 highScores.view.update = function( index ){
                     highScores.background.count.segments(
                         highScores.database.scores[ index ].score
