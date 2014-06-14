@@ -61,96 +61,106 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 })();
 
                 ( function _mouseAndTouchEvents() {
-                    menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            menu.options.singlePlayer.mouseOver = true
-                        }
-                    });
-
-                    menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                                node.fill(
-                                    settings.menu.options.font.color.enabled.hex
-                                );
+                    ( function _menu() {
+                        ( function _singlePlayer() {
+                            menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.singlePlayer.mouseOver = true
+                                }
                             });
 
-                            menu.options.singlePlayer.mouseOver = false
-                        }
-                    });
+                            menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                                        node.fill(
+                                            settings.menu.options.font.color.enabled.hex
+                                        );
+                                    });
 
-                    menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            menu.state = 'stopping';
-                        }
-                    });
+                                    menu.options.singlePlayer.mouseOver = false
+                                }
+                            });
 
-                    menu.options.gear.hitBox.on( 'mouseover', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            menu.options.gear.mouseOver = true
-                        }
-                    });
+                            menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.state = 'stopping';
+                                }
+                            });
+                        })();
 
-                    menu.options.gear.hitBox.on( 'mouseout', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            menu.options.gear.shape.fill(
-                                settings.menu.options.font.color.enabled.hex
-                            );
+                        ( function _gear() {
+                            menu.options.gear.hitBox.on( 'mouseover', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.gear.mouseOver = true
+                                }
+                            });
 
-                            menu.options.gear.mouseOver = false
-                        }
-                    });
+                            menu.options.gear.hitBox.on( 'mouseout', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.gear.shape.fill(
+                                        settings.menu.options.font.color.enabled.hex
+                                    );
 
-                    menu.options.gear.hitBox.on( 'click touchstart', function() {
-                        if ( menu.isNotStoppingOrStopped() ){
-                            if ( menu.state === 'running' ) menu.state = 'settings';
-                            else menu.state = 'running';
-                        }
-                    });
+                                    menu.options.gear.mouseOver = false
+                                }
+                            });
 
-                    menu.options.settings.volume.hitBox.on( 'mouseover', function() {
-                        if ( menu.state === 'settings' ){
-                            menu.options.settings.volume.mouseOver = true
-                        }
-                    });
+                            menu.options.gear.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    if ( menu.state === 'running' ) menu.state = 'settings';
+                                    else menu.state = 'running';
+                                }
+                            });
+                        })();
 
-                    menu.options.settings.volume.hitBox.on( 'mouseout', function() {
-                        if ( menu.state === 'settings' ){
-                            menu.options.settings.volume.shape.fill(
-                                settings.menu.options.settings.font.color.enabled.hex
-                            );
+                        ( function _volume() {
+                            menu.options.settings.volume.hitBox.on( 'mouseover', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.options.settings.volume.mouseOver = true
+                                }
+                            });
 
-                            menu.options.settings.volume.mouseOver = false
-                        }
-                    });
+                            menu.options.settings.volume.hitBox.on( 'mouseout', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.options.settings.volume.shape.fill(
+                                        settings.menu.options.settings.font.color.enabled.hex
+                                    );
 
-                    menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state === 'settings' ){
-                            audio.song.mp3.toggleMute()
-                        }
-                    });
+                                    menu.options.settings.volume.mouseOver = false
+                                }
+                            });
 
-                    menu.options.settings.fullScreen.hitBox.on( 'mouseover', function() {
-                        if ( menu.state === 'settings' ){
-                            menu.options.settings.fullScreen.mouseOver = true
-                        }
-                    });
+                            menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
+                                if ( menu.state === 'settings' ){
+                                    audio.song.mp3.toggleMute()
+                                }
+                            });
+                        })();
 
-                    menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
-                        if ( menu.state === 'settings' ){
-                            menu.options.settings.fullScreen.shape.fill(
-                                settings.menu.options.settings.font.color.enabled.hex
-                            );
+                        ( function _fullScreen() {
+                            menu.options.settings.fullScreen.hitBox.on( 'mouseover', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.options.settings.fullScreen.mouseOver = true
+                                }
+                            });
 
-                            menu.options.settings.fullScreen.mouseOver = false
-                        }
-                    });
+                            menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.options.settings.fullScreen.shape.fill(
+                                        settings.menu.options.settings.font.color.enabled.hex
+                                    );
 
-                    menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
-                        if ( menu.state === 'settings' ){
-                            if ( bigScreen.enabled ) bigScreen.toggle()
-                        }
-                    });
+                                    menu.options.settings.fullScreen.mouseOver = false
+                                }
+                            });
+
+                            menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
+                                if ( menu.state === 'settings' ){
+                                    if ( bigScreen.enabled ) bigScreen.toggle()
+                                }
+                            });
+                        })();
+                    })();
                 })();
 
                 ( function _databaseEvents() {
