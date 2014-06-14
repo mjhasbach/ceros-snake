@@ -171,7 +171,7 @@ define([], function() {
             scoreLabel: {
                 x: 1,
                 y: 1,
-                fill: 'asdf',
+                fill: '#372a50',
                 size: 0,
                 stroke: {
                     color: 'asdf',
@@ -259,14 +259,14 @@ define([], function() {
             previous: {
                 x: 1,
                 y: 1,
-                fill: 'asdf',
+                fill: '#372a50',
                 size: 0
             },
 
             next: {
                 x: 1,
                 y: 1,
-                fill: 'asdf',
+                fill: '#372a50',
                 size: 0
             },
 
