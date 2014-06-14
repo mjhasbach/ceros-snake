@@ -260,22 +260,14 @@ define([], function() {
                 x: 1,
                 y: 1,
                 fill: 'asdf',
-                size: 0,
-                stroke: {
-                    color: 'asdf',
-                    width: 0
-                }
+                size: 0
             },
 
             next: {
                 x: 1,
                 y: 1,
                 fill: 'asdf',
-                size: 0,
-                stroke: {
-                    color: 'asdf',
-                    width: 0
-                }
+                size: 0
             },
 
             submit: {
