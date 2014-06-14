@@ -1,6 +1,11 @@
-define([ 'audio', 'webFonts', 'menu', 'game' ],
-    function( audio, webFonts, menu, game ){
-        var assets = { menu: menu, game: game, audio: audio };
+define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
+    function( audio, webFonts, menu, game, highScores ){
+        var assets = {
+            audio: audio,
+            menu: menu,
+            game: game,
+            highScores: highScores
+        };
 
         assets.waitForAsync = function wait( cb ){
             if ( audio.song.isLoaded && webFonts.areLoaded ) cb();
