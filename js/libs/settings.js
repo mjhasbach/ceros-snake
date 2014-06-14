@@ -2,7 +2,32 @@ define([], function() {
     var settings = {
         debug: false,
 
-        font: { face: 'New Rocker' },
+        font: {
+            face: 'New Rocker',
+            colors: {
+                fill: {
+                    enabled: {
+                        hex: '#372a50',
+                        h: 261,
+                        s: 31,
+                        l: 24
+                    },
+
+                    disabled: '#171221'
+                },
+
+                stroke: {
+                    enabled: {
+                        hex: '#5b4686',
+                        h: 260,
+                        s: 31,
+                        l: 40
+                    },
+
+                    disabled: '#3b2e57'
+                }
+            }
+        },
 
         animation: { transition: { speed: 1000 }},
 
