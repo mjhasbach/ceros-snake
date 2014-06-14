@@ -47,9 +47,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             stroke: { h: hS, s: sS, l: lS }
                         });
 
-                })( settings.menu.options.font.color.enabled.h,
-                    settings.menu.options.font.color.enabled.s,
-                    settings.menu.options.font.color.enabled.l - brightnessVariance,
+                })( settings.font.colors.fill.enabled.h,
+                    settings.font.colors.fill.enabled.s,
+                    settings.font.colors.fill.enabled.l - brightnessVariance,
 
                     settings.menu.options.stroke.color.enabled.h,
                     settings.menu.options.stroke.color.enabled.s,
@@ -81,10 +81,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             menu.options.settings.fullScreen.mouseOver = false;
 
             menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                node.fill( settings.menu.options.font.color.enabled.hex );
+                node.fill( settings.font.colors.fill.enabled.hex );
             });
 
-            menu.options.gear.shape.fill( settings.menu.options.font.color.enabled.hex );
+            menu.options.gear.shape.fill( settings.font.colors.fill.enabled.hex );
             menu.options.settings.volume.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
             menu.options.settings.fullScreen.shape.fill( settings.menu.options.settings.font.color.enabled.hex );
 
@@ -171,7 +171,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     1,
                     util.calculate.absolute.x( 50 ),
                     util.calculate.absolute.x( 18 ),
-                    settings.menu.options.font.color.enabled.hex,
+                    settings.font.colors.fill.enabled.hex,
                     settings.menu.options.stroke.color.enabled.hex
                 );
 
@@ -190,7 +190,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         2,
                         util.calculate.absolute.x( 5 ),
                         util.calculate.absolute.x( 3.99 ),
-                        settings.menu.options.font.color.disabled,
+                        settings.font.colors.fill.disabled,
                         settings.menu.options.stroke.color.disabled
                     )
                 };
@@ -242,7 +242,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     text: '\uf013',
                     fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                     fontFamily: 'FontAwesome',
-                    fill: settings.menu.options.font.color.enabled.hex,
+                    fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.menu.options.stroke.color.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                 });
@@ -268,7 +268,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         text: 'High Scores',
                         fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                         fontFamily: settings.font.face,
-                        fill: settings.menu.options.font.color.disabled,
+                        fill: settings.font.colors.fill.disabled,
                         stroke: settings.menu.options.stroke.color.disabled,
                         strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
                     })

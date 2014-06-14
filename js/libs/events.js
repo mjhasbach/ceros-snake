@@ -73,7 +73,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 if ( menu.isNotStoppingOrStopped() ){
                                     menu.options.singlePlayer.shape.getChildren().each( function( node ){
                                         node.fill(
-                                            settings.menu.options.font.color.enabled.hex
+                                            settings.font.colors.fill.enabled.hex
                                         );
                                     });
 
@@ -98,7 +98,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.gear.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
                                     menu.options.gear.shape.fill(
-                                        settings.menu.options.font.color.enabled.hex
+                                        settings.font.colors.fill.enabled.hex
                                     );
 
                                     menu.options.gear.mouseOver = false
