@@ -84,7 +84,10 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
                 require([ 'assets' ], function( assets ){
                     assets.waitForAsync( function() {
-                        assets.init({ background: background });
+                        assets.init({
+                            background: background,
+                            stage: stage
+                        });
 
                         require([ 'events' ], function( events ){
                             events.init({
