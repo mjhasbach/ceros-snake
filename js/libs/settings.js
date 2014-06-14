@@ -4,6 +4,7 @@ define([], function() {
 
         font: {
             face: 'New Rocker',
+
             colors: {
                 fill: {
                     enabled: {
@@ -114,20 +115,7 @@ define([], function() {
                     }
                 },
 
-                font: {
-                    size: 11,
-
-                    color: {
-                        enabled: {
-                            hex: '#372a50',
-                            h: 261,
-                            s: 31,
-                            l: 24
-                        },
-
-                        disabled: '#171221'
-                    }
-                },
+                font: { size: 11 },
 
                 stroke: {
                     width: 300,
