@@ -69,6 +69,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             background.menu = new Background();
 
+
+            background.highScores = new Background();
+
+
             function Background() {
                 var bg = {
                     group: new Kinetic.Group,
