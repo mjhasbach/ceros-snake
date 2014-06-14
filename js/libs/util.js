@@ -9,6 +9,13 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 y: function( i ){ return height / i }
             },
 
+            brightnessVariance: function( frame ){
+                return Math.abs(((
+                    Math.cos( frame.time * Math.PI / settings.animation.period ) *
+                    settings.mouseOver.brightnessVariance
+                )));
+            },
+
             pi: function( i ){ return i * Math.PI },
 
             random: {
