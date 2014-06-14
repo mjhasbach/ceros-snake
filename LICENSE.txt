@@ -10,6 +10,9 @@ https://github.com/jaysalvat/buzz/blob/master/MIT-LICENSE
 Epic Song copyright BoxCat Games under the CC BY 3.0 licence.
 http://creativecommons.org/licenses/by/3.0/
 
+Firebase copyright Firebase, Inc. under their terms of service.
+https://www.firebase.com/terms/terms-of-service.html
+
 Font Awesome Code copyright Dave Gandy under the MIT License.
 http://fortawesome.github.io/Font-Awesome/license/
 
