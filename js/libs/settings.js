@@ -102,20 +102,7 @@ define([], function() {
 
                 font: { size: 11 },
 
-                stroke: {
-                    width: 300,
-
-                    color: {
-                        enabled: {
-                            hex: '#5b4686',
-                            h: 260,
-                            s: 31,
-                            l: 40
-                        },
-
-                        disabled: '#3b2e57'
-                    }
-                }
+                stroke: { width: 300 }
             }
         },
 
