@@ -6,6 +6,10 @@ define([], function() {
 
         animation: { transition: { speed: 1000 }},
 
+        mouseOver: {
+            brightnessVariance: 8
+        },
+
         stage: { container: { name: 'game' }},
 
         song: {
@@ -65,8 +69,6 @@ define([], function() {
 
             options: {
                 y: 1.24,
-
-                brightnessVariance: 8,
 
                 controller: { size: 9 },
 

@@ -28,7 +28,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             mouseOverCheck: function( frame ){
                 menu.title.brightnessVariance =
                     Math.abs((( Math.cos( frame.time * Math.PI / settings.animation.period ) *
-                        settings.menu.options.brightnessVariance )));
+                        settings.mouseOver.brightnessVariance )));
 
                 ( function( hF, sF, lF, hS, sS, lS ){
                     if ( menu.options.singlePlayer.mouseOver )
