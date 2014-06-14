@@ -202,9 +202,7 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         text: '\uf060',
                         fontSize: util.calculate.absolute.size( _s.previous.size ),
                         fontFamily: settings.font.ui,
-                        fill: _s.previous.fill,
-                        stroke: _s.previous.stroke.color,
-                        strokeWidth: util.calculate.absolute.size( _s.previous.stroke.width )
+                        fill: _s.previous.fill
                     }),
 
                     hitBox: new Kinetic.Rect({
@@ -225,9 +223,7 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         text: '\uf061',
                         fontSize: util.calculate.absolute.size( _s.next.size ),
                         fontFamily: settings.font.ui,
-                        fill: _s.next.fill,
-                        stroke: _s.next.stroke.color,
-                        strokeWidth: util.calculate.absolute.size( _s.next.stroke.width )
+                        fill: _s.next.fill
                     }),
 
                     hitBox: new Kinetic.Rect({
