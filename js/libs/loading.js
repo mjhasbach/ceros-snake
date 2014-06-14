@@ -91,11 +91,12 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
                         require([ 'events' ], function( events ){
                             events.init({
-                                loading: loading,
-                                stage: stage,
                                 audio: assets.audio,
+                                stage: stage,
+                                loading: loading,
                                 menu: assets.menu,
-                                game: assets.game
+                                game: assets.game,
+                                highScores: assets.highScores
                             })
                         })
                     })
