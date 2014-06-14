@@ -204,7 +204,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             y: util.calculate.absolute.y( settings.menu.options.y ),
                             text: number.toString(),
                             fontSize: util.calculate.absolute.size( settings.menu.options.font.size ),
-                            fontFamily: settings.font.ui,
+                            fontFamily: settings.font.face,
                             fill: fill,
                             stroke: stroke,
                             strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
@@ -267,7 +267,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         y: util.calculate.absolute.y( settings.menu.options.y ),
                         text: 'High Scores',
                         fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
-                        fontFamily: settings.font.ui,
+                        fontFamily: settings.font.face,
                         fill: settings.menu.options.font.color.disabled,
                         stroke: settings.menu.options.stroke.color.disabled,
                         strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
@@ -344,7 +344,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             y: util.calculate.absolute.y( 6.1 ),
                             text: '\u00A9',
                             fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 1.089,
-                            fontFamily: settings.font.ui,
+                            fontFamily: settings.font.face,
                             fill: settings.menu.options.settings.font.color.disabled
                         })
                     }

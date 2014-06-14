@@ -5,7 +5,7 @@ define([ 'settings' ], function( settings ){
 
     require([ 'font!' +
         'google,' +
-        'families: [' + settings.font.ui + ']|' +
+        'families: [' + settings.font.face + ']|' +
 
         'custom,' +
         'families: [ FontAwesome ],' +

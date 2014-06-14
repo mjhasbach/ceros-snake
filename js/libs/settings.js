@@ -2,7 +2,7 @@ define([], function() {
     var settings = {
         debug: false,
 
-        font: { ui: 'New Rocker' },
+        font: { face: 'New Rocker' },
 
         animation: { transition: { speed: 1000 }},
 
