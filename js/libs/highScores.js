@@ -30,8 +30,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
 
                 highScores.submit.shape.fill( _s.submit.fill );
                 highScores.back.shape.fill( _s.back.fill );
-                highScores.back.previous.fill( _s.previous.fill );
-                highScores.back.next.fill( _s.next.fill );
+                highScores.previous.fill( _s.previous.fill );
+                highScores.next.fill( _s.next.fill );
             };
 
             highScores.background = options.background.highScores;
