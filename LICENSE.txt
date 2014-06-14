@@ -19,6 +19,9 @@ http://fortawesome.github.io/Font-Awesome/license/
 jQuery copyright jQuery Foundation under the MIT license.
 https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt
 
+kinetic-editable-text copyright Nikos Tsitas under the GNU General Public License, Version 3.0
+https://github.com/nktsitas/kineticjs-editable-text/blob/master/README.md
+
 KineticJS copyright Eric Rowell under the MIT license.
 https://github.com/ericdrowell/KineticJS/wiki/License
 
