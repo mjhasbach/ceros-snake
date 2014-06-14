@@ -117,7 +117,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         context.stroke();
                         context.strokeShape( this );
                     },
-                        stroke: settings.menu.title.stroke.color,
+                        stroke: settings.font.colors.fill.enabled.hex,
                         strokeWidth: x( settings.menu.title.stroke.width )
                     })
                 };
@@ -154,7 +154,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         context.stroke();
                         context.strokeShape( this );
                     },
-                        stroke: settings.menu.title.stroke.color,
+                        stroke: settings.font.colors.fill.enabled.hex,
                         strokeWidth: x( settings.menu.title.stroke.width )
                     })
                 };

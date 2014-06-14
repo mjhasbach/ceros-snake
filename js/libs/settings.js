@@ -87,10 +87,7 @@ define([], function() {
             title: {
                 bounciness: 7,
 
-                stroke: {
-                    color: '#372a50',
-                    width: 35
-                }
+                stroke: { width: 35 }
             },
 
             options: {
