@@ -42,8 +42,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                 text: 'Score',
                 fontSize: util.calculate.absolute.size( _s.scoreLabel.size ),
                 fontFamily: settings.font.face,
-                fill: _s.scoreLabel.fill,
-                stroke: _s.scoreLabel.stroke.color,
+                fill: settings.font.colors.fill.enabled.hex,
+                stroke: settings.font.colors.stroke.enabled.hex,
                 strokeWidth: util.calculate.absolute.size( _s.scoreLabel.stroke.width )
             });
 
@@ -54,8 +54,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.label.size ),
                     fontFamily: settings.font.face,
-                    fill: _s.name.label.fill,
-                    stroke: _s.name.label.stroke.color,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( _s.name.label.stroke.width )
                 })
             };
@@ -69,8 +69,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     text: '\uf057',
                     fontSize: util.calculate.absolute.size( _s.back.size ),
                     fontFamily: settings.font.face,
-                    fill: _s.back.fill.color,
-                    stroke: _s.back.stroke.color,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( _s.back.stroke.width )
                 }),
 
@@ -128,8 +128,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     y: util.calculate.absolute.y( _s.name.field.y ),
                     fontSize: util.calculate.absolute.size( _s.name.field.size ),
                     fontFamily: settings.font.face,
-                    fill: _s.name.field.fill,
-                    stroke: _s.name.field.stroke.color,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( _s.name.field.stroke.width ),
                     focusLayer: highScores.add.layer,
                     stage: options.stage
@@ -144,8 +144,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         text: '\uf058',
                         fontSize: util.calculate.absolute.size( _s.submit.size ),
                         fontFamily: settings.font.face,
-                        fill: _s.submit.fill,
-                        stroke: _s.submit.stroke.color,
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
                         strokeWidth: util.calculate.absolute.size( _s.submit.stroke.width )
                     }),
 
@@ -188,8 +188,8 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.scoreHolder.size ),
                     fontFamily: settings.font.face,
-                    fill: _s.name.scoreHolder.fill,
-                    stroke: _s.name.scoreHolder.stroke.color,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( _s.name.scoreHolder.stroke.width )
                 });
 
@@ -202,7 +202,7 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         text: '\uf060',
                         fontSize: util.calculate.absolute.size( _s.previous.size ),
                         fontFamily: settings.font.face,
-                        fill: _s.previous.fill
+                        fill: settings.font.colors.fill.enabled.hex
                     }),
 
                     hitBox: new Kinetic.Rect({
@@ -223,7 +223,7 @@ define([ 'Kinetic', 'kineticEditableText', 'Firebase', 'settings', 'util' ],
                         text: '\uf061',
                         fontSize: util.calculate.absolute.size( _s.next.size ),
                         fontFamily: settings.font.face,
-                        fill: _s.next.fill
+                        fill: settings.font.colors.fill.enabled.hex
                     }),
 
                     hitBox: new Kinetic.Rect({

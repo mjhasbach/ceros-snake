@@ -153,153 +153,57 @@ define([], function() {
             scoreLabel: {
                 x: 1,
                 y: 1,
-                fill: '#372a50',
                 size: 0,
-                stroke: {
-                    color: '#5b4686',
-                    width: 0
-                }
+                stroke: { width: 0 }
             },
 
             name: {
                 field: {
                     x: 1,
-
                     y: 1,
-
                     size: 0,
-
-                    fill: {
-                        hex: '#372a50',
-                        h: 261,
-                        s: 31,
-                        l: 24
-                    },
-
-                    stroke: {
-                        width: 0,
-                        color: {
-                            hex: '#5b4686',
-                            h: 260,
-                            s: 31,
-                            l: 40
-                        }
-                    }
+                    stroke: { width: 0 }
                 },
 
                 label: {
                     x: 1,
-
                     y: 1,
-
                     size: 0,
-
-                    fill: {
-                        hex: '#372a50',
-                        h: 261,
-                        s: 31,
-                        l: 24
-                    },
-
-                    stroke: {
-                        width: 0,
-                        color: {
-                            hex: '#5b4686',
-                            h: 260,
-                            s: 31,
-                            l: 40
-                        }
-                    }
+                    stroke: { width: 0 }
                 },
 
                 scoreHolder: {
                     x: 1,
-
                     y: 1,
-
                     size: 0,
-
-                    fill: {
-                        hex: '#372a50',
-                        h: 261,
-                        s: 31,
-                        l: 24
-                    },
-
-                    stroke: {
-                        width: 0,
-                        color: {
-                            hex: '#5b4686',
-                            h: 260,
-                            s: 31,
-                            l: 40
-                        }
-                    }
+                    stroke: { width: 0 }
                 }
             },
 
             previous: {
                 x: 1,
                 y: 1,
-                fill: '#372a50',
                 size: 0
             },
 
             next: {
                 x: 1,
                 y: 1,
-                fill: '#372a50',
                 size: 0
             },
 
             submit: {
                 x: 1,
-
                 y: 1,
-
                 size: 0,
-
-                fill: {
-                    hex: '#372a50',
-                    h: 261,
-                    s: 31,
-                    l: 24
-                },
-
-                stroke: {
-                    width: 0,
-                    color: {
-                        hex: '#5b4686',
-                        h: 260,
-                        s: 31,
-                        l: 40
-                    }
-                }
+                stroke: { width: 0 }
             },
 
             back: {
                 x: 1,
-
                 y: 1,
-
                 size: 0,
-
-                fill: {
-                    hex: '#372a50',
-                    h: 261,
-                    s: 31,
-                    l: 24
-                },
-
-                stroke: {
-                    width: 0,
-                    color: {
-                        hex: '#5b4686',
-                        h: 260,
-                        s: 31,
-                        l: 40
-                    }
-                }
+                stroke: { width: 0 }
             }
         }
     };
