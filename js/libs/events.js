@@ -123,7 +123,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.settings.volume.hitBox.on( 'mouseout', function() {
                                 if ( menu.state === 'settings' ){
                                     menu.options.settings.volume.shape.fill(
-                                        settings.menu.options.settings.font.color.enabled.hex
+                                        settings.font.colors.fill.enabled.hex
                                     );
 
                                     menu.options.settings.volume.mouseOver = false
@@ -147,7 +147,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
                                 if ( menu.state === 'settings' ){
                                     menu.options.settings.fullScreen.shape.fill(
-                                        settings.menu.options.settings.font.color.enabled.hex
+                                        settings.font.colors.fill.enabled.hex
                                     );
 
                                     menu.options.settings.fullScreen.mouseOver = false
