@@ -148,7 +148,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         }
 
                         if ( settings.debug )
-                            console.log( 'Snake is ' + numbers + ' segments long' )
+                            console.log( 'Background changed to number ' + numbers )
                     },
 
                     animation: {
