@@ -97,8 +97,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                             number: {
                                 random: function() {
-                                    return settings.background.draw.colors[
-                                        Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))
+                                    return settings.background.colors.number[
+                                        Math.round( Math.random() * ( settings.background.colors.number.length - 1 ))
                                     ]
                                 }
                             }
