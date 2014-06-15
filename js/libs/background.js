@@ -93,16 +93,14 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                         Math.round( Math.random() * ( settings.background.tile.colors.length - 1 ))
                                     ]
                                 }
-                            }
-                        }
-                    },
+                            },
 
-                    random: {
-                        color: {
-                            draw: function() {
-                                return settings.background.draw.colors[
-                                    Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))
-                                ]
+                            number: {
+                                random: function() {
+                                    return settings.background.draw.colors[
+                                        Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))
+                                    ]
+                                }
                             }
                         }
                     },
@@ -511,7 +509,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         if ( tile.x().toCoord() == xCoord &&
                              tile.y().toCoord() == yCoord ){
 
-                            tile.fill( bg.random.color.draw() )
+                            tile.fill( bg.tile.color.number.random() )
                         }
                     })
                 }
