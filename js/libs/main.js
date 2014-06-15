@@ -9,7 +9,7 @@ require.config({
         backfire: '../deps/backfire',
         bigScreen: '../deps/BigScreen-mjhasbach-fork',
         buzz: '../deps/buzz-v1.1.0.min',
-        Firebase: '../deps/firebase-v1.0.15.min',
+        firebase: '../deps/firebase-v1.0.15.min',
         jquery: '../deps/jquery-v1.11.1.min',
         Kinetic: '../deps/kinetic-v5.1.0',
         kineticEditableText: '../deps/kinetic.editable-mjhasbach-fork',
@@ -28,6 +28,26 @@ require.config({
         stage: 'stage',
         util: 'util',
         webFonts: 'webFonts'
+    },
+
+    shim: {
+        'firebase': {
+            exports: 'Firebase'
+        },
+
+        'underscore': {
+            exports: '_'
+        },
+
+        'backbone': {
+            deps: [ 'underscore' ],
+            exports: 'Backbone'
+        },
+
+        'backfire': {
+            deps: [ 'backbone', 'firebase', 'underscore' ],
+            exports: 'Backfire'
+        }
     }
 });
 
