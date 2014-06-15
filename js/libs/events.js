@@ -271,6 +271,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                         highScores.next.shape.remove();
                                         highScores.next.hitBox.remove()
                                     }
+
+                                    if ( !highScores.previous.shape.getParent() ){
+                                        highScores.view.layer.add( highScores.previous.shape );
+                                        highScores.view.layer.add( highScores.previous.hitBox );
+                                    }
                                 }
                             })
                         })();
