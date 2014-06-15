@@ -31,9 +31,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             background.game.count.down = {};
 
             background.game.count.down.queue = [
-                background.game.animation.draw.number.three,
-                background.game.animation.draw.number.two,
-                background.game.animation.draw.number.one
+                background.game.draw.number.three,
+                background.game.draw.number.two,
+                background.game.draw.number.one
             ];
 
             background.game.count.down.number = background.game.count.down.queue.length + 1;
@@ -113,18 +113,18 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         background.game.draw.randomize();
 
                         if ( numbers.length === 1 ){
-                            background.game.animation.draw.number[ util.number.toText( numbers )](
+                            background.game.draw.number[ util.number.toText( numbers )](
                                 settings.background.countDown.coords.x,
                                 settings.background.countDown.coords.y
                             )
                         } else if ( numbers.length === 2 ){
                             for ( i = 0; i < numbers.length; i++ ){
                                 if ( i === 0 ){
-                                    background.game.animation.draw.number[
+                                    background.game.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 9, 6 )
                                 } else {
-                                    background.game.animation.draw.number[
+                                    background.game.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 19, 6 )
                                 }
@@ -132,15 +132,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         } else if ( numbers.length === 3 ){
                             for ( i = 0; i < numbers.length; i++ ){
                                 if ( i === 0 ){
-                                    background.game.animation.draw.number[
+                                    background.game.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 4, 6 )
                                 } else if ( i === 1 ){
-                                    background.game.animation.draw.number[
+                                    background.game.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 14, 6 )
                                 } else {
-                                    background.game.animation.draw.number[
+                                    background.game.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 24, 6 )
                                 }
@@ -158,336 +158,332 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             });
 
                             if ( frame ) bg.lastCycleTime = frame.time
-                        }
-                    },
+                        },
 
-                    animation: {
-                        draw: {
-                            // Randomly change the color of background tiles into
-                            // shapes of numbers at the specified coordinates
-                            number: {
-                                zero: function( xCoord, yCoord ){
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                        // Randomly change the color of background tiles into
+                        // shapes of numbers at the specified coordinates
+                        number: {
+                            zero: function( xCoord, yCoord ){
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                one: function( xCoord, yCoord ){
-                                    var x, y;
+                            one: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 5; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 5; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 3; x < xCoord + 5; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 3; x < xCoord + 5; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                two: function( xCoord, yCoord ){
-                                    var x, y;
+                            two: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 4; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 4; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord + 6; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord + 6; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                three: function( xCoord, yCoord ){
-                                    var x, y;
+                            three: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 3; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 3; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                four: function( xCoord, yCoord ){
-                                    var x, y;
+                            four: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 2; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 2; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                five: function( xCoord, yCoord ){
-                                    var x, y;
+                            five: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 4; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 4; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 6; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 6; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                six: function( xCoord, yCoord ){
-                                    var x, y;
+                            six: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord + 2; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord + 2; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 2; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 2; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 6; y < yCoord + 8; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 6; y < yCoord + 8; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord + 2; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord + 2; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                seven: function( xCoord, yCoord ){
-                                    var x, y;
+                            seven: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                eight: function( xCoord, yCoord ){
-                                    var x, y;
+                            eight: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 2; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 2; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord + 2; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord + 2; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
-                                },
+                                }
+                            },
 
-                                nine: function( xCoord, yCoord ){
-                                    var x, y;
+                            nine: function( xCoord, yCoord ){
+                                var x, y;
 
-                                    // Top
-                                    for( x = xCoord; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord; y < yCoord + 2; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Top
+                                for( x = xCoord; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord; y < yCoord + 2; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Left
-                                    for( x = xCoord; x < xCoord + 2; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Left
+                                for( x = xCoord; x < xCoord + 2; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Right
-                                    for( x = xCoord + 6; x < xCoord + 8; x++ ){
-                                        for ( y = yCoord + 2; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Right
+                                for( x = xCoord + 6; x < xCoord + 8; x++ ){
+                                    for ( y = yCoord + 2; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Middle
-                                    for( x = xCoord + 2; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 4; y < yCoord + 6; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Middle
+                                for( x = xCoord + 2; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 4; y < yCoord + 6; y++ ){
+                                        randomDrawColor( x, y )
                                     }
+                                }
 
-                                    // Bottom
-                                    for( x = xCoord; x < xCoord + 6; x++ ){
-                                        for ( y = yCoord + 8; y < yCoord + 10; y++ ){
-                                            randomDrawColor( x, y )
-                                        }
+                                // Bottom
+                                for( x = xCoord; x < xCoord + 6; x++ ){
+                                    for ( y = yCoord + 8; y < yCoord + 10; y++ ){
+                                        randomDrawColor( x, y )
                                     }
                                 }
                             }
