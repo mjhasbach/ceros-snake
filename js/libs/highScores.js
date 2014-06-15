@@ -255,9 +255,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.index = 0;
 
                 highScores.view.update = function() {
-                    highScores.background.count(
-                        highScores.database.scores.at( highScores.index ).score
-                    );
+                    highScores.score = highScores.database.scores.at( highScores.index ).score;
+
+                    highScores.background.count( highScores.score );
 
                     highScores.name.scoreHolder.text(
                         highScores.database.scores.at( highScores.index ).name
