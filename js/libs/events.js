@@ -208,7 +208,33 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _previous() {
+                            highScores.previous.hitBox.on( 'mouseover', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() )
+                                    highScores.previous.mouseOver = true
+                            });
 
+                            highScores.previous.hitBox.on( 'mouseout', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() ){
+                                    highScores.previous.shape.fill(
+                                        settings.font.colors.fill.enabled.hex
+                                    );
+
+                                    highScores.previous.mouseOver = false
+                                }
+                            });
+
+                            highScores.previous.hitBox.on( 'click touchstart', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() ){
+                                    highScores.index -= 1;
+
+                                    highScores.view.update();
+
+                                    if ( highScores.index === 0 ){
+                                        highScores.previous.shape.remove();
+                                        highScores.previous.hitBox.remove()
+                                    }
+                                }
+                            })
                         })();
 
                         ( function _next() {
