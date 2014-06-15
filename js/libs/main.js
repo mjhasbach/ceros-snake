@@ -6,6 +6,7 @@ require.config({
         font: '../deps/requirejs-plugins-v1.0.3/font',
         propertyParser: '../deps/requirejs-plugins-v1.0.3/propertyParser',
         backbone: '../deps/backbone-v.1.1.2.min',
+        backfire: '../deps/backfire',
         bigScreen: '../deps/BigScreen-mjhasbach-fork',
         buzz: '../deps/buzz-v1.1.0.min',
         Firebase: '../deps/firebase-v1.0.15.min',
