@@ -118,7 +118,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         ( game.background.tile.quantity.y - 0.5 )),
                     fill: color
                 })
-            })( game.background.random.color.tile() );
+            })( game.background.tile.color.base.random() );
 
             game.layer.add( game.boundaries.top );
             game.layer.add( game.boundaries.left );
@@ -138,7 +138,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     game.boundaries.left.fill( color );
                     game.boundaries.bottom.fill( color );
                     game.boundaries.right.fill( color );
-                })( game.background.random.color.tile() );
+                })( game.background.tile.color.base.random() );
 
                 game.boundaries.lastCycleTime = frame.time
             }

@@ -84,17 +84,21 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         quantity: background.tile.quantity,
 
-                        size: background.tile.size
+                        size: background.tile.size,
+
+                        color: {
+                            base: {
+                                random: function() {
+                                    return settings.background.tile.colors[
+                                        Math.round( Math.random() * ( settings.background.tile.colors.length - 1 ))
+                                    ]
+                                }
+                            }
+                        }
                     },
 
                     random: {
                         color: {
-                            tile: function() {
-                                return settings.background.tile.colors[
-                                    Math.round( Math.random() * ( settings.background.tile.colors.length - 1 ))
-                                ]
-                            },
-
                             draw: function() {
                                 return settings.background.draw.colors[
                                     Math.round( Math.random() * ( settings.background.draw.colors.length - 1 ))
@@ -154,7 +158,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     animation: {
                         randomize: function( frame ){
                             bg.tile.list.forEach( function( tile ){
-                                tile.fill( bg.random.color.tile() )
+                                tile.fill( bg.tile.color.base.random() )
                             });
 
                             if ( frame ) bg.lastCycleTime = frame.time
@@ -518,7 +522,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             background.tile.proto.clone({
                                 x: x * background.tile.size,
                                 y: y * background.tile.size,
-                                fill: bg.random.color.tile()
+                                fill: bg.tile.color.base.random()
                             })
                         );
 
