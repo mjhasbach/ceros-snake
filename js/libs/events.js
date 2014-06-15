@@ -270,19 +270,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 })();
 
                 ( function _databaseEvents() {
-                    highScores.database.highest.on( 'value', function( scores ){
-                        highScores.database.scores = [];
-
-                        scores.forEach( function( score ){
-                            highScores.database.scores.push({
-                                name: score.val().name,
-                                score: score.val().score
-                            })
-                        });
-
-                        highScores.database.scores.sort( function( a, b ) {
-                            return b.score - a.score
-                        })
+                    highScores.database.scores.on( 'add', function( record ){
+                        if ( highScores.view.state === 'running' )
+                            if ( record.score > highScores.score )
+                                highScores.index++
                     })
                 })();
 
