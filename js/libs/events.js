@@ -83,7 +83,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
                                 if ( menu.isNotStoppingOrStopped() )
                                     menu.state = 'stopping';
-                            });
+                            })
                         })();
 
                         ( function _gear() {
@@ -130,7 +130,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
                                 if ( menu.state === 'settings' )
                                     audio.song.mp3.toggleMute()
-                            });
+                            })
                         })();
 
                         ( function _fullScreen() {
@@ -152,7 +152,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
                                 if ( menu.state === 'settings' )
                                     if ( bigScreen.enabled ) bigScreen.toggle()
-                            });
+                            })
                         })();
                     })();
 
@@ -179,7 +179,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                     highScores.add.state = 'stopping'
                                 }
-                            });
+                            })
                         })();
 
                         ( function _back() {
@@ -204,7 +204,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 else if ( highScores.view.isNotStoppingOrStopped() )
                                     highScores.view.state = 'stopping';
-                            });
+                            })
                         })();
 
                         ( function _previous() {
@@ -248,7 +248,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             start( toModule );
 
                             if ( settings.debug )
-                                console.log( 'Starting module "' + toModule.name + '"' );
+                                console.log( 'Starting module "' + toModule.name + '"' )
                         }
 
                         if ( fromModule.layer.opacity() === 0 && fromModule.state === 'stopping' ){
@@ -258,7 +258,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 toModule.state = 'counting down';
 
                             if ( settings.debug )
-                                console.log( 'Stopping module "' + fromModule.name + '"' );
+                                console.log( 'Stopping module "' + fromModule.name + '"' )
                         }
 
                         function start( module ){
@@ -275,7 +275,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             module.animation.start();
 
-                            module.state = 'starting';
+                            module.state = 'starting'
                         }
 
                         function stop( module ){
@@ -285,7 +285,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             if ( module.cleanUp ) module.cleanUp();
 
-                            module.state = 'stopped';
+                            module.state = 'stopped'
                         }
                     }
                 })();
