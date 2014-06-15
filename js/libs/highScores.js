@@ -29,7 +29,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     firebase: new firebase( _s.database ).limit( _s.limit ).endAt()
                 }),
 
-                highest: new highScores.database.topScores
+                scores: new highScores.database.topScores
             };
 
             highScores.isNotStoppingOrStopped = function() {
