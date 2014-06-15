@@ -129,7 +129,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             start: function( score ){
                 highScores.score = score;
 
-                highScores.background.count.segments( score )
+                highScores.background.count( score )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -254,7 +254,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.index = 0;
 
                 highScores.view.update = function() {
-                    highScores.background.count.segments(
+                    highScores.background.count(
                         highScores.database.scores.at( highScores.index ).score
                     );
 

@@ -422,7 +422,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                             if ( collision ){
                                 game.heart.destroy( index );
 
-                                game.background.count.segments( game.snake.segment.list.length + 1 );
+                                game.background.count( game.snake.segment.list.length + 1 );
 
                                 game.snake.segment.queueNew();
 
