@@ -64,9 +64,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     ( function _menu() {
                         ( function _singlePlayer() {
                             menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
+                                if ( menu.isNotStoppingOrStopped() )
                                     menu.options.singlePlayer.mouseOver = true
-                                }
                             });
 
                             menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
@@ -82,9 +81,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
 
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
+                                if ( menu.isNotStoppingOrStopped() )
                                     menu.state = 'stopping';
-                                }
                             });
                         })();
 
@@ -115,9 +113,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                         ( function _volume() {
                             menu.options.settings.volume.hitBox.on( 'mouseover', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state === 'settings' )
                                     menu.options.settings.volume.mouseOver = true
-                                }
                             });
 
                             menu.options.settings.volume.hitBox.on( 'mouseout', function() {
@@ -131,17 +128,15 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
 
                             menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state === 'settings' )
                                     audio.song.mp3.toggleMute()
-                                }
                             });
                         })();
 
                         ( function _fullScreen() {
                             menu.options.settings.fullScreen.hitBox.on( 'mouseover', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state === 'settings' )
                                     menu.options.settings.fullScreen.mouseOver = true
-                                }
                             });
 
                             menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
@@ -155,9 +150,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
 
                             menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state === 'settings' )
                                     if ( bigScreen.enabled ) bigScreen.toggle()
-                                }
                             });
                         })();
                     })();
@@ -165,9 +159,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     ( function _highScores() {
                         ( function _submit() {
                             highScores.submit.shape.on( 'mouseover', function() {
-                                if ( highScores.add.isNotStoppingOrStopped() ){
+                                if ( highScores.add.isNotStoppingOrStopped() )
                                     highScores.submit.mouseOver = true
-                                }
                             });
 
                             highScores.submit.shape.on( 'mouseout', function() {
@@ -191,9 +184,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                         ( function _back() {
                             highScores.back.shape.on( 'mouseover', function() {
-                                if ( highScores.isNotStoppingOrStopped() ){
+                                if ( highScores.isNotStoppingOrStopped() )
                                     highScores.back.mouseOver = true
-                                }
                             });
 
                             highScores.back.shape.on( 'mouseout', function() {
@@ -262,13 +254,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         if ( fromModule.layer.opacity() === 0 && fromModule.state === 'stopping' ){
                             stop( fromModule );
 
+                            if ( toModule === game )
+                                toModule.state = 'counting down';
+
                             if ( settings.debug )
                                 console.log( 'Stopping module "' + fromModule.name + '"' );
-
-                            if ( toModule === game ){
-                                toModule.state = 'counting down';
-                            }
-
                         }
 
                         function start( module ){
