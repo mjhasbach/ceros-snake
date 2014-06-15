@@ -238,7 +238,33 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _next() {
+                            highScores.next.hitBox.on( 'mouseover', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() )
+                                    highScores.next.mouseOver = true
+                            });
 
+                            highScores.next.hitBox.on( 'mouseout', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() ){
+                                    highScores.next.shape.fill(
+                                        settings.font.colors.fill.enabled.hex
+                                    );
+
+                                    highScores.next.mouseOver = false
+                                }
+                            });
+
+                            highScores.next.hitBox.on( 'click touchstart', function() {
+                                if ( highScores.view.isNotStoppingOrStopped() ){
+                                    highScores.index += 1;
+
+                                    highScores.view.update();
+
+                                    if ( highScores.index === settings.highScores.limit - 1 ){
+                                        highScores.next.shape.remove();
+                                        highScores.next.hitBox.remove()
+                                    }
+                                }
+                            })
                         })();
                     })();
                 })();
