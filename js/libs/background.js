@@ -105,52 +105,50 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         }
                     },
 
-                    count: {
-                        segments: function( numbers ){
-                            var i;
+                    count: function( numbers ){
+                        var i;
 
-                            numbers = numbers.toString();
+                        numbers = numbers.toString();
 
-                            background.game.animation.randomize();
+                        background.game.animation.randomize();
 
-                            if ( numbers.length === 1 ){
-                                background.game.animation.draw.number[ util.number.toText( numbers )](
-                                    settings.background.countDown.coords.x,
-                                    settings.background.countDown.coords.y
-                                )
-                            } else if ( numbers.length === 2 ){
-                                for ( i = 0; i < numbers.length; i++ ){
-                                    if ( i === 0 ){
-                                        background.game.animation.draw.number[
-                                            util.number.toText( numbers[ i ])
-                                        ]( 9, 6 )
-                                    } else {
-                                        background.game.animation.draw.number[
-                                            util.number.toText( numbers[ i ])
-                                        ]( 19, 6 )
-                                    }
-                                }
-                            } else {
-                                for ( i = 0; i < numbers.length; i++ ){
-                                    if ( i === 0 ){
-                                        background.game.animation.draw.number[
-                                            util.number.toText( numbers[ i ])
-                                        ]( 4, 6 )
-                                    } else if ( i === 1 ){
-                                        background.game.animation.draw.number[
-                                            util.number.toText( numbers[ i ])
-                                        ]( 14, 6 )
-                                    } else {
-                                        background.game.animation.draw.number[
-                                            util.number.toText( numbers[ i ])
-                                        ]( 24, 6 )
-                                    }
+                        if ( numbers.length === 1 ){
+                            background.game.animation.draw.number[ util.number.toText( numbers )](
+                                settings.background.countDown.coords.x,
+                                settings.background.countDown.coords.y
+                            )
+                        } else if ( numbers.length === 2 ){
+                            for ( i = 0; i < numbers.length; i++ ){
+                                if ( i === 0 ){
+                                    background.game.animation.draw.number[
+                                        util.number.toText( numbers[ i ])
+                                    ]( 9, 6 )
+                                } else {
+                                    background.game.animation.draw.number[
+                                        util.number.toText( numbers[ i ])
+                                    ]( 19, 6 )
                                 }
                             }
-
-                            if ( settings.debug )
-                                console.log( 'Snake is ' + numbers + ' segments long' )
+                        } else {
+                            for ( i = 0; i < numbers.length; i++ ){
+                                if ( i === 0 ){
+                                    background.game.animation.draw.number[
+                                        util.number.toText( numbers[ i ])
+                                    ]( 4, 6 )
+                                } else if ( i === 1 ){
+                                    background.game.animation.draw.number[
+                                        util.number.toText( numbers[ i ])
+                                    ]( 14, 6 )
+                                } else {
+                                    background.game.animation.draw.number[
+                                        util.number.toText( numbers[ i ])
+                                    ]( 24, 6 )
+                                }
+                            }
                         }
+
+                        if ( settings.debug )
+                            console.log( 'Snake is ' + numbers + ' segments long' )
                     },
 
                     animation: {
