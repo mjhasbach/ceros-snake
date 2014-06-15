@@ -23,7 +23,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     }
                 }),
 
-                topScores: Backbone.Firebase.Collection.extend({
+                TopScores: Backbone.Firebase.Collection.extend({
                     model: highScores.database.Score,
 
                     firebase: new firebase( _s.database ).limit( _s.limit ).endAt(),
@@ -33,7 +33,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     }
                 }),
 
-                scores: new highScores.database.topScores
+                scores: new highScores.database.TopScores
             };
 
             highScores.isNotStoppingOrStopped = function() {
