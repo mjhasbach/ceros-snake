@@ -1,5 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'settings', 'util' ],
-    function( Kinetic, kineticEditableText, settings, util ){
+define([ 'Kinetic', 'kineticEditableText', 'backbone', 'settings', 'util' ],
+    function( Kinetic, kineticEditableText, backbone, settings, util ){
         var highScores = {},
             _s = settings.highScores;
 
