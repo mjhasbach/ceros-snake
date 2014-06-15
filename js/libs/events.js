@@ -175,7 +175,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             highScores.submit.hitBox.on( 'click touchstart', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
-                                    highScores.database.addScore();
+                                    highScores.database.scores.add({
+                                        score: highScores.score,
+                                        name: highScores.name.field.text()
+                                    });
 
                                     highScores.add.state = 'stopping'
                                 }
