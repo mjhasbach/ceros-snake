@@ -68,7 +68,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                     });
 
                     if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 )))
-                        loading.background.animation.randomize( frame );
+                        loading.background.draw.randomize( frame );
 
                     if ( loading.state === 'stopping' )
                         util.animation.stop( loading, frame )

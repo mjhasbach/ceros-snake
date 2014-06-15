@@ -46,7 +46,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 ( function ( countDown ){
                     if ( countDown.isReadyToCycle( frame )){
 
-                        background.game.animation.randomize( frame );
+                        background.game.draw.randomize( frame );
 
                         if ( countDown.number > 1 ){
 
@@ -110,7 +110,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         numbers = numbers.toString();
 
-                        background.game.animation.randomize();
+                        background.game.draw.randomize();
 
                         if ( numbers.length === 1 ){
                             background.game.animation.draw.number[ util.number.toText( numbers )](
@@ -151,15 +151,17 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             console.log( 'Background changed to number ' + numbers )
                     },
 
-                    animation: {
+                    draw: {
                         randomize: function( frame ){
                             bg.tile.list.forEach( function( tile ){
                                 tile.fill( bg.tile.color.base.random() )
                             });
 
                             if ( frame ) bg.lastCycleTime = frame.time
-                        },
+                        }
+                    },
 
+                    animation: {
                         draw: {
                             // Randomly change the color of background tiles into
                             // shapes of numbers at the specified coordinates
@@ -493,7 +495,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     },
 
                     cleanUp: function() {
-                        bg.animation.randomize();
+                        bg.draw.randomize();
 
                         bg.lastCycleTime = 0;
 
