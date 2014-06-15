@@ -158,12 +158,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     ( function _highScores() {
                         ( function _submit() {
-                            highScores.submit.shape.on( 'mouseover', function() {
+                            highScores.submit.hitBox.on( 'mouseover', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() )
                                     highScores.submit.mouseOver = true
                             });
 
-                            highScores.submit.shape.on( 'mouseout', function() {
+                            highScores.submit.hitBox.on( 'mouseout', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
                                     highScores.submit.shape.fill(
                                         settings.font.colors.fill.enabled.hex
@@ -173,7 +173,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 }
                             });
 
-                            highScores.submit.shape.on( 'click touchstart', function() {
+                            highScores.submit.hitBox.on( 'click touchstart', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
                                     highScores.database.addScore();
 
@@ -183,12 +183,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _back() {
-                            highScores.back.shape.on( 'mouseover', function() {
+                            highScores.back.hitBox.on( 'mouseover', function() {
                                 if ( highScores.isNotStoppingOrStopped() )
                                     highScores.back.mouseOver = true
                             });
 
-                            highScores.back.shape.on( 'mouseout', function() {
+                            highScores.back.hitBox.on( 'mouseout', function() {
                                 if ( highScores.isNotStoppingOrStopped() ){
                                     highScores.back.shape.fill(
                                         settings.font.colors.fill.enabled.hex
@@ -198,7 +198,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 }
                             });
 
-                            highScores.back.shape.on( 'click touchstart', function() {
+                            highScores.back.hitBox.on( 'click touchstart', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() )
                                     highScores.add.state = 'stopping';
 
