@@ -21,7 +21,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             throw new Error( 'A score must be provided when initializing a highScores.database.Score')
                         }
                     }
-                })
+                }),
+
+                Highest: Backbone.Firebase.Collection.extend({
+                    model: highScores.database.Score,
+
+                    firebase: new firebase( _s.database ).limit( _s.limit ).endAt()
+                }),
+
+                highest: new highScores.database.Highest
             };
 
             highScores.isNotStoppingOrStopped = function() {
