@@ -26,7 +26,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 topScores: Backbone.Firebase.Collection.extend({
                     model: highScores.database.Score,
 
-                    firebase: new firebase( _s.database ).limit( _s.limit ).endAt()
+                    firebase: new firebase( _s.database ).limit( _s.limit ).endAt(),
+
+                    comparator: function( model ){
+                        return -model.get( 'score' );
+                    }
                 }),
 
                 scores: new highScores.database.topScores
