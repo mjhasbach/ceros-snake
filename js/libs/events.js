@@ -173,7 +173,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             highScores.submit.shape.on( 'mouseout', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
                                     highScores.submit.shape.fill(
-                                        settings.highScores.submit.fill
+                                        settings.font.colors.fill.enabled.hex
                                     );
 
                                     highScores.submit.mouseOver = false
@@ -199,7 +199,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             highScores.back.shape.on( 'mouseout', function() {
                                 if ( highScores.isNotStoppingOrStopped() ){
                                     highScores.back.shape.fill(
-                                        settings.highScores.back.fill
+                                        settings.font.colors.fill.enabled.hex
                                     );
 
                                     highScores.back.mouseOver = false
