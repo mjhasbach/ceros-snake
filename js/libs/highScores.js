@@ -5,6 +5,24 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'settings', 'util' ],
 
         highScores.init = function( options ){
             highScores.database = {
+                Score: backbone.Model.extend({
+                    defaults: function() {
+                        return {
+                            time: new Date().getTime()
+                        };
+                    },
+
+                    initialize: function() {
+                        if ( !this.get( 'name' )){
+                            throw new Error( 'A name must be provided when initializing a highScores.database.Score')
+                        }
+
+                        if ( !this.get( 'score' )){
+                            throw new Error( 'A score must be provided when initializing a highScores.database.Score')
+                        }
+                    }
+                }),
+
                 ref: new Firebase( _s.database ),
 
                 highest: highScores.database.ref.limit( _s.limit ).endAt(),
