@@ -42,7 +42,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             highScores.cleanUp = function() {
-                highScores.background.animation.randomize();
+                highScores.background.draw.randomize();
 
                 highScores.submit.shape.fill( _s.submit.fill );
                 highScores.back.shape.fill( _s.back.fill );
