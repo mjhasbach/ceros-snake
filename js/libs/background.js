@@ -129,7 +129,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                     ]( 19, 6 )
                                 }
                             }
-                        } else {
+                        } else if ( numbers.length === 3 ){
                             for ( i = 0; i < numbers.length; i++ ){
                                 if ( i === 0 ){
                                     background.game.animation.draw.number[
@@ -145,7 +145,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                     ]( 24, 6 )
                                 }
                             }
-                        }
+                        } else throw new Error( 'The number passed to background.count was greater than three digits' );
 
                         if ( settings.debug )
                             console.log( 'Background changed to number ' + numbers )
