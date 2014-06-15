@@ -126,10 +126,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
         highScores.add = {
             state: 'stopped',
 
-            start: function( segments ){
-                highScores.score = segments.length;
+            start: function( score ){
+                highScores.score = score;
 
-                highScores.background.count.segments( segments )
+                highScores.background.count.segments( score )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,

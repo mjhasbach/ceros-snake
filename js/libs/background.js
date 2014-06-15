@@ -104,8 +104,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     },
 
                     count: {
-                        segments: function( segments ){
-                            var i, numbers = ( segments.length + 1 ).toString();
+                        segments: function( numbers ){
+                            var i;
+
+                            numbers = numbers.toString();
 
                             background.game.animation.randomize();
 
