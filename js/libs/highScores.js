@@ -21,21 +21,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'settings', 'util' ],
                             throw new Error( 'A score must be provided when initializing a highScores.database.Score')
                         }
                     }
-                }),
-
-                ref: new Firebase( _s.database ),
-
-                highest: highScores.database.ref.limit( _s.limit ).endAt(),
-
-                addScore: function() {
-                    highScores.database.ref
-                        .child( Math.random().toString( 36 ).slice( 2 ))
-                        .setWithPriority({
-                            name: highScores.name.field.text(),
-                            score: highScores.score,
-                            time: new Date().getTime()
-                        }, highScores.score );
-                }
+                })
             };
 
             highScores.isNotStoppingOrStopped = function() {
