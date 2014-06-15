@@ -255,11 +255,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.view.update = function() {
                     highScores.background.count.segments(
-                        highScores.database.scores[ highScores.index ].score
+                        highScores.database.scores.at( highScores.index ).score
                     );
 
                     highScores.name.scoreHolder.text(
-                        highScores.database.scores[ highScores.index ].name
+                        highScores.database.scores.at( highScores.index ).name
                     )
                 };
 
