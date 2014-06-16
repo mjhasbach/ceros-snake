@@ -2,7 +2,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
     var menu = {
         name: 'menu',
 
-        state: 'starting',
+        state: 'stopped',
 
         layer: new Kinetic.Layer(),
 
