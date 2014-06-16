@@ -4,8 +4,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             _s = settings.highScores;
 
         highScores.init = function( options ){
-            highScores.database = {
-                Score: Backbone.Model.extend({
+            ( function _database() {
+                highScores.database = {};
+
+                highScores.database.Score = Backbone.Model.extend({
                     defaults: function() {
                         return {
                             id: Math.random().toString( 36 ).slice( 2 ),
@@ -22,9 +24,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             throw new Error( 'A score must be provided when initializing a highScores.database.Score')
                         }
                     }
-                }),
+                });
 
-                TopScores: Backbone.Firebase.Collection.extend({
+                highScores.database.TopScores = Backbone.Firebase.Collection.extend({
                     model: highScores.database.Score,
 
                     firebase: new Firebase( _s.database ).limit( _s.limit ).endAt(),
@@ -32,10 +34,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     comparator: function( model ){
                         return -model.get( 'score' );
                     }
-                }),
+                });
 
-                scores: new highScores.database.TopScores
-            };
+                highScores.database.scores = new highScores.database.TopScores;
+            })();
 
             highScores.isNotStoppingOrStopped = function() {
                 return highScores.add.isNotStoppingOrStopped() ||
@@ -136,7 +138,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: highScores.cleanUp,
 
             init: function( options ){
-                kineticEditableText( Kinetic );
+                kineticEditableText.init( Kinetic );
 
                 highScores.name.field = new Kinetic.EditableText({
                     x: util.calculate.absolute.x( _s.name.field.x ),
