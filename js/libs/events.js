@@ -112,44 +112,44 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _volume() {
-                            menu.options.settings.volume.hitBox.on( 'mouseover', function() {
+                            menu.settings.volume.hitBox.on( 'mouseover', function() {
                                 if ( menu.state === 'settings' )
-                                    menu.options.settings.volume.mouseOver = true
+                                    menu.settings.volume.mouseOver = true
                             });
 
-                            menu.options.settings.volume.hitBox.on( 'mouseout', function() {
+                            menu.settings.volume.hitBox.on( 'mouseout', function() {
                                 if ( menu.state === 'settings' ){
-                                    menu.options.settings.volume.shape.fill(
+                                    menu.settings.volume.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
 
-                                    menu.options.settings.volume.mouseOver = false
+                                    menu.settings.volume.mouseOver = false
                                 }
                             });
 
-                            menu.options.settings.volume.hitBox.on( 'click touchstart', function() {
+                            menu.settings.volume.hitBox.on( 'click touchstart', function() {
                                 if ( menu.state === 'settings' )
                                     audio.song.mp3.toggleMute()
                             })
                         })();
 
                         ( function _fullScreen() {
-                            menu.options.settings.fullScreen.hitBox.on( 'mouseover', function() {
+                            menu.settings.fullScreen.hitBox.on( 'mouseover', function() {
                                 if ( menu.state === 'settings' )
-                                    menu.options.settings.fullScreen.mouseOver = true
+                                    menu.settings.fullScreen.mouseOver = true
                             });
 
-                            menu.options.settings.fullScreen.hitBox.on( 'mouseout', function() {
+                            menu.settings.fullScreen.hitBox.on( 'mouseout', function() {
                                 if ( menu.state === 'settings' ){
-                                    menu.options.settings.fullScreen.shape.fill(
+                                    menu.settings.fullScreen.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
 
-                                    menu.options.settings.fullScreen.mouseOver = false
+                                    menu.settings.fullScreen.mouseOver = false
                                 }
                             });
 
-                            menu.options.settings.fullScreen.hitBox.on( 'click touchstart', function() {
+                            menu.settings.fullScreen.hitBox.on( 'click touchstart', function() {
                                 if ( menu.state === 'settings' )
                                     if ( bigScreen.enabled ) bigScreen.toggle()
                             })

@@ -22,8 +22,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
         },
 
         options: {
-            settings: {},
-
             mouseOverCheck: function( frame ){
                 var brightnessVariance = util.calculate.brightnessVariance( frame );
                 
@@ -56,13 +54,13 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 );
 
                 ( function( h, s, l ){
-                    if ( menu.options.settings.volume.mouseOver )
+                    if ( menu.settings.volume.mouseOver )
 
-                        menu.options.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
+                        menu.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
-                    else if ( menu.options.settings.fullScreen.mouseOver )
+                    else if ( menu.settings.fullScreen.mouseOver )
 
-                        menu.options.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
+                        menu.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
                 })( settings.menu.settings.font.color.enabled.h,
                     settings.menu.settings.font.color.enabled.s,
@@ -76,18 +74,18 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
         cleanUp: function() {
             menu.options.singlePlayer.mouseOver = false;
             menu.options.gear.mouseOver = false;
-            menu.options.settings.volume.mouseOver = false;
-            menu.options.settings.fullScreen.mouseOver = false;
+            menu.settings.volume.mouseOver = false;
+            menu.settings.fullScreen.mouseOver = false;
 
             menu.options.singlePlayer.shape.getChildren().each( function( node ){
                 node.fill( settings.font.colors.fill.enabled.hex );
             });
 
             menu.options.gear.shape.fill( settings.font.colors.fill.enabled.hex );
-            menu.options.settings.volume.shape.fill( settings.menu.settings.font.color.enabled.hex );
-            menu.options.settings.fullScreen.shape.fill( settings.menu.settings.font.color.enabled.hex );
+            menu.settings.volume.shape.fill( settings.menu.settings.font.color.enabled.hex );
+            menu.settings.fullScreen.shape.fill( settings.menu.settings.font.color.enabled.hex );
 
-            menu.options.settings.group.opacity( 0 );
+            menu.settings.group.opacity( 0 );
         },
 
         init: function ( options ){
@@ -277,12 +275,14 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             })();
 
             ( function _settingsGroup() {
+                menu.settings = {};
+
                 ( function _volume() {
-                    menu.options.settings.volume = {};
+                    menu.settings.volume = {};
 
-                    menu.options.settings.volume.mouseOver = false;
+                    menu.settings.volume.mouseOver = false;
 
-                    menu.options.settings.volume.shape = new Kinetic.Text({
+                    menu.settings.volume.shape = new Kinetic.Text({
                         x: util.calculate.absolute.x( 32 ),
                         y: util.calculate.absolute.y( 5.9 ),
                         text: '\uf028',
@@ -291,7 +291,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         fill: settings.menu.settings.font.color.enabled.hex
                     });
 
-                    menu.options.settings.volume.hitBox = new Kinetic.Rect({
+                    menu.settings.volume.hitBox = new Kinetic.Rect({
                         x: util.calculate.absolute.x( 32 ),
                         y: util.calculate.absolute.y( 4.67 ),
                         width: util.calculate.absolute.x( 4.31 ),
@@ -301,11 +301,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 })();
 
                 ( function _fullScreen() {
-                    menu.options.settings.fullScreen = {};
+                    menu.settings.fullScreen = {};
 
-                    menu.options.settings.fullScreen.mouseOver = false;
+                    menu.settings.fullScreen.mouseOver = false;
 
-                    menu.options.settings.fullScreen.shape = new Kinetic.Text({
+                    menu.settings.fullScreen.shape = new Kinetic.Text({
                         x: util.calculate.absolute.x( 3.31 ),
                         y: util.calculate.absolute.y( 5.36 ),
                         text: '\uf0b2',
@@ -314,7 +314,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         fill: settings.menu.settings.font.color.enabled.hex
                     });
 
-                    menu.options.settings.fullScreen.hitBox = new Kinetic.Rect({
+                    menu.settings.fullScreen.hitBox = new Kinetic.Rect({
                         x: util.calculate.absolute.x( 3.31 ),
                         y: util.calculate.absolute.y( 4.67 ),
                         width: util.calculate.absolute.x( 5.07 ),
@@ -324,7 +324,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 })();
 
                 ( function _help() {
-                    menu.options.settings.help = {
+                    menu.settings.help = {
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( 1.86 ),
                             y: util.calculate.absolute.y( 5.35 ),
@@ -337,7 +337,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 })();
 
                 ( function _credits() {
-                    menu.options.settings.credits = {
+                    menu.settings.credits = {
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( 1.32 ),
                             y: util.calculate.absolute.y( 6.1 ),
@@ -349,19 +349,19 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     }
                 })();
 
-                menu.options.settings.group = new Kinetic.Group({ opacity: 0 });
+                menu.settings.group = new Kinetic.Group({ opacity: 0 });
 
-                menu.options.settings.group.add( menu.options.settings.volume.shape );
-                menu.options.settings.group.add( menu.options.settings.volume.hitBox );
-                menu.options.settings.group.add( menu.options.settings.fullScreen.shape );
-                menu.options.settings.group.add( menu.options.settings.fullScreen.hitBox );
-                menu.options.settings.group.add( menu.options.settings.help.shape );
-                menu.options.settings.group.add( menu.options.settings.credits.shape );
+                menu.settings.group.add( menu.settings.volume.shape );
+                menu.settings.group.add( menu.settings.volume.hitBox );
+                menu.settings.group.add( menu.settings.fullScreen.shape );
+                menu.settings.group.add( menu.settings.fullScreen.hitBox );
+                menu.settings.group.add( menu.settings.help.shape );
+                menu.settings.group.add( menu.settings.credits.shape );
 
-                menu.layer.add( menu.options.settings.group );
+                menu.layer.add( menu.settings.group );
 
-                menu.options.settings.volume.hitBox.cache();
-                menu.options.settings.fullScreen.hitBox.cache()
+                menu.settings.volume.hitBox.cache();
+                menu.settings.fullScreen.hitBox.cache()
             })();
 
             ( function _animation() {
@@ -381,15 +381,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                     } else if ( menu.state === 'settings' ){
 
-                        if ( menu.options.settings.group.opacity() < 1 ){
+                        if ( menu.settings.group.opacity() < 1 ){
 
-                            util.animation.fade( menu.options.settings.group, frame, 'in' )
+                            util.animation.fade( menu.settings.group, frame, 'in' )
                         }
-                    } else if ( menu.options.settings.group.opacity() > 0 ){
+                    } else if ( menu.settings.group.opacity() > 0 ){
 
-                        util.animation.fade( menu.options.settings.group, frame, 'out', function() {
-                            menu.options.settings.volume.mouseOver = false;
-                            menu.options.settings.fullScreen.mouseOver = false
+                        util.animation.fade( menu.settings.group, frame, 'out', function() {
+                            menu.settings.volume.mouseOver = false;
+                            menu.settings.fullScreen.mouseOver = false
                         });
                     }
                 }, menu.layer )
