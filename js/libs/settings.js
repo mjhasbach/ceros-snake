@@ -30,7 +30,7 @@ define([], function() {
             }
         },
 
-        animation: { transition: { speed: 1000 }},
+        transition: { speed: 1000 },
 
         mouseOver: {
             brightnessVariance: 8
