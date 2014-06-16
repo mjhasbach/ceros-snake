@@ -45,8 +45,7 @@ require.config({
         },
 
         'backfire': {
-            deps: [ 'backbone', 'firebase', 'underscore' ],
-            exports: 'Backfire'
+            deps: [ 'backbone', 'firebase', 'underscore' ]
         }
     }
 });
