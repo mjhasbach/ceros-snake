@@ -294,10 +294,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     ( function listener() {
                         transition( loading, menu );
                         transition( menu, game );
-                        transition( game, highScores.add );
-                        transition( highScores.add, menu );
-                        transition( menu, highScores.view );
-                        transition( highScores.view, menu );
+                        transition( game, menu );
 
                         setTimeout( function() { listener() }, 100 )
                     })();
