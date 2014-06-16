@@ -32,9 +32,7 @@ define([], function() {
 
         transition: { speed: 1000 },
 
-        mouseOver: {
-            brightnessVariance: 8
-        },
+        mouseOver: { brightnessVariance: 8 },
 
         stage: { container: { name: 'game' }},
 
