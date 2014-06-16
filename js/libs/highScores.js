@@ -125,6 +125,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
         };
 
         highScores.add = {
+            name: 'highScores.add',
+
             state: 'stopped',
 
             start: function( score ){
@@ -192,6 +194,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
         };
 
         highScores.view = {
+            name: 'highScores.view',
+
             state: 'stopped',
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
