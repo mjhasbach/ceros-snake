@@ -51,21 +51,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     settings.font.colors.stroke.enabled.h,
                     settings.font.colors.stroke.enabled.s,
                     settings.font.colors.stroke.enabled.l - brightnessVariance
-                );
-
-                ( function( h, s, l ){
-                    if ( menu.settings.volume.mouseOver )
-
-                        menu.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
-
-                    else if ( menu.settings.fullScreen.mouseOver )
-
-                        menu.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
-
-                })( settings.menu.settings.font.color.enabled.h,
-                    settings.menu.settings.font.color.enabled.s,
-                    settings.menu.settings.font.color.enabled.l + ( brightnessVariance * 2 )
-                );
+                )
             }
         },
 
@@ -349,6 +335,24 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     }
                 })();
 
+                menu.settings.mouseOverCheck = function( frame ){
+                    var brightnessVariance = util.calculate.brightnessVariance( frame ) * 2;
+
+                    ( function( h, s, l ){
+                        if ( menu.settings.volume.mouseOver )
+
+                            menu.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
+
+                        else if ( menu.settings.fullScreen.mouseOver )
+
+                            menu.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
+
+                    })( settings.menu.settings.font.color.enabled.h,
+                        settings.menu.settings.font.color.enabled.s,
+                        settings.menu.settings.font.color.enabled.l + ( brightnessVariance )
+                    );
+                };
+
                 menu.settings.group = new Kinetic.Group({ opacity: 0 });
 
                 menu.settings.group.add( menu.settings.volume.shape );
@@ -368,7 +372,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 menu.animation = new Kinetic.Animation( function( frame ){
 
                     menu.title.bounce( frame );
+
                     menu.options.mouseOverCheck( frame );
+
+                    menu.settings.mouseOverCheck( frame );
 
                     if ( menu.state === 'starting' ){
 
