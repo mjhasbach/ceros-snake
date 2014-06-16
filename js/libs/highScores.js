@@ -1,4 +1,4 @@
-define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util' ],
+define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'backfire' ],
     function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util ){
         var highScores = {},
             _s = settings.highScores;
