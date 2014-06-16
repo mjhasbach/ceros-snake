@@ -8,15 +8,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
         title: {
             bounce: function( frame ){
-                var _bounciness = settings.menu.title.bounciness *
+                var bounciness = settings.menu.title.bounciness *
                     ( Math.sin( frame.time * 2 * Math.PI / settings.animation.period ));
 
                 menu.title.ceros.shape.strokeWidth(
-                    util.calculate.absolute.size( settings.menu.title.stroke.width + _bounciness )
+                    util.calculate.absolute.size( settings.menu.title.stroke.width + bounciness )
                 );
 
                 menu.title.snake.shape.strokeWidth(
-                    util.calculate.absolute.size( settings.menu.title.stroke.width + _bounciness )
+                    util.calculate.absolute.size( settings.menu.title.stroke.width + bounciness )
                 )
             }
         },
