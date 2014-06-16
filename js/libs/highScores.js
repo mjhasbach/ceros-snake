@@ -1,11 +1,11 @@
 define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util' ],
-    function( Kinetic, kineticEditableText, backbone, firebase, settings, util ){
+    function( Kinetic, kineticEditableText, Backbone, firebase, settings, util ){
         var highScores = {},
             _s = settings.highScores;
 
         highScores.init = function( options ){
             highScores.database = {
-                Score: backbone.Model.extend({
+                Score: Backbone.Model.extend({
                     defaults: function() {
                         return {
                             id: Math.random().toString( 36 ).slice( 2 ),
