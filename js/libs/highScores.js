@@ -1,5 +1,5 @@
 define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util' ],
-    function( Kinetic, kineticEditableText, Backbone, firebase, settings, util ){
+    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util ){
         var highScores = {},
             _s = settings.highScores;
 
@@ -27,7 +27,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 TopScores: Backbone.Firebase.Collection.extend({
                     model: highScores.database.Score,
 
-                    firebase: new firebase( _s.database ).limit( _s.limit ).endAt(),
+                    firebase: new Firebase( _s.database ).limit( _s.limit ).endAt(),
 
                     comparator: function( model ){
                         return -model.get( 'score' );
