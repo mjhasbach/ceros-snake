@@ -57,15 +57,15 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             fade: function( node, frame, type, after ){
                 if ( type === 'in' ){
                     node.opacity(
-                        node.opacity() + frame.timeDiff / settings.animation.transition.speed < 1 ?
-                            node.opacity() + frame.timeDiff / settings.animation.transition.speed : 1
+                        node.opacity() + frame.timeDiff / settings.transition.speed < 1 ?
+                            node.opacity() + frame.timeDiff / settings.transition.speed : 1
                     );
 
                     if ( node.opacity() === 1 && after ) after()
                 } else {
                     node.opacity(
-                        node.opacity() - frame.timeDiff / settings.animation.transition.speed > 0 ?
-                            node.opacity() - frame.timeDiff / settings.animation.transition.speed : 0
+                        node.opacity() - frame.timeDiff / settings.transition.speed > 0 ?
+                            node.opacity() - frame.timeDiff / settings.transition.speed : 0
                     );
 
                     if ( node.opacity() === 0 && after ) after()
