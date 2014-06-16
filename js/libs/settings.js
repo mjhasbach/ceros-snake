@@ -96,6 +96,23 @@ define([], function() {
                 font: { size: 11 },
 
                 stroke: { width: 300 }
+            },
+
+            settings: {
+                font: {
+                    size: 4,
+
+                    color: {
+                        enabled: {
+                            hex: '#5d4686',
+                            h: 261,
+                            s: 31,
+                            l: 40
+                        },
+
+                        disabled: '#171221'
+                    }
+                }
             }
         },
 

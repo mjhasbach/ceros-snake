@@ -64,9 +64,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         menu.options.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
-                })( settings.font.colors.fill.enabled.h,
-                    settings.font.colors.fill.enabled.s,
-                    settings.font.colors.fill.enabled.l + ( brightnessVariance * 2 )
+                })( settings.menu.settings.font.color.enabled.h,
+                    settings.menu.settings.font.color.enabled.s,
+                    settings.menu.settings.font.color.enabled.l + ( menu.title.brightnessVariance * 2 )
                 );
             }
         },
@@ -84,8 +84,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             });
 
             menu.options.gear.shape.fill( settings.font.colors.fill.enabled.hex );
-            menu.options.settings.volume.shape.fill( settings.font.colors.fill.enabled.hex );
-            menu.options.settings.fullScreen.shape.fill( settings.font.colors.fill.enabled.hex );
+            menu.options.settings.volume.shape.fill( settings.menu.settings.font.color.enabled.hex );
+            menu.options.settings.fullScreen.shape.fill( settings.menu.settings.font.color.enabled.hex );
 
             menu.options.settings.group.opacity( 0 );
         },
@@ -286,9 +286,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         x: util.calculate.absolute.x( 32 ),
                         y: util.calculate.absolute.y( 5.9 ),
                         text: '\uf028',
-                        fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ),
+                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ),
                         fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex
+                        fill: settings.menu.settings.font.color.enabled.hex
                     });
 
                     menu.options.settings.volume.hitBox = new Kinetic.Rect({
@@ -309,9 +309,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         x: util.calculate.absolute.x( 3.31 ),
                         y: util.calculate.absolute.y( 5.36 ),
                         text: '\uf0b2',
-                        fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
+                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
                         fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex
+                        fill: settings.menu.settings.font.color.enabled.hex
                     });
 
                     menu.options.settings.fullScreen.hitBox = new Kinetic.Rect({
@@ -329,9 +329,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             x: util.calculate.absolute.x( 1.86 ),
                             y: util.calculate.absolute.y( 5.35 ),
                             text: '\uf059',
-                            fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 0.922,
+                            fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
                             fontFamily: 'FontAwesome',
-                            fill: settings.font.colors.fill.disabled
+                            fill: settings.menu.settings.font.color.disabled
                         })
                     }
                 })();
@@ -342,9 +342,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             x: util.calculate.absolute.x( 1.32 ),
                             y: util.calculate.absolute.y( 6.1 ),
                             text: '\u00A9',
-                            fontSize: util.calculate.absolute.size( settings.menu.options.settings.font.size ) * 1.089,
+                            fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 1.089,
                             fontFamily: settings.font.face,
-                            fill: settings.font.colors.fill.disabled
+                            fill: settings.menu.settings.font.color.disabled
                         })
                     }
                 })();
