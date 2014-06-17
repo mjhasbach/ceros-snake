@@ -193,7 +193,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                                 settings.font.colors.stroke.enabled.s,
                                 settings.font.colors.stroke.enabled.l - brightnessVariance
                             )
-                        }
+                        }.bind( this )
                     },
 
                     settings: {
