@@ -725,12 +725,12 @@ function init(KineticModule){
 
 // Define an AMD module
 if (typeof define === 'function' && typeof define.amd === 'object') {
-    define(init);
+    define({ init: init });
 }
 
 // Define a CommonJS module
 else if (typeof module !== 'undefined' && module.exports) {
-    module.kineticEditableText = init;
+    module.kineticEditableText = { init: init };
 }
 
 // Define Kinetic.EditableText globally
