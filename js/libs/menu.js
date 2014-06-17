@@ -282,6 +282,33 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                                 settings.menu.settings.font.color.enabled.l + ( brightnessVariance )
                             );
                         }
+                    },
+
+                    cleanUp: function() {
+                        var menu = this;
+
+                        menu.options.singlePlayer.mouseOver = false;
+                        menu.options.gear.mouseOver = false;
+                        menu.options.settings.volume.mouseOver = false;
+                        menu.options.settings.fullScreen.mouseOver = false;
+
+                        menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                            node.fill( settings.menu.options.font.color.enabled.hex );
+                        });
+
+                        menu.options.gear.shape.fill(
+                            settings.menu.options.font.color.enabled.hex
+                        );
+
+                        menu.options.settings.volume.shape.fill(
+                            settings.menu.options.settings.font.color.enabled.hex
+                        );
+
+                        menu.options.settings.fullScreen.shape.fill(
+                            settings.menu.options.settings.font.color.enabled.hex
+                        );
+
+                        menu.options.settings.group.opacity( 0 );
                     }
                 };
             },
