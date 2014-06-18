@@ -49,7 +49,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
         module: {
             isNotStoppingOrStopped: function() {
-                return this.state.indexOf( 'stop' ) === -1
+                return this.state.get( 'current' ).indexOf( 'stop' ) === -1
             }
         },
 
