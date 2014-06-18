@@ -65,6 +65,16 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 module.state = 'starting'
             },
 
+            stop: function( module ){
+                module.animation.stop();
+
+                module.layer.remove();
+
+                if ( module.cleanUp ) module.cleanUp();
+
+                module.state = 'stopped'
+            },
+
             isNotStoppingOrStopped: function() {
                 return this.state.get( 'current' ).indexOf( 'stop' ) === -1
             }
