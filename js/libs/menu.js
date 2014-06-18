@@ -309,7 +309,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                         );
 
                         menu.options.settings.group.opacity( 0 );
-                    }.bind( this ),
+                    },
 
                     init: function( options ){
                         this.set( 'background', options.background.menu );
