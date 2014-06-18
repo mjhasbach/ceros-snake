@@ -62,111 +62,95 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                 ( function _mouseAndTouchEvents() {
                     ( function _menu() {
-                        var state = menu.get( 'state' ),
-                            options = menu.get( 'options' ),
-                            menuSettings = menu.get( 'settings' ),
-                            isNotStoppingOrStopped = menu.get( 'isNotStoppingOrStopped' );
-
                         ( function _singlePlayer() {
-                            var singlePlayer = options.singlePlayer,
-                                hitBox = singlePlayer.hitBox;
-
-                            hitBox.on( 'mouseover', function() {
-                                if ( isNotStoppingOrStopped() )
-                                    singlePlayer.mouseOver = true;
+                            menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
+                                if ( menu.isNotStoppingOrStopped() )
+                                    menu.options.singlePlayer.mouseOver = true
                             });
 
-                            hitBox.on( 'mouseout', function() {
-                                if ( isNotStoppingOrStopped() ){
-                                    singlePlayer.shape.getChildren().each( function( node ){
+                            menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.singlePlayer.shape.getChildren().each( function( node ){
                                         node.fill(
                                             settings.font.colors.fill.enabled.hex
                                         );
                                     });
 
-                                    singlePlayer.mouseOver = false;
+                                    menu.options.singlePlayer.mouseOver = false
                                 }
                             });
 
-                            hitBox.on( 'click touchstart', function() {
-                                if ( isNotStoppingOrStopped() )
-                                    menu.set( 'state', 'stopping' );
+                            menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() )
+                                    menu.state = 'stopping';
                             })
                         })();
 
                         ( function _gear() {
-                            var gear = options.gear,
-                                hitBox = gear.hitBox;
-
-                            hitBox.on( 'mouseover', function() {
-                                if ( isNotStoppingOrStopped() )
-                                    gear.mouseOver = true;
-                            });
-
-                            hitBox.on( 'mouseout', function() {
-                                if ( isNotStoppingOrStopped() ){
-                                    gear.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
-
-                                    gear.mouseOver = false;
+                            menu.options.gear.hitBox.on( 'mouseover', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.gear.mouseOver = true
                                 }
                             });
 
-                            hitBox.on( 'click touchstart', function() {
-                                if ( isNotStoppingOrStopped() ){
-                                    if ( state === 'running' ) menu.set( 'state', 'settings' );
-                                    else menu.set( 'state', 'running' );
+                            menu.options.gear.hitBox.on( 'mouseout', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.gear.shape.fill(
+                                        settings.font.colors.fill.enabled.hex
+                                    );
+
+                                    menu.options.gear.mouseOver = false
+                                }
+                            });
+
+                            menu.options.gear.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    if ( menu.state === 'running' ) menu.state = 'settings';
+                                    else menu.state = 'running';
                                 }
                             });
                         })();
 
                         ( function _volume() {
-                            var volume = menuSettings.volume,
-                                hitBox = volume.hitBox;
-
-                            hitBox.on( 'mouseover', function() {
-                                if ( state === 'settings' )
-                                    volume.mouseOver = true;
+                            menu.settings.volume.hitBox.on( 'mouseover', function() {
+                                if ( menu.state === 'settings' )
+                                    menu.settings.volume.mouseOver = true
                             });
 
-                            hitBox.on( 'mouseout', function() {
-                                if ( state === 'settings' ){
-                                    volume.shape.fill(
+                            menu.settings.volume.hitBox.on( 'mouseout', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.settings.volume.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
 
-                                    volume.mouseOver = false;
+                                    menu.settings.volume.mouseOver = false
                                 }
                             });
 
-                            hitBox.on( 'click touchstart', function() {
-                                if ( state === 'settings' )
+                            menu.settings.volume.hitBox.on( 'click touchstart', function() {
+                                if ( menu.state === 'settings' )
                                     audio.song.mp3.toggleMute()
                             })
                         })();
 
                         ( function _fullScreen() {
-                            var fullScreen = menuSettings.fullScreen,
-                                hitBox = fullScreen.hitBox;
-
-                            hitBox.on( 'mouseover', function() {
-                                if ( state === 'settings' )
-                                    fullScreen.mouseOver = true;
+                            menu.settings.fullScreen.hitBox.on( 'mouseover', function() {
+                                if ( menu.state === 'settings' )
+                                    menu.settings.fullScreen.mouseOver = true
                             });
 
-                            hitBox.on( 'mouseout', function() {
-                                if ( state === 'settings' ){
-                                    fullScreen.shape.fill(
+                            menu.settings.fullScreen.hitBox.on( 'mouseout', function() {
+                                if ( menu.state === 'settings' ){
+                                    menu.settings.fullScreen.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
 
-                                    fullScreen.mouseOver = false;
+                                    menu.settings.fullScreen.mouseOver = false
                                 }
                             });
 
-                            hitBox.on( 'click touchstart', function() {
-                                if ( state === 'settings' )
+                            menu.settings.fullScreen.hitBox.on( 'click touchstart', function() {
+                                if ( menu.state === 'settings' )
                                     if ( bigScreen.enabled ) bigScreen.toggle()
                             })
                         })();
