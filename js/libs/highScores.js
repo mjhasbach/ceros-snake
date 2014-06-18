@@ -127,7 +127,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
         highScores.add = {
             name: 'highScores.add',
 
-            state: 'stopped',
+            state: new Backbone.Model({ current: 'stopped' }),
 
             start: function( score ){
                 highScores.score = score;
@@ -178,7 +178,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 };
 
                 highScores.add.animation = new Kinetic.Animation( function( frame ){
-                    if ( highScores.add.state === 'stopping' ){
+                    if ( highScores.add.state.get( 'current' ) === 'stopping' ){
 
                         util.module.stop( highScores.add, frame )
                     }
@@ -196,7 +196,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
         highScores.view = {
             name: 'highScores.view',
 
-            state: 'stopped',
+            state: new Backbone.Model({ current: 'stopped' }),
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
@@ -300,15 +300,17 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 };
 
                 highScores.view.animation = new Kinetic.Animation( function( frame ){
-                    if ( highScores.view.state === 'starting' ){
+                    var state = highScores.view.state.get( 'current' );
+
+                    if ( state === 'starting' ){
                         highScores.view.update();
 
-                        highScores.view.state = 'running'
+                        highScores.view.state.set( 'current', 'running' )
 
-                    } else if ( highScores.view.state === 'running' ){
+                    } else if ( state === 'running' ){
                         highScores.view.mouseOverCheck( frame )
 
-                    } else if ( highScores.view.state === 'stopping' ){
+                    } else if ( state === 'stopping' ){
                         util.module.stop( highScores.view, frame )
                     }
                 }, highScores.view.layer );
