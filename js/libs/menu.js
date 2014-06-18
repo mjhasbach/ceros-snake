@@ -78,7 +78,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                             this.snake.shape.strokeWidth(
                                 util.calculate.absolute.size( settings.menu.title.stroke.width + bounciness )
                             )
-                        }.bind( this )
+                        }
                     },
 
                     options: {
