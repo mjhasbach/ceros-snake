@@ -48,6 +48,23 @@ define([ 'underscore', 'settings' ], function( _, settings ){
         },
 
         module: {
+            start: function( module, stage ){
+                stage.add( module.layer );
+
+                module.layer.opacity( 1 );
+
+                module.layer.moveToBottom();
+
+                stage.scale({
+                    x: util.calculate.dimensions.scale(),
+                    y: util.calculate.dimensions.scale()
+                });
+
+                module.animation.start();
+
+                module.state = 'starting'
+            },
+
             isNotStoppingOrStopped: function() {
                 return this.state.get( 'current' ).indexOf( 'stop' ) === -1
             }
