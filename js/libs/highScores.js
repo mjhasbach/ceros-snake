@@ -180,7 +180,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.animation = new Kinetic.Animation( function( frame ){
                     if ( highScores.add.state === 'stopping' ){
 
-                        highScores.add.animation.stop( highScores.add, frame )
+                        util.module.stop( highScores.add, frame )
                     }
                 }, highScores.add.layer );
 
@@ -309,7 +309,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         highScores.view.mouseOverCheck( frame )
 
                     } else if ( highScores.view.state === 'stopping' ){
-                        highScores.view.animation.stop( highScores.view, frame )
+                        util.module.stop( highScores.view, frame )
                     }
                 }, highScores.view.layer );
 
