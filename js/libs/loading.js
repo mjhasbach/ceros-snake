@@ -3,6 +3,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
         var loading = {
             name: 'loading',
 
+            state: new Backbone.Model({ current: 'stopped' }),
+
             layer: new Kinetic.Layer()
         };
 
@@ -78,8 +80,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
             ( function _start() {
                 stage.add( loading.layer );
-
-                loading.state = new Backbone.Model({ current: 'running' });
 
                 loading.animation.start();
 
