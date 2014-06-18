@@ -279,7 +279,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                                 settings.menu.settings.font.color.enabled.s,
                                 settings.menu.settings.font.color.enabled.l + ( brightnessVariance )
                             );
-                        }.bind( this )
+                        }
                     },
 
                     isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
