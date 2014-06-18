@@ -2,7 +2,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
     var menu = {
         name: 'menu',
 
-        state: new Backbone.Model.extend({ current: 'stopped' }),
+        state: new Backbone.Model({ current: 'stopped' }),
 
         layer: new Kinetic.Layer(),
 

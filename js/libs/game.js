@@ -2,7 +2,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
     var game = {
         name: 'game',
 
-        state: new Backbone.Model.extend({ current: 'stopped' }),
+        state: new Backbone.Model({ current: 'stopped' }),
 
         layer: new Kinetic.Layer(),
 

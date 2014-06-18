@@ -79,7 +79,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
             ( function _start() {
                 stage.add( loading.layer );
 
-                loading.state = new Backbone.Model.extend({ current: 'running' });
+                loading.state = new Backbone.Model({ current: 'running' });
+
                 loading.animation.start();
 
                 require([ 'assets' ], function( assets ){
