@@ -295,59 +295,19 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 })();
 
                 ( function _transitionListener() {
-                    ( function listener() {
-                        transition( loading, menu );
-                        transition( menu, game );
-                        transition( game, menu );
+                    var start = util.module.start;
 
-                        setTimeout( function() { listener() }, 100 )
-                    })();
+                    loading.state.on( 'change:current', function( state, current ){
+                        if ( current === 'stopping' ) start( menu, stage )
+                    });
 
-                    function transition( fromModule, toModule ){
-                        if ( !toModule.layer.getParent() && fromModule.state === 'stopping' ){
-                            start( toModule );
+                    menu.state.on( 'change:current', function( state, current ){
+                        if ( current === 'stopping' ) start( game, stage )
+                    });
 
-                            if ( settings.debug )
-                                console.log( 'Starting module "' + toModule.name + '"' )
-                        }
-
-                        if ( fromModule.layer.opacity() === 0 && fromModule.state === 'stopping' ){
-                            stop( fromModule );
-
-                            if ( toModule === game )
-                                toModule.state = 'counting down';
-
-                            if ( settings.debug )
-                                console.log( 'Stopping module "' + fromModule.name + '"' )
-                        }
-
-                        function start( module ){
-                            stage.add( module.layer );
-
-                            module.layer.opacity( 1 );
-
-                            module.layer.moveToBottom();
-
-                            stage.scale({
-                                x: util.calculate.dimensions.scale(),
-                                y: util.calculate.dimensions.scale()
-                            });
-
-                            module.animation.start();
-
-                            module.state = 'starting'
-                        }
-
-                        function stop( module ){
-                            module.animation.stop();
-
-                            module.layer.remove();
-
-                            if ( module.cleanUp ) module.cleanUp();
-
-                            module.state = 'stopped'
-                        }
-                    }
+                    game.state.on( 'change:current', function( state, current ){
+                        if ( current === 'stopping' ) start( menu, stage )
+                    });
                 })();
 
                 ( function _transitionToMenu() {
