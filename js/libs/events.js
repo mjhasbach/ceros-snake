@@ -82,7 +82,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
                                 if ( menu.isNotStoppingOrStopped() )
-                                    menu.state = 'stopping';
+                                    menu.state.set( 'current', 'stopping' );
                             })
                         })();
 
@@ -105,20 +105,22 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.gear.hitBox.on( 'click touchstart', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
-                                    if ( menu.state === 'running' ) menu.state = 'settings';
-                                    else menu.state = 'running';
+                                    if ( menu.state.get( 'current' ) === 'running' )
+                                        menu.state.set( 'current', 'settings' );
+
+                                    else menu.state.set( 'current', 'running' );
                                 }
                             });
                         })();
 
                         ( function _volume() {
                             menu.settings.volume.hitBox.on( 'mouseover', function() {
-                                if ( menu.state === 'settings' )
+                                if ( menu.state.get( 'current' ) === 'settings' )
                                     menu.settings.volume.mouseOver = true
                             });
 
                             menu.settings.volume.hitBox.on( 'mouseout', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state.get( 'current' ) === 'settings' ){
                                     menu.settings.volume.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
@@ -128,19 +130,19 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
 
                             menu.settings.volume.hitBox.on( 'click touchstart', function() {
-                                if ( menu.state === 'settings' )
+                                if ( menu.state.get( 'current' ) === 'settings' )
                                     audio.song.mp3.toggleMute()
                             })
                         })();
 
                         ( function _fullScreen() {
                             menu.settings.fullScreen.hitBox.on( 'mouseover', function() {
-                                if ( menu.state === 'settings' )
+                                if ( menu.state.get( 'current' ) === 'settings' )
                                     menu.settings.fullScreen.mouseOver = true
                             });
 
                             menu.settings.fullScreen.hitBox.on( 'mouseout', function() {
-                                if ( menu.state === 'settings' ){
+                                if ( menu.state.get( 'current' ) === 'settings' ){
                                     menu.settings.fullScreen.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
                                     );
@@ -150,7 +152,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
 
                             menu.settings.fullScreen.hitBox.on( 'click touchstart', function() {
-                                if ( menu.state === 'settings' )
+                                if ( menu.state.get( 'current' ) === 'settings' )
                                     if ( bigScreen.enabled ) bigScreen.toggle()
                             })
                         })();

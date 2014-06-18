@@ -1,8 +1,8 @@
-define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, settings, util ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _, Backbone, Kinetic, settings, util ){
     var menu = {
         name: 'menu',
 
-        state: 'stopped',
+        state: new Backbone.Model.extend({ current: 'stopped' }),
 
         layer: new Kinetic.Layer(),
 
@@ -377,16 +377,16 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                     menu.settings.mouseOverCheck( frame );
 
-                    if ( menu.state === 'starting' ){
+                    if ( menu.state.get( 'current' ) === 'starting' ){
 
                         util.animation.fade( menu.layer, frame, 'in', function() {
-                            menu.state = 'running'
+                            menu.state.set( 'current', 'running' )
                         })
-                    } else if ( menu.state === 'stopping' ){
+                    } else if ( menu.state.get( 'current' ) === 'stopping' ){
 
                         util.animation.stop( menu, frame )
 
-                    } else if ( menu.state === 'settings' ){
+                    } else if ( menu.state.get( 'current' ) === 'settings' ){
 
                         if ( menu.settings.group.opacity() < 1 ){
 
