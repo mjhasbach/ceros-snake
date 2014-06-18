@@ -141,9 +141,9 @@ define([ 'underscore', 'settings' ], function( _, settings ){
     };
 
     util.animation.stop = function( module, frame, after ){
-        util.animation.fade( module.get( 'layer' ), frame, 'out' );
+        util.animation.fade( module.layer, frame, 'out' );
 
-        if ( module.get( 'layer' ).opacity() === 0 ){
+        if ( module.layer.opacity() === 0 ){
             if ( after ) after()
         }
     };
