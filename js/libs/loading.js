@@ -1,5 +1,5 @@
-define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
-    function( _, Kinetic, settings, util, stage, background ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
+    function( _, Backbone, Kinetic, settings, util, stage, background ){
         var loading = {
             name: 'loading',
 
@@ -70,7 +70,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                     if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 )))
                         loading.background.draw.randomize( frame );
 
-                    if ( loading.state === 'stopping' )
+                    if ( loading.state.get( 'current' ) === 'stopping' )
                         util.animation.stop( loading, frame )
 
                 }, loading.layer )
@@ -79,7 +79,7 @@ define([ 'underscore', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
             ( function _start() {
                 stage.add( loading.layer );
 
-                loading.state = 'running';
+                loading.state = new Backbone.Model.extend({ current: 'running' });
                 loading.animation.start();
 
                 require([ 'assets' ], function( assets ){

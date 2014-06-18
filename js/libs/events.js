@@ -352,7 +352,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                 ( function _transitionToMenu() {
                     assets.audio.song.mp3.play().loop();
-                    loading.state = 'stopping'
+                    loading.state.set( 'current', 'stopping' )
                 })()
             }
         }
