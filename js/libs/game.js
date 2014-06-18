@@ -2,7 +2,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
     var game = {
         name: 'game',
 
-        state: 'stopped',
+        state: new Backbone.Model.extend({ current: 'stopped' }),
 
         layer: new Kinetic.Layer(),
 
@@ -276,7 +276,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                 },
 
                 pushOrInit: function( direction ){
-                    if ( game.state === 'running' ){
+                    if ( game.state.get( 'current' ) === 'running' ){
                         game.snake.direction.queue.push( direction )
 
                     } else game.snake.direction.queue[ 0 ] = direction
@@ -388,24 +388,25 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
 
         ( function _animation() {
             game.animation = new Kinetic.Animation( function( frame ){
+                var state = game.state.get( 'current' );
 
-                if ( game.state === 'starting' ){
+
+                if ( state === 'starting' ){
                     game.snake.segment.queueNew();
                     game.snake.segment.addNewIfNecessary();
 
                     game.heart.regenerate();
 
-                    game.state = 'waiting'
+                    game.state.set( 'current', 'waiting' )
 
-                } else if ( game.state === 'counting down' ){
+                } else if ( state === 'counting down' ){
 
                     game.background.count.down.animation( frame );
 
                     if ( game.background.count.down.number === 1 )
+                        game.state.set( 'current', 'running' )
 
-                        game.state = 'running';
-
-                } else if ( game.state === 'running' ){
+                } else if ( state === 'running' ){
                     if ( game.boundaries.areReadyToCycle( frame )){
                         game.boundaries.animation( frame );
                     }
@@ -415,8 +416,11 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                         game.snake.move( frame );
                         game.snake.segment.addNewIfNecessary();
 
-                        if ( game.snake.isCollidingWith.itself() ) game.state = 'stopping';
-                        if ( game.snake.isCollidingWith.boundary() ) game.state = 'stopping';
+                        if ( game.snake.isCollidingWith.itself() )
+                            game.state.set( 'current', 'stopping' );
+
+                        if ( game.snake.isCollidingWith.boundary() )
+                            game.state.set( 'current', 'stopping' );
 
                         game.snake.isCollidingWith.heart( function( collision, index ){
                             if ( collision ){
@@ -432,7 +436,7 @@ define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
                     }
                 }
 
-                else if ( game.state === 'stopping' )
+                else if ( state === 'stopping' )
 
                     util.animation.stop( game, frame )
 
