@@ -302,7 +302,16 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     menu.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( game, stage )
+                        if ( current === 'stopping' ){
+                            start( game, stage );
+
+                            ( function waitForMenuOut() {
+                                if ( menu.layer.opacity() === 0 )
+                                    game.state.set( 'current', 'counting down' );
+
+                                else setTimeout( waitForMenuOut, 10 )
+                            })();
+                        }
                     });
 
                     game.state.on( 'change:current', function( state, current ){
