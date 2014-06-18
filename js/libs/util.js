@@ -65,14 +65,18 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 module.state = 'starting'
             },
 
-            stop: function( module ){
-                module.animation.stop();
+            stop: function( module, frame ){
+                util.animation.fade( module.layer, frame, 'out' );
 
-                module.layer.remove();
+                if ( module.layer.opacity() === 0 ){
+                    module.animation.stop();
 
-                if ( module.cleanUp ) module.cleanUp();
+                    module.layer.remove();
 
-                module.state = 'stopped'
+                    if ( module.cleanUp ) module.cleanUp();
+
+                    module.state.set( 'current', 'stopped' )
+                }
             },
 
             isNotStoppingOrStopped: function() {
@@ -165,14 +169,6 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
     util.calculate.dimensions.scale = function() {
         return util.calculate.dimensions.aspect().width / util.calculate.dimensions.original.width()
-    };
-
-    util.animation.stop = function( module, frame, after ){
-        util.animation.fade( module.layer, frame, 'out' );
-
-        if ( module.layer.opacity() === 0 ){
-            if ( after ) after()
-        }
     };
 
     width = util.calculate.dimensions.aspect().width;

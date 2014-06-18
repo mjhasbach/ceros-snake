@@ -438,7 +438,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
                 else if ( state === 'stopping' )
 
-                    util.animation.stop( game, frame )
+                    util.module.stop( game, frame )
 
             }, game.layer )
         })();

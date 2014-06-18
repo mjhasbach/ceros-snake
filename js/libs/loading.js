@@ -71,7 +71,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         loading.background.draw.randomize( frame );
 
                     if ( loading.state.get( 'current' ) === 'stopping' )
-                        util.animation.stop( loading, frame )
+                        util.module.stop( loading, frame )
 
                 }, loading.layer )
             })();

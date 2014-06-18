@@ -384,7 +384,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         })
                     } else if ( menu.state.get( 'current' ) === 'stopping' ){
 
-                        util.animation.stop( menu, frame )
+                        util.module.stop( menu, frame )
 
                     } else if ( menu.state.get( 'current' ) === 'settings' ){
 
