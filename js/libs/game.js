@@ -1,4 +1,4 @@
-define([ 'Kinetic', 'settings', 'util' ], function( Kinetic, settings, util ){
+define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kinetic, settings, util ){
     var game = {
         name: 'game',
 
