@@ -7,6 +7,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
 
                     state: 'stopped',
 
+                    isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
+
                     layer: new Kinetic.Layer(),
 
                     title: {
@@ -282,8 +284,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                         }
                     },
 
-                    isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
-
                     cleanUp: function() {
                         var menu = this;
 
@@ -309,12 +309,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                         );
 
                         menu.options.settings.group.opacity( 0 );
-                    },
-
-                    init: function( options ){
-                        this.set( 'background', options.background.menu );
-                        this.get( 'layer' ).add( this.get( 'background' ).group );
-                    }.bind( this )
+                    }
                 };
             },
 
@@ -373,6 +368,12 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ],
                         });
                     }
                 }, layer ));
+
+                menu.set( 'init', function( options ){
+                    menu.set( 'background', options.background.menu );
+
+                    menu.get( 'layer' ).add( menu.get( 'background' ).group );
+                });
 
                 ( function _initSettingsGroup() {
                     settingsGroup.add( menuSettings.volume.shape );
