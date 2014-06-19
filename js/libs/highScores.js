@@ -10,7 +10,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.database.Score = Backbone.Model.extend({
                     defaults: function() {
                         return {
-                            id: Math.random().toString( 36 ).slice( 2 ),
                             time: new Date().getTime()
                         };
                     },
