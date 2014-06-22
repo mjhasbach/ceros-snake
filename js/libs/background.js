@@ -70,7 +70,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             background.menu = new Background();
 
 
-            background.highScores = new Background();
+            background.highScores = {
+                add: new Background(),
+                view: new Background()
+            };
 
 
             function Background() {
