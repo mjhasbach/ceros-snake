@@ -179,9 +179,9 @@ define([], function() {
                 },
 
                 label: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    x: 2.8,
+                    y: 1.26,
+                    size: 10
                 },
 
                 scoreHolder: {
