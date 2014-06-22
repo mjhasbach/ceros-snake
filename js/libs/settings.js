@@ -1,6 +1,6 @@
 define([], function() {
     var settings = {
-        debug: false,
+        debug: true,
 
         font: {
             face: 'New Rocker',
@@ -164,9 +164,9 @@ define([], function() {
             limit: 100,
 
             scoreLabel: {
-                x: 1,
-                y: 1,
-                size: 0,
+                x: 3,
+                y: 100,
+                size: 8,
                 stroke: { width: 0 }
             },
 
