@@ -90,8 +90,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.layer = new Kinetic.Layer();
                 highScores.view.layer = new Kinetic.Layer();
 
-                highScores.view.layer.add( highScores.name.label );
-
                 highScores.add.layer.add( highScores.back.shape );
                 highScores.add.layer.add( highScores.back.hitBox );
                 highScores.view.layer.add( highScores.back.shape );
@@ -216,10 +214,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             scoreLabel: highScores.add.scoreLabel.clone(),
 
+            playerName: { label: highScores.add.playerName.label.clone() },
+
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
 
-                highScores.name.scoreHolder = new Kinetic.Text({
+                highScores.view.playerName.scoreHolder = new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.name.scoreHolder.x ),
                     y: util.calculate.absolute.y( _s.name.scoreHolder.y ),
                     text: 'Name:',
@@ -279,7 +279,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.view.background.count( highScores.score );
 
-                    highScores.name.scoreHolder.text(
+                    highScores.view.playerName.scoreHolder.text(
                         highScores.database.scores.at( highScores.index ).name
                     )
                 };
@@ -332,10 +332,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 }, highScores.view.layer );
 
                 ( function _layer() {
-                    highScores.view.layer.add( highScores.name.scoreHolder );
-
                     highScores.view.layer.add( highScores.view.background.group );
+
                     highScores.view.layer.add( highScores.view.scoreLabel );
+
+                    highScores.view.layer.add( highScores.view.playerName.label );
+                    highScores.view.layer.add( highScores.view.playerName.scoreHolder );
 
                     highScores.view.layer.add( highScores.previous.shape );
                     highScores.view.layer.add( highScores.previous.hitBox );
