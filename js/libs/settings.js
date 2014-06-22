@@ -97,9 +97,7 @@ define([], function() {
 
                 settings: { font: { size: 4 }},
 
-                font: { size: 11 },
-
-                stroke: { width: 300 }
+                font: { size: 11 }
             },
 
             settings: {
@@ -178,22 +176,19 @@ define([], function() {
                 field: {
                     x: 1,
                     y: 1,
-                    size: 0,
-                    stroke: { width: 0 }
+                    size: 0
                 },
 
                 label: {
                     x: 1,
                     y: 1,
-                    size: 0,
-                    stroke: { width: 0 }
+                    size: 0
                 },
 
                 scoreHolder: {
                     x: 1,
                     y: 1,
-                    size: 0,
-                    stroke: { width: 0 }
+                    size: 0
                 }
             },
 
@@ -212,15 +207,13 @@ define([], function() {
             submit: {
                 x: 1,
                 y: 1,
-                size: 0,
-                stroke: { width: 0 }
+                size: 0
             },
 
             back: {
                 x: 1,
                 y: 1,
-                size: 0,
-                stroke: { width: 0 }
+                size: 0
             }
         }
     };
