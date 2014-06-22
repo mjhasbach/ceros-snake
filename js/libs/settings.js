@@ -81,6 +81,8 @@ define([], function() {
 
         menu: {
             title: {
+                color: '#372a50',
+
                 bounciness: 7,
 
                 stroke: { width: 35 }
