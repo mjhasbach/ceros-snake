@@ -168,8 +168,7 @@ define([], function() {
             scoreLabel: {
                 x: 2.8,
                 y: 100,
-                size: 8.4,
-                stroke: { width: 0 }
+                size: 8.4
             },
 
             name: {
