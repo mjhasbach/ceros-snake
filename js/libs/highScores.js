@@ -50,8 +50,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.next.fill( _s.next.fill );
             };
 
-            highScores.background = options.background.highScores;
-
             highScores.scoreLabel = new Kinetic.Text({
                 x: util.calculate.absolute.x( _s.scoreLabel.x ),
                 y: util.calculate.absolute.y( _s.scoreLabel.y ),
@@ -103,9 +101,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.layer = new Kinetic.Layer();
                 highScores.view.layer = new Kinetic.Layer();
 
-                highScores.add.layer.add( highScores.background.group );
-                highScores.view.layer.add( highScores.background.group );
-
                 highScores.add.layer.add( highScores.scoreLabel );
                 highScores.view.layer.add( highScores.scoreLabel );
 
@@ -131,7 +126,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             start: function( score ){
                 highScores.score = score;
 
-                highScores.background.count( score )
+                highScores.add.background.count( score )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -139,6 +134,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: highScores.cleanUp,
 
             init: function( options ){
+                highScores.add.background = options.background.highScores.add;
+
+                highScores.add.layer.add( highScores.add.background.group );
+
                 kineticEditableText.init( Kinetic );
 
                 highScores.name.field = new Kinetic.EditableText({
@@ -201,7 +200,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             cleanUp: highScores.cleanUp,
 
-            init: function() {
+            init: function( options ){
+                highScores.view.background = options.background.highScores.view;
+
+                highScores.view.layer.add( highScores.view.background.group );
+
                 highScores.name.scoreHolder = new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.name.scoreHolder.x ),
                     y: util.calculate.absolute.y( _s.name.scoreHolder.y ),
@@ -260,7 +263,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.view.update = function() {
                     highScores.score = highScores.database.scores.at( highScores.index ).score;
 
-                    highScores.background.count( highScores.score );
+                    highScores.view.background.count( highScores.score );
 
                     highScores.name.scoreHolder.text(
                         highScores.database.scores.at( highScores.index ).name
