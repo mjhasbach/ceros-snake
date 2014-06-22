@@ -190,7 +190,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             fontFamily: settings.font.face,
                             fill: fill,
                             stroke: stroke,
-                            strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         }),
 
                         controller: new Kinetic.Text({
@@ -201,7 +201,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             fontFamily: 'FontAwesome',
                             fill: fill,
                             stroke: stroke,
-                            strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         })
                     };
 
@@ -227,7 +227,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                     fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 });
 
                 menu.layer.add( menu.options.gear.shape );
@@ -253,7 +253,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         fontFamily: settings.font.face,
                         fill: settings.font.colors.fill.disabled,
                         stroke: settings.font.colors.stroke.disabled,
-                        strokeWidth: util.calculate.absolute.size( settings.menu.options.stroke.width )
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                     })
                 };
 

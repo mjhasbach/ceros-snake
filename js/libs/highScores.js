@@ -59,7 +59,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( _s.name.label.stroke.width )
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 })
             };
 
@@ -74,7 +74,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( _s.back.stroke.width )
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 }),
 
                 hitBox: new Kinetic.Rect({
@@ -121,7 +121,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 fontFamily: settings.font.face,
                 fill: settings.font.colors.fill.enabled.hex,
                 stroke: settings.font.colors.stroke.enabled.hex,
-                strokeWidth: util.calculate.absolute.size( _s.scoreLabel.stroke.width )
+                strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
             }),
 
             start: function( score ){
@@ -142,7 +142,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( _s.name.field.stroke.width ),
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
                     focusLayer: highScores.add.layer,
                     stage: options.stage
                 });
@@ -158,7 +158,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         fontFamily: settings.font.face,
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( _s.submit.stroke.width )
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                     }),
 
                     hitBox: new Kinetic.Rect({
@@ -214,7 +214,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( _s.name.scoreHolder.stroke.width )
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 });
 
                 highScores.previous = {
