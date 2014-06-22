@@ -5,6 +5,8 @@ define([], function() {
         font: {
             face: 'New Rocker',
 
+            stroke: { width: 300 },
+
             colors: {
                 fill: {
                     enabled: {
