@@ -113,21 +113,21 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         numbers = numbers.toString();
 
-                        background.game.draw.randomize();
+                        bg.draw.randomize();
 
                         if ( numbers.length === 1 ){
-                            background.game.draw.number[ util.number.toText( numbers )](
+                            bg.draw.number[ util.number.toText( numbers )](
                                 settings.background.countDown.coords.x,
                                 settings.background.countDown.coords.y
                             )
                         } else if ( numbers.length === 2 ){
                             for ( i = 0; i < numbers.length; i++ ){
                                 if ( i === 0 ){
-                                    background.game.draw.number[
+                                    bg.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 9, 6 )
                                 } else {
-                                    background.game.draw.number[
+                                    bg.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 19, 6 )
                                 }
@@ -135,15 +135,15 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         } else if ( numbers.length === 3 ){
                             for ( i = 0; i < numbers.length; i++ ){
                                 if ( i === 0 ){
-                                    background.game.draw.number[
+                                    bg.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 4, 6 )
                                 } else if ( i === 1 ){
-                                    background.game.draw.number[
+                                    bg.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 14, 6 )
                                 } else {
-                                    background.game.draw.number[
+                                    bg.draw.number[
                                         util.number.toText( numbers[ i ])
                                     ]( 24, 6 )
                                 }
