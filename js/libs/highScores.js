@@ -50,19 +50,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.next.fill( _s.next.fill );
             };
 
-            highScores.name = {
-                label: new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.name.label.x ),
-                    y: util.calculate.absolute.y( _s.name.label.y ),
-                    text: 'Name:',
-                    fontSize: util.calculate.absolute.size( _s.name.label.size ),
-                    fontFamily: settings.font.face,
-                    fill: settings.font.colors.fill.enabled.hex,
-                    stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                })
-            };
-
             highScores.back = {
                 mouseOver: false,
 
