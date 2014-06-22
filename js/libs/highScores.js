@@ -90,7 +90,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.layer = new Kinetic.Layer();
                 highScores.view.layer = new Kinetic.Layer();
 
-                highScores.add.layer.add( highScores.name.label );
                 highScores.view.layer.add( highScores.name.label );
 
                 highScores.add.layer.add( highScores.back.shape );
@@ -124,6 +123,19 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
             }),
 
+            playerName: {
+                label: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.name.label.x ),
+                    y: util.calculate.absolute.y( _s.name.label.y ),
+                    text: 'Name:',
+                    fontSize: util.calculate.absolute.size( _s.name.label.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                })
+            },
+
             start: function( score ){
                 highScores.score = score;
 
@@ -135,7 +147,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 kineticEditableText.init( Kinetic );
 
-                highScores.name.field = new Kinetic.EditableText({
+                highScores.add.playerName.field = new Kinetic.EditableText({
                     x: util.calculate.absolute.x( _s.name.field.x ),
                     y: util.calculate.absolute.y( _s.name.field.y ),
                     fontSize: util.calculate.absolute.size( _s.name.field.size ),
@@ -178,9 +190,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 }, highScores.add.layer );
 
                 ( function _layer() {
-                    highScores.add.layer.add( highScores.name.field );
-
                     highScores.add.layer.add( highScores.add.background.group );
+
+                    highScores.add.layer.add( highScores.add.playerName.label );
+                    highScores.add.layer.add( highScores.add.playerName.field );
 
                     highScores.add.layer.add( highScores.add.scoreLabel );
 
