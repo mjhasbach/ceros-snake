@@ -78,7 +78,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                     if ( module.cleanUp ) module.cleanUp();
 
-                    module.state.set( 'current', 'stopped' )
+                    module.state.set( 'current', 'stopped' );
+
+                    if ( settings.debug )
+                        console.log( 'Stopping module "' + module.name + '"')
                 }
             },
 
