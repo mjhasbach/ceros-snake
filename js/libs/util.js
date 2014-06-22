@@ -62,7 +62,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                 module.animation.start();
 
-                module.state.set( 'current', 'starting' )
+                module.state.set( 'current', 'starting' );
+
+                if ( settings.debug )
+                    console.log( 'Starting module "' + module.name + '"')
             },
 
             stop: function( module, frame ){
