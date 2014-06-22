@@ -166,9 +166,9 @@ define([], function() {
             limit: 100,
 
             scoreLabel: {
-                x: 3,
+                x: 2.8,
                 y: 100,
-                size: 8,
+                size: 8.4,
                 stroke: { width: 0 }
             },
 
