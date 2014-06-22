@@ -100,7 +100,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         context.stroke();
                         context.strokeShape( this );
                     },
-                        stroke: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.menu.title.color,
                         strokeWidth: x( settings.menu.title.stroke.width )
                     })
                 };
@@ -137,7 +137,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         context.stroke();
                         context.strokeShape( this );
                     },
-                        stroke: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.menu.title.color,
                         strokeWidth: x( settings.menu.title.stroke.width )
                     })
                 };
