@@ -161,128 +161,134 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     })();
 
                     ( function _highScores() {
-                        ( function _submit() {
-                            highScores.add.submit.hitBox.on( 'mouseover', function() {
-                                if ( highScores.add.isNotStoppingOrStopped() )
-                                    highScores.add.submit.mouseOver = true
-                            });
+                        ( function _add() {
+                            ( function _submit() {
+                                highScores.add.submit.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() )
+                                        highScores.add.submit.mouseOver = true
+                                });
 
-                            highScores.add.submit.hitBox.on( 'mouseout', function() {
-                                if ( highScores.add.isNotStoppingOrStopped() ){
-                                    highScores.add.submit.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
+                                highScores.add.submit.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() ){
+                                        highScores.add.submit.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
 
-                                    highScores.add.submit.mouseOver = false
-                                }
-                            });
+                                        highScores.add.submit.mouseOver = false
+                                    }
+                                });
 
-                            highScores.add.submit.hitBox.on( 'click touchstart', function() {
-                                if ( highScores.add.isNotStoppingOrStopped() ){
-                                    highScores.database.scores.add({
-                                        score: highScores.score,
-                                        name: highScores.name.field.text()
-                                    });
+                                highScores.add.submit.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() ){
+                                        highScores.database.scores.add({
+                                            score: highScores.score,
+                                            name: highScores.name.field.text()
+                                        });
 
-                                    highScores.add.state = 'stopping'
-                                }
-                            })
+                                        highScores.add.state = 'stopping'
+                                    }
+                                })
+                            })();
                         })();
 
-                        ( function _back() {
-                            highScores.back.hitBox.on( 'mouseover', function() {
-                                if ( highScores.isNotStoppingOrStopped() )
-                                    highScores.back.mouseOver = true
-                            });
+                        ( function _view() {
+                            ( function _previous() {
+                                highScores.view.previous.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.previous.mouseOver = true
+                                });
 
-                            highScores.back.hitBox.on( 'mouseout', function() {
-                                if ( highScores.isNotStoppingOrStopped() ){
-                                    highScores.back.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
+                                highScores.view.previous.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() ){
+                                        highScores.view.previous.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
 
-                                    highScores.back.mouseOver = false
-                                }
-                            });
+                                        highScores.view.previous.mouseOver = false
+                                    }
+                                });
 
-                            highScores.back.hitBox.on( 'click touchstart', function() {
-                                if ( highScores.add.isNotStoppingOrStopped() )
-                                    highScores.add.state = 'stopping';
+                                highScores.view.previous.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() ){
+                                        highScores.index -= 1;
 
-                                else if ( highScores.view.isNotStoppingOrStopped() )
-                                    highScores.view.state = 'stopping';
-                            })
+                                        highScores.view.update();
+
+                                        if ( highScores.index === 0 ){
+                                            highScores.view.previous.shape.remove();
+                                            highScores.view.previous.hitBox.remove()
+                                        }
+
+                                        if ( !highScores.view.next.shape.getParent() ){
+                                            highScores.view.layer.add( highScores.view.next.shape );
+                                            highScores.view.layer.add( highScores.view.next.hitBox );
+                                        }
+                                    }
+                                })
+                            })();
+
+                            ( function _next() {
+                                highScores.view.next.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.next.mouseOver = true
+                                });
+
+                                highScores.view.next.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() ){
+                                        highScores.view.next.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
+
+                                        highScores.view.next.mouseOver = false
+                                    }
+                                });
+
+                                highScores.view.next.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.view.isNotStoppingOrStopped() ){
+                                        highScores.index += 1;
+
+                                        highScores.view.update();
+
+                                        if ( highScores.index === settings.highScores.limit - 1 ){
+                                            highScores.view.next.shape.remove();
+                                            highScores.view.next.hitBox.remove()
+                                        }
+
+                                        if ( !highScores.view.previous.shape.getParent() ){
+                                            highScores.view.layer.add( highScores.view.previous.shape );
+                                            highScores.view.layer.add( highScores.view.previous.hitBox );
+                                        }
+                                    }
+                                })
+                            })();
+
+                            ( function _back() {
+                                highScores.back.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.isNotStoppingOrStopped() )
+                                        highScores.back.mouseOver = true
+                                });
+
+                                highScores.back.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.isNotStoppingOrStopped() ){
+                                        highScores.back.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
+
+                                        highScores.back.mouseOver = false
+                                    }
+                                });
+
+                                highScores.back.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() )
+                                        highScores.add.state = 'stopping';
+
+                                    else if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.state = 'stopping';
+                                })
+                            })();
                         })();
 
-                        ( function _previous() {
-                            highScores.view.previous.hitBox.on( 'mouseover', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() )
-                                    highScores.view.previous.mouseOver = true
-                            });
 
-                            highScores.view.previous.hitBox.on( 'mouseout', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() ){
-                                    highScores.view.previous.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
-
-                                    highScores.view.previous.mouseOver = false
-                                }
-                            });
-
-                            highScores.view.previous.hitBox.on( 'click touchstart', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() ){
-                                    highScores.index -= 1;
-
-                                    highScores.view.update();
-
-                                    if ( highScores.index === 0 ){
-                                        highScores.view.previous.shape.remove();
-                                        highScores.view.previous.hitBox.remove()
-                                    }
-
-                                    if ( !highScores.view.next.shape.getParent() ){
-                                        highScores.view.layer.add( highScores.view.next.shape );
-                                        highScores.view.layer.add( highScores.view.next.hitBox );
-                                    }
-                                }
-                            })
-                        })();
-
-                        ( function _next() {
-                            highScores.view.next.hitBox.on( 'mouseover', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() )
-                                    highScores.view.next.mouseOver = true
-                            });
-
-                            highScores.view.next.hitBox.on( 'mouseout', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() ){
-                                    highScores.view.next.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
-
-                                    highScores.view.next.mouseOver = false
-                                }
-                            });
-
-                            highScores.view.next.hitBox.on( 'click touchstart', function() {
-                                if ( highScores.view.isNotStoppingOrStopped() ){
-                                    highScores.index += 1;
-
-                                    highScores.view.update();
-
-                                    if ( highScores.index === settings.highScores.limit - 1 ){
-                                        highScores.view.next.shape.remove();
-                                        highScores.view.next.hitBox.remove()
-                                    }
-
-                                    if ( !highScores.view.previous.shape.getParent() ){
-                                        highScores.view.layer.add( highScores.view.previous.shape );
-                                        highScores.view.layer.add( highScores.view.previous.hitBox );
-                                    }
-                                }
-                            })
-                        })();
                     })();
                 })();
 
