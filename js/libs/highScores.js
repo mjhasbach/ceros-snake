@@ -44,13 +44,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             highScores.cleanUp = function() {
-                highScores.add.submit.shape.fill( _s.submit.fill );
 
-                highScores.add.back.shape.fill( _s.back.fill );
-                highScores.view.back.shape.fill( _s.back.fill );
-
-                highScores.previous.fill( _s.previous.fill );
-                highScores.next.fill( _s.next.fill );
             };
 
             highScores.add.init( options );
@@ -65,7 +59,13 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             layer: new Kinetic.Layer(),
 
-            cleanUp: highScores.cleanUp,
+            cleanUp: function() {
+                highScores.score = 0;
+
+                highScores.add.submit.shape.fill( _s.submit.fill );
+
+                highScores.add.back.shape.fill( _s.back.fill );
+            },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
