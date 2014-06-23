@@ -128,9 +128,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             },
 
             init: function( options ){
-                highScores.add.background = options.background.highScores.add;
-
                 kineticEditableText.init( Kinetic );
+
+                highScores.add.background = options.background.highScores.add;
 
                 highScores.add.playerName.field = new Kinetic.EditableText({
                     x: util.calculate.absolute.x( _s.name.field.x ),
