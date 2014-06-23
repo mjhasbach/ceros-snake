@@ -346,7 +346,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     game.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'stopping' ){
+                            highScores.add.start( game.snake.segment.list.length );
+
+                            start( highScores.add, stage )
+                        }
                     });
                 })();
 
