@@ -135,13 +135,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
-            animation: new Kinetic.Animation( function( frame ){
-                if ( highScores.add.state.get( 'current' ) === 'stopping' ){
-
-                    util.module.stop( highScores.add, frame )
-                }
-            }, highScores.add.layer ),
-
             start: function( score ){
                 highScores.score = score;
 
@@ -179,6 +172,13 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.add.layer.add( highScores.add.back.shape );
                     highScores.add.layer.add( highScores.add.back.hitBox );
                 })();
+
+                highScores.add.animation = new Kinetic.Animation( function( frame ){
+                    if ( highScores.add.state.get( 'current' ) === 'stopping' ){
+
+                        util.module.stop( highScores.add, frame )
+                    }
+                }, highScores.add.layer )
             }
         };
 
