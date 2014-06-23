@@ -44,7 +44,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             highScores.cleanUp = function() {
-                highScores.submit.shape.fill( _s.submit.fill );
+                highScores.add.submit.shape.fill( _s.submit.fill );
 
                 highScores.add.back.shape.fill( _s.back.fill );
                 highScores.view.back.shape.fill( _s.back.fill );
