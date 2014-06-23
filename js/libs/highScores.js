@@ -121,6 +121,29 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
+            submit: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.submit.x ),
+                    y: util.calculate.absolute.y( _s.submit.y ),
+                    text: '\uf058',
+                    fontSize: util.calculate.absolute.size( _s.submit.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
+                    opacity: 0
+                })
+            },
+
             animation: new Kinetic.Animation( function( frame ){
                 if ( highScores.add.state.get( 'current' ) === 'stopping' ){
 
@@ -150,29 +173,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     focusLayer: highScores.add.layer,
                     stage: options.stage
                 });
-
-                highScores.submit = {
-                    mouseOver: false,
-
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( _s.submit.x ),
-                        y: util.calculate.absolute.y( _s.submit.y ),
-                        text: '\uf058',
-                        fontSize: util.calculate.absolute.size( _s.submit.size ),
-                        fontFamily: settings.font.face,
-                        fill: settings.font.colors.fill.enabled.hex,
-                        stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                    }),
-
-                    hitBox: new Kinetic.Rect({
-                        x: util.calculate.absolute.x( 2.518 ),
-                        y: util.calculate.absolute.y( 1.23 ),
-                        width: util.calculate.absolute.x( 12.39 ),
-                        height: util.calculate.absolute.y( 6.92 ),
-                        opacity: 0
-                    })
-                };
 
                 ( function _layer() {
                     highScores.add.layer.add( highScores.add.background.group );
