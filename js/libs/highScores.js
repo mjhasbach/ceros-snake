@@ -74,7 +74,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             ( function _layers() {
-                highScores.add.layer = new Kinetic.Layer();
                 highScores.view.layer = new Kinetic.Layer();
 
                 highScores.add.layer.add( highScores.back.shape );
@@ -92,6 +91,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             name: 'highScores.add',
 
             state: new Backbone.Model({ current: 'stopped' }),
+
+            layer: new Kinetic.Layer(),
 
             cleanUp: highScores.cleanUp,
 
@@ -184,8 +185,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.add.layer.add( highScores.submit.shape );
                     highScores.add.layer.add( highScores.submit.hitBox );
-
-
                 })();
             }
         };
