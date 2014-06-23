@@ -162,22 +162,22 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     ( function _highScores() {
                         ( function _submit() {
-                            highScores.submit.hitBox.on( 'mouseover', function() {
+                            highScores.add.submit.hitBox.on( 'mouseover', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() )
-                                    highScores.submit.mouseOver = true
+                                    highScores.add.submit.mouseOver = true
                             });
 
-                            highScores.submit.hitBox.on( 'mouseout', function() {
+                            highScores.add.submit.hitBox.on( 'mouseout', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
-                                    highScores.submit.shape.fill(
+                                    highScores.add.submit.shape.fill(
                                         settings.font.colors.fill.enabled.hex
                                     );
 
-                                    highScores.submit.mouseOver = false
+                                    highScores.add.submit.mouseOver = false
                                 }
                             });
 
-                            highScores.submit.hitBox.on( 'click touchstart', function() {
+                            highScores.add.submit.hitBox.on( 'click touchstart', function() {
                                 if ( highScores.add.isNotStoppingOrStopped() ){
                                     highScores.database.scores.add({
                                         score: highScores.score,
