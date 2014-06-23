@@ -43,10 +43,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                        highScores.view.isNotStoppingOrStopped()
             };
 
-            highScores.cleanUp = function() {
-
-            };
-
             highScores.add.init( options );
 
             highScores.view.init( options )
