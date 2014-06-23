@@ -263,22 +263,22 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             })();
 
                             ( function _back() {
-                                highScores.back.hitBox.on( 'mouseover', function() {
+                                highScores.view.back.hitBox.on( 'mouseover', function() {
                                     if ( highScores.isNotStoppingOrStopped() )
-                                        highScores.back.mouseOver = true
+                                        highScores.view.back.mouseOver = true
                                 });
 
-                                highScores.back.hitBox.on( 'mouseout', function() {
+                                highScores.view.back.hitBox.on( 'mouseout', function() {
                                     if ( highScores.isNotStoppingOrStopped() ){
-                                        highScores.back.shape.fill(
+                                        highScores.view.back.shape.fill(
                                             settings.font.colors.fill.enabled.hex
                                         );
 
-                                        highScores.back.mouseOver = false
+                                        highScores.view.back.mouseOver = false
                                     }
                                 });
 
-                                highScores.back.hitBox.on( 'click touchstart', function() {
+                                highScores.view.back.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() )
                                         highScores.add.state = 'stopping';
 
