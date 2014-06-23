@@ -196,7 +196,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.view.previous.fill( _s.previous.fill );
                 
-                highScores.next.fill( _s.next.fill );
+                highScores.view.next.fill( _s.next.fill );
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -226,6 +226,27 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
+            next: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.next.x ),
+                    y: util.calculate.absolute.y( _s.next.y ),
+                    text: '\uf061',
+                    fontSize: util.calculate.absolute.size( _s.next.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
+                    opacity: 0
+                })
+            },
+            
             back: {
                 mouseOver: false,
 
@@ -263,27 +284,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 });
 
-                highScores.next = {
-                    mouseOver: false,
-
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( _s.next.x ),
-                        y: util.calculate.absolute.y( _s.next.y ),
-                        text: '\uf061',
-                        fontSize: util.calculate.absolute.size( _s.next.size ),
-                        fontFamily: settings.font.face,
-                        fill: settings.font.colors.fill.enabled.hex
-                    }),
-
-                    hitBox: new Kinetic.Rect({
-                        x: util.calculate.absolute.x( 2.518 ),
-                        y: util.calculate.absolute.y( 1.23 ),
-                        width: util.calculate.absolute.x( 12.39 ),
-                        height: util.calculate.absolute.y( 6.92 ),
-                        opacity: 0
-                    })
-                };
-
                 highScores.index = 0;
 
                 highScores.view.update = function() {
@@ -305,8 +305,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                                 'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
                             );
 
-                        else if ( highScores.next.mouseOver )
-                            highScores.next.shape.fill(
+                        else if ( highScores.view.next.mouseOver )
+                            highScores.view.next.shape.fill(
                                 'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
                             );
 
@@ -354,8 +354,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.view.layer.add( highScores.view.previous.shape );
                     highScores.view.layer.add( highScores.view.previous.hitBox );
 
-                    highScores.view.layer.add( highScores.next.shape );
-                    highScores.view.layer.add( highScores.next.hitBox );
+                    highScores.view.layer.add( highScores.view.next.shape );
+                    highScores.view.layer.add( highScores.view.next.hitBox );
 
                     highScores.add.layer.add( highScores.view.back.shape );
                     highScores.add.layer.add( highScores.view.back.hitBox );
