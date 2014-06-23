@@ -194,7 +194,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.view.back.shape.fill( _s.back.fill );
 
-                highScores.previous.fill( _s.previous.fill );
+                highScores.view.previous.fill( _s.previous.fill );
                 
                 highScores.next.fill( _s.next.fill );
             },
@@ -204,6 +204,27 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             scoreLabel: highScores.add.scoreLabel.clone(),
 
             playerName: { label: highScores.add.playerName.label.clone() },
+
+            previous: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.previous.x ),
+                    y: util.calculate.absolute.y( _s.previous.y ),
+                    text: '\uf060',
+                    fontSize: util.calculate.absolute.size( _s.previous.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
+                    opacity: 0
+                })
+            },
 
             back: {
                 mouseOver: false,
@@ -242,27 +263,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 });
 
-                highScores.previous = {
-                    mouseOver: false,
-
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( _s.previous.x ),
-                        y: util.calculate.absolute.y( _s.previous.y ),
-                        text: '\uf060',
-                        fontSize: util.calculate.absolute.size( _s.previous.size ),
-                        fontFamily: settings.font.face,
-                        fill: settings.font.colors.fill.enabled.hex
-                    }),
-
-                    hitBox: new Kinetic.Rect({
-                        x: util.calculate.absolute.x( 2.518 ),
-                        y: util.calculate.absolute.y( 1.23 ),
-                        width: util.calculate.absolute.x( 12.39 ),
-                        height: util.calculate.absolute.y( 6.92 ),
-                        opacity: 0
-                    })
-                };
-
                 highScores.next = {
                     mouseOver: false,
 
@@ -300,8 +300,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     var brightnessVariance = util.calculate.brightnessVariance( frame );
 
                     ( function( hF, sF, lF, hS, sS, lS ){
-                        if ( highScores.previous.mouseOver )
-                            highScores.previous.shape.fill(
+                        if ( highScores.view.previous.mouseOver )
+                            highScores.view.previous.shape.fill(
                                 'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
                             );
 
@@ -351,8 +351,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.view.layer.add( highScores.view.playerName.label );
                     highScores.view.layer.add( highScores.view.playerName.scoreHolder );
 
-                    highScores.view.layer.add( highScores.previous.shape );
-                    highScores.view.layer.add( highScores.previous.hitBox );
+                    highScores.view.layer.add( highScores.view.previous.shape );
+                    highScores.view.layer.add( highScores.view.previous.hitBox );
 
                     highScores.view.layer.add( highScores.next.shape );
                     highScores.view.layer.add( highScores.next.hitBox );
