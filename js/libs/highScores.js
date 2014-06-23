@@ -73,12 +73,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             };
 
-            ( function _layers() {
-
-                highScores.view.layer.add( highScores.back.shape );
-                highScores.view.layer.add( highScores.back.hitBox );
-            })();
-
             highScores.add.init( options );
 
             highScores.view.init( options )
