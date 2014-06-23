@@ -45,32 +45,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             highScores.cleanUp = function() {
                 highScores.submit.shape.fill( _s.submit.fill );
-                highScores.back.shape.fill( _s.back.fill );
+
+                highScores.add.back.shape.fill( _s.back.fill );
+                highScores.view.back.shape.fill( _s.back.fill );
+
                 highScores.previous.fill( _s.previous.fill );
                 highScores.next.fill( _s.next.fill );
-            };
-
-            highScores.back = {
-                mouseOver: false,
-
-                shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.back.x ),
-                    y: util.calculate.absolute.y( _s.back.y ),
-                    text: '\uf057',
-                    fontSize: util.calculate.absolute.size( _s.back.size ),
-                    fontFamily: settings.font.face,
-                    fill: settings.font.colors.fill.enabled.hex,
-                    stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                }),
-
-                hitBox: new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 2.518 ),
-                    y: util.calculate.absolute.y( 1.23 ),
-                    width: util.calculate.absolute.x( 12.39 ),
-                    height: util.calculate.absolute.y( 6.92 ),
-                    opacity: 0
-                })
             };
 
             highScores.add.init( options );
@@ -326,9 +306,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                                 'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
                             );
 
-                        else if ( highScores.back.mouseOver )
+                        else if ( highScores.view.back.mouseOver )
                             util.color.fillAndStroke({
-                                node: highScores.back.shape,
+                                node: highScores.view.back.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
                             });
