@@ -74,8 +74,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             ( function _layers() {
-                highScores.add.layer.add( highScores.back.shape );
-                highScores.add.layer.add( highScores.back.hitBox );
+
                 highScores.view.layer.add( highScores.back.shape );
                 highScores.view.layer.add( highScores.back.hitBox );
             })();
@@ -206,6 +205,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.add.layer.add( highScores.submit.shape );
                     highScores.add.layer.add( highScores.submit.hitBox );
+
+                    highScores.add.layer.add( highScores.add.back.shape );
+                    highScores.add.layer.add( highScores.add.back.hitBox );
                 })();
             }
         };
@@ -376,6 +378,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.view.layer.add( highScores.next.shape );
                     highScores.view.layer.add( highScores.next.hitBox );
+
+                    highScores.add.layer.add( highScores.view.back.shape );
+                    highScores.add.layer.add( highScores.view.back.hitBox );
                 })();
             }
         };
