@@ -121,6 +121,13 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
+            animation: new Kinetic.Animation( function( frame ){
+                if ( highScores.add.state.get( 'current' ) === 'stopping' ){
+
+                    util.module.stop( highScores.add, frame )
+                }
+            }, highScores.add.layer ),
+
             start: function( score ){
                 highScores.score = score;
 
@@ -166,13 +173,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         opacity: 0
                     })
                 };
-
-                highScores.add.animation = new Kinetic.Animation( function( frame ){
-                    if ( highScores.add.state.get( 'current' ) === 'stopping' ){
-
-                        util.module.stop( highScores.add, frame )
-                    }
-                }, highScores.add.layer );
 
                 ( function _layer() {
                     highScores.add.layer.add( highScores.add.background.group );
