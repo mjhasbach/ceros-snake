@@ -225,6 +225,29 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             playerName: { label: highScores.add.playerName.label.clone() },
 
+            back: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.back.x ),
+                    y: util.calculate.absolute.y( _s.back.y ),
+                    text: '\uf057',
+                    fontSize: util.calculate.absolute.size( _s.back.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
+                    opacity: 0
+                })
+            },
+
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
 
