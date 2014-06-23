@@ -193,7 +193,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             layer: new Kinetic.Layer(),
 
-            cleanUp: highScores.cleanUp,
+            cleanUp: function() {
+                highScores.score = 0;
+
+                highScores.view.back.shape.fill( _s.back.fill );
+
+                highScores.previous.fill( _s.previous.fill );
+                
+                highScores.next.fill( _s.next.fill );
+            },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
