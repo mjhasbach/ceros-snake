@@ -74,8 +74,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             };
 
             ( function _layers() {
-                highScores.view.layer = new Kinetic.Layer();
-
                 highScores.add.layer.add( highScores.back.shape );
                 highScores.add.layer.add( highScores.back.hitBox );
                 highScores.view.layer.add( highScores.back.shape );
@@ -193,6 +191,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             name: 'highScores.view',
 
             state: new Backbone.Model({ current: 'stopped' }),
+
+            layer: new Kinetic.Layer(),
 
             cleanUp: highScores.cleanUp,
 
