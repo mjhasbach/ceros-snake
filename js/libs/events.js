@@ -189,6 +189,31 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                     }
                                 })
                             })();
+
+                            ( function _back() {
+                                highScores.add.back.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.isNotStoppingOrStopped() )
+                                        highScores.add.back.mouseOver = true
+                                });
+
+                                highScores.add.back.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.isNotStoppingOrStopped() ){
+                                        highScores.add.back.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
+
+                                        highScores.add.back.mouseOver = false
+                                    }
+                                });
+
+                                highScores.add.back.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() )
+                                        highScores.add.state = 'stopping';
+
+                                    else if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.state = 'stopping';
+                                })
+                            })();
                         })();
 
                         ( function _view() {
