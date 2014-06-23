@@ -327,22 +327,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     );
                 };
 
-                highScores.view.animation = new Kinetic.Animation( function( frame ){
-                    var state = highScores.view.state.get( 'current' );
-
-                    if ( state === 'starting' ){
-                        highScores.view.update();
-
-                        highScores.view.state.set( 'current', 'running' )
-
-                    } else if ( state === 'running' ){
-                        highScores.view.mouseOverCheck( frame )
-
-                    } else if ( state === 'stopping' ){
-                        util.module.stop( highScores.view, frame )
-                    }
-                }, highScores.view.layer );
-
                 ( function _layer() {
                     highScores.view.layer.add( highScores.view.background.group );
 
@@ -360,6 +344,22 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.add.layer.add( highScores.view.back.shape );
                     highScores.add.layer.add( highScores.view.back.hitBox );
                 })();
+
+                highScores.view.animation = new Kinetic.Animation( function( frame ){
+                    var state = highScores.view.state.get( 'current' );
+
+                    if ( state === 'starting' ){
+                        highScores.view.update();
+
+                        highScores.view.state.set( 'current', 'running' )
+
+                    } else if ( state === 'running' ){
+                        highScores.view.mouseOverCheck( frame )
+
+                    } else if ( state === 'stopping' ){
+                        util.module.stop( highScores.view, frame )
+                    }
+                }, highScores.view.layer );
             }
         };
 
