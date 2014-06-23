@@ -215,30 +215,30 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _previous() {
-                            highScores.previous.hitBox.on( 'mouseover', function() {
+                            highScores.view.previous.hitBox.on( 'mouseover', function() {
                                 if ( highScores.view.isNotStoppingOrStopped() )
-                                    highScores.previous.mouseOver = true
+                                    highScores.view.previous.mouseOver = true
                             });
 
-                            highScores.previous.hitBox.on( 'mouseout', function() {
+                            highScores.view.previous.hitBox.on( 'mouseout', function() {
                                 if ( highScores.view.isNotStoppingOrStopped() ){
-                                    highScores.previous.shape.fill(
+                                    highScores.view.previous.shape.fill(
                                         settings.font.colors.fill.enabled.hex
                                     );
 
-                                    highScores.previous.mouseOver = false
+                                    highScores.view.previous.mouseOver = false
                                 }
                             });
 
-                            highScores.previous.hitBox.on( 'click touchstart', function() {
+                            highScores.view.previous.hitBox.on( 'click touchstart', function() {
                                 if ( highScores.view.isNotStoppingOrStopped() ){
                                     highScores.index -= 1;
 
                                     highScores.view.update();
 
                                     if ( highScores.index === 0 ){
-                                        highScores.previous.shape.remove();
-                                        highScores.previous.hitBox.remove()
+                                        highScores.view.previous.shape.remove();
+                                        highScores.view.previous.hitBox.remove()
                                     }
 
                                     if ( !highScores.next.shape.getParent() ){
@@ -276,9 +276,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                         highScores.next.hitBox.remove()
                                     }
 
-                                    if ( !highScores.previous.shape.getParent() ){
-                                        highScores.view.layer.add( highScores.previous.shape );
-                                        highScores.view.layer.add( highScores.previous.hitBox );
+                                    if ( !highScores.view.previous.shape.getParent() ){
+                                        highScores.view.layer.add( highScores.view.previous.shape );
+                                        highScores.view.layer.add( highScores.view.previous.hitBox );
                                     }
                                 }
                             })
