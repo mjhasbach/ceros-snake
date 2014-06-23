@@ -166,8 +166,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.add.layer.add( highScores.add.scoreLabel );
 
-                    highScores.add.layer.add( highScores.submit.shape );
-                    highScores.add.layer.add( highScores.submit.hitBox );
+                    highScores.add.layer.add( highScores.add.submit.shape );
+                    highScores.add.layer.add( highScores.add.submit.hitBox );
 
                     highScores.add.layer.add( highScores.add.back.shape );
                     highScores.add.layer.add( highScores.add.back.hitBox );
