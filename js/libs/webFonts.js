@@ -5,7 +5,7 @@ define([ 'settings' ], function( settings ){
 
     require([ 'font!' +
         'google,' +
-        'families: [' + settings.font.face + ']|' +
+        'families: [' + settings.font.face + ',Fira+Mono::latin]|' +
 
         'custom,' +
         'families: [ FontAwesome ],' +
