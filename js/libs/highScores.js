@@ -65,17 +65,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
-            scoreLabel: new Kinetic.Text({
-                x: util.calculate.absolute.x( _s.scoreLabel.x ),
-                y: util.calculate.absolute.y( _s.scoreLabel.y ),
-                text: 'Score',
-                fontSize: util.calculate.absolute.size( _s.scoreLabel.size ),
-                fontFamily: settings.font.face,
-                fill: settings.font.colors.fill.enabled.hex,
-                stroke: settings.font.colors.stroke.enabled.hex,
-                strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-            }),
-
             playerName: {
                 lastLength: 0,
 
@@ -174,8 +163,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.add.layer.add( highScores.add.playerName.label );
                     highScores.add.layer.add( highScores.add.playerName.field );
 
-                    highScores.add.layer.add( highScores.add.scoreLabel );
-
                     highScores.add.layer.add( highScores.add.submit.shape );
                     highScores.add.layer.add( highScores.add.submit.hitBox );
 
@@ -210,8 +197,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
-
-            scoreLabel: highScores.add.scoreLabel.clone(),
 
             playerName: { label: highScores.add.playerName.label.clone() },
 
@@ -339,8 +324,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 ( function _layer() {
                     highScores.view.layer.add( highScores.view.background.group );
-
-                    highScores.view.layer.add( highScores.view.scoreLabel );
 
                     highScores.view.layer.add( highScores.view.playerName.label );
                     highScores.view.layer.add( highScores.view.playerName.scoreHolder );
