@@ -24,9 +24,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         key.preventDefault();
                         key.stopPropagation();
 
-                        if ( key.which == keys.f ){
-                            if ( bigScreen.enabled ) bigScreen.toggle()
-                        }
+                        if ( key.which == keys.f )
+                            if ( bigScreen.enabled ) bigScreen.toggle();
 
                         if (( gameState === 'running' || gameState === 'paused' ) &&
                               key.which == keys.space ){
