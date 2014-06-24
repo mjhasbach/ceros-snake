@@ -174,7 +174,6 @@ define([], function() {
 
                 label: {
                     x: 2.55,
-                    y: 1.2,
                     size: 13
                 },
 
