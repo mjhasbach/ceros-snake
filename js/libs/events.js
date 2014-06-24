@@ -18,7 +18,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     };
 
                     $( '*' ).keyup( function( key ){
-                        var gameState = game.state.get( 'current' );
+                        var gameState = game.state.get( 'current'),
+                            nameLength = highScores.add.playerName.field.currentWordCursorPos;
 
                         key.preventDefault();
                         key.stopPropagation();
@@ -48,6 +49,19 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             handleNewDirection( key.which, [ keys.left, keys.a ], 'left' );
                             handleNewDirection( key.which, [ keys.down, keys.s ], 'down' );
                             handleNewDirection( key.which, [ keys.right, keys.d ], 'right' );
+                        }
+
+                        if ( nameLength != highScores.add.playerName.lastLength ){
+                            highScores.add.playerName.label.x(
+                                util.calculate.absolute.x( settings.highScores.name.label.x ) -
+                                    ( nameLength * util.calculate.absolute.x( 40.7 ))
+                            );
+
+                            highScores.add.playerName.field.tempText[ 0 ].x(
+                                highScores.add.playerName.calculate.field.x()
+                            );
+
+                            highScores.add.playerName.lastLength = nameLength
                         }
                     });
 
