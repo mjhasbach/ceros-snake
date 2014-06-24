@@ -166,7 +166,7 @@ define([], function() {
             limit: 100,
 
             name: {
-                y: 1.2,
+                y: 19.5,
 
                 field: {
                     size: 13
