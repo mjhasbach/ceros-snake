@@ -77,6 +77,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             }),
 
             playerName: {
+                lastLength: 0,
+
                 label: new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.name.label.x ),
                     y: util.calculate.absolute.y( _s.name.label.y ),
