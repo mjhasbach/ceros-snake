@@ -157,8 +157,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.background = options.background.highScores.add;
 
                 highScores.add.playerName.field = new Kinetic.EditableText({
-                    x: util.calculate.absolute.x( _s.name.field.x ),
-                    y: util.calculate.absolute.y( _s.name.field.y ),
+                    x: highScores.add.playerName.calculate.field.x(),
+                    y: highScores.add.playerName.label.y(),
                     fontSize: util.calculate.absolute.size( _s.name.field.size ),
                     fontFamily: 'Fira Mono',
                     fill: settings.font.colors.fill.enabled.hex,
@@ -205,7 +205,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.view.back.shape.fill( _s.back.fill );
 
                 highScores.view.previous.fill( _s.previous.fill );
-                
+
                 highScores.view.next.fill( _s.next.fill );
             },
 
@@ -256,7 +256,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     opacity: 0
                 })
             },
-            
+
             back: {
                 mouseOver: false,
 
