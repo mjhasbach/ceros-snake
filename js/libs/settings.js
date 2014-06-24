@@ -173,9 +173,7 @@ define([], function() {
 
             name: {
                 field: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    size: 13
                 },
 
                 label: {
