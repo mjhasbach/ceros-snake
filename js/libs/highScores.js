@@ -70,7 +70,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 label: new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.name.label.x ),
-                    y: util.calculate.absolute.y( _s.name.label.y ),
+                    y: util.calculate.absolute.y( _s.name.y ),
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.label.size ),
                     fontFamily: 'Fira Mono',
@@ -147,7 +147,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.add.playerName.field = new Kinetic.EditableText({
                     x: highScores.add.playerName.calculate.field.x(),
-                    y: highScores.add.playerName.label.y(),
+                    y: util.calculate.absolute.y( _s.name.y ),
                     fontSize: util.calculate.absolute.size( _s.name.field.size ),
                     fontFamily: 'Fira Mono',
                     fill: settings.font.colors.fill.enabled.hex,
