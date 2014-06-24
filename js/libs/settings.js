@@ -165,12 +165,6 @@ define([], function() {
 
             limit: 100,
 
-            scoreLabel: {
-                x: 2.8,
-                y: 100,
-                size: 8.4
-            },
-
             name: {
                 field: {
                     size: 13
