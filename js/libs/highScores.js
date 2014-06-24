@@ -82,7 +82,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.name.label.y ),
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.label.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'Fira Mono',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
@@ -150,7 +150,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     x: util.calculate.absolute.x( _s.name.field.x ),
                     y: util.calculate.absolute.y( _s.name.field.y ),
                     fontSize: util.calculate.absolute.size( _s.name.field.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'Fira Mono',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
