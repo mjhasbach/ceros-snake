@@ -144,7 +144,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.add.back.y ),
                     text: '\uf057',
                     fontSize: util.calculate.absolute.size( _s.add.back.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
@@ -236,7 +236,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.view.previous.y ),
                     text: '\uf060',
                     fontSize: util.calculate.absolute.size( _s.view.previous.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex
                 }),
 
@@ -257,7 +257,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.view.next.y ),
                     text: '\uf061',
                     fontSize: util.calculate.absolute.size( _s.view.next.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex
                 }),
 
@@ -278,7 +278,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.view.back.y ),
                     text: '\uf057',
                     fontSize: util.calculate.absolute.size( _s.view.back.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
