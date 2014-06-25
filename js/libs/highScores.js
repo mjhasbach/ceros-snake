@@ -90,29 +90,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 }
             },
 
-            submit: {
-                mouseOver: false,
-
-                shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.add.submit.x ),
-                    y: util.calculate.absolute.y( _s.add.submit.y ),
-                    text: '\uf058',
-                    fontSize: util.calculate.absolute.size( _s.add.submit.size ),
-                    fontFamily: 'FontAwesome',
-                    fill: settings.font.colors.fill.enabled.hex,
-                    stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                }),
-
-                hitBox: new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 2.518 ),
-                    y: util.calculate.absolute.y( 1.23 ),
-                    width: util.calculate.absolute.x( 12.39 ),
-                    height: util.calculate.absolute.y( 6.92 ),
-                    opacity: 0
-                })
-            },
-
             keyboard: {
                 mouseOver: false,
 
@@ -132,6 +109,29 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( 1.222 ),
                     width: util.calculate.absolute.size( 7.7 ),
                     height: util.calculate.absolute.y( 12.6 ),
+                    opacity: 0
+                })
+            },
+
+            submit: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.add.submit.x ),
+                    y: util.calculate.absolute.y( _s.add.submit.y ),
+                    text: '\uf058',
+                    fontSize: util.calculate.absolute.size( _s.add.submit.size ),
+                    fontFamily: 'FontAwesome',
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( 2.518 ),
+                    y: util.calculate.absolute.y( 1.23 ),
+                    width: util.calculate.absolute.x( 12.39 ),
+                    height: util.calculate.absolute.y( 6.92 ),
                     opacity: 0
                 })
             },
