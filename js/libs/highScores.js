@@ -98,7 +98,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.add.submit.y ),
                     text: '\uf058',
                     fontSize: util.calculate.absolute.size( _s.add.submit.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
