@@ -232,10 +232,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 mouseOver: false,
 
                 shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.previous.x ),
-                    y: util.calculate.absolute.y( _s.previous.y ),
+                    x: util.calculate.absolute.x( _s.view.previous.x ),
+                    y: util.calculate.absolute.y( _s.view.previous.y ),
                     text: '\uf060',
-                    fontSize: util.calculate.absolute.size( _s.previous.size ),
+                    fontSize: util.calculate.absolute.size( _s.view.previous.size ),
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex
                 }),
