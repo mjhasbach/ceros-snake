@@ -367,6 +367,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             highScores.add.playerName.field.focus();
                         }
                     });
+
+                    highScores.add.state.on( 'change:current', function( state, current ){
+                        if ( current === 'stopping' ) start( menu, stage );
+                    });
                 })();
 
                 ( function _transitionToMenu() {
