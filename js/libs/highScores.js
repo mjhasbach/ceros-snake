@@ -128,10 +128,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 }),
 
                 hitBox: new Kinetic.Rect({
-                    x: util.calculate.absolute.x( 2.518 ),
-                    y: util.calculate.absolute.y( 1.23 ),
-                    width: util.calculate.absolute.x( 12.39 ),
-                    height: util.calculate.absolute.y( 6.92 ),
+                    x: util.calculate.absolute.x( 2.177 ),
+                    y: util.calculate.absolute.y( 1.22 ),
+                    width: util.calculate.absolute.size( 12.6 ),
+                    height: util.calculate.absolute.size( 12.6 ),
                     opacity: 0
                 })
             },
