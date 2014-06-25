@@ -184,6 +184,15 @@ define([], function() {
                 }
             },
 
+            options: {
+                y: 1.285,
+
+                keyboard: {
+                    x: 3,
+                    size: 8.4
+                }
+            },
+
             previous: {
                 x: 1,
                 y: 1,
