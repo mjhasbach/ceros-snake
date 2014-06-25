@@ -196,6 +196,12 @@ define([], function() {
                     x: 2,
                     y: 1.233,
                     size: 11.2
+                },
+
+                back: {
+                    x: 1,
+                    y: 1,
+                    size: 0
                 }
             },
 
