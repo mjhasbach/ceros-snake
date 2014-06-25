@@ -221,10 +221,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.back.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.add.state = 'stopping';
-
-                                    else if ( highScores.view.isNotStoppingOrStopped() )
-                                        highScores.view.state = 'stopping';
+                                        highScores.add.state = 'stopping'
                                 })
                             })();
                         })();
@@ -325,8 +322,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 })
                             })();
                         })();
-
-
                     })();
                 })();
 
