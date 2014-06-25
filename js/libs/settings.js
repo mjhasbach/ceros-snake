@@ -223,12 +223,6 @@ define([], function() {
                     y: 1,
                     size: 0
                 }
-            },
-
-            back: {
-                x: 1,
-                y: 1,
-                size: 0
             }
         }
     };
