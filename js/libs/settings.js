@@ -165,6 +165,8 @@ define([], function() {
 
             limit: 100,
 
+            options: { y: 1.285 },
+
             name: {
                 y: 19.5,
 
@@ -182,10 +184,6 @@ define([], function() {
                     y: 1,
                     size: 0
                 }
-            },
-
-            options: {
-                y: 1.285
             },
 
             add: {
