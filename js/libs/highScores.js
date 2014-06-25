@@ -94,10 +94,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 mouseOver: false,
 
                 shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.submit.x ),
-                    y: util.calculate.absolute.y( _s.submit.y ),
+                    x: util.calculate.absolute.x( _s.add.submit.x ),
+                    y: util.calculate.absolute.y( _s.add.submit.y ),
                     text: '\uf058',
-                    fontSize: util.calculate.absolute.size( _s.submit.size ),
+                    fontSize: util.calculate.absolute.size( _s.add.submit.size ),
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,

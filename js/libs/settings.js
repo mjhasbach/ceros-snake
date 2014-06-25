@@ -190,6 +190,12 @@ define([], function() {
                 keyboard: {
                     x: 3,
                     size: 8.4
+                },
+
+                submit: {
+                    x: 1,
+                    y: 1,
+                    size: 0
                 }
             },
 
@@ -205,12 +211,6 @@ define([], function() {
                     y: 1,
                     size: 0
                 }
-            },
-
-            submit: {
-                x: 1,
-                y: 1,
-                size: 0
             },
 
             back: {
