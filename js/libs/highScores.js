@@ -111,6 +111,29 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
+            keyboard: {
+                mouseOver: false,
+
+                shape: new Kinetic.Text({
+                    x: util.calculate.absolute.x( settings.highScores.options.keyboard.x ),
+                    y: util.calculate.absolute.y( settings.highScores.options.y ),
+                    text: '\uf11c',
+                    fontSize: util.calculate.absolute.size( settings.highScores.options.keyboard.size ),
+                    fontFamily: 'FontAwesome',
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                }),
+
+                hitBox: new Kinetic.Rect({
+                    x: util.calculate.absolute.x( ),
+                    y: util.calculate.absolute.y( ),
+                    width: util.calculate.absolute.x( ),
+                    height: util.calculate.absolute.y( ),
+                    opacity: 0
+                })
+            },
+
             back: {
                 mouseOver: false,
 
@@ -162,6 +185,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.add.layer.add( highScores.add.playerName.label );
                     highScores.add.layer.add( highScores.add.playerName.field );
+
+                    highScores.add.layer.add( highScores.add.keyboard.shape );
+                    highScores.add.layer.add( highScores.add.keyboard.hitBox );
 
                     highScores.add.layer.add( highScores.add.submit.shape );
                     highScores.add.layer.add( highScores.add.submit.hitBox );
