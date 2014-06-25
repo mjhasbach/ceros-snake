@@ -193,10 +193,12 @@ define([], function() {
                 }
             },
 
-            previous: {
-                x: 1,
-                y: 1,
-                size: 0
+            view: {
+                previous: {
+                    x: 1,
+                    y: 1,
+                    size: 0
+                }
             },
 
             next: {
