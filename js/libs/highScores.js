@@ -61,6 +61,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.submit.shape.fill( _s.submit.fill );
 
                 highScores.add.back.shape.fill( _s.back.fill );
+
+                highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex );
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
