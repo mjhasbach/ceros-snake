@@ -189,6 +189,7 @@ define([], function() {
             add: {
                 keyboard: {
                     x: 3,
+                    y: 1.285,
                     size: 8.4
                 },
 
