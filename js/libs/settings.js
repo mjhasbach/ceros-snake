@@ -193,9 +193,9 @@ define([], function() {
                 },
 
                 submit: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    x: 2,
+                    y: 1.233,
+                    size: 11.2
                 }
             },
 
