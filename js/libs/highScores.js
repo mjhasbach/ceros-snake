@@ -58,9 +58,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: function() {
                 highScores.score = 0;
 
-                highScores.add.submit.shape.fill( _s.submit.fill );
+                highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
 
-                highScores.add.back.shape.fill( _s.back.fill );
+                highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex );
 
                 highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex );
             },
@@ -217,11 +217,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: function() {
                 highScores.score = 0;
 
-                highScores.view.back.shape.fill( _s.back.fill );
+                highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex );
 
-                highScores.view.previous.fill( _s.previous.fill );
+                highScores.view.previous.fill( settings.font.colors.fill.enabled.hex );
 
-                highScores.view.next.fill( _s.next.fill );
+                highScores.view.next.fill( settings.font.colors.fill.enabled.hex );
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
