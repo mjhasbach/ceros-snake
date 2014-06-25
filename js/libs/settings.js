@@ -186,19 +186,19 @@ define([], function() {
 
             add: {
                 keyboard: {
-                    x: 3,
+                    x: 3.63,
                     y: 1.285,
                     size: 8.4
                 },
 
                 submit: {
-                    x: 2,
+                    x: 2.17,
                     y: 1.233,
                     size: 11.2
                 },
 
                 back: {
-                    x: 1.6,
+                    x: 1.677,
                     y: 1.233,
                     size: 11.2
                 }
