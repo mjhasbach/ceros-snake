@@ -117,10 +117,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 mouseOver: false,
 
                 shape: new Kinetic.Text({
-                    x: util.calculate.absolute.x( settings.highScores.options.keyboard.x ),
+                    x: util.calculate.absolute.x( settings.highScores.add.keyboard.x ),
                     y: util.calculate.absolute.y( settings.highScores.options.y ),
                     text: '\uf11c',
-                    fontSize: util.calculate.absolute.size( settings.highScores.options.keyboard.size ),
+                    fontSize: util.calculate.absolute.size( settings.highScores.add.keyboard.size ),
                     fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
