@@ -219,7 +219,14 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })();
 
                 highScores.add.animation = new Kinetic.Animation( function( frame ){
-                    if ( highScores.add.state.get( 'current' ) === 'stopping' ){
+
+                    if ( highScores.add.state.get( 'current' ) === 'starting' ){
+
+                        highScores.add.playerName.field.focus();
+
+                        highScores.add.state.set( 'current', 'running' )
+                    }
+                    else if ( highScores.add.state.get( 'current' ) === 'stopping' ){
 
                         util.module.stop( highScores.add, frame )
                     }

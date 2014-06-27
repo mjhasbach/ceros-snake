@@ -357,9 +357,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         if ( current === 'stopping' ){
                             highScores.add.start( game.snake.segment.list.length );
 
-                            start( highScores.add, stage );
-
-                            highScores.add.playerName.field.focus();
+                            start( highScores.add, stage )
                         }
                     });
 
