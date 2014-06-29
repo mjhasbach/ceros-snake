@@ -504,38 +504,7 @@ function init(KineticModule){
 
                     // Backspace
                     if (code==8 && that.currentWordCursorPos == 0) {
-
-                        if (that.currentLine > 0) {
-                            var currentTextString = that.tempText[that.currentLine].getText();
-                            var prevLineString = (that.tempText[that.currentLine-1])?that.tempText[that.currentLine-1].getText():"";
-
-                            var prevLineLettersCount = that.countLetters(that.tempText[that.currentLine-1].clone());
-
-                            that.tempText[that.currentLine-1].setText(prevLineString + currentTextString);
-
-                            that.currentWordLetters += prevLineLettersCount;
-                            that.currentLine--;
-                            that.currentWordCursorPos = prevLineLettersCount;
-
-                            for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
-                                that.tempText[i].setText(that.tempText[i+1].getText());
-                            }
-
-                            that.tempText[i].setText("");
-                            that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
-                            that.totalLines--;
-
-                            var oldWidth = that.tempText[that.currentLine].getWidth();
-                            if (oldWidth >= that.maxWidth) {
-                                that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
-                                that.maxWidth = that.tempText[that.currentLine].getWidth();
-                            }
-
-                            that.detectCursorPosition();
-                            that.focusLayer.draw();
-                        }
-
-                        return false;
+                        that.deleteLastChar()
                     }
                     // Delete
                     if (code==46 && that.currentWordCursorPos == that.currentWordLetters) {
@@ -724,6 +693,64 @@ function init(KineticModule){
             that.focusLayer.draw();
 
             return false;
+        },
+
+        deleteLastChar: function() {
+            var that = this;
+
+            if (that.currentLine > 0) {
+                var currentTextString = that.tempText[that.currentLine].getText();
+                var prevLineString = (that.tempText[that.currentLine-1])?that.tempText[that.currentLine-1].getText():"";
+
+                var prevLineLettersCount = that.countLetters(that.tempText[that.currentLine-1].clone());
+
+                that.tempText[that.currentLine-1].setText(prevLineString + currentTextString);
+
+                that.currentWordLetters += prevLineLettersCount;
+                that.currentLine--;
+                that.currentWordCursorPos = prevLineLettersCount;
+
+                for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
+                    that.tempText[i].setText(that.tempText[i+1].getText());
+                }
+
+                that.tempText[i].setText("");
+                that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
+                that.totalLines--;
+
+                var oldWidth = that.tempText[that.currentLine].getWidth();
+                if (oldWidth >= that.maxWidth) {
+                    that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
+                    that.maxWidth = that.tempText[that.currentLine].getWidth();
+                }
+
+                that.detectCursorPosition();
+                that.focusLayer.draw();
+            }
+
+            return false;
+        },
+
+        text: function(string) {
+            var that = this;
+
+            if (arguments.length === 0) {
+                var txt = "";
+
+                that.tempText.forEach(function(char) {
+                    txt += char.text()
+                });
+
+                return txt
+            } else {
+                if (typeof string === "string") {
+                    that.tempText.forEach(function() { that.deleteLastChar() });
+
+                    for (var i = 0; i < string.length; i++)
+                        that.addChar(string[i])
+
+                } else throw new Error("The first argument passed to Kinetic.EditableText.text() must be a string");
+            }
         }
     };
 
