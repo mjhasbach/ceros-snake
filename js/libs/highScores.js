@@ -61,7 +61,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.add.playerName.init.field( stage );
 
-                highScores.add.playerName.label.x( _s.name.label.x );
+                highScores.add.playerName.move();
 
                 highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
 
