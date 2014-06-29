@@ -12,17 +12,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     defaults: function() {
                         return {
                             time: new Date().getTime()
-                        };
+                        }
                     },
 
                     initialize: function() {
-                        if ( !this.get( 'name' )){
-                            throw new Error( 'A name must be provided when initializing a highScores.database.Score' )
-                        }
+                        if ( !this.get( 'name' ))
+                            throw new Error( 'A name must be provided when initializing a highScores.database.Score' );
 
-                        if ( !this.get( 'score' )){
+                        if ( !this.get( 'score' ))
                             throw new Error( 'A score must be provided when initializing a highScores.database.Score' )
-                        }
                     }
                 });
 
@@ -32,7 +30,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     firebase: new Firebase( _s.database ).limit( _s.limit ).endAt(),
 
                     comparator: function( model ){
-                        return -model.get( 'score' );
+                        return -model.get( 'score' )
                     }
                 });
 
@@ -67,7 +65,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex );
 
-                highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex );
+                highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -114,7 +112,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         if ( highScores.add.playerName.field ){
                             highScores.add.playerName.field.unfocus();
 
-                            highScores.add.playerName.field.destroy();
+                            highScores.add.playerName.field.destroy()
                         }
 
                         highScores.add.playerName.field = new Kinetic.EditableText({
@@ -129,7 +127,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             stage: stage
                         });
 
-                        highScores.add.layer.add( highScores.add.playerName.field );
+                        highScores.add.layer.add( highScores.add.playerName.field )
                     }
                 }
             },
@@ -263,7 +261,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.view.previous.fill( settings.font.colors.fill.enabled.hex );
 
-                highScores.view.next.fill( settings.font.colors.fill.enabled.hex );
+                highScores.view.next.fill( settings.font.colors.fill.enabled.hex )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -380,7 +378,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                                 node: highScores.view.back.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
-                            });
+                            })
 
                     })( settings.font.colors.fill.enabled.h,
                         settings.font.colors.fill.enabled.s,
@@ -389,7 +387,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         settings.font.colors.stroke.enabled.h,
                         settings.font.colors.stroke.enabled.s,
                         settings.font.colors.stroke.enabled.l - brightnessVariance
-                    );
+                    )
                 };
 
                 ( function _layer() {
@@ -405,7 +403,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.view.layer.add( highScores.view.next.hitBox );
 
                     highScores.add.layer.add( highScores.view.back.shape );
-                    highScores.add.layer.add( highScores.view.back.hitBox );
+                    highScores.add.layer.add( highScores.view.back.hitBox )
                 })();
 
                 highScores.view.animation = new Kinetic.Animation( function( frame ){
@@ -422,7 +420,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     } else if ( state === 'stopping' ){
                         util.module.stop( highScores.view, frame )
                     }
-                }, highScores.view.layer );
+                }, highScores.view.layer )
             }
         };
 
