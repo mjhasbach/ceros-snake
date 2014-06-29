@@ -184,10 +184,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 highScores.add.keyboard.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
                                         ( function( name ){
-                                            highScores.add.playerName.init.field( stage );
-
-                                            highScores.add.playerName.field.focus();
-
                                             highScores.add.playerName.field.text( name );
 
                                             highScores.add.playerName.move()
