@@ -165,6 +165,39 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     ( function _highScores() {
                         ( function _add() {
+                            ( function _keyboard() {
+                                highScores.add.keyboard.hitBox.on( 'mouseover', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() )
+                                        highScores.add.keyboard.mouseOver = true
+                                });
+
+                                highScores.add.keyboard.hitBox.on( 'mouseout', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() ){
+                                        highScores.add.keyboard.shape.fill(
+                                            settings.font.colors.fill.enabled.hex
+                                        );
+
+                                        highScores.add.keyboard.mouseOver = false
+                                    }
+                                });
+
+                                highScores.add.keyboard.hitBox.on( 'click touchstart', function() {
+                                    if ( highScores.add.isNotStoppingOrStopped() ){
+                                        ( function( name ){
+                                            highScores.add.playerName.init.field( stage );
+
+                                            highScores.add.playerName.field.focus();
+
+                                            for ( var i = 0; i < name.length; i++ )
+                                                highScores.add.playerName.field.addChar( name[ i ])
+
+                                            highScores.add.playerName.move()
+
+                                        })( prompt( 'What is your name, hero?' ))
+                                    }
+                                })
+                            })();
+
                             ( function _submit() {
                                 highScores.add.submit.hitBox.on( 'mouseover', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() )
