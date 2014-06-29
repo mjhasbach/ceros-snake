@@ -12,9 +12,10 @@
 // Define Kinetic.EditableText globally or
 // Define KineticModule.EditableText if an AMD or CommonJS module loader is detected
 function init(KineticModule){
+    var Kinetic = window.Kinetic || KineticModule;
+
     if (typeof Kinetic === "undefined") {
-        if (KineticModule) var Kinetic = KineticModule;
-        else throw new Error("Kinetic must be a global variable or passed to init.");
+        throw new Error("Kinetic must be a global variable or passed to init.");
     }
 
     /**
