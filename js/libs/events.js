@@ -215,12 +215,18 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.submit.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
-                                        highScores.database.scores.add({
-                                            score: highScores.score,
-                                            name: highScores.name.field.text()
-                                        });
+                                        if ( highScores.add.playerName.field.text().length > 0 ){
+                                            highScores.database.scores.add(
+                                                new highScores.database.Score({
+                                                    score: highScores.score,
+                                                    name: highScores.add.playerName.field.text()
+                                                })
+                                            );
 
-                                        highScores.add.state = 'stopping'
+                                            highScores.add.state.set( 'current', 'stopping' )
+
+                                        } else alert( 'Please provide your name, or click the "X" icon ' +
+                                                      'if you do not wish to record your high score.' )
                                     }
                                 })
                             })();
