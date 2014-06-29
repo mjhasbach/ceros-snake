@@ -188,8 +188,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                             highScores.add.playerName.field.focus();
 
-                                            for ( var i = 0; i < name.length; i++ )
-                                                highScores.add.playerName.field.addChar( name[ i ])
+                                            highScores.add.playerName.field.text( name );
 
                                             highScores.add.playerName.move()
 
