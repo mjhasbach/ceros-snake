@@ -94,6 +94,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     }
                 },
 
+                move: function() {
+                    var nameLength = highScores.add.playerName.field.currentWordCursorPos;
+
+                    highScores.add.playerName.label.x(
+                        util.calculate.absolute.x( settings.highScores.name.label.x ) -
+                            ( nameLength * util.calculate.absolute.x( 40.7 ))
+                    );
+
+                    highScores.add.playerName.field.tempText[ 0 ].x(
+                        highScores.add.playerName.calculate.field.x()
+                    );
+
+                    highScores.add.playerName.lastLength = nameLength
+                },
+
                 init: {
                     field: function( stage ){
                         if ( highScores.add.playerName.field ){
