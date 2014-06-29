@@ -228,12 +228,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             ( function _back() {
                                 highScores.add.back.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.isNotStoppingOrStopped() )
+                                    if ( highScores.add.isNotStoppingOrStopped() )
                                         highScores.add.back.mouseOver = true
                                 });
 
                                 highScores.add.back.hitBox.on( 'mouseout', function() {
-                                    if ( highScores.isNotStoppingOrStopped() ){
+                                    if ( highScores.add.isNotStoppingOrStopped() ){
                                         highScores.add.back.shape.fill(
                                             settings.font.colors.fill.enabled.hex
                                         );
@@ -322,12 +322,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             ( function _back() {
                                 highScores.view.back.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.isNotStoppingOrStopped() )
+                                    if ( highScores.view.isNotStoppingOrStopped() )
                                         highScores.view.back.mouseOver = true
                                 });
 
                                 highScores.view.back.hitBox.on( 'mouseout', function() {
-                                    if ( highScores.isNotStoppingOrStopped() ){
+                                    if ( highScores.view.isNotStoppingOrStopped() ){
                                         highScores.view.back.shape.fill(
                                             settings.font.colors.fill.enabled.hex
                                         );
