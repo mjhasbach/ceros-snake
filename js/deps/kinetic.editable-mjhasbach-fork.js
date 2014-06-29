@@ -2,9 +2,9 @@
  * KineticJS EditableText Extension
  * Compatible with KineticJS JavaScript Library v5.1.0
  * Author: Nikos Tsitas
- * Date: Apr 22 2014
+ * Date: June 29 2014
  */
- 
+
 ////////////////////
 //  EditableText  //
 ////////////////////
@@ -12,7 +12,7 @@
 // Define Kinetic.EditableText globally or
 // Define KineticModule.EditableText if an AMD or CommonJS module loader is detected
 function init(KineticModule){
-    if (typeof Kinetic === 'undefined') {
+    if (typeof Kinetic === "undefined") {
         if (KineticModule) var Kinetic = KineticModule;
         else throw new Error("Kinetic must be a global variable or passed to init.");
     }
@@ -637,44 +637,7 @@ function init(KineticModule){
 
             // General text input
             $("body").on("keypress", function(e) {
-                var code = e.charCode || e.keyCode;
-
-                // console.log("keypress: "+code);
-
-                // Ignore all keys handled in keydown above.
-                if (code == 8 || code == 13 || code == 37 || code == 38 || code == 39 || code == 40) return;
-
-                var theChar = String.fromCharCode(code);
-
-                var currentTextString = that.tempText[that.currentLine].getText();
-                var textBeforeCursor = currentTextString.substring(0, that.currentWordCursorPos);
-                var textAfterCursor = currentTextString.substring(that.currentWordCursorPos, currentTextString.length);
-
-                var newTextString = textBeforeCursor + theChar + textAfterCursor;
-                that.tempText[that.currentLine].setText(newTextString);
-
-                that.currentWordCursorPos++;
-                that.currentWordLetters++;
-
-                that.detectCursorPosition();
-
-                $.each(that.tempText, function(index, iterTempText) {
-                    if (iterTempText.getWidth() > that.maxWidth) that.maxWidth = iterTempText.getWidth();
-                });
-
-                if (that.maxWidth < that.tempText[that.currentLine].getWidth()) {
-                    that.maxWidth = that.tempText[that.currentLine].getWidth();
-                }
-
-                if (that.tempText[that.currentLine].getWidth() >= that.maxWidth) {
-                    that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
-                }
-
-                that.focusRectW = that.focusRect.getWidth();
-
-                that.focusLayer.draw();
-
-                return false;
+                that.addChar(e)
             });
         },
 
@@ -717,6 +680,49 @@ function init(KineticModule){
             that.detectCursorPosition();
 
             that.focusLayer.draw();
+        },
+
+        addChar: function(e) {
+            var that = this;
+
+            var code = e.charCode || e.keyCode;
+
+            // console.log("keypress: "+code);
+
+            // Ignore all keys handled in keydown above.
+            if (code == 8 || code == 13 || code == 37 || code == 38 || code == 39 || code == 40) return;
+
+            var theChar = typeof e === 'string' ? e : String.fromCharCode(code);
+
+            var currentTextString = that.tempText[that.currentLine].getText();
+            var textBeforeCursor = currentTextString.substring(0, that.currentWordCursorPos);
+            var textAfterCursor = currentTextString.substring(that.currentWordCursorPos, currentTextString.length);
+
+            var newTextString = textBeforeCursor + theChar + textAfterCursor;
+            that.tempText[that.currentLine].setText(newTextString);
+
+            that.currentWordCursorPos++;
+            that.currentWordLetters++;
+
+            if ( typeof e !== 'string' ) that.detectCursorPosition();
+
+            $.each(that.tempText, function(index, iterTempText) {
+                if (iterTempText.getWidth() > that.maxWidth) that.maxWidth = iterTempText.getWidth();
+            });
+
+            if (that.maxWidth < that.tempText[that.currentLine].getWidth()) {
+                that.maxWidth = that.tempText[that.currentLine].getWidth();
+            }
+
+            if (that.tempText[that.currentLine].getWidth() >= that.maxWidth) {
+                that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
+            }
+
+            that.focusRectW = that.focusRect.getWidth();
+
+            that.focusLayer.draw();
+
+            return false;
         }
     };
 
