@@ -37,11 +37,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.database.scores = new highScores.database.TopScores;
             })();
 
-            highScores.isNotStoppingOrStopped = function() {
-                return highScores.add.isNotStoppingOrStopped() ||
-                       highScores.view.isNotStoppingOrStopped()
-            };
-
             highScores.add.init( options );
 
             highScores.view.init( options )
