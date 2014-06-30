@@ -333,15 +333,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
 
-                highScores.index = 0;
+                highScores.view.index = 0;
 
                 highScores.view.update = function() {
-                    highScores.score = highScores.database.scores.at( highScores.index ).get( 'score' );
+                    highScores.score = highScores.database.scores.at( highScores.view.index ).get( 'score' );
 
                     highScores.view.background.count( highScores.score );
 
                     highScores.view.playerName.scoreHolder.text(
-                        highScores.database.scores.at( highScores.index ).get( 'name' )
+                        highScores.database.scores.at( highScores.view.index ).get( 'name' )
                     )
                 };
 
