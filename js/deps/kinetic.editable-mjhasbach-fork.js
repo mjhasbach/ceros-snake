@@ -502,68 +502,7 @@ function init(KineticModule){
                     case 8: case 46:
                     // if (code==8) console.log("backspace");
 
-                    // Backspace
-                    if (code==8 && that.currentWordCursorPos == 0) {
-                        that.deleteLastChar()
-                    }
-                    // Delete
-                    if (code==46 && that.currentWordCursorPos == that.currentWordLetters) {
-
-                        if (that.currentLine < that.totalLines-1) {
-                            var currentTextString = that.tempText[that.currentLine].getText();
-                            var nextLineString = (that.tempText[that.currentLine+1])?that.tempText[that.currentLine+1].getText():"";
-
-                            that.tempText[that.currentLine].setText(currentTextString + nextLineString);
-
-                            var nextLineLettersCount = that.countLetters(that.tempText[that.currentLine+1].clone());
-
-                            that.currentWordLetters += nextLineLettersCount;
-
-                            for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
-                                that.tempText[i].setText(that.tempText[i+1].getText());
-                            }
-
-                            that.tempText[i].setText("");
-                            that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
-                            that.totalLines--;
-
-                            var oldWidth = that.tempText[that.currentLine].getWidth();
-                            if (oldWidth >= that.maxWidth) {
-                                that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
-                                that.maxWidth = that.tempText[that.currentLine].getWidth();
-                            }
-
-                            that.focusLayer.draw();
-                        }
-
-                        return false;
-                    }
-
-                    var deletedText = that.tempText[that.currentLine].getText();
-                    var deletedTextStart = deletedText.substring(0,code==8?that.currentWordCursorPos-1:that.currentWordCursorPos);
-                    var deletedTextEnd = deletedText.substring(code==8?that.currentWordCursorPos:that.currentWordCursorPos+1,deletedText.length);
-                    deletedText = deletedTextStart+deletedTextEnd;
-
-                    if (code==8) that.currentWordCursorPos--;
-                    that.currentWordLetters--;
-
-                    var oldWidth = that.tempText[that.currentLine].getWidth();
-                    that.tempText[that.currentLine].setText(deletedText);
-
-                    that.detectCursorPosition();
-
-                    $.each(that.tempText, function(index, iterTempText) {
-                        if (iterTempText.getWidth() > that.maxWidth) that.maxWidth = iterTempText.getWidth();
-                    });
-
-                    if (oldWidth >= that.maxWidth) {
-                        that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
-                        that.maxWidth = that.tempText[that.currentLine].getWidth();
-                    }
-
-                    that.focusRectW = that.focusRect.getWidth();
-
-                    that.focusLayer.draw();
+                    that.removeChar(code);
 
                     return false;
 
@@ -607,7 +546,9 @@ function init(KineticModule){
 
             // General text input
             $("body").on("keypress", function(e) {
-                that.addChar(e)
+                that.addChar(e);
+
+                return false
             });
         },
 
@@ -690,64 +631,136 @@ function init(KineticModule){
 
             that.focusRectW = that.focusRect.getWidth();
 
-            that.focusLayer.draw();
-
-            return false;
+            that.focusLayer.draw()
         },
 
-        deleteLastChar: function() {
+        removeChar: function(code) {
             var that = this;
 
-            if (that.currentLine > 0) {
-                var currentTextString = that.tempText[that.currentLine].getText();
-                var prevLineString = (that.tempText[that.currentLine-1])?that.tempText[that.currentLine-1].getText():"";
+            if (code === "backspace") code = 8;
+            else if (code === "delete") code = 46;
+            else if ( typeof code !== "number")
+                throw new Error('The first argument passed to Kinetic.EditableText.removeChar() must be ' +
+                    '"backspace" (string), "delete" (string), or a character code (integer)');
 
-                var prevLineLettersCount = that.countLetters(that.tempText[that.currentLine-1].clone());
+            // Backspace
+            if (code==8 && that.currentWordCursorPos == 0) {
 
-                that.tempText[that.currentLine-1].setText(prevLineString + currentTextString);
+                if (that.currentLine > 0) {
+                    var currentTextString = that.tempText[that.currentLine].getText();
+                    var prevLineString = (that.tempText[that.currentLine-1])?that.tempText[that.currentLine-1].getText():"";
 
-                that.currentWordLetters += prevLineLettersCount;
-                that.currentLine--;
-                that.currentWordCursorPos = prevLineLettersCount;
+                    var prevLineLettersCount = that.countLetters(that.tempText[that.currentLine-1].clone());
 
-                for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
-                    that.tempText[i].setText(that.tempText[i+1].getText());
+                    that.tempText[that.currentLine-1].setText(prevLineString + currentTextString);
+
+                    that.currentWordLetters += prevLineLettersCount;
+                    that.currentLine--;
+                    that.currentWordCursorPos = prevLineLettersCount;
+
+                    for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
+                        that.tempText[i].setText(that.tempText[i+1].getText());
+                    }
+
+                    that.tempText[i].setText("");
+                    that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
+                    that.totalLines--;
+
+                    var oldWidth = that.tempText[that.currentLine].getWidth();
+                    if (oldWidth >= that.maxWidth) {
+                        that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
+                        that.maxWidth = that.tempText[that.currentLine].getWidth();
+                    }
+
+                    that.detectCursorPosition();
+                    that.focusLayer.draw();
                 }
+            }
+            // Delete
+            if (code==46 && that.currentWordCursorPos == that.currentWordLetters) {
 
-                that.tempText[i].setText("");
-                that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
-                that.totalLines--;
+                if (that.currentLine < that.totalLines-1) {
+                    var currentTextString = that.tempText[that.currentLine].getText();
+                    var nextLineString = (that.tempText[that.currentLine+1])?that.tempText[that.currentLine+1].getText():"";
 
-                var oldWidth = that.tempText[that.currentLine].getWidth();
-                if (oldWidth >= that.maxWidth) {
-                    that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
-                    that.maxWidth = that.tempText[that.currentLine].getWidth();
+                    that.tempText[that.currentLine].setText(currentTextString + nextLineString);
+
+                    var nextLineLettersCount = that.countLetters(that.tempText[that.currentLine+1].clone());
+
+                    that.currentWordLetters += nextLineLettersCount;
+
+                    for (i = that.currentLine+1 ; i < that.totalLines-1 ; i++) {
+                        that.tempText[i].setText(that.tempText[i+1].getText());
+                    }
+
+                    that.tempText[i].setText("");
+                    that.focusRect.setHeight(that.focusRect.getHeight() - that.lineHeightPx);
+                    that.totalLines--;
+
+                    var oldWidth = that.tempText[that.currentLine].getWidth();
+                    if (oldWidth >= that.maxWidth) {
+                        that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
+                        that.maxWidth = that.tempText[that.currentLine].getWidth();
+                    }
+
+                    that.focusLayer.draw();
                 }
-
-                that.detectCursorPosition();
-                that.focusLayer.draw();
             }
 
-            return false;
+            var deletedText = that.tempText[that.currentLine].getText();
+            var deletedTextStart = deletedText.substring(0,code === 8?that.currentWordCursorPos-1:that.currentWordCursorPos);
+            var deletedTextEnd = deletedText.substring(code === 8?that.currentWordCursorPos:that.currentWordCursorPos+1,deletedText.length);
+            deletedText = deletedTextStart+deletedTextEnd;
+
+            if (code === 8 && that.currentWordCursorPos > 0) that.currentWordCursorPos--;
+            that.currentWordLetters--;
+
+            var oldWidth = that.tempText[that.currentLine].getWidth();
+            that.tempText[that.currentLine].setText(deletedText);
+
+            that.detectCursorPosition();
+
+            $.each(that.tempText, function(index, iterTempText) {
+                if (iterTempText.getWidth() > that.maxWidth) that.maxWidth = iterTempText.getWidth();
+            });
+
+            if (oldWidth >= that.maxWidth) {
+                that.focusRect.setWidth(80<that.tempText[that.currentLine].getWidth()?that.tempText[that.currentLine].getWidth()+20:100);
+                that.maxWidth = that.tempText[that.currentLine].getWidth();
+            }
+
+            that.focusRectW = that.focusRect.getWidth();
+
+            that.focusLayer.draw();
         },
 
         text: function(string) {
-            var that = this;
+            var i;
 
             if (arguments.length === 0) {
-                var txt = "";
+                var text = "";
 
-                that.tempText.forEach(function(char) {
-                    txt += char.text()
-                });
+                for (i = 0; i < this.tempText.length; i++){
+                    text += this.tempText[i].text();
 
-                return txt
+                    if (typeof this.tempText[i + 1] !== "undefined" && this.tempText[i + 1].text() !== '') text += "\n"
+                }
+
+                return text
             } else {
                 if (typeof string === "string") {
-                    that.tempText.forEach(function() { that.deleteLastChar() });
+                    var lastLine = this.tempText.length - 1;
 
-                    for (var i = 0; i < string.length; i++)
-                        that.addChar(string[i])
+                    this.currentLine = lastLine;
+                    this.currentWordCursorPos = this.tempText[lastLine].text().length;
+
+                    while (this.currentLine !== 0 || this.currentWordCursorPos !== 0) {
+                        this.removeChar("backspace");
+                    }
+
+                    for (i = 0; i < string.length; i++) {
+                        this.addChar(string[i]);
+                    }
 
                 } else throw new Error("The first argument passed to Kinetic.EditableText.text() must be a string");
             }
