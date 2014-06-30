@@ -339,7 +339,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.view.background.count( highScores.score );
 
                     highScores.view.playerName.scoreHolder.text(
-                        highScores.database.scores.at( highScores.index ).name
+                        highScores.database.scores.at( highScores.index ).get( 'name' )
                     )
                 };
 
