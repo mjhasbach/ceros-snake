@@ -251,8 +251,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         text: 'High Scores',
                         fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
                         fontFamily: settings.font.face,
-                        fill: settings.font.colors.fill.disabled,
-                        stroke: settings.font.colors.stroke.disabled,
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
                         strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                     })
                 };
