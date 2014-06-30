@@ -52,9 +52,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: function() {
                 highScores.score = 0;
 
-                highScores.add.playerName.init.field( stage );
+                highScores.add.playerName.field.text( '' );
 
                 highScores.add.playerName.move();
+
+                highScores.add.playerName.field.unfocus();
 
                 highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
 
