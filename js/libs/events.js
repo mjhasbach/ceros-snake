@@ -338,11 +338,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 });
 
                                 highScores.view.back.hitBox.on( 'click touchstart', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.add.state = 'stopping';
-
-                                    else if ( highScores.view.isNotStoppingOrStopped() )
-                                        highScores.view.state = 'stopping';
+                                    if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.state.set( 'current', 'stopping' )
                                 })
                             })();
                         })();
@@ -351,7 +348,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                 ( function _databaseEvents() {
                     highScores.database.scores.on( 'add', function( record ){
-                        if ( highScores.view.state === 'running' )
+                        if ( highScores.view.state.get( 'current' ) === 'running' )
                             if ( record.score > highScores.score )
                                 highScores.index++
                     })
