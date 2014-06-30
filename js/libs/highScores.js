@@ -257,7 +257,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 scoreHolder: new Kinetic.Text({
                     x: util.calculate.absolute.x( _s.name.scoreHolder.x ),
-                    y: util.calculate.absolute.y( _s.name.scoreHolder.y ),
+                    y: util.calculate.absolute.y( _s.name.y ),
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.scoreHolder.size ),
                     fontFamily: settings.font.face,
