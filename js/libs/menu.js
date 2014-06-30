@@ -44,6 +44,14 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             stroke: { h: hS, s: sS, l: lS }
                         });
 
+                    else if ( menu.options.highScores.mouseOver )
+
+                        util.color.fillAndStroke({
+                            node: menu.options.highScores.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        })
+
                 })( settings.font.colors.fill.enabled.h,
                     settings.font.colors.fill.enabled.s,
                     settings.font.colors.fill.enabled.l - brightnessVariance,
