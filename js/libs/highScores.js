@@ -250,7 +250,20 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
-            playerName: { label: highScores.add.playerName.label.clone() },
+            playerName: {
+                label: highScores.add.playerName.label.clone(),
+
+                scoreHolder: new Kinetic.Text({
+                    x: util.calculate.absolute.x( _s.name.scoreHolder.x ),
+                    y: util.calculate.absolute.y( _s.name.scoreHolder.y ),
+                    text: 'Name:',
+                    fontSize: util.calculate.absolute.size( _s.name.scoreHolder.size ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                })
+            },
 
             previous: {
                 mouseOver: false,
@@ -319,17 +332,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
-
-                highScores.view.playerName.scoreHolder = new Kinetic.Text({
-                    x: util.calculate.absolute.x( _s.name.scoreHolder.x ),
-                    y: util.calculate.absolute.y( _s.name.scoreHolder.y ),
-                    text: 'Name:',
-                    fontSize: util.calculate.absolute.size( _s.name.scoreHolder.size ),
-                    fontFamily: settings.font.face,
-                    fill: settings.font.colors.fill.enabled.hex,
-                    stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                });
 
                 highScores.index = 0;
 
