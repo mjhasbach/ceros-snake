@@ -250,6 +250,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
 
+            index: 0,
+
             playerName: {
                 label: highScores.add.playerName.label.clone(),
 
@@ -332,8 +334,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
-
-                highScores.view.index = 0;
 
                 highScores.view.update = function() {
                     highScores.score = highScores.database.scores.at( highScores.view.index ).get( 'score' );
