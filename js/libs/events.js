@@ -292,11 +292,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.view.previous.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.index -= 1;
+                                        highScores.view.index -= 1;
 
                                         highScores.view.update();
 
-                                        if ( highScores.index === 0 ){
+                                        if ( highScores.view.index === 0 ){
                                             highScores.view.previous.shape.remove();
                                             highScores.view.previous.hitBox.remove()
                                         }
@@ -327,11 +327,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.view.next.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.index += 1;
+                                        highScores.view.index += 1;
 
                                         highScores.view.update();
 
-                                        if ( highScores.index === settings.highScores.limit - 1 ){
+                                        if ( highScores.view.index === settings.highScores.limit - 1 ){
                                             highScores.view.next.shape.remove();
                                             highScores.view.next.hitBox.remove()
                                         }
@@ -373,7 +373,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     highScores.database.scores.on( 'add', function( record ){
                         if ( highScores.view.state.get( 'current' ) === 'running' )
                             if ( record.score > highScores.score )
-                                highScores.index++
+                                highScores.view.index++
                     })
                 })();
 
