@@ -245,6 +245,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
             ( function _highScores() {
                 menu.options.highScores = {
+                    mouseOver: false,
+
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 1.97 ),
                         y: util.calculate.absolute.y( settings.menu.options.y ),
