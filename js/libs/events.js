@@ -118,6 +118,29 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             });
                         })();
 
+                        ( function _highScores() {
+                            menu.options.highScores.hitBox.on( 'mouseover', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.highScores.mouseOver = true
+                                }
+                            });
+
+                            menu.options.highScores.hitBox.on( 'mouseout', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.options.highScores.shape.fill(
+                                        settings.font.colors.fill.enabled.hex
+                                    );
+
+                                    menu.options.highScores.mouseOver = false
+                                }
+                            });
+
+                            menu.options.highScores.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() )
+                                    menu.state.set( 'current', 'stopping' );
+                            });
+                        })();
+
                         ( function _volume() {
                             menu.settings.volume.hitBox.on( 'mouseover', function() {
                                 if ( menu.state.get( 'current' ) === 'settings' )
