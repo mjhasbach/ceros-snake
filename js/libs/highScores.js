@@ -90,18 +90,18 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 },
 
                 move: function() {
-                    var nameLength = highScores.add.playerName.field.currentWordCursorPos;
+                    var nameLength = this.field.currentWordCursorPos;
 
-                    highScores.add.playerName.label.x(
+                    this.label.x(
                         util.calculate.absolute.x( settings.highScores.name.label.x ) -
                             ( nameLength * util.calculate.absolute.x( 40.7 ))
                     );
 
-                    highScores.add.playerName.field.tempText[ 0 ].x(
+                    this.field.tempText[ 0 ].x(
                         highScores.add.playerName.calculate.field.x()
                     );
 
-                    highScores.add.playerName.lastLength = nameLength
+                    this.lastLength = nameLength
                 }
             },
 
