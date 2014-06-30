@@ -256,10 +256,19 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
                         strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    }),
+
+                    hitBox: new Kinetic.Rect({
+                        x: util.calculate.absolute.x( 1.97 ),
+                        y: util.calculate.absolute.y( 1.235 ),
+                        width: util.calculate.absolute.size( 2.125 ),
+                        height: util.calculate.absolute.size( 10.3 ),
+                        opacity: 0
                     })
                 };
 
-                menu.layer.add( menu.options.highScores.shape )
+                menu.layer.add( menu.options.highScores.shape );
+                menu.layer.add( menu.options.highScores.hitBox )
             })();
 
             ( function _settingsGroup() {
