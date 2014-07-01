@@ -289,7 +289,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     text: '\uf060',
                     fontSize: util.calculate.absolute.size( _s.view.previous.size ),
                     fontFamily: 'FontAwesome',
-                    fill: settings.font.colors.fill.enabled.hex
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                 }),
 
                 hitBox: new Kinetic.Rect({
