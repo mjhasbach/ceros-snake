@@ -167,16 +167,9 @@ define([], function() {
 
             name: {
                 y: 19.5,
-
                 size: 13,
-
-                label: {
-                    x: 2.55
-                },
-
-                scoreHolder: {
-                    x: 1
-                }
+                label: { x: 2.55 },
+                scoreHolder: { x: 1 }
             },
 
             add: {
