@@ -73,6 +73,21 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 node.fill( settings.font.colors.fill.enabled.hex );
             });
 
+            ( function( hF, sF, lF, hS, sS, lS ){
+                util.color.fillAndStroke({
+                    node: menu.options.highScores.shape,
+                    fill: { h: hF, s: sF, l: lF },
+                    stroke: { h: hS, s: sS, l: lS }
+                })
+            })( settings.font.colors.fill.enabled.h,
+                settings.font.colors.fill.enabled.s,
+                settings.font.colors.fill.enabled.l,
+
+                settings.font.colors.stroke.enabled.h,
+                settings.font.colors.stroke.enabled.s,
+                settings.font.colors.stroke.enabled.l
+            );
+
             menu.settings.group.opacity( 0 );
         },
 
