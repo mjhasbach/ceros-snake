@@ -63,6 +63,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.add.playerName.field.unfocus();
 
+                highScores.add.submit.mouseOver = false;
+
+                highScores.add.back.mouseOver = false;
+
                 highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
 
                 highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex )
