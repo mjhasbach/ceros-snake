@@ -69,6 +69,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
             menu.options.singlePlayer.mouseOver = false;
             menu.options.highScores.mouseOver = false;
 
+            menu.settings.group.opacity( 0 );
+
             ( function( hF, sF, lF, hS, sS, lS ){
                 menu.options.singlePlayer.shape.getChildren().each( function( node ){
                     util.color.fillAndStroke({
@@ -90,9 +92,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 settings.font.colors.stroke.enabled.h,
                 settings.font.colors.stroke.enabled.s,
                 settings.font.colors.stroke.enabled.l
-            );
-
-            menu.settings.group.opacity( 0 );
+            )
         },
 
         init: function ( options ){
