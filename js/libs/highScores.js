@@ -35,6 +35,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 });
 
                 highScores.database.scores = new highScores.database.TopScores;
+
+                highScores.database.waitUntilConnected = function wait( cb ){
+                    if ( highScores.database.scores.at( 0 )) cb();
+                    else setTimeout( wait, 100, cb )
+                }
             })();
 
             highScores.add.init( options );
