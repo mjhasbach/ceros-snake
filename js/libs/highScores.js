@@ -234,10 +234,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.score = 0;
 
                 highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex );
-
-                highScores.view.previous.fill( settings.font.colors.fill.enabled.hex );
-
-                highScores.view.next.fill( settings.font.colors.fill.enabled.hex )
             },
 
             isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
