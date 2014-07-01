@@ -183,6 +183,41 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.add.background.count( score )
             },
 
+            mouseOverCheck: function( frame ){
+                var brightnessVariance = util.calculate.brightnessVariance( frame );
+
+                ( function( hF, sF, lF, hS, sS, lS ){
+                    if ( highScores.add.keyboard.mouseOver )
+                        util.color.fillAndStroke({
+                            node: highScores.add.keyboard.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
+
+                    else if ( highScores.add.submit.mouseOver )
+                        util.color.fillAndStroke({
+                            node: highScores.add.submit.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
+
+                    else if ( highScores.add.back.mouseOver )
+                        util.color.fillAndStroke({
+                            node: highScores.add.back.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        })
+
+                })( settings.font.colors.fill.enabled.h,
+                    settings.font.colors.fill.enabled.s,
+                    settings.font.colors.fill.enabled.l - brightnessVariance,
+
+                    settings.font.colors.stroke.enabled.h,
+                    settings.font.colors.stroke.enabled.s,
+                    settings.font.colors.stroke.enabled.l - brightnessVariance
+                )
+            },
+
             init: function( options ){
                 stage = options.stage;
 
@@ -219,7 +254,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })();
 
                 highScores.add.animation = new Kinetic.Animation( function( frame ){
-                    if ( highScores.add.state.get( 'current' ) === 'stopping' )
+                    var state = highScores.add.state.get( 'current' );
+
+                    if ( state === 'running' )
+                        highScores.add.mouseOverCheck( frame );
+
+                    if ( state === 'stopping' )
                         util.module.stop( highScores.add, frame )
 
                 }, highScores.add.layer )
