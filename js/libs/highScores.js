@@ -90,7 +90,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 },
 
                 move: function() {
-                    var nameLength = this.field.currentWordCursorPos;
+                    var nameLength = this.field.tempText[ 0 ].text().length;
 
                     this.label.x(
                         util.calculate.absolute.x( settings.highScores.name.label.x ) -
