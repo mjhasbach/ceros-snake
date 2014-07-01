@@ -405,8 +405,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     highScores.view.layer.add( highScores.view.next.shape );
                     highScores.view.layer.add( highScores.view.next.hitBox );
 
-                    highScores.add.layer.add( highScores.view.back.shape );
-                    highScores.add.layer.add( highScores.view.back.hitBox )
+                    highScores.view.layer.add( highScores.view.back.shape );
+                    highScores.view.layer.add( highScores.view.back.hitBox )
                 })();
 
                 highScores.view.animation = new Kinetic.Animation( function( frame ){
