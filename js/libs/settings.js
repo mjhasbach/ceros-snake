@@ -179,7 +179,7 @@ define([], function() {
 
                 scoreHolder: {
                     x: 1,
-                    size: 0
+                    size: 13
                 }
             },
 
