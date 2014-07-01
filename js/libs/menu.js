@@ -68,6 +68,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
         cleanUp: function() {
             menu.options.singlePlayer.mouseOver = false;
             menu.options.gear.mouseOver = false;
+            menu.options.highScores.mouseOver = false;
             menu.settings.volume.mouseOver = false;
             menu.settings.fullScreen.mouseOver = false;
 
