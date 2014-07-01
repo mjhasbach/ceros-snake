@@ -69,11 +69,15 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
             menu.options.singlePlayer.mouseOver = false;
             menu.options.highScores.mouseOver = false;
 
-            menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                node.fill( settings.font.colors.fill.enabled.hex );
-            });
-
             ( function( hF, sF, lF, hS, sS, lS ){
+                menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                    util.color.fillAndStroke({
+                        node: node,
+                        fill: { h: hF, s: sF, l: lF },
+                        stroke: { h: hS, s: sS, l: lS }
+                    })
+                });
+
                 util.color.fillAndStroke({
                     node: menu.options.highScores.shape,
                     fill: { h: hF, s: sF, l: lF },
