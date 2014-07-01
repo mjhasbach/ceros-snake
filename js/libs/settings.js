@@ -168,6 +168,8 @@ define([], function() {
             name: {
                 y: 19.5,
 
+                size: 13,
+
                 field: {
                     size: 13
                 },
