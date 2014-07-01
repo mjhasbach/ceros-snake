@@ -206,9 +206,9 @@ define([], function() {
                 },
 
                 back: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    x: 2.17,
+                    y: 1.233,
+                    size: 11.2
                 }
             }
         }
