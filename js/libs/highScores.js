@@ -272,6 +272,19 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             return highScores.view.playerName.label.x() + util.calculate.absolute.x( 3.8 )
                         }
                     }
+                },
+
+                move: function() {
+                    var nameLength = highScores.view.current.get( 'name' ).length;
+
+                    this.label.x(
+                        util.calculate.absolute.x( settings.highScores.name.label.x ) -
+                            ( nameLength * util.calculate.absolute.x( 40.7 ))
+                    );
+
+                    this.scoreHolder.x(
+                        highScores.view.playerName.calculate.scoreHolder.x()
+                    );
                 }
             },
 
@@ -352,7 +365,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.view.playerName.scoreHolder.text(
                         highScores.database.scores.at( highScores.view.index ).get( 'name' )
-                    )
+                    );
+
+                    highScores.view.playerName.move()
                 };
 
                 highScores.view.mouseOverCheck = function( frame ){
