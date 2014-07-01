@@ -399,14 +399,18 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 ( function( hF, sF, lF, hS, sS, lS ){
                     if ( highScores.view.previous.mouseOver )
-                        highScores.view.previous.shape.fill(
-                            'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
-                        );
+                        util.color.fillAndStroke({
+                            node: highScores.view.previous.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
 
                     else if ( highScores.view.next.mouseOver )
-                        highScores.view.next.shape.fill(
-                            'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
-                        );
+                        util.color.fillAndStroke({
+                            node: highScores.view.next.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
 
                     else if ( highScores.view.back.mouseOver )
                         util.color.fillAndStroke({
