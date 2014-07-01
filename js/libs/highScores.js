@@ -260,7 +260,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     y: util.calculate.absolute.y( _s.name.y ),
                     text: 'Name:',
                     fontSize: util.calculate.absolute.size( _s.name.scoreHolder.size ),
-                    fontFamily: settings.font.face,
+                    fontFamily: 'Fira Mono',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
