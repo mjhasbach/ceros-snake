@@ -264,7 +264,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
                     strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                })
+                }),
+
+                calculate: {
+                    scoreHolder: {
+                        x: function() {
+                            return highScores.view.playerName.label.x() + util.calculate.absolute.x( 3.8 )
+                        }
+                    }
+                }
             },
 
             previous: {
