@@ -171,8 +171,7 @@ define([], function() {
                 size: 13,
 
                 label: {
-                    x: 2.55,
-                    size: 13
+                    x: 2.55
                 },
 
                 scoreHolder: {
