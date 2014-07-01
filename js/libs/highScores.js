@@ -231,6 +231,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             cleanUp: function() {
                 highScores.score = 0;
 
+                highScores.view.back.mouseOver = false;
+
                 highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex );
             },
 
