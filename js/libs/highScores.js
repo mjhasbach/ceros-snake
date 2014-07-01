@@ -350,6 +350,37 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 })
             },
 
+            mouseOverCheck: function( frame ){
+                var brightnessVariance = util.calculate.brightnessVariance( frame );
+
+                ( function( hF, sF, lF, hS, sS, lS ){
+                    if ( highScores.view.previous.mouseOver )
+                        highScores.view.previous.shape.fill(
+                            'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
+                        );
+
+                    else if ( highScores.view.next.mouseOver )
+                        highScores.view.next.shape.fill(
+                            'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
+                        );
+
+                    else if ( highScores.view.back.mouseOver )
+                        util.color.fillAndStroke({
+                            node: highScores.view.back.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        })
+
+                })( settings.font.colors.fill.enabled.h,
+                    settings.font.colors.fill.enabled.s,
+                    settings.font.colors.fill.enabled.l - brightnessVariance,
+
+                    settings.font.colors.stroke.enabled.h,
+                    settings.font.colors.stroke.enabled.s,
+                    settings.font.colors.stroke.enabled.l - brightnessVariance
+                )
+            },
+
             init: function( options ){
                 highScores.view.background = options.background.highScores.view;
 
@@ -365,37 +396,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     );
 
                     highScores.view.playerName.move()
-                };
-
-                highScores.view.mouseOverCheck = function( frame ){
-                    var brightnessVariance = util.calculate.brightnessVariance( frame );
-
-                    ( function( hF, sF, lF, hS, sS, lS ){
-                        if ( highScores.view.previous.mouseOver )
-                            highScores.view.previous.shape.fill(
-                                'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
-                            );
-
-                        else if ( highScores.view.next.mouseOver )
-                            highScores.view.next.shape.fill(
-                                'hsl(' + hF + ', ' + sF + '%, ' + lF + '%)'
-                            );
-
-                        else if ( highScores.view.back.mouseOver )
-                            util.color.fillAndStroke({
-                                node: highScores.view.back.shape,
-                                fill: { h: hF, s: sF, l: lF },
-                                stroke: { h: hS, s: sS, l: lS }
-                            })
-
-                    })( settings.font.colors.fill.enabled.h,
-                        settings.font.colors.fill.enabled.s,
-                        settings.font.colors.fill.enabled.l - brightnessVariance,
-
-                        settings.font.colors.stroke.enabled.h,
-                        settings.font.colors.stroke.enabled.s,
-                        settings.font.colors.stroke.enabled.l - brightnessVariance
-                    )
                 };
 
                 ( function _layer() {
