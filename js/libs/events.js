@@ -409,6 +409,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             highScores.add.playerName.field.focus()
                         }
+
+                        if ( current === 'stopped' && highScores.add.back.shape.isVisible() )
+                            highScores.add.state.set( 'current', 'running' )
                     });
 
                     highScores.add.state.on( 'change:current', function( state, current ){
