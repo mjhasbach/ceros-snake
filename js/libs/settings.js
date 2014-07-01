@@ -200,9 +200,9 @@ define([], function() {
                 },
 
                 next: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    x: 1.677,
+                    y: 1.239,
+                    size: 11.33
                 },
 
                 back: {
