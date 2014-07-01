@@ -414,6 +414,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     highScores.add.state.on( 'change:current', function( state, current ){
                         if ( current === 'stopping' ) start( menu, stage );
                     });
+
+                    highScores.view.state.on( 'change:current', function( state, current ){
+                        if ( current === 'stopping' ) start( menu, stage );
+                    })
                 })();
 
                 ( function _transitionToMenu() {
