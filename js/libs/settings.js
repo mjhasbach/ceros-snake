@@ -194,9 +194,9 @@ define([], function() {
 
             view: {
                 previous: {
-                    x: 1,
-                    y: 1,
-                    size: 0
+                    x: 3.03,
+                    y: 1.239,
+                    size: 11.33
                 },
 
                 next: {
