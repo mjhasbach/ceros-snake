@@ -67,18 +67,11 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
         cleanUp: function() {
             menu.options.singlePlayer.mouseOver = false;
-            menu.options.gear.mouseOver = false;
             menu.options.highScores.mouseOver = false;
-            menu.settings.volume.mouseOver = false;
-            menu.settings.fullScreen.mouseOver = false;
 
             menu.options.singlePlayer.shape.getChildren().each( function( node ){
                 node.fill( settings.font.colors.fill.enabled.hex );
             });
-
-            menu.options.gear.shape.fill( settings.font.colors.fill.enabled.hex );
-            menu.settings.volume.shape.fill( settings.menu.settings.font.color.enabled.hex );
-            menu.settings.fullScreen.shape.fill( settings.menu.settings.font.color.enabled.hex );
 
             menu.settings.group.opacity( 0 );
         },
