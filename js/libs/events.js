@@ -370,7 +370,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 ( function _databaseEvents() {
                     highScores.database.scores.on( 'add', function( record ){
                         if ( highScores.view.state.get( 'current' ) === 'running' )
-                            if ( record.score > highScores.score )
+                            if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
                                 highScores.view.index++
                     })
                 })();
