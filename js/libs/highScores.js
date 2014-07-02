@@ -278,6 +278,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             layer: new Kinetic.Layer(),
 
             cleanUp: function() {
+                highScores.view.index = 0;
+
                 highScores.view.back.mouseOver = false;
 
                 highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex );
