@@ -36,6 +36,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                 highScores.database.scores = new highScores.database.TopScores;
 
+                highScores.database.submitScore = function() {
+                    if ( highScores.add.playerName.field.text().length > 0 ){
+                        highScores.database.scores.add(
+                            new highScores.database.Score({
+                                score: highScores.score,
+                                name: highScores.add.playerName.field.text()
+                            })
+                        );
+
+                        highScores.add.state.set( 'current', 'stopping' )
+
+                    } else alert( 'Please provide your name, or click the "X" icon ' +
+                                  'if you do not wish to record your high score.' )
+                };
+
                 highScores.database.waitUntilConnected = function wait( cb ){
                     if ( highScores.database.scores.at( 0 )) cb();
                     else setTimeout( wait, 100, cb )
