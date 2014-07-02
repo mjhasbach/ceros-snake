@@ -278,8 +278,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             layer: new Kinetic.Layer(),
 
             cleanUp: function() {
-                highScores.score = 0;
-
                 highScores.view.back.mouseOver = false;
 
                 highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex );
@@ -435,9 +433,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.view.update = function() {
                     highScores.view.current = highScores.database.scores.at( highScores.view.index );
 
-                    highScores.score = highScores.database.scores.at( highScores.view.index ).get( 'score' );
-
-                    highScores.view.background.count( highScores.score );
+                    highScores.view.background.count( highScores.view.current.get( 'score' ));
 
                     highScores.view.playerName.scoreHolder.text(
                         highScores.database.scores.at( highScores.view.index ).get( 'name' )
