@@ -499,23 +499,23 @@ function init(KineticModule){
 
                     break;
                     // 13: Enter
-                    case 13:
-
-                        if (that.unfocusOnEnter) that.unfocus(e);
-                        else {
-                            if (that.ctrlDown) {
-                                that.unfocus(e);
-                                that.ctrlDown=false;
-                                focusedText = undefined;
-                            }
-                            else {
-                                that.newLine();
-                            }
-                        }
-
-                        return false;
-
-                        break;
+//                    case 13:
+//
+//                        if (that.unfocusOnEnter) that.unfocus(e);
+//                        else {
+//                            if (that.ctrlDown) {
+//                                that.unfocus(e);
+//                                that.ctrlDown=false;
+//                                focusedText = undefined;
+//                            }
+//                            else {
+//                                that.newLine();
+//                            }
+//                        }
+//
+//                        return false;
+//
+//                        break;
                 }
 
                 return true;
