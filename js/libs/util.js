@@ -112,17 +112,22 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
         color: {
             fillAndStroke: function( options ){
-                options.node.fill( 'hsl(' +
-                    options.fill.h + ', ' +
-                    options.fill.s + '%, ' +
-                    options.fill.l + '%)'
-                );
+                if ( options.fill.hex ){
+                    options.node.fill( options.fill.hex );
+                    options.node.stroke( options.stroke.hex )
+                } else {
+                    options.node.fill( 'hsl(' +
+                        options.fill.h + ', ' +
+                        options.fill.s + '%, ' +
+                        options.fill.l + '%)'
+                    );
 
-                options.node.stroke( 'hsl(' +
-                    options.stroke.h + ', ' +
-                    options.stroke.s + '%, ' +
-                    options.stroke.l + '%)'
-                );
+                    options.node.stroke( 'hsl(' +
+                        options.stroke.h + ', ' +
+                        options.stroke.s + '%, ' +
+                        options.stroke.l + '%)'
+                    )
+                }
             }
         },
 
