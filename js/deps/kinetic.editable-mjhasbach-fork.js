@@ -91,7 +91,8 @@ function init(KineticModule){
                 height: this.totalLines * this.lineHeightPx + 5,
                 stroke: this.focusRectColor,
                 strokeWidth: 1,
-                listening: false
+                listening: false,
+                opacity: 0
             });
 
             this.cursorLine = new Kinetic.Line({
