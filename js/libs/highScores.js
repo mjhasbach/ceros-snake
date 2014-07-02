@@ -442,14 +442,18 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     } else if ( highScores.view.index === highScores.database.scores.length - 1 ){
                         highScores.view.next.shape.remove();
                         highScores.view.next.hitBox.remove()
+                    }
 
-                    } else if ( !highScores.view.next.shape.getParent() ){
-                        highScores.view.layer.add( highScores.view.next.shape );
-                        highScores.view.layer.add( highScores.view.next.hitBox );
-
-                    } else if ( !highScores.view.previous.shape.getParent() ){
+                    if ( highScores.view.index > 0 && !highScores.view.previous.shape.getParent() ){
                         highScores.view.layer.add( highScores.view.previous.shape );
                         highScores.view.layer.add( highScores.view.previous.hitBox );
+                    }
+
+                    if ( highScores.view.index < highScores.database.scores.length - 1 &&
+                         !highScores.view.next.shape.getParent() ){
+
+                        highScores.view.layer.add( highScores.view.next.shape );
+                        highScores.view.layer.add( highScores.view.next.hitBox );
                     }
 
                     highScores.view.background.count( highScores.view.current.get( 'score' ));
