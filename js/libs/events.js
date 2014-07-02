@@ -14,7 +14,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         w: 87, a: 65, s: 83, d: 68,
                         up: 38, left: 37, down: 40, right: 39,
                         space: 32,
-                        f: 70
+                        backtick: 192
                     };
 
                     $( '*' ).keyup( function( key ){
@@ -23,7 +23,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         key.preventDefault();
                         key.stopPropagation();
 
-                        if ( key.which == keys.f )
+                        if ( key.which == keys.backtick )
                             if ( bigScreen.enabled ) bigScreen.toggle();
 
                         if (( gameState === 'running' || gameState === 'paused' ) &&
