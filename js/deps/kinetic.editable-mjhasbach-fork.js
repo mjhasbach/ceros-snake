@@ -96,7 +96,8 @@ function init(KineticModule){
 
             this.cursorLine = new Kinetic.Line({
                 points: [this.getX() + this.getWidth() + 2,this.getY(),this.getX() + this.getWidth() + 2,this.getY()+this.focusRectH-10],
-                stroke: 'black'
+                stroke: 'black',
+                opacity: 0
             });
 
             var that = this;
