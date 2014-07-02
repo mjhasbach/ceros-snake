@@ -308,17 +308,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         highScores.view.index -= 1;
 
-                                        highScores.view.update();
-
-                                        if ( highScores.view.index === 0 ){
-                                            highScores.view.previous.shape.remove();
-                                            highScores.view.previous.hitBox.remove()
-                                        }
-
-                                        if ( !highScores.view.next.shape.getParent() ){
-                                            highScores.view.layer.add( highScores.view.next.shape );
-                                            highScores.view.layer.add( highScores.view.next.hitBox );
-                                        }
+                                        highScores.view.update()
                                     }
                                 })
                             })();
@@ -345,17 +335,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         highScores.view.index += 1;
 
-                                        highScores.view.update();
-
-                                        if ( highScores.view.index === settings.highScores.limit - 1 ){
-                                            highScores.view.next.shape.remove();
-                                            highScores.view.next.hitBox.remove()
-                                        }
-
-                                        if ( !highScores.view.previous.shape.getParent() ){
-                                            highScores.view.layer.add( highScores.view.previous.shape );
-                                            highScores.view.layer.add( highScores.view.previous.hitBox );
-                                        }
+                                        highScores.view.update()
                                     }
                                 })
                             })();

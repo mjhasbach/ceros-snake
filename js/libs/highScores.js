@@ -433,6 +433,23 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 highScores.view.update = function() {
                     highScores.view.current = highScores.database.scores.at( highScores.view.index );
 
+                    if ( highScores.view.index === 0 ){
+                        highScores.view.previous.shape.remove();
+                        highScores.view.previous.hitBox.remove()
+
+                    } else if ( highScores.view.index === settings.highScores.limit - 1 ){
+                        highScores.view.next.shape.remove();
+                        highScores.view.next.hitBox.remove()
+
+                    } else if ( !highScores.view.next.shape.getParent() ){
+                        highScores.view.layer.add( highScores.view.next.shape );
+                        highScores.view.layer.add( highScores.view.next.hitBox );
+
+                    } else if ( !highScores.view.previous.shape.getParent() ){
+                        highScores.view.layer.add( highScores.view.previous.shape );
+                        highScores.view.layer.add( highScores.view.previous.hitBox );
+                    }
+
                     highScores.view.background.count( highScores.view.current.get( 'score' ));
 
                     highScores.view.playerName.scoreHolder.text(
