@@ -219,10 +219,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 highScores.add.keyboard.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
                                         ( function( name ){
-                                            highScores.add.playerName.field.text( name );
+                                            if ( name.length > 15 )
+                                                alert( 'Your name can only have a maximum of 15 characters!' );
+                                            else {
+                                                highScores.add.playerName.field.text( name );
 
-                                            highScores.add.playerName.move()
-
+                                                highScores.add.playerName.move()
+                                            }
                                         })( prompt( 'What is your name, hero?' ))
                                     }
                                 })

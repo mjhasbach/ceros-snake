@@ -539,7 +539,8 @@ function init(KineticModule){
 
             // General text input
             $("body").on("keypress", function(e) {
-                that.addChar(e);
+                if ( that.tempText[0].text().length < 15 )
+                    that.addChar(e);
 
                 return false
             });
