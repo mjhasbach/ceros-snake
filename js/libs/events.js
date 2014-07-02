@@ -14,7 +14,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         w: 87, a: 65, s: 83, d: 68,
                         up: 38, left: 37, down: 40, right: 39,
                         space: 32,
-                        backtick: 192
+                        backtick: 192,
+                        enter: 13
                     };
 
                     $( '*' ).keyup( function( key ){
@@ -52,6 +53,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         if ( highScores.add.playerName.field.currentWordCursorPos != highScores.add.playerName.lastLength ){
                             highScores.add.playerName.move()
                         }
+
+                        if ( key.which == keys.enter && highScores.add.state.get( 'current' ) === 'running' )
+                            highScores.database.submitScore()
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
