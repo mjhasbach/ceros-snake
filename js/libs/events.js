@@ -76,9 +76,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
                                     menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                                        node.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: node,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        })
                                     });
 
                                     menu.options.singlePlayer.mouseOver = false
@@ -100,9 +102,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.gear.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
-                                    menu.options.gear.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
+                                    util.color.fillAndStroke({
+                                        node: menu.options.gear.shape,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                    });
 
                                     menu.options.gear.mouseOver = false
                                 }
@@ -127,9 +131,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.highScores.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
-                                    menu.options.highScores.shape.fill(
-                                        settings.font.colors.fill.enabled.hex
-                                    );
+                                    util.color.fillAndStroke({
+                                        node: menu.options.highScores.shape,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                    });
 
                                     menu.options.highScores.mouseOver = false
                                 }
@@ -196,9 +202,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.keyboard.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
-                                        highScores.add.keyboard.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.add.keyboard.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.add.keyboard.mouseOver = false
                                     }
@@ -224,9 +232,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.submit.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
-                                        highScores.add.submit.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.add.submit.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.add.submit.mouseOver = false
                                     }
@@ -258,9 +268,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.back.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
-                                        highScores.add.back.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.add.back.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.add.back.mouseOver = false
                                     }
@@ -282,9 +294,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.view.previous.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.previous.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.view.previous.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.view.previous.mouseOver = false
                                     }
@@ -317,9 +331,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.view.next.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.next.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.view.next.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.view.next.mouseOver = false
                                     }
@@ -352,9 +368,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.view.back.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.back.shape.fill(
-                                            settings.font.colors.fill.enabled.hex
-                                        );
+                                        util.color.fillAndStroke({
+                                            node: highScores.view.back.shape,
+                                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                        });
 
                                         highScores.view.back.mouseOver = false
                                     }
