@@ -437,7 +437,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         highScores.view.previous.shape.remove();
                         highScores.view.previous.hitBox.remove()
 
-                    } else if ( highScores.view.index === settings.highScores.limit - 1 ){
+                    } else if ( highScores.view.index === highScores.database.scores.length - 1 ){
                         highScores.view.next.shape.remove();
                         highScores.view.next.hitBox.remove()
 
