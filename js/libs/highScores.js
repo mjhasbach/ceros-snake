@@ -473,9 +473,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     highScores.view.background.count( highScores.view.current.get( 'score' ));
 
-                    highScores.view.playerName.scoreHolder.text(
-                        highScores.database.scores.at( highScores.view.index ).get( 'name' )
-                    );
+                    highScores.view.playerName.scoreHolder.text( highScores.view.current.get( 'name' ));
 
                     highScores.view.playerName.move()
                 };
