@@ -40,7 +40,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     if ( highScores.add.playerName.field.text().length > 0 ){
                         highScores.database.scores.add(
                             new highScores.database.Score({
-                                score: highScores.score,
+                                score: highScores.add.score,
                                 name: highScores.add.playerName.field.text()
                             })
                         );
@@ -70,7 +70,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             layer: new Kinetic.Layer(),
 
             cleanUp: function() {
-                highScores.score = 0;
+                highScores.add.score = 0;
 
                 highScores.add.playerName.field.text( '' );
 
@@ -197,7 +197,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
             },
 
             start: function( score ){
-                highScores.score = score;
+                highScores.add.score = score;
 
                 highScores.add.background.count( score )
             },
