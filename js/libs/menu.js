@@ -355,7 +355,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             text: '\uf059',
                             fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
                             fontFamily: 'FontAwesome',
-                            fill: settings.menu.settings.font.color.disabled
+                            fill: settings.menu.settings.font.color.disabled,
+                            listening: false
                         })
                     }
                 })();
