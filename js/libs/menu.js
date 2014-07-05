@@ -250,7 +250,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                     fontFamily: 'FontAwesome',
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
-                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
+                    listening: false
                 });
 
                 menu.layer.add( menu.options.gear.shape );
