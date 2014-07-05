@@ -369,7 +369,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             text: '\u00A9',
                             fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 1.089,
                             fontFamily: settings.font.face,
-                            fill: settings.menu.settings.font.color.disabled
+                            fill: settings.menu.settings.font.color.disabled,
+                            listening: false
                         })
                     }
                 })();
