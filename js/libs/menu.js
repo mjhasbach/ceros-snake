@@ -122,7 +122,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         context.strokeShape( this );
                     },
                         stroke: settings.menu.title.color,
-                        strokeWidth: x( settings.menu.title.stroke.width )
+                        strokeWidth: x( settings.menu.title.stroke.width ),
+                        listening: false
                     })
                 };
 
