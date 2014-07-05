@@ -334,7 +334,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         text: '\uf0b2',
                         fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
                         fontFamily: 'FontAwesome',
-                        fill: settings.menu.settings.font.color.enabled.hex
+                        fill: settings.menu.settings.font.color.enabled.hex,
+                        listening: false
                     });
 
                     menu.settings.fullScreen.hitBox = new Kinetic.Rect({
