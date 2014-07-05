@@ -203,7 +203,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                 function numberControllerGroup( number, numberX, controllerX, fill, stroke ){
                     var shapes = {
-                        group: new Kinetic.Group(),
+                        group: new Kinetic.Group({ listening: false }),
 
                         number: new Kinetic.Text({
                             x: numberX,
