@@ -395,13 +395,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     game.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ){
+                        if ( current === 'stopping' )
                             highScores.add.start( game.snake.segment.list.length );
-
-                            start( highScores.add, stage );
-
-                            highScores.add.playerName.field.focus()
-                        }
 
                         if ( current === 'stopped' && highScores.add.back.shape.isVisible() )
                             highScores.add.state.set( 'current', 'running' )

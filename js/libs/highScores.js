@@ -1,6 +1,7 @@
 define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'backfire' ],
     function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util ){
-        var _s = settings.highScores,
+        var stage,
+            _s = settings.highScores,
             highScores = {
                 add: {
                     name: 'highScores.add',
@@ -164,10 +165,16 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     start: function( score ){
                         highScores.add.score = score;
 
-                        highScores.add.background.count( score )
+                        highScores.add.background.count( score );
+
+                        highScores.add.playerName.field.focus();
+
+                        util.module.start( highScores.add, stage )
                     },
 
                     init: function( options ){
+                        stage = options.stage;
+
                         highScores.add.background = options.background.highScores.add;
 
                         highScores.add.playerName.field = new Kinetic.EditableText({
@@ -179,7 +186,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             stroke: settings.font.colors.stroke.enabled.hex,
                             strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
                             focusLayer: highScores.add.layer,
-                            stage: options.stage
+                            stage: stage
                         });
 
                         ( function _layer() {
