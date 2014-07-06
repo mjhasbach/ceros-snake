@@ -5,83 +5,58 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
             state: new Backbone.Model({ current: 'stopped' }),
 
-            layer: new Kinetic.Layer()
-        };
+            layer: new Kinetic.Layer,
 
-        ( function _init() {
-            ( function _background() {
-                loading.background = background.loading;
-                loading.layer.add( loading.background.group )
-            })();
+            background: background.loading,
 
-            ( function _loadingText() {
-                loading.text = new Kinetic.Text({
-                    x: util.calculate.absolute.x( 3 ),
-                    y: util.calculate.absolute.y( 2.35 ),
-                    text: 'Loading',
-                    fontSize: util.calculate.absolute.x( 11 ),
-                    fontFamily: settings.loading.text.family,
-                    fill: settings.loading.text.color
+            text: new Kinetic.Text({
+                x: util.calculate.absolute.x( 3 ),
+                y: util.calculate.absolute.y( 2.35 ),
+                text: 'Loading',
+                fontSize: util.calculate.absolute.x( 11 ),
+                fontFamily: settings.loading.text.family,
+                fill: settings.loading.text.color
+            }),
+
+            wheel: new Kinetic.Shape({
+                stroke: settings.loading.wheel.color,
+                strokeWidth: util.calculate.absolute.x( 35 ) * 2
+            }),
+
+            animation: new Kinetic.Animation( function( frame ){
+                loading.wheel.setDrawFunc( function( context ){
+                    context.beginPath();
+                    context.arc(
+                        util.calculate.absolute.x( 1.99 ),
+                        util.calculate.absolute.y( 1.99 ),
+                        util.calculate.absolute.x( 4.5 ),
+                        util.calculate.pi(( Math.sin( frame.time / 500 ))),
+                        util.calculate.pi(( Math.sin( frame.time / 500 )) * 2 ),
+                        true
+                    );
+                    context.stroke();
+                    context.strokeShape( this )
                 });
 
-                loading.layer.add( loading.text )
-            })();
+                if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 )))
+                    loading.background.draw.randomize( frame );
 
-            ( function _wheel() {
-                loading.wheel = new Kinetic.Shape({
-                    sceneFunc: function( context ){
-                        context.beginPath();
-                        context.arc(
-                            util.calculate.absolute.x( 1.99 ),
-                            util.calculate.absolute.y( 1.99 ),
-                            util.calculate.absolute.x( 4.5 ),
-                            util.calculate.pi( 1 ),
-                            util.calculate.pi( 2 ),
-                            true
-                        );
+                if ( loading.state.get( 'current' ) === 'stopping' )
+                    util.module.stop( loading, frame )
+            }),
 
-                        context.stroke();
-                        context.strokeShape( this );
-                    },
+            init: function() {
+                ( function _layer() {
+                    loading.layer.add( loading.background.group );
 
-                    stroke: settings.loading.wheel.color,
-                    strokeWidth: util.calculate.absolute.x( 35 ) * 2
-                });
+                    loading.layer.add( loading.text );
 
-                loading.layer.add( loading.wheel );
-            })();
+                    loading.layer.add( loading.wheel );
 
-            ( function _animation() {
-                loading.animation = new Kinetic.Animation( function( frame ){
-                    loading.wheel.setDrawFunc( function( context ){
-                        context.beginPath();
+                    loading.animation.setLayers( loading.layer );
+                })();
 
-                        context.arc(
-                            util.calculate.absolute.x( 1.99 ),
-                            util.calculate.absolute.y( 1.99 ),
-                            util.calculate.absolute.x( 4.5 ),
-                            util.calculate.pi(( Math.sin( frame.time / 500 ))),
-                            util.calculate.pi(( Math.sin( frame.time / 500 )) * 2 ),
-                            true
-                        );
-
-                        context.stroke();
-                        context.strokeShape( this );
-                    });
-
-                    if ( loading.background.isReadyToCycle( Math.sin( frame.time / 500 )))
-                        loading.background.draw.randomize( frame );
-
-                    if ( loading.state.get( 'current' ) === 'stopping' )
-                        util.module.stop( loading, frame )
-
-                }, loading.layer )
-            })();
-
-            ( function _start() {
-                stage.add( loading.layer );
-
-                loading.animation.start();
+                util.module.start( loading, stage );
 
                 require([ 'assets' ], function( assets ){
                     assets.waitForAsync( function() {
@@ -104,7 +79,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         })
                     })
                 })
-            })()
-        })()
+            }
+        };
+
+        loading.init()
     }
 );

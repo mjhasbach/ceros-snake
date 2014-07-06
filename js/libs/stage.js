@@ -12,7 +12,7 @@ define([ 'jquery', 'underscore', 'Kinetic', 'settings', 'util' ],
             stage.scale({
                 x: util.calculate.dimensions.scale(),
                 y: util.calculate.dimensions.scale()
-            });
+            })
         });
 
         return stage

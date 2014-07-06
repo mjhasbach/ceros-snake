@@ -1,7 +1,5 @@
 define([ 'settings' ], function( settings ){
-    var webFonts = {
-        areLoaded: false
-    };
+    var webFonts = { areLoaded: false };
 
     require([ 'font!' +
         'google,' +

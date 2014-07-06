@@ -24,8 +24,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         key.preventDefault();
                         key.stopPropagation();
 
-                        if ( key.which == keys.backtick )
-                            if ( bigScreen.enabled ) bigScreen.toggle();
+                        if ( key.which == keys.backtick && bigScreen.enabled )
+
+                            bigScreen.toggle();
 
                         if (( gameState === 'running' || gameState === 'paused' ) &&
                               key.which == keys.space ){
@@ -47,14 +48,17 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             handleNewDirection( key.which, [ keys.up, keys.w ], 'up' );
                             handleNewDirection( key.which, [ keys.left, keys.a ], 'left' );
                             handleNewDirection( key.which, [ keys.down, keys.s ], 'down' );
-                            handleNewDirection( key.which, [ keys.right, keys.d ], 'right' );
+                            handleNewDirection( key.which, [ keys.right, keys.d ], 'right' )
                         }
 
-                        if ( highScores.add.playerName.field.currentWordCursorPos != highScores.add.playerName.lastLength ){
-                            highScores.add.playerName.move()
-                        }
+                        if ( highScores.add.playerName.field.currentWordCursorPos !=
+                             highScores.add.playerName.lastLength )
 
-                        if ( key.which == keys.enter && highScores.add.state.get( 'current' ) === 'running' )
+                            highScores.add.playerName.move();
+
+                        if ( key.which == keys.enter &&
+                             highScores.add.state.get( 'current' ) === 'running' )
+
                             highScores.database.submitScore()
                     });
 
@@ -63,7 +67,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             if ( !( game.snake.direction.currentOrLastQueuedIsOppositeOf( direction ) ||
                                     game.snake.direction.lastQueuedIsSameAs( direction ))){
 
-                                game.snake.direction.pushOrInit( direction );
+                                game.snake.direction.pushOrInit( direction )
                             }
                         }
                     }
@@ -93,15 +97,14 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
                                 if ( menu.isNotStoppingOrStopped() )
-                                    menu.state.set( 'current', 'stopping' );
+                                    menu.state.set( 'current', 'stopping' )
                             })
                         })();
 
                         ( function _gear() {
                             menu.options.gear.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
+                                if ( menu.isNotStoppingOrStopped() )
                                     menu.options.gear.mouseOver = true
-                                }
                             });
 
                             menu.options.gear.hitBox.on( 'mouseout', function() {
@@ -121,16 +124,15 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                     if ( menu.state.get( 'current' ) === 'running' )
                                         menu.state.set( 'current', 'settings' );
 
-                                    else menu.state.set( 'current', 'running' );
+                                    else menu.state.set( 'current', 'running' )
                                 }
                             });
                         })();
 
                         ( function _highScores() {
                             menu.options.highScores.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
+                                if ( menu.isNotStoppingOrStopped() )
                                     menu.options.highScores.mouseOver = true
-                                }
                             });
 
                             menu.options.highScores.hitBox.on( 'mouseout', function() {
@@ -147,7 +149,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             menu.options.highScores.hitBox.on( 'click touchstart', function() {
                                 if ( menu.isNotStoppingOrStopped() )
-                                    menu.state.set( 'current', 'stopping' );
+                                    menu.state.set( 'current', 'stopping' )
                             });
                         })();
 
@@ -387,10 +389,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                         game.state.set( 'current', 'counting down' );
 
                                     else setTimeout( waitForMenuOut, 10 )
-                                })();
-                            } else {
-                                start( highScores.view, stage );
-                            }
+                                })()
+                            } else start( highScores.view, stage )
                         }
                     });
 
@@ -408,11 +408,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     });
 
                     highScores.add.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage );
+                        if ( current === 'stopping' ) start( menu, stage )
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage );
+                        if ( current === 'stopping' ) start( menu, stage )
                     })
                 })();
 

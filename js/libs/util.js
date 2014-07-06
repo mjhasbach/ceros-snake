@@ -12,7 +12,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             brightnessVariance: function( frame ){
                 return Math.abs(((
                     Math.cos( frame.time * Math.PI / settings.animation.period ) *
-                    settings.mouseOver.brightnessVariance
+                        settings.mouseOver.brightnessVariance
                 )));
             },
 
@@ -26,7 +26,6 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             dimensions: {
                 original: {
                     width: function() { return width },
-
                     height: function() { return height }
                 },
 
@@ -36,11 +35,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                         height: window.innerHeight
                     };
 
-                    if ( 9 * dimensions.width / 16 < dimensions.height ){
-                        dimensions.height = Math.floor( 9 * dimensions.width / 16 )
-                    } else {
-                        dimensions.width = Math.floor(( dimensions.height / 9 ) * 16 )
-                    }
+                    if ( 9 * dimensions.width / 16 < dimensions.height )
+                        dimensions.height = Math.floor( 9 * dimensions.width / 16 );
+                    else
+                        dimensions.width = Math.floor(( dimensions.height / 9 ) * 16 );
 
                     return dimensions
                 }
@@ -49,6 +47,9 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
         module: {
             start: function( module, stage ){
+                if ( settings.debug )
+                    console.log( 'Starting module "' + module.name + '"');
+
                 stage.add( module.layer );
 
                 module.layer.opacity( 1 );
@@ -62,26 +63,23 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                 module.animation.start();
 
-                module.state.set( 'current', 'starting' );
-
-                if ( settings.debug )
-                    console.log( 'Starting module "' + module.name + '"')
+                module.state.set( 'current', 'starting' )
             },
 
             stop: function( module, frame ){
                 util.animation.fade( module.layer, frame, 'out' );
 
                 if ( module.layer.opacity() === 0 ){
+                    if ( settings.debug )
+                        console.log( 'Stopping module "' + module.name + '"');
+
                     module.animation.stop();
 
                     module.layer.remove();
 
                     if ( module.cleanUp ) module.cleanUp();
 
-                    module.state.set( 'current', 'stopped' );
-
-                    if ( settings.debug )
-                        console.log( 'Stopping module "' + module.name + '"')
+                    module.state.set( 'current', 'stopped' )
                 }
             },
 
@@ -145,7 +143,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
             this.update = function( s ){
                 sine.lastDirection = sine.getDirection( s );
-                sine.lastSine = s;
+                sine.lastSine = s
             };
 
             this.directionChanged = function( s ){
