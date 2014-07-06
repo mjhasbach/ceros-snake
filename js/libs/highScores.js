@@ -416,11 +416,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         if ( highScores.view.index > 0 && !highScores.view.previous.shape.getParent() ){
                             highScores.view.layer.add( highScores.view.previous.shape );
                             highScores.view.layer.add( highScores.view.previous.hitBox )
-                        }
 
-                        if ( highScores.view.index < highScores.database.scores.length - 1 &&
-                             !highScores.view.next.shape.getParent() ){
-
+                        } else if ( highScores.view.index < highScores.database.scores.length - 1 &&
+                                    !highScores.view.next.shape.getParent() ){
                             highScores.view.layer.add( highScores.view.next.shape );
                             highScores.view.layer.add( highScores.view.next.hitBox )
                         }
