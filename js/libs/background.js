@@ -20,7 +20,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             base: {
                                 random: function() {
                                     return settings.background.colors.base[
-                                        Math.round( Math.random() * ( settings.background.colors.base.length - 1 ))
+                                        Math.round( Math.random() *
+                                            ( settings.background.colors.base.length - 1 ))
                                     ]
                                 }
                             },
@@ -28,7 +29,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             number: {
                                 random: function() {
                                     return settings.background.colors.number[
-                                        Math.round( Math.random() * ( settings.background.colors.number.length - 1 ))
+                                        Math.round( Math.random() *
+                                            ( settings.background.colors.number.length - 1 ))
                                     ]
                                 }
                             }
@@ -75,7 +77,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                                     ]( 24, 6 )
                                 }
                             }
-                        } else throw new Error( 'The number passed to background.count was greater than three digits' );
+                        } else throw new Error( 'The number passed to background.count ' +
+                                                'was greater than three digits' );
 
                         if ( settings.debug )
                             console.log( 'Background changed to number ' + numbers )
@@ -492,7 +495,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     background.game.countDown.number = background.game.countDown.queue.length + 1;
 
                     background.game.countDown.isReadyToCycle = function ( frame ){
-                        return frame.time - background.game.lastCycleTime >= settings.animation.period * 2
+                        return frame.time - background.game.lastCycleTime >=
+                            settings.animation.period * 2
                     };
 
                     background.game.countDown.animation = function ( frame ){
