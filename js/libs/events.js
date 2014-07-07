@@ -25,33 +25,29 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         if ( key.which == keys.backtick && bigScreen.enabled )
                             bigScreen.toggle();
 
-                        if ( game.isNotStoppingOrStopped() && key.which == keys.space ){
-                            if ( game.state.get( 'current' ) === 'running' ){
-                                game.state.set( 'current', 'paused' );
-                                game.paused.moveToTop();
-                                game.paused.opacity( 1 )
-                            } else {
-                                game.state.set( 'current', 'running' );
-                                game.paused.opacity( 0 )
-                            }
-                        }
-
                         if ( game.isNotStoppingOrStopped() ){
+                            if ( key.which == keys.space ){
+                                if ( game.state.get( 'current' ) === 'running' ){
+                                    game.state.set( 'current', 'paused' );
+                                    game.paused.moveToTop();
+                                    game.paused.opacity( 1 )
+                                } else {
+                                    game.state.set( 'current', 'running' );
+                                    game.paused.opacity( 0 )
+                                }
+                            }
+
                             handleNewDirection( key.which, [ keys.up, keys.w ], 'up' );
                             handleNewDirection( key.which, [ keys.left, keys.a ], 'left' );
                             handleNewDirection( key.which, [ keys.down, keys.s ], 'down' );
                             handleNewDirection( key.which, [ keys.right, keys.d ], 'right' )
-                        }
 
-                        if ( highScores.add.playerName.field.currentWordCursorPos !=
-                             highScores.add.playerName.lastLength )
-
+                        } else if ( highScores.add.isNotStoppingOrStopped() ){
                             highScores.add.playerName.move();
 
-                        if ( key.which == keys.enter &&
-                             highScores.add.state.get( 'current' ) === 'running' )
-
-                            highScores.database.submitScore()
+                            if ( key.which == keys.enter )
+                                highScores.database.submitScore()
+                        }
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
