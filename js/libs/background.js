@@ -2,7 +2,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
     var background = {
         Constructor: function() {
             var bg = {
-                group: new Kinetic.Group,
+                group: new Kinetic.Group({ listening: false }),
 
                 lastCycleTime: 0,
 
