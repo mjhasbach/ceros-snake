@@ -117,14 +117,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     animation: new Kinetic.Animation( function( frame ){
-                        var state = highScores.add.state.get( 'current' );
-
-                        if ( state === 'running' )
+                        if ( highScores.add.isNotStoppingOrStopped() )
                             highScores.add.mouseOverCheck( frame );
 
-                        if ( state === 'stopping' )
+                        else if ( highScores.add.state.get( 'current' ) === 'stopping' )
                             util.module.stop( highScores.add, frame )
-
                     }),
 
                     mouseOverCheck: function( frame ){
