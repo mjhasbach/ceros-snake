@@ -13,8 +13,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     layer: new Kinetic.Layer,
 
                     playerName: {
-                        lastLength: 0,
-
                         label: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.name.label.x ),
                             y: util.calculate.absolute.y( _s.name.y ),
@@ -45,9 +43,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                             this.field.tempText[ 0 ].x(
                                 highScores.add.playerName.calculate.field.x()
-                            );
-
-                            this.lastLength = nameLength
+                            )
                         }
                     },
 
