@@ -28,21 +28,21 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
             background.game = new Background();
 
-            background.game.count.down = {};
+            background.game.countDown = {};
 
-            background.game.count.down.queue = [
+            background.game.countDown.queue = [
                 background.game.draw.number.three,
                 background.game.draw.number.two,
                 background.game.draw.number.one
             ];
 
-            background.game.count.down.number = background.game.count.down.queue.length + 1;
+            background.game.countDown.number = background.game.countDown.queue.length + 1;
 
-            background.game.count.down.isReadyToCycle = function ( frame ){
+            background.game.countDown.isReadyToCycle = function ( frame ){
                 return frame.time - background.game.lastCycleTime >= settings.animation.period * 2
             };
 
-            background.game.count.down.animation = function ( frame ){
+            background.game.countDown.animation = function ( frame ){
                 ( function ( countDown ){
                     if ( countDown.isReadyToCycle( frame )){
 
@@ -63,7 +63,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         if ( settings.debug )
                             console.log( 'Countdown at "' + countDown.number + '"' )
                     }
-                })( background.game.count.down )
+                })( background.game.countDown )
             };
 
 
@@ -498,8 +498,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         bg.lastCycleTime = 0;
 
-                        if ( typeof bg.count.down.number === 'number' )
-                            bg.count.down.number = background.game.count.down.queue.length + 1
+                        if ( typeof bg.countDown.number === 'number' )
+                            bg.countDown.number = background.game.countDown.queue.length + 1
                     }
                 };
 

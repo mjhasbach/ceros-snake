@@ -216,9 +216,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
                 } else if ( state === 'counting down' ){
 
-                    game.background.count.down.animation( frame );
+                    game.background.countDown.animation( frame );
 
-                    if ( game.background.count.down.number === 1 )
+                    if ( game.background.countDown.number === 1 )
                         game.state.set( 'current', 'running' )
 
                 } else if ( state === 'running' ){
