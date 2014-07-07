@@ -85,7 +85,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     tile: {
                         list: [],
 
-                        quantity: background.tile.quantity,
+                        quantity: { x: 32, y: 18 },
 
                         size: background.tile.size,
 
@@ -513,8 +513,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     })
                 }
 
-                for ( var x = 0; x < background.tile.quantity.x; x++ ){
-                    for ( var y = 0; y < background.tile.quantity.y; y++ ){
+                for ( var x = 0; x < bg.tile.quantity.x; x++ ){
+                    for ( var y = 0; y < bg.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
                             background.tile.proto.clone({
                                 x: x * background.tile.size,
