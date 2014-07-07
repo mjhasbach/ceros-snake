@@ -378,6 +378,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 })();
 
                 ( function _cache() {
+                    menu.options.singlePlayer.hitBox.cache();
+                    menu.options.gear.hitBox.cache();
+                    menu.options.highScores.hitBox.cache();
                     menu.settings.volume.hitBox.cache();
                     menu.settings.fullScreen.hitBox.cache()
                 })()
