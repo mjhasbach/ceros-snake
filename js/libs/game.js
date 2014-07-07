@@ -54,7 +54,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
                             game.snake.segment.list.push( segment );
 
-                            game.layer.add( segment )
+                            game.layer.add( segment );
+
+                            segment.cache()
                         }
                     }
                 },
