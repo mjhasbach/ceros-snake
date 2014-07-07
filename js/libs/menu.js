@@ -2,6 +2,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
     var x = util.calculate.absolute.x,
         y = util.calculate.absolute.y,
         pi = util.calculate.pi,
+        _s = settings.menu,
         menu = {
             name: 'menu',
 
@@ -27,8 +28,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         context.stroke();
                         context.strokeShape( this )
                     },
-                        stroke: settings.menu.title.color,
-                        strokeWidth: x( settings.menu.title.stroke.width ),
+                        stroke: _s.title.color,
+                        strokeWidth: x( _s.title.stroke.width ),
                         listening: false
                     })
                 },
@@ -57,22 +58,22 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         context.stroke();
                         context.strokeShape( this )
                     },
-                        stroke: settings.menu.title.color,
-                        strokeWidth: x( settings.menu.title.stroke.width ),
+                        stroke: _s.title.color,
+                        strokeWidth: x( _s.title.stroke.width ),
                         listening: false
                     })
                 },
 
                 bounce: function( frame ){
-                    var bounciness = settings.menu.title.bounciness *
+                    var bounciness = _s.title.bounciness *
                         ( Math.sin( frame.time * 2 * Math.PI / settings.animation.period ));
 
                     menu.title.ceros.shape.strokeWidth(
-                        util.calculate.absolute.size( settings.menu.title.stroke.width + bounciness )
+                        util.calculate.absolute.size( _s.title.stroke.width + bounciness )
                     );
 
                     menu.title.snake.shape.strokeWidth(
-                        util.calculate.absolute.size( settings.menu.title.stroke.width + bounciness )
+                        util.calculate.absolute.size( _s.title.stroke.width + bounciness )
                     )
                 }
             },
@@ -95,9 +96,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 2.51 ),
-                        y: util.calculate.absolute.y( settings.menu.options.y ),
+                        y: util.calculate.absolute.y( _s.options.y ),
                         text: '\uf013',
-                        fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
+                        fontSize: util.calculate.absolute.x( _s.options.font.size ),
                         fontFamily: 'FontAwesome',
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
@@ -119,9 +120,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 1.97 ),
-                        y: util.calculate.absolute.y( settings.menu.options.y ),
+                        y: util.calculate.absolute.y( _s.options.y ),
                         text: 'High Scores',
-                        fontSize: util.calculate.absolute.x( settings.menu.options.font.size ),
+                        fontSize: util.calculate.absolute.x( _s.options.font.size ),
                         fontFamily: settings.font.face,
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
@@ -144,9 +145,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                         number: new Kinetic.Text({
                             x: numberX,
-                            y: util.calculate.absolute.y( settings.menu.options.y ),
+                            y: util.calculate.absolute.y( _s.options.y ),
                             text: number.toString(),
-                            fontSize: util.calculate.absolute.size( settings.menu.options.font.size ),
+                            fontSize: util.calculate.absolute.size( _s.options.font.size ),
                             fontFamily: settings.font.face,
                             fill: fill,
                             stroke: stroke,
@@ -157,7 +158,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             x: controllerX,
                             y: util.calculate.absolute.y( 1.295 ),
                             text: '\uf11b',
-                            fontSize: util.calculate.absolute.size( settings.menu.options.controller.size ),
+                            fontSize: util.calculate.absolute.size( _s.options.controller.size ),
                             fontFamily: 'FontAwesome',
                             fill: fill,
                             stroke: stroke,
@@ -215,9 +216,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         x: util.calculate.absolute.x( 32 ),
                         y: util.calculate.absolute.y( 5.9 ),
                         text: '\uf028',
-                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ),
+                        fontSize: util.calculate.absolute.size( _s.settings.font.size ),
                         fontFamily: 'FontAwesome',
-                        fill: settings.menu.settings.font.color.enabled.hex,
+                        fill: _s.settings.font.color.enabled.hex,
                         listening: false
                     }),
 
@@ -237,9 +238,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         x: util.calculate.absolute.x( 3.31 ),
                         y: util.calculate.absolute.y( 5.36 ),
                         text: '\uf0b2',
-                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
+                        fontSize: util.calculate.absolute.size( _s.settings.font.size ) * 0.922,
                         fontFamily: 'FontAwesome',
-                        fill: settings.menu.settings.font.color.enabled.hex,
+                        fill: _s.settings.font.color.enabled.hex,
                         listening: false
                     }),
 
@@ -257,9 +258,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         x: util.calculate.absolute.x( 1.86 ),
                         y: util.calculate.absolute.y( 5.35 ),
                         text: '\uf059',
-                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 0.922,
+                        fontSize: util.calculate.absolute.size( _s.settings.font.size ) * 0.922,
                         fontFamily: 'FontAwesome',
-                        fill: settings.menu.settings.font.color.disabled,
+                        fill: _s.settings.font.color.disabled,
                         listening: false
                     })
                 },
@@ -269,18 +270,18 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         x: util.calculate.absolute.x( 1.32 ),
                         y: util.calculate.absolute.y( 6.1 ),
                         text: '\u00A9',
-                        fontSize: util.calculate.absolute.size( settings.menu.settings.font.size ) * 1.089,
+                        fontSize: util.calculate.absolute.size( _s.settings.font.size ) * 1.089,
                         fontFamily: settings.font.face,
-                        fill: settings.menu.settings.font.color.disabled,
+                        fill: _s.settings.font.color.disabled,
                         listening: false
                     })
                 },
 
                 mouseOverCheck: function( frame ){
                     var brightnessVariance = util.calculate.brightnessVariance( frame ) * 2,
-                        h = settings.menu.settings.font.color.enabled.h,
-                        s = settings.menu.settings.font.color.enabled.s,
-                        l = settings.menu.settings.font.color.enabled.l + brightnessVariance;
+                        h = _s.settings.font.color.enabled.h,
+                        s = _s.settings.font.color.enabled.s,
+                        l = _s.settings.font.color.enabled.l + brightnessVariance;
 
                     if ( menu.settings.volume.mouseOver )
                         menu.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
