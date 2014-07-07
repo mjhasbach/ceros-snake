@@ -457,70 +457,72 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             }
 
             return bg
+        },
+
+        init: function() {
+            ( function _backgrounds() {
+                background.loading = new background.Constructor();
+
+                background.loading.sine = new util.SineHelper();
+
+                background.loading.isReadyToCycle = function( sine ){
+                    return background.loading.sine.directionChanged( sine )
+                };
+
+
+                background.game = new background.Constructor();
+
+                background.game.countDown = {};
+
+                background.game.countDown.queue = [
+                    background.game.draw.number.three,
+                    background.game.draw.number.two,
+                    background.game.draw.number.one
+                ];
+
+                background.game.countDown.number = background.game.countDown.queue.length + 1;
+
+                background.game.countDown.isReadyToCycle = function ( frame ){
+                    return frame.time - background.game.lastCycleTime >= settings.animation.period * 2
+                };
+
+                background.game.countDown.animation = function ( frame ){
+                    ( function ( countDown ){
+                        if ( countDown.isReadyToCycle( frame )){
+
+                            background.game.draw.randomize( frame );
+
+                            if ( countDown.number > 1 ){
+
+                                countDown.queue[ 0 ](
+                                    settings.background.countDown.coords.x,
+                                    settings.background.countDown.coords.y
+                                );
+
+                                countDown.queue.push( countDown.queue.shift() )
+                            }
+
+                            countDown.number--;
+
+                            if ( settings.debug )
+                                console.log( 'Countdown at "' + countDown.number + '"' )
+                        }
+                    })( background.game.countDown )
+                };
+
+
+                background.menu = new background.Constructor();
+
+
+                background.highScores = {
+                    add: new background.Constructor(),
+                    view: new background.Constructor()
+                };
+            })()
         }
     };
 
-    ( function _init() {
-        ( function _backgrounds() {
-            background.loading = new background.Constructor();
-
-            background.loading.sine = new util.SineHelper();
-
-            background.loading.isReadyToCycle = function( sine ){
-                return background.loading.sine.directionChanged( sine )
-            };
-
-
-            background.game = new background.Constructor();
-
-            background.game.countDown = {};
-
-            background.game.countDown.queue = [
-                background.game.draw.number.three,
-                background.game.draw.number.two,
-                background.game.draw.number.one
-            ];
-
-            background.game.countDown.number = background.game.countDown.queue.length + 1;
-
-            background.game.countDown.isReadyToCycle = function ( frame ){
-                return frame.time - background.game.lastCycleTime >= settings.animation.period * 2
-            };
-
-            background.game.countDown.animation = function ( frame ){
-                ( function ( countDown ){
-                    if ( countDown.isReadyToCycle( frame )){
-
-                        background.game.draw.randomize( frame );
-
-                        if ( countDown.number > 1 ){
-
-                            countDown.queue[ 0 ](
-                                settings.background.countDown.coords.x,
-                                settings.background.countDown.coords.y
-                            );
-
-                            countDown.queue.push( countDown.queue.shift() )
-                        }
-
-                        countDown.number--;
-
-                        if ( settings.debug )
-                            console.log( 'Countdown at "' + countDown.number + '"' )
-                    }
-                })( background.game.countDown )
-            };
-
-
-            background.menu = new background.Constructor();
-
-
-            background.highScores = {
-                add: new background.Constructor(),
-                view: new background.Constructor()
-            };
-        })()
-    })();
+    background.init();
 
     return background;
 });
