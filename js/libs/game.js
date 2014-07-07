@@ -195,7 +195,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                                         ( game.background.tile.size() * 0.33 ),
                                     fontFamily: 'FontAwesome',
                                     text: '\uf004',
-                                    fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)'
+                                    fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)',
+                                    listening: false
                                 })
                             );
 
