@@ -448,7 +448,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             y: y * bg.tile.size(),
                             width: bg.tile.size(),
                             height: bg.tile.size(),
-                            fill: bg.tile.color.base.random()
+                            fill: bg.tile.color.base.random(),
+                            listening: false
                         })
                     );
 
