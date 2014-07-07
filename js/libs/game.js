@@ -26,7 +26,11 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             segment.y = _s.snake.initial.coords.y.fromCoord()
                         }
 
-                        segment.shape = new Kinetic.Group({ x: segment.x, y: segment.y });
+                        segment.shape = new Kinetic.Group({
+                            x: segment.x,
+                            y: segment.y,
+                            listening: false
+                        });
 
                         for ( var i = 0; i < _s.snake.amountOfInnerRectangles + 1; i++ ){
                             segment.shape.add(
