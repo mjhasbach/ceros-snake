@@ -5,10 +5,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
         ( function _tile() {
             background.tile = {};
 
-            background.tile.quantity = { x: 32, y: 18 };
-
-            background.tile.size = util.calculate.dimensions.original.width() /
-                background.tile.quantity.x
+            background.tile.quantity = { x: 32, y: 18 }
         })();
 
         ( function _backgrounds() {
@@ -82,7 +79,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         quantity: { x: 32, y: 18 },
 
-                        size: background.tile.size,
+                        size: function() {
+                            return util.calculate.dimensions.original.width() /
+                                bg.tile.quantity.x
+                        },
 
                         color: {
                             base: {
@@ -512,10 +512,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     for ( var y = 0; y < bg.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
                             new Kinetic.Rect({
-                                x: x * background.tile.size,
-                                y: y * background.tile.size,
-                                width: background.tile.size,
-                                height: background.tile.size,
+                                x: x * bg.tile.size(),
+                                y: y * bg.tile.size(),
+                                width: bg.tile.size(),
+                                height: bg.tile.size(),
                                 fill: bg.tile.color.base.random()
                             })
                         );
