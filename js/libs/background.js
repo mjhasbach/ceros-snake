@@ -2,12 +2,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
     var background = {};
 
     ( function _init() {
-        ( function _tile() {
-            background.tile = {};
-
-            background.tile.quantity = { x: 32, y: 18 }
-        })();
-
         ( function _backgrounds() {
             background.loading = new Background();
 
