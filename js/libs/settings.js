@@ -32,7 +32,11 @@ define([], function() {
                 }
             },
 
-            animation: { transition: { speed: 1000 }},
+            animation: {
+                transition: { speed: 1000 },
+
+                period: function() { return ( 60 / settings.song.bpm ) * 1000 }
+            },
 
             mouseOver: { brightnessVariance: 8 },
 
@@ -211,8 +215,6 @@ define([], function() {
                 }
             }
         };
-
-    settings.animation.period = ( 60 / settings.song.bpm ) * 1000;
 
     return settings
 });

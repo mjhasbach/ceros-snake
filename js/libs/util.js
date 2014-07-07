@@ -11,7 +11,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
             brightnessVariance: function( frame ){
                 return Math.abs(((
-                    Math.cos( frame.time * Math.PI / settings.animation.period ) *
+                    Math.cos( frame.time * Math.PI / settings.animation.period() ) *
                         settings.mouseOver.brightnessVariance
                 )));
             },

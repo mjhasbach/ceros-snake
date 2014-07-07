@@ -102,7 +102,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                 },
 
                 isReadyToMove: function( frame ){
-                    return frame.time - ( game.snake.lastMovementTime || 0 ) >= ( settings.animation.period -
+                    return frame.time - ( game.snake.lastMovementTime || 0 ) >= ( settings.animation.period() -
                         ( game.snake.segment.list.length * _s.snake.speedIncrement )) / 2
                 },
 
@@ -377,7 +377,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
                         areReadyToCycle: function( frame ){
                             return frame.time - ( game.boundaries.lastCycleTime || 0 ) >=
-                                settings.animation.period / 8
+                                settings.animation.period() / 8
                         },
 
                         animation: function( frame ){

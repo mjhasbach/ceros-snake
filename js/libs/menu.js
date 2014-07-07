@@ -66,7 +66,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                 bounce: function( frame ){
                     var bounciness = _s.title.bounciness *
-                        ( Math.sin( frame.time * 2 * Math.PI / settings.animation.period ));
+                        ( Math.sin( frame.time * 2 * Math.PI / settings.animation.period() ));
 
                     menu.title.ceros.shape.strokeWidth(
                         util.calculate.absolute.size( _s.title.stroke.width + bounciness )

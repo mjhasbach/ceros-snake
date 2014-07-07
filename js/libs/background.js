@@ -497,7 +497,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                     background.game.countDown.isReadyToCycle = function ( frame ){
                         return frame.time - background.game.lastCycleTime >=
-                            settings.animation.period * 2
+                            settings.animation.period() * 2
                     };
 
                     background.game.countDown.animation = function ( frame ){
