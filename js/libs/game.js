@@ -1,4 +1,4 @@
-define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kinetic, settings, util ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _, Backbone, Kinetic, settings, util ){
     var _s = settings.game,
         game = {
             name: 'game',
@@ -181,10 +181,26 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                             }) === -1;
 
                     if ( noCollisionAtProposedCoordinates ){
-                        var heart = game.heart.proto.clone({
-                            x: x.fromCoord(),
-                            y: y.fromCoord()
-                        });
+                        var color = _.extend( {}, _s.heart.initial.color ),
+                            heart = new Kinetic.Group({ x: x.fromCoord(), y: y.fromCoord() });
+
+                        for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
+                            heart.add(
+                                new Kinetic.Text({
+                                    x: game.background.tile.size() + i *
+                                        (( game.background.tile.size() * 0.33 ) / 2 ),
+                                    y: game.background.tile.size() + i *
+                                        (( game.background.tile.size() * 0.33 ) / 2 ),
+                                    fontSize: game.background.tile.size() - i *
+                                        ( game.background.tile.size() * 0.33 ),
+                                    fontFamily: 'FontAwesome',
+                                    text: '\uf004',
+                                    fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)'
+                                })
+                            );
+
+                            color.l += 8;
+                        }
 
                         game.heart.list.push( heart );
 
@@ -393,27 +409,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                     };
 
                     ( function _heart() {
-                        var color = _s.heart.initial.color;
 
-                        game.heart.proto = new Kinetic.Group;
-
-                        for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
-                            var innerHeart = new Kinetic.Text({
-                                x: game.background.tile.size() + i *
-                                    (( game.background.tile.size() * 0.33 ) / 2 ),
-                                y: game.background.tile.size() + i *
-                                    (( game.background.tile.size() * 0.33 ) / 2 ),
-                                fontSize: game.background.tile.size() - i *
-                                    ( game.background.tile.size() * 0.33 ),
-                                fontFamily: 'FontAwesome',
-                                text: '\uf004',
-                                fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)'
-                            });
-
-                            color.l += 8;
-
-                            game.heart.proto.add( innerHeart )
-                        }
                     })()
                 })();
 
