@@ -1,5 +1,6 @@
 define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kinetic, settings, util ){
-    var game = {
+    var _s = settings.game,
+        game = {
         name: 'game',
 
         isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
@@ -21,8 +22,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                         segment.x = game.snake.segment.list.last().x();
                         segment.y = game.snake.segment.list.last().y()
                     } else {
-                        segment.x = settings.game.snake.initial.coords.x.fromCoord();
-                        segment.y = settings.game.snake.initial.coords.y.fromCoord()
+                        segment.x = _s.snake.initial.coords.x.fromCoord();
+                        segment.y = _s.snake.initial.coords.y.fromCoord()
                     }
 
                     segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
@@ -41,9 +42,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
             },
 
             direction: {
-                queue: [ settings.game.snake.initial.direction ],
+                queue: [ _s.snake.initial.direction ],
 
-                current: settings.game.snake.initial.direction,
+                current: _s.snake.initial.direction,
 
                 changeIfNecessary: function() {
                     if ( game.snake.direction.queue.length > 0 )
@@ -80,7 +81,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
             isReadyToMove: function( frame ){
                 return frame.time - ( game.snake.lastMovementTime || 0 ) >= ( settings.animation.period -
-                    ( game.snake.segment.list.length * settings.game.snake.speedIncrement )) / 2
+                    ( game.snake.segment.list.length * _s.snake.speedIncrement )) / 2
             },
 
             move: function( frame ){
@@ -177,9 +178,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
             regenerate: function() {
                 game.heart.generate();
 
-                for ( var i = 0; i < settings.game.heart.maximum - 1; i++ )
+                for ( var i = 0; i < _s.heart.maximum - 1; i++ )
                     if ( util.calculate.random.float( 0, 100 ) <
-                         settings.game.heart.spawnProbability * 100 )
+                         _s.heart.spawnProbability * 100 )
 
                         game.heart.generate()
             },
@@ -191,14 +192,14 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
         },
 
         paused: new Kinetic.Text({
-            x: util.calculate.absolute.x( settings.game.paused.x ),
-            y: util.calculate.absolute.y( settings.game.paused.y ),
+            x: util.calculate.absolute.x( _s.paused.x ),
+            y: util.calculate.absolute.y( _s.paused.y ),
             text: 'Paused',
-            fontSize: util.calculate.absolute.size( settings.game.paused.size ),
+            fontSize: util.calculate.absolute.size( _s.paused.size ),
             fontFamily: settings.font.face,
-            fill: settings.game.paused.font.color,
-            shadowColor: settings.game.paused.shadow.color,
-            shadowBlur: util.calculate.absolute.size( settings.game.paused.shadow.blur ),
+            fill: _s.paused.font.color,
+            shadowColor: _s.paused.shadow.color,
+            shadowBlur: util.calculate.absolute.size( _s.paused.shadow.blur ),
             opacity: 0
         }),
 
@@ -372,11 +373,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                 };
 
                 ( function _snake() {
-                    var palette = settings.game.snake.colors;
+                    var palette = _s.snake.colors;
 
                     game.snake.proto = new Kinetic.Group;
 
-                    for ( var i = 0; i < settings.game.snake.amountOfInnerRectangles + 1; i++ ){
+                    for ( var i = 0; i < _s.snake.amountOfInnerRectangles + 1; i++ ){
                         var rect = new Kinetic.Rect({
                             x: game.background.tile.size + i *
                                 (( game.background.tile.size * 0.33 ) / 2 ),
@@ -394,11 +395,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                 })();
 
                 ( function _heart() {
-                    var color = settings.game.heart.initial.color;
+                    var color = _s.heart.initial.color;
 
                     game.heart.proto = new Kinetic.Group;
 
-                    for ( var i = 0; i < settings.game.heart.amountOfInnerHearts + 1; i++ ){
+                    for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
                         var innerHeart = new Kinetic.Text({
                             x: game.background.tile.size + i *
                                 (( game.background.tile.size * 0.33 ) / 2 ),
@@ -436,8 +437,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
             game.snake.segment.list.forEach( function( segment ){ segment.destroy() });
             game.snake.segment.list = [];
             game.snake.segment.queue = [];
-            game.snake.direction.queue = [ settings.game.snake.initial.direction ];
-            game.snake.direction.current = settings.game.snake.initial.direction;
+            game.snake.direction.queue = [ _s.snake.initial.direction ];
+            game.snake.direction.current = _s.snake.initial.direction;
 
             game.heart.list.forEach( function( heart ){ heart.destroy() });
             game.heart.list = [];
