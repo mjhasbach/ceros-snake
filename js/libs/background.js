@@ -8,12 +8,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             background.tile.quantity = { x: 32, y: 18 };
 
             background.tile.size = util.calculate.dimensions.original.width() /
-                background.tile.quantity.x;
-
-            background.tile.proto = new Kinetic.Rect({
-                width: background.tile.size,
-                height: background.tile.size
-            })
+                background.tile.quantity.x
         })();
 
         ( function _backgrounds() {
@@ -516,9 +511,11 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 for ( var x = 0; x < bg.tile.quantity.x; x++ ){
                     for ( var y = 0; y < bg.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
-                            background.tile.proto.clone({
+                            new Kinetic.Rect({
                                 x: x * background.tile.size,
                                 y: y * background.tile.size,
+                                width: background.tile.size,
+                                height: background.tile.size,
                                 fill: bg.tile.color.base.random()
                             })
                         );
