@@ -232,20 +232,22 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                     if ( game.snake.isCollidingWith.itself() )
                         game.state.set( 'current', 'stopping' );
 
-                    if ( game.snake.isCollidingWith.boundary() )
+                    else if ( game.snake.isCollidingWith.boundary() )
                         game.state.set( 'current', 'stopping' );
 
-                    game.snake.isCollidingWith.heart( function( collision, index ){
-                        if ( collision ){
-                            game.heart.destroy( index );
+                    else {
+                        game.snake.isCollidingWith.heart( function( collision, index ){
+                            if ( collision ){
+                                game.heart.destroy( index );
 
-                            game.background.count( game.snake.segment.list.length + 1 );
+                                game.background.count( game.snake.segment.list.length + 1 );
 
-                            game.snake.segment.queueNew();
+                                game.snake.segment.queueNew();
 
-                            if ( game.heart.list.length === 0 ) game.heart.regenerate()
-                        }
-                    })
+                                if ( game.heart.list.length === 0 ) game.heart.regenerate()
+                            }
+                        })
+                    }
                 }
             } else if ( state === 'stopping' )
                 util.module.stop( game, frame )
