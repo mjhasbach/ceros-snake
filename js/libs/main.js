@@ -11,7 +11,7 @@ require.config({
         buzz: '../deps/buzz-v1.1.0.min',
         firebase: '../deps/firebase-v1.0.15.min',
         jquery: '../deps/jquery-v1.11.1.min',
-        Kinetic: '../deps/kinetic-v5.1.0',
+        Kinetic: '../deps/kinetic.min',
         kineticEditableText: '../deps/kinetic.editable-mjhasbach-fork',
         underscore: '../deps/underscore-v1.6.0.min',
 
