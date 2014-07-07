@@ -325,6 +325,15 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                             ( game.background.tile.quantity.y - 0.5 ))
                     }),
 
+                    fillWithDefaultColor: function() {
+                        var color = settings.background.colors.base[ 0 ];
+
+                        game.boundaries.top.fill( color );
+                        game.boundaries.left.fill( color );
+                        game.boundaries.bottom.fill( color );
+                        game.boundaries.right.fill( color )
+                    },
+
                     areReadyToCycle: function( frame ){
                         return frame.time - ( game.boundaries.lastCycleTime || 0 ) >=
                             settings.animation.period / 8
@@ -342,7 +351,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                     }
                 };
 
-                game.boundaries.animation({ time: 0 })
+                game.boundaries.fillWithDefaultColor()
             })();
 
             ( function _prototypes() {
@@ -428,6 +437,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
 
             game.heart.list.forEach( function( heart ){ heart.destroy() });
             game.heart.list = [];
+
+            game.boundaries.fillWithDefaultColor();
 
             game.background.cleanUp()
         }
