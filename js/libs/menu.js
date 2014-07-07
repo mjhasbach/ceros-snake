@@ -81,14 +81,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 singlePlayer: {
                     mouseOver: false,
 
-                    shape: numberControllerGroup(
-                        1,
-                        util.calculate.absolute.x( 50 ),
-                        util.calculate.absolute.x( 18 ),
-                        settings.font.colors.fill.enabled.hex,
-                        settings.font.colors.stroke.enabled.hex
-                    ),
-
                     hitBox: new Kinetic.Rect({
                         x: util.calculate.absolute.x( 62 ),
                         y: util.calculate.absolute.y( 1.214 ),
@@ -96,16 +88,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         height: util.calculate.absolute.y( 8.46 ),
                         opacity: 0
                     })
-                },
-
-                multiPlayer: {
-                    shape: numberControllerGroup(
-                        2,
-                        util.calculate.absolute.x( 5 ),
-                        util.calculate.absolute.x( 3.99 ),
-                        settings.font.colors.fill.disabled,
-                        settings.font.colors.stroke.disabled
-                    )
                 },
 
                 gear: {
@@ -154,6 +136,39 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         height: util.calculate.absolute.size( 10.3 ),
                         opacity: 0
                     })
+                },
+
+                numberControllerGroup: function( number, numberX, controllerX, fill, stroke ){
+                    var shapes = {
+                        group: new Kinetic.Group({ listening: false }),
+
+                        number: new Kinetic.Text({
+                            x: numberX,
+                            y: util.calculate.absolute.y( settings.menu.options.y ),
+                            text: number.toString(),
+                            fontSize: util.calculate.absolute.size( settings.menu.options.font.size ),
+                            fontFamily: settings.font.face,
+                            fill: fill,
+                            stroke: stroke,
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                        }),
+
+                        controller: new Kinetic.Text({
+                            x: controllerX,
+                            y: util.calculate.absolute.y( 1.295 ),
+                            text: '\uf11b',
+                            fontSize: util.calculate.absolute.size( settings.menu.options.controller.size ),
+                            fontFamily: 'FontAwesome',
+                            fill: fill,
+                            stroke: stroke,
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                        })
+                    };
+
+                    shapes.group.add( shapes.number );
+                    shapes.group.add( shapes.controller );
+
+                    return shapes.group
                 },
 
                 mouseOverCheck: function( frame ){
@@ -306,6 +321,26 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
             init: function ( options ){
                 menu.background = options.background.menu;
 
+                ( function _numberControllerGroups() {
+                    menu.options.singlePlayer.shape = menu.options.numberControllerGroup(
+                        1,
+                        util.calculate.absolute.x( 50 ),
+                        util.calculate.absolute.x( 18 ),
+                        settings.font.colors.fill.enabled.hex,
+                        settings.font.colors.stroke.enabled.hex
+                    );
+
+                    menu.options.multiPlayer = {
+                        shape: menu.options.numberControllerGroup(
+                            2,
+                            util.calculate.absolute.x( 5 ),
+                            util.calculate.absolute.x( 3.99 ),
+                            settings.font.colors.fill.disabled,
+                            settings.font.colors.stroke.disabled
+                        )
+                    }
+                })();
+
                 ( function _settingsGroup() {
                     menu.settings.group.add( menu.settings.volume.shape );
                     menu.settings.group.add( menu.settings.volume.hitBox );
@@ -375,39 +410,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 })
             }
         };
-
-    function numberControllerGroup( number, numberX, controllerX, fill, stroke ){
-        var shapes = {
-            group: new Kinetic.Group({ listening: false }),
-
-            number: new Kinetic.Text({
-                x: numberX,
-                y: util.calculate.absolute.y( settings.menu.options.y ),
-                text: number.toString(),
-                fontSize: util.calculate.absolute.size( settings.menu.options.font.size ),
-                fontFamily: settings.font.face,
-                fill: fill,
-                stroke: stroke,
-                strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-            }),
-
-            controller: new Kinetic.Text({
-                x: controllerX,
-                y: util.calculate.absolute.y( 1.295 ),
-                text: '\uf11b',
-                fontSize: util.calculate.absolute.size( settings.menu.options.controller.size ),
-                fontFamily: 'FontAwesome',
-                fill: fill,
-                stroke: stroke,
-                strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-            })
-        };
-
-        shapes.group.add( shapes.number );
-        shapes.group.add( shapes.controller );
-
-        return shapes.group
-    }
 
     return menu
 });
