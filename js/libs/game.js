@@ -1,4 +1,4 @@
-define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _, Backbone, Kinetic, settings, util ){
+define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kinetic, settings, util ){
     var _s = settings.game,
         game = {
             name: 'game',
@@ -183,8 +183,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             }) === -1;
 
                     if ( noCollisionAtProposedCoordinates ){
-                        var color = _.extend( {}, _s.heart.initial.color ),
-                            heart = new Kinetic.Group({ x: x.fromCoord(), y: y.fromCoord() });
+                        var heart = new Kinetic.Group({ x: x.fromCoord(), y: y.fromCoord() });
 
                         for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
                             heart.add(
@@ -197,12 +196,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                                         ( game.background.tile.size() * 0.33 ),
                                     fontFamily: 'FontAwesome',
                                     text: '\uf004',
-                                    fill: 'hsl(' + color.h + ', ' + color.s + '%, ' + color.l + '%)',
+                                    fill: _s.heart.colors[ i ],
                                     listening: false
                                 })
-                            );
-
-                            color.l += 8;
+                            )
                         }
 
                         game.heart.list.push( heart );

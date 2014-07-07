@@ -137,6 +137,8 @@ define([], function() {
                     color: { h: 359, s: 78, l: 23 }
                 },
 
+                colors: [ '#680d0e', '#8d1113', '#ac1518' ],
+
                 amountOfInnerHearts: 2,
 
                 maximum: 10,
