@@ -39,7 +39,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                                         ( game.background.tile.size() * 0.33 ),
                                     height: game.background.tile.size() - i *
                                         ( game.background.tile.size() * 0.33 ),
-                                    fill: _s.snake.colors[ i ]
+                                    fill: _s.snake.colors[ i ],
+                                    listening: false
                                 })
                             )
                         }
