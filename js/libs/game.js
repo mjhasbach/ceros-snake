@@ -26,7 +26,24 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                             segment.y = _s.snake.initial.coords.y.fromCoord()
                         }
 
-                        segment.shape = game.snake.proto.clone({ x: segment.x, y: segment.y });
+                        segment.shape = new Kinetic.Group({ x: segment.x, y: segment.y });
+
+                        for ( var i = 0; i < _s.snake.amountOfInnerRectangles + 1; i++ ){
+                            segment.shape.add(
+                                new Kinetic.Rect({
+                                    x: game.background.tile.size() + i *
+                                        (( game.background.tile.size() * 0.33 ) / 2 ),
+                                    y: game.background.tile.size() + i *
+                                        (( game.background.tile.size() * 0.33 ) / 2 ),
+                                    width: game.background.tile.size() - i *
+                                        ( game.background.tile.size() * 0.33 ),
+                                    height: game.background.tile.size() - i *
+                                        ( game.background.tile.size() * 0.33 ),
+                                    fill: _s.snake.colors[ i ]
+                                })
+                            )
+                        }
+
                         game.snake.segment.queue.push( segment.shape )
                     },
 
@@ -371,28 +388,6 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                     Array.prototype.last = function() {
                         return this[ this.length - 1 ]
                     };
-
-                    ( function _snake() {
-                        var palette = _s.snake.colors;
-
-                        game.snake.proto = new Kinetic.Group;
-
-                        for ( var i = 0; i < _s.snake.amountOfInnerRectangles + 1; i++ ){
-                            var rect = new Kinetic.Rect({
-                                x: game.background.tile.size() + i *
-                                    (( game.background.tile.size() * 0.33 ) / 2 ),
-                                y: game.background.tile.size() + i *
-                                    (( game.background.tile.size() * 0.33 ) / 2 ),
-                                width: game.background.tile.size() - i *
-                                    ( game.background.tile.size() * 0.33 ),
-                                height: game.background.tile.size() - i *
-                                    ( game.background.tile.size() * 0.33 ),
-                                fill: palette[ i ]
-                            });
-
-                            game.snake.proto.add( rect )
-                        }
-                    })();
 
                     ( function _heart() {
                         var color = _s.heart.initial.color;
