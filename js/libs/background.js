@@ -1,5 +1,6 @@
 define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, settings, util ){
-    var background = {
+    var _s = settings.background,
+        background = {
             Constructor: function() {
                 var bg = {
                     group: new Kinetic.Group({ listening: false }),
@@ -19,18 +20,18 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         color: {
                             base: {
                                 random: function() {
-                                    return settings.background.colors.base[
+                                    return _s.colors.base[
                                         Math.round( Math.random() *
-                                            ( settings.background.colors.base.length - 1 ))
+                                            ( _s.colors.base.length - 1 ))
                                     ]
                                 }
                             },
 
                             number: {
                                 random: function() {
-                                    return settings.background.colors.number[
+                                    return _s.colors.number[
                                         Math.round( Math.random() *
-                                            ( settings.background.colors.number.length - 1 ))
+                                            ( _s.colors.number.length - 1 ))
                                     ]
                                 }
                             }
@@ -46,8 +47,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                         if ( numbers.length === 1 ){
                             bg.draw.number[ util.number.toText( numbers )](
-                                settings.background.countDown.coords.x,
-                                settings.background.countDown.coords.y
+                                _s.countDown.coords.x,
+                                _s.countDown.coords.y
                             )
                         } else if ( numbers.length === 2 ){
                             for ( i = 0; i < numbers.length; i++ ){
@@ -507,8 +508,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                             if ( countDown.number > 1 ){
                                 countDown.queue[ 0 ](
-                                    settings.background.countDown.coords.x,
-                                    settings.background.countDown.coords.y
+                                    _s.countDown.coords.x,
+                                    _s.countDown.coords.y
                                 );
 
                                 countDown.queue.push( countDown.queue.shift() )
