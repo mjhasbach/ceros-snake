@@ -19,19 +19,14 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     };
 
                     $( '*' ).keyup( function( key ){
-                        var gameState = game.state.get( 'current' );
-
                         key.preventDefault();
                         key.stopPropagation();
 
                         if ( key.which == keys.backtick && bigScreen.enabled )
-
                             bigScreen.toggle();
 
-                        if (( gameState === 'running' || gameState === 'paused' ) &&
-                              key.which == keys.space ){
-
-                            if ( gameState === 'running' ){
+                        if ( game.isNotStoppingOrStopped() && key.which == keys.space ){
+                            if ( game.state.get( 'current' ) === 'running' ){
                                 game.state.set( 'current', 'paused' );
                                 game.paused.moveToTop();
                                 game.paused.opacity( 1 )
@@ -41,10 +36,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             }
                         }
 
-                        if ( gameState === 'starting' ||
-                             gameState === 'counting down' ||
-                             gameState === 'running' ){
-
+                        if ( game.isNotStoppingOrStopped() ){
                             handleNewDirection( key.which, [ keys.up, keys.w ], 'up' );
                             handleNewDirection( key.which, [ keys.left, keys.a ], 'left' );
                             handleNewDirection( key.which, [ keys.down, keys.s ], 'down' );
