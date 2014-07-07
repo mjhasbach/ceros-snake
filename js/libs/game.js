@@ -54,9 +54,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
                             game.snake.segment.list.push( segment );
 
-                            game.layer.add( segment );
-
-                            segment.cache()
+                            game.layer.add( segment )
                         }
                     }
                 },
