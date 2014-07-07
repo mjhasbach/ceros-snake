@@ -433,7 +433,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
             function randomDrawColor( xCoord, yCoord ){
                 bg.tile.list.forEach( function( tile ){
                     if ( tile.x().toCoord() == xCoord &&
-                        tile.y().toCoord() == yCoord ){
+                         tile.y().toCoord() == yCoord ){
 
                         tile.fill( bg.tile.color.number.random() )
                     }
@@ -460,18 +460,26 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
         },
 
         init: function() {
-            ( function _backgrounds() {
-                background.loading = new background.Constructor();
+            background.loading = new background.Constructor();
 
+            background.menu = new background.Constructor();
+
+            background.game = new background.Constructor();
+
+            background.highScores = {
+                add: new background.Constructor(),
+                view: new background.Constructor()
+            };
+
+            ( function _loading() {
                 background.loading.sine = new util.SineHelper();
 
                 background.loading.isReadyToCycle = function( sine ){
                     return background.loading.sine.directionChanged( sine )
-                };
+                }
+            })();
 
-
-                background.game = new background.Constructor();
-
+            ( function _game() {
                 background.game.countDown = {};
 
                 background.game.countDown.queue = [
@@ -487,36 +495,25 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 };
 
                 background.game.countDown.animation = function ( frame ){
-                    ( function ( countDown ){
-                        if ( countDown.isReadyToCycle( frame )){
+                    var countDown = background.game.countDown;
 
-                            background.game.draw.randomize( frame );
+                    if ( countDown.isReadyToCycle( frame )){
+                        background.game.draw.randomize( frame );
 
-                            if ( countDown.number > 1 ){
+                        if ( countDown.number > 1 ){
+                            countDown.queue[ 0 ](
+                                settings.background.countDown.coords.x,
+                                settings.background.countDown.coords.y
+                            );
 
-                                countDown.queue[ 0 ](
-                                    settings.background.countDown.coords.x,
-                                    settings.background.countDown.coords.y
-                                );
-
-                                countDown.queue.push( countDown.queue.shift() )
-                            }
-
-                            countDown.number--;
-
-                            if ( settings.debug )
-                                console.log( 'Countdown at "' + countDown.number + '"' )
+                            countDown.queue.push( countDown.queue.shift() )
                         }
-                    })( background.game.countDown )
-                };
 
+                        countDown.number--;
 
-                background.menu = new background.Constructor();
-
-
-                background.highScores = {
-                    add: new background.Constructor(),
-                    view: new background.Constructor()
+                        if ( settings.debug )
+                            console.log( 'Countdown at "' + countDown.number + '"' )
+                    }
                 };
             })()
         }
@@ -524,5 +521,5 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
     background.init();
 
-    return background;
+    return background
 });
