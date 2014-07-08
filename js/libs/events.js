@@ -192,13 +192,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             ( function _back() {
                                 highScores.add.back.hitBox.on( 'mouseout', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() ){
-                                        util.color.fillAndStroke({
-                                            node: highScores.add.back.shape,
-                                            fill: { hex: settings.font.colors.fill.enabled.hex },
-                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        })
-                                    }
+                                    util.color.fillAndStroke({
+                                        node: highScores.add.back.shape,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                    })
                                 });
 
                                 highScores.add.back.hitBox.on( 'click touchstart', function() {
