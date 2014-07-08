@@ -48,7 +48,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     keyboard: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.add.keyboard.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x(_s.add.keyboard.x ),
@@ -71,7 +76,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     submit: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.add.submit.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.add.submit.x ),
@@ -94,7 +104,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     back: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.add.back.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.add.back.x ),
@@ -133,21 +148,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             sS = settings.font.colors.stroke.enabled.s,
                             lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
 
-                        if ( highScores.add.keyboard.mouseOver )
+                        if ( highScores.add.keyboard.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.add.keyboard.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
                             });
 
-                        else if ( highScores.add.submit.mouseOver )
+                        else if ( highScores.add.submit.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.add.submit.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
                             });
 
-                        else if ( highScores.add.back.mouseOver )
+                        else if ( highScores.add.back.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.add.back.shape,
                                 fill: { h: hF, s: sF, l: lF },
@@ -207,9 +222,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         highScores.add.playerName.field.text( '' );
                         highScores.add.playerName.field.unfocus();
                         highScores.add.playerName.move();
-
-                        highScores.add.submit.mouseOver = false;
-                        highScores.add.back.mouseOver = false;
 
                         highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
                         highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex )
@@ -273,7 +285,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     previous: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.view.previous.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.view.previous.x ),
@@ -296,7 +313,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     back: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.view.back.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.view.back.x ),
@@ -319,7 +341,12 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     next: {
-                        mouseOver: false,
+                        mouseOver: function() {
+                            return util.mouse.isOverNode(
+                                highScores.view.next.hitBox,
+                                stage
+                            )
+                        },
 
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.view.next.x ),
@@ -366,21 +393,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             sS = settings.font.colors.stroke.enabled.s,
                             lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
 
-                        if ( highScores.view.previous.mouseOver )
+                        if ( highScores.view.previous.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.view.previous.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
                             });
 
-                        else if ( highScores.view.next.mouseOver )
+                        else if ( highScores.view.next.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.view.next.shape,
                                 fill: { h: hF, s: sF, l: lF },
                                 stroke: { h: hS, s: sS, l: lS }
                             });
 
-                        else if ( highScores.view.back.mouseOver )
+                        else if ( highScores.view.back.mouseOver() )
                             util.color.fillAndStroke({
                                 node: highScores.view.back.shape,
                                 fill: { h: hF, s: sF, l: lF },
@@ -441,8 +468,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     cleanUp: function() {
                         highScores.view.index = 0;
-
-                        highScores.view.back.mouseOver = false;
 
                         highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex )
                     }

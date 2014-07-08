@@ -189,6 +189,20 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                     else throw new Error( 'util.numberToText() can only handle numbers 0-9')
                 }
+            },
+
+            mouse: {
+                isOverNode: function( node, stage ){
+                    var pos = stage.getPointerPosition();
+
+                    if ( pos )
+                        return stage.getIntersection({
+                            x: pos.x,
+                            y: pos.y
+                        }) == node;
+
+                    else return false
+                }
             }
         };
 

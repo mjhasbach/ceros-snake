@@ -64,11 +64,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 ( function _mouseAndTouchEvents() {
                     ( function _menu() {
                         ( function _singlePlayer() {
-                            menu.options.singlePlayer.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() )
-                                    menu.options.singlePlayer.mouseOver = true
-                            });
-
                             menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
                                     menu.options.singlePlayer.shape.getChildren().each( function( node ){
@@ -77,9 +72,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
                                         })
-                                    });
-
-                                    menu.options.singlePlayer.mouseOver = false
+                                    })
                                 }
                             });
 
@@ -90,20 +83,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _gear() {
-                            menu.options.gear.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() )
-                                    menu.options.gear.mouseOver = true
-                            });
-
                             menu.options.gear.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
                                     util.color.fillAndStroke({
                                         node: menu.options.gear.shape,
                                         fill: { hex: settings.font.colors.fill.enabled.hex },
                                         stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                    });
-
-                                    menu.options.gear.mouseOver = false
+                                    })
                                 }
                             });
 
@@ -118,20 +104,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _highScores() {
-                            menu.options.highScores.hitBox.on( 'mouseover', function() {
-                                if ( menu.isNotStoppingOrStopped() )
-                                    menu.options.highScores.mouseOver = true
-                            });
-
                             menu.options.highScores.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
                                     util.color.fillAndStroke({
                                         node: menu.options.highScores.shape,
                                         fill: { hex: settings.font.colors.fill.enabled.hex },
                                         stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                    });
-
-                                    menu.options.highScores.mouseOver = false
+                                    })
                                 }
                             });
 
@@ -142,18 +121,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _volume() {
-                            menu.settings.volume.hitBox.on( 'mouseover', function() {
-                                if ( menu.state.get( 'current' ) === 'settings' )
-                                    menu.settings.volume.mouseOver = true
-                            });
-
                             menu.settings.volume.hitBox.on( 'mouseout', function() {
                                 if ( menu.state.get( 'current' ) === 'settings' ){
                                     menu.settings.volume.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
-                                    );
-
-                                    menu.settings.volume.mouseOver = false
+                                    )
                                 }
                             });
 
@@ -164,18 +136,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                         })();
 
                         ( function _fullScreen() {
-                            menu.settings.fullScreen.hitBox.on( 'mouseover', function() {
-                                if ( menu.state.get( 'current' ) === 'settings' )
-                                    menu.settings.fullScreen.mouseOver = true
-                            });
-
                             menu.settings.fullScreen.hitBox.on( 'mouseout', function() {
                                 if ( menu.state.get( 'current' ) === 'settings' ){
                                     menu.settings.fullScreen.shape.fill(
                                         settings.menu.settings.font.color.enabled.hex
-                                    );
-
-                                    menu.settings.fullScreen.mouseOver = false
+                                    )
                                 }
                             });
 
@@ -189,20 +154,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     ( function _highScores() {
                         ( function _add() {
                             ( function _keyboard() {
-                                highScores.add.keyboard.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.add.keyboard.mouseOver = true
-                                });
-
                                 highScores.add.keyboard.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.add.keyboard.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.add.keyboard.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -222,20 +180,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             })();
 
                             ( function _submit() {
-                                highScores.add.submit.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.add.submit.mouseOver = true
-                                });
-
                                 highScores.add.submit.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.add.submit.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.add.submit.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -246,20 +197,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             })();
 
                             ( function _back() {
-                                highScores.add.back.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.add.back.mouseOver = true
-                                });
-
                                 highScores.add.back.hitBox.on( 'mouseout', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.add.back.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.add.back.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -272,20 +216,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                         ( function _view() {
                             ( function _previous() {
-                                highScores.view.previous.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() )
-                                        highScores.view.previous.mouseOver = true
-                                });
-
                                 highScores.view.previous.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.view.previous.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.view.previous.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -299,20 +236,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             })();
 
                             ( function _next() {
-                                highScores.view.next.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() )
-                                        highScores.view.next.mouseOver = true
-                                });
-
                                 highScores.view.next.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.view.next.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.view.next.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -326,20 +256,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             })();
 
                             ( function _back() {
-                                highScores.view.back.hitBox.on( 'mouseover', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() )
-                                        highScores.view.back.mouseOver = true
-                                });
-
                                 highScores.view.back.hitBox.on( 'mouseout', function() {
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         util.color.fillAndStroke({
                                             node: highScores.view.back.shape,
                                             fill: { hex: settings.font.colors.fill.enabled.hex },
                                             stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        });
-
-                                        highScores.view.back.mouseOver = false
+                                        })
                                     }
                                 });
 
@@ -369,7 +292,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                     menu.state.on( 'change:current', function( state, current ){
                         if ( current === 'stopping' ){
-                            if ( menu.options.singlePlayer.mouseOver ){
+                            if ( menu.options.singlePlayer.mouseOver() ){
                                 start( game, stage );
 
                                 ( function waitForMenuOut() {
@@ -378,7 +301,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                     else setTimeout( waitForMenuOut, 10 )
                                 })()
-                            } else start( highScores.view, stage )
+                            } else if ( menu.options.highScores.mouseOver() )
+                                start( highScores.view, stage )
                         }
                     });
 

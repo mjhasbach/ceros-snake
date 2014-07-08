@@ -1,4 +1,4 @@
-define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _, Backbone, Kinetic, settings, util ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ], function( _, Backbone, Kinetic, settings, util, stage ){
     var x = util.calculate.absolute.x,
         y = util.calculate.absolute.y,
         pi = util.calculate.pi,
@@ -80,20 +80,23 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
 
             options: {
                 singlePlayer: {
-                    mouseOver: false,
-
                     hitBox: new Kinetic.Rect({
                         x: util.calculate.absolute.x( 62 ),
                         y: util.calculate.absolute.y( 1.214 ),
                         width: util.calculate.absolute.x( 6.25 ),
                         height: util.calculate.absolute.y( 8.46 ),
                         opacity: 0
-                    })
+                    }),
+
+                    mouseOver: function() {
+                        return util.mouse.isOverNode(
+                            menu.options.singlePlayer.hitBox,
+                            stage
+                        )
+                    }
                 },
 
                 gear: {
-                    mouseOver: false,
-
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 2.51 ),
                         y: util.calculate.absolute.y( _s.options.y ),
@@ -112,11 +115,23 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         width: util.calculate.absolute.x( 12.39 ),
                         height: util.calculate.absolute.y( 6.92 ),
                         opacity: 0
-                    })
+                    }),
+
+                    mouseOver: function() {
+                        return util.mouse.isOverNode(
+                            menu.options.gear.hitBox,
+                            stage
+                        )
+                    }
                 },
 
                 highScores: {
-                    mouseOver: false,
+                    mouseOver: function() {
+                        return util.mouse.isOverNode(
+                            menu.options.highScores.hitBox,
+                            stage
+                        )
+                    },
 
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 1.97 ),
@@ -181,7 +196,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         sS = settings.font.colors.stroke.enabled.s,
                         lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
 
-                    if ( menu.options.singlePlayer.mouseOver )
+                    if ( menu.options.singlePlayer.mouseOver() )
                         menu.options.singlePlayer.shape.getChildren().each( function( node ){
                             util.color.fillAndStroke({
                                 node: node,
@@ -190,14 +205,14 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                             })
                         });
 
-                    else if ( menu.options.gear.mouseOver )
+                    else if ( menu.options.gear.mouseOver() )
                         util.color.fillAndStroke({
                             node: menu.options.gear.shape,
                             fill: { h: hF, s: sF, l: lF },
                             stroke: { h: hS, s: sS, l: lS }
                         });
 
-                    else if ( menu.options.highScores.mouseOver )
+                    else if ( menu.options.highScores.mouseOver() )
                         util.color.fillAndStroke({
                             node: menu.options.highScores.shape,
                             fill: { h: hF, s: sF, l: lF },
@@ -210,7 +225,12 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 group: new Kinetic.Group({ opacity: 0 }),
 
                 volume: {
-                    mouseOver: false,
+                    mouseOver: function() {
+                        return util.mouse.isOverNode(
+                            menu.settings.volume.hitBox,
+                            stage
+                        )
+                    },
 
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 32 ),
@@ -232,7 +252,12 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 },
 
                 fullScreen: {
-                    mouseOver: false,
+                    mouseOver: function() {
+                        return util.mouse.isOverNode(
+                            menu.settings.fullScreen.hitBox,
+                            stage
+                        )
+                    },
 
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 3.31 ),
@@ -283,10 +308,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                         s = _s.settings.font.color.enabled.s,
                         l = _s.settings.font.color.enabled.l + brightnessVariance;
 
-                    if ( menu.settings.volume.mouseOver )
+                    if ( menu.settings.volume.mouseOver() )
                         menu.settings.volume.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' );
 
-                    else if ( menu.settings.fullScreen.mouseOver )
+                    else if ( menu.settings.fullScreen.mouseOver() )
                         menu.settings.fullScreen.shape.fill( 'hsl('+ h +', '+ s +'%, '+ l +'%)' )
                 }
             },
@@ -313,10 +338,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                 }
 
                 else if ( menu.settings.group.opacity() > 0 )
-                    util.animation.fade( menu.settings.group, frame, 'out', function() {
-                        menu.settings.volume.mouseOver = false;
-                        menu.settings.fullScreen.mouseOver = false
-                    })
+                    util.animation.fade( menu.settings.group, frame, 'out' )
             }),
 
             init: function ( options ){
@@ -393,9 +415,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util' ], function( _,
                     hS = settings.font.colors.stroke.enabled.h,
                     sS = settings.font.colors.stroke.enabled.s,
                     lS = settings.font.colors.stroke.enabled.l;
-
-                menu.options.singlePlayer.mouseOver = false;
-                menu.options.highScores.mouseOver = false;
 
                 menu.settings.group.opacity( 0 );
 
