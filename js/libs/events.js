@@ -302,7 +302,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                     else setTimeout( waitForMenuOut, 10 )
                                 })()
                             } else if ( menu.options.highScores.mouseOver() )
-                                start( highScores.view, stage )
+                                start( highScores.view, stage );
+
+                            else throw new Error( 'The "menu" module is stopping, but does ' +
+                                                  'not know which module to transition to!')
                         }
                     });
 
