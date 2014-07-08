@@ -65,15 +65,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                     ( function _menu() {
                         ( function _singlePlayer() {
                             menu.options.singlePlayer.hitBox.on( 'mouseout', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
-                                    menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                                        util.color.fillAndStroke({
-                                            node: node,
-                                            fill: { hex: settings.font.colors.fill.enabled.hex },
-                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        })
+                                menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                                    util.color.fillAndStroke({
+                                        node: node,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
                                     })
-                                }
+                                })
                             });
 
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
