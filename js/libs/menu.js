@@ -317,28 +317,31 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ], fun
             },
 
             animation: new Kinetic.Animation( function( frame ){
+                var state = menu.state.get( 'current' );
 
                 menu.title.bounce( frame );
 
-                menu.options.mouseOverCheck( frame );
-
-                menu.settings.mouseOverCheck( frame );
-
-                if ( menu.state.get( 'current' ) === 'starting' )
+                if ( state === 'starting' )
                     util.animation.fade( menu.layer, frame, 'in', function() {
                         menu.state.set( 'current', 'running' )
                     });
 
-                else if ( menu.state.get( 'current' ) === 'stopping' )
-                    util.module.stop( menu, frame );
+                else if ( menu.isNotStoppingOrStopped() ){
+                    menu.options.mouseOverCheck( frame );
 
-                else if ( menu.state.get( 'current' ) === 'settings' ){
-                    if ( menu.settings.group.opacity() < 1 )
-                        util.animation.fade( menu.settings.group, frame, 'in' );
+                    if ( state === 'settings' ){
+                        menu.settings.mouseOverCheck( frame );
+
+                        if ( menu.settings.group.opacity() < 1 )
+                            util.animation.fade( menu.settings.group, frame, 'in' )
+                    }
+
+                    else if ( menu.settings.group.opacity() > 0 )
+                        util.animation.fade( menu.settings.group, frame, 'out' )
                 }
 
-                else if ( menu.settings.group.opacity() > 0 )
-                    util.animation.fade( menu.settings.group, frame, 'out' )
+                else if ( menu.state.get( 'current' ) === 'stopping' )
+                    util.module.stop( menu, frame )
             }),
 
             init: function ( options ){
