@@ -177,13 +177,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                             ( function _submit() {
                                 highScores.add.submit.hitBox.on( 'mouseout', function() {
-                                    if ( highScores.add.isNotStoppingOrStopped() ){
-                                        util.color.fillAndStroke({
-                                            node: highScores.add.submit.shape,
-                                            fill: { hex: settings.font.colors.fill.enabled.hex },
-                                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                        })
-                                    }
+                                    util.color.fillAndStroke({
+                                        node: highScores.add.submit.shape,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                    })
                                 });
 
                                 highScores.add.submit.hitBox.on( 'click touchstart', function() {
