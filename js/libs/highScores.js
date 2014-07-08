@@ -478,7 +478,11 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     cleanUp: function() {
                         highScores.view.index = 0;
 
-                        highScores.view.back.shape.fill( settings.font.colors.fill.enabled.hex )
+                        util.color.fillAndStroke({
+                            node: highScores.view.back.shape,
+                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                        })
                     }
                 },
 
