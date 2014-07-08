@@ -223,8 +223,17 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         highScores.add.playerName.field.unfocus();
                         highScores.add.playerName.move();
 
-                        highScores.add.submit.shape.fill( settings.font.colors.fill.enabled.hex );
-                        highScores.add.back.shape.fill( settings.font.colors.fill.enabled.hex )
+                        util.color.fillAndStroke({
+                            node: highScores.add.submit.shape,
+                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                        });
+
+                        util.color.fillAndStroke({
+                            node: highScores.add.back.shape,
+                            fill: { hex: settings.font.colors.fill.enabled.hex },
+                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                        })
                     }
                 },
 
