@@ -469,11 +469,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     cleanUp: function() {
                         highScores.view.index = 0;
 
-                        util.color.fillAndStroke({
-                            node: highScores.view.back.shape,
-                            fill: { hex: settings.font.colors.fill.enabled.hex },
-                            stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                        })
+                        highScores.view.back.hitBox.fire( 'mouseout' )
                     }
                 },
 
