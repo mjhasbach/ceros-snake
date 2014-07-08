@@ -413,28 +413,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ],
                 },
 
                 cleanUp: function() {
-                    var hF = settings.font.colors.fill.enabled.h,
-                        sF = settings.font.colors.fill.enabled.s,
-                        lF = settings.font.colors.fill.enabled.l,
-                        hS = settings.font.colors.stroke.enabled.h,
-                        sS = settings.font.colors.stroke.enabled.s,
-                        lS = settings.font.colors.stroke.enabled.l;
-
                     menu.settings.group.opacity( 0 );
 
-                    menu.options.singlePlayer.shape.getChildren().each( function( node ){
-                        util.color.fillAndStroke({
-                            node: node,
-                            fill: { h: hF, s: sF, l: lF },
-                            stroke: { h: hS, s: sS, l: lS }
-                        })
-                    });
-
-                    util.color.fillAndStroke({
-                        node: menu.options.highScores.shape,
-                        fill: { h: hF, s: sF, l: lF },
-                        stroke: { h: hS, s: sS, l: lS }
-                    })
+                    menu.options.singlePlayer.hitBox.fire( 'mouseout' );
+                    menu.options.highScores.hitBox.fire( 'mouseout' )
                 }
             };
 
