@@ -340,7 +340,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ], fun
                         util.animation.fade( menu.settings.group, frame, 'out' )
                 }
 
-                else if ( menu.state.get( 'current' ) === 'stopping' )
+                else if ( state === 'stopping' )
                     util.module.stop( menu, frame )
             }),
 
