@@ -103,13 +103,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                         ( function _highScores() {
                             menu.options.highScores.hitBox.on( 'mouseout', function() {
-                                if ( menu.isNotStoppingOrStopped() ){
-                                    util.color.fillAndStroke({
-                                        node: menu.options.highScores.shape,
-                                        fill: { hex: settings.font.colors.fill.enabled.hex },
-                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
-                                    })
-                                }
+                                util.color.fillAndStroke({
+                                    node: menu.options.highScores.shape,
+                                    fill: { hex: settings.font.colors.fill.enabled.hex },
+                                    stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                })
                             });
 
                             menu.options.highScores.hitBox.on( 'click touchstart', function() {
