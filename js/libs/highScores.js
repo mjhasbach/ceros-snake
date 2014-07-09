@@ -26,6 +26,15 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         }),
 
+                        field: new Kinetic.EditableText({
+                            y: util.calculate.absolute.y( _s.name.y ),
+                            fontSize: util.calculate.absolute.size( _s.name.size ),
+                            fontFamily: 'Fira Mono',
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                        }),
+
                         calculate: {
                             field: {
                                 x: function() {
@@ -186,16 +195,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         stage = options.stage;
 
                         highScores.add.background = options.background.highScores.add;
-
-                        highScores.add.playerName.field = new Kinetic.EditableText({
-                            x: highScores.add.playerName.calculate.field.x(),
-                            y: util.calculate.absolute.y( _s.name.y ),
-                            fontSize: util.calculate.absolute.size( _s.name.size ),
-                            fontFamily: 'Fira Mono',
-                            fill: settings.font.colors.fill.enabled.hex,
-                            stroke: settings.font.colors.stroke.enabled.hex,
-                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                        });
 
                         ( function _layer() {
                             highScores.add.layer.add( highScores.add.background.group );
