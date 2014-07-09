@@ -30,13 +30,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                                 var gameState = game.state.get( 'current' );
 
                                 if ( gameState === 'running' ){
-                                    game.state.set( 'current', 'paused' );
                                     game.paused.moveToTop();
-                                    game.paused.opacity( 1 )
-                                } else if ( gameState === 'paused' ){
+                                    game.state.set( 'current', 'paused' );
+                                } else if ( gameState === 'paused' )
                                     game.state.set( 'current', 'running' );
-                                    game.paused.opacity( 0 )
-                                }
                             }
 
                             handleNewDirection( key.which, [ keys.up, keys.w ], 'up' );

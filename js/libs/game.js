@@ -351,7 +351,16 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             }
                         }
                     } else if ( state === 'stopping' )
-                        util.module.stop( game, frame )
+                        util.module.stop( game, frame );
+
+                    if ( state === 'paused' ){
+                        if ( game.paused.opacity() < 1 )
+                            util.animation.fade( game.paused, frame, 'in' )
+
+                    } else if ( game.paused.opacity() > 0 ){
+                        game.paused.moveToTop();
+                        util.animation.fade( game.paused, frame, 'out' )
+                    }
                 }),
 
                 collision: function( options ){
