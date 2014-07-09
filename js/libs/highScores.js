@@ -533,6 +533,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                 }
             };
 
+        highScores.init();
+
         return highScores
     }
 );

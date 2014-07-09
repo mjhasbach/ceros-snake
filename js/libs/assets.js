@@ -1,6 +1,6 @@
 define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
     function( audio, webFonts, menu, game, highScores ){
-        var assets = {
+        return {
             audio: audio,
 
             menu: menu,
@@ -15,10 +15,8 @@ define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
             },
 
             init: function( options ){
-                assets.highScores.init( options )
-            }
-        };
 
-        return assets
+            }
+        }
     }
 );
