@@ -443,5 +443,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ], function( Ba
             }
         };
 
-    return game;
+    game.init();
+
+    return game
 });
