@@ -50,4 +50,4 @@ require.config({
     }
 });
 
-requirejs([ 'loading' ]);
+require([ 'loading' ]);
