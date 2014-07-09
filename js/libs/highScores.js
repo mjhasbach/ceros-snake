@@ -175,9 +175,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                         highScores.add.background.count( score );
 
-                        highScores.add.playerName.field.focus();
+                        util.module.start( highScores.add, stage );
 
-                        util.module.start( highScores.add, stage )
+                        highScores.add.playerName.field.focus()
                     },
 
                     init: function( options ){
