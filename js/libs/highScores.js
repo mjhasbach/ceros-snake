@@ -1,9 +1,8 @@
-define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'backfire' ],
-    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util ){
+define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'stage', 'backfire' ],
+    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util, stage ){
         kineticEditableText.init( Kinetic );
 
-        var stage,
-            _s = settings.highScores,
+        var _s = settings.highScores,
             highScores = {
                 add: {
                     name: 'highScores.add',
@@ -192,8 +191,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     init: function( options ){
-                        stage = options.stage;
-
                         highScores.add.background = options.background.highScores.add;
 
                         ( function _layer() {
