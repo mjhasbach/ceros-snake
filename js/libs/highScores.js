@@ -1,5 +1,7 @@
 define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'backfire' ],
     function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util ){
+        kineticEditableText.init( Kinetic );
+
         var stage,
             _s = settings.highScores,
             highScores = {
@@ -525,8 +527,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             highScores.database.scores = new highScores.database.TopScores
                         }
                     };
-
-                    kineticEditableText.init( Kinetic );
 
                     highScores.database.init();
 
