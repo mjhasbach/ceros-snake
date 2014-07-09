@@ -60,15 +60,17 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
                     require([ 'assets' ], function( assets ){
                         assets.waitForAsync( function() {
-                            assets.highScores.database.waitUntilConnected( function() {
-                                require([ 'events' ], function( events ){
-                                    events.init({
-                                        audio: assets.audio,
-                                        stage: stage,
-                                        loading: loading,
-                                        menu: assets.menu,
-                                        game: assets.game,
-                                        highScores: assets.highScores
+                            assets.init( function( gameAssets ){
+                                gameAssets.highScores.database.waitUntilConnected( function() {
+                                    require([ 'events' ], function( events ){
+                                        events.init({
+                                            audio: assets.audio,
+                                            stage: stage,
+                                            loading: loading,
+                                            menu: gameAssets.menu,
+                                            game: gameAssets.game,
+                                            highScores: gameAssets.highScores
+                                        })
                                     })
                                 })
                             })
