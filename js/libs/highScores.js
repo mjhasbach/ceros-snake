@@ -187,7 +187,9 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                         util.module.start( highScores.add, stage );
 
-                        highScores.add.playerName.field.focus()
+                        highScores.add.playerName.field.focus();
+
+                        highScores.add.playerName.move()
                     },
 
                     init: function( options ){
@@ -217,7 +219,6 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                         highScores.add.playerName.field.text( '' );
                         highScores.add.playerName.field.unfocus();
-                        highScores.add.playerName.move();
 
                         highScores.add.submit.hitBox.fire( 'mouseout' );
                         highScores.add.back.hitBox.fire( 'mouseout' )
