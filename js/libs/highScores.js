@@ -1,5 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'stage', 'backfire' ],
-    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util, stage ){
+define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'stage', 'background', 'backfire' ],
+    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util, stage, background ){
         kineticEditableText.init( Kinetic );
 
         var _s = settings.highScores,
@@ -12,6 +12,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     state: new Backbone.Model({ current: 'stopped' }),
 
                     layer: new Kinetic.Layer,
+
+                    background: background.highScores.add,
 
                     playerName: {
                         label: new Kinetic.Text({
@@ -192,9 +194,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         highScores.add.playerName.move()
                     },
 
-                    init: function( options ){
-                        highScores.add.background = options.background.highScores.add;
-
+                    init: function() {
                         ( function _layer() {
                             highScores.add.layer.add( highScores.add.background.group );
 
@@ -233,6 +233,8 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     state: new Backbone.Model({ current: 'stopped' }),
 
                     layer: new Kinetic.Layer,
+
+                    background: background.highScores.view,
 
                     index: 0,
 
@@ -441,9 +443,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                         }
                     },
 
-                    init: function( options ){
-                        highScores.view.background = options.background.highScores.view;
-
+                    init: function() {
                         ( function _layer() {
                             highScores.view.layer.add( highScores.view.background.group );
 
