@@ -15,7 +15,6 @@ define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
             },
 
             init: function( options ){
-                assets.menu.init( options );
                 assets.highScores.init( options )
             }
         };

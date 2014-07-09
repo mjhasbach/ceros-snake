@@ -420,6 +420,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                 }
             };
 
+        menu.init();
+
         return menu
     }
 );
