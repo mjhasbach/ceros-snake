@@ -192,9 +192,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             fontFamily: 'Fira Mono',
                             fill: settings.font.colors.fill.enabled.hex,
                             stroke: settings.font.colors.stroke.enabled.hex,
-                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
-                            focusLayer: highScores.add.layer,
-                            stage: stage
+                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         });
 
                         ( function _layer() {
