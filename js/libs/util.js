@@ -8,10 +8,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 },
 
                 brightnessVariance: function( frame ){
-                    return Math.abs(((
+                    return Math.abs(
                         Math.cos( frame.time * Math.PI / settings.animation.period() ) *
                             settings.mouseOver.brightnessVariance
-                    )));
+                    )
                 },
 
                 pi: function( i ){ return i * Math.PI },
@@ -146,29 +146,31 @@ define([ 'underscore', 'settings' ], function( _, settings ){
             },
 
             SineHelper: function() {
-                var sine = this;
+                var sine = {
+                    lastDirection: 'up',
 
-                this.lastDirection = 'up';
+                    lastSine: 0,
 
-                this.lastSine = 0;
+                    getDirection: function( s ){
+                        if ( s > sine.lastSine ) return 'up';
+                        else return 'down'
+                    },
 
-                this.getDirection = function( s ){
-                    if ( s > sine.lastSine ) return 'up';
-                    else return 'down'
-                };
+                    update: function( s ){
+                        sine.lastDirection = sine.getDirection( s );
+                        sine.lastSine = s
+                    },
 
-                this.update = function( s ){
-                    sine.lastDirection = sine.getDirection( s );
-                    sine.lastSine = s
-                };
+                    directionChanged: function( s ){
+                        if ( sine.lastDirection !== sine.getDirection( s )){
+                            sine.update( s );
 
-                this.directionChanged = function( s ){
-                    if ( sine.lastDirection !== sine.getDirection( s )){
-                        sine.update( s );
-                        return true
-                    } else {
-                        sine.update( s );
-                        return false
+                            return true
+                        } else {
+                            sine.update( s );
+
+                            return false
+                        }
                     }
                 };
 
@@ -187,7 +189,7 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                             'five', 'six', 'seven', 'eight', 'nine'
                         ][ parseFloat( number )];
 
-                    else throw new Error( 'util.numberToText() can only handle numbers 0-9')
+                    else throw new Error( 'util.numberToText() can only handle numbers 0-9' )
                 }
             },
 
