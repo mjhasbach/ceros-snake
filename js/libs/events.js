@@ -1,5 +1,5 @@
-define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
-    function( $, _, bigScreen, settings, util ){
+define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
+    function( $, _, bigScreen, settings, util, database ){
         return {
             init: function( assets ){
                 var audio = assets.audio,
@@ -45,7 +45,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                             highScores.add.playerName.move();
 
                             if ( key.which == keys.enter )
-                                highScores.database.submitScore()
+                                database.submitScore( highScores )
                         }
                     });
 
@@ -185,7 +185,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                                 highScores.add.submit.hitBox.on( 'click touchstart', function() {
                                     if ( highScores.add.isNotStoppingOrStopped() )
-                                        highScores.database.submitScore()
+                                        database.submitScore( highScores )
                                 })
                             })();
 
@@ -265,7 +265,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 })();
 
                 ( function _databaseEvents() {
-                    highScores.database.scores.on( 'add', function( record ){
+                    database.scores.on( 'add', function( record ){
                         if ( highScores.view.state.get( 'current' ) === 'running' )
                             if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
                                 highScores.view.index++
@@ -313,8 +313,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
                 })();
 
                 ( function _transitionToMenu() {
-                    assets.audio.song.mp3.play().loop();
-                    loading.state.set( 'current', 'stopping' )
+                    database.waitUntilConnected( function() {
+                        assets.audio.song.mp3.play().loop();
+                        loading.state.set( 'current', 'stopping' )
+                    })
                 })()
             }
         }

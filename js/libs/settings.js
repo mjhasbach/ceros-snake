@@ -163,10 +163,6 @@ define([], function() {
             },
 
             highScores: {
-                database: 'https://ceros-snake.firebaseio.com/scores',
-
-                limit: 100,
-
                 name: {
                     y: 19.5,
                     size: 13,
@@ -213,6 +209,12 @@ define([], function() {
                         size: 11.2
                     }
                 }
+            },
+
+            database: {
+                address: 'https://ceros-snake.firebaseio.com/scores',
+
+                limit: 100
             }
         };
 

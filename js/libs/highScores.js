@@ -1,5 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', 'util', 'stage', 'background', 'backfire' ],
-    function( Kinetic, kineticEditableText, Backbone, Firebase, settings, util, stage, background ){
+define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stage', 'background' ],
+    function( Kinetic, kineticEditableText, settings, util, database, stage, background ){
         kineticEditableText.init( Kinetic );
 
         var _s = settings.highScores,
@@ -395,7 +395,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     update: function() {
-                        highScores.view.current = highScores.database.scores.at( highScores.view.index );
+                        highScores.view.current = database.scores.at( highScores.view.index );
 
                         highScores.view.background.count( highScores.view.current.get( 'score' ));
 
@@ -407,7 +407,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             highScores.view.previous.shape.remove();
                             highScores.view.previous.hitBox.remove()
 
-                        } else if ( highScores.view.index === highScores.database.scores.length - 1 ){
+                        } else if ( highScores.view.index === database.scores.length - 1 ){
                             highScores.view.next.shape.remove();
                             highScores.view.next.hitBox.remove()
                         }
@@ -416,7 +416,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                             highScores.view.layer.add( highScores.view.previous.shape );
                             highScores.view.layer.add( highScores.view.previous.hitBox )
 
-                        } else if ( highScores.view.index < highScores.database.scores.length - 1 &&
+                        } else if ( highScores.view.index < database.scores.length - 1 &&
                                     !highScores.view.next.shape.getParent() ){
                             highScores.view.layer.add( highScores.view.next.shape );
                             highScores.view.layer.add( highScores.view.next.hitBox )
@@ -448,66 +448,10 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     }
                 },
 
-                init: function( options ){
-                    highScores.database = {
-                        Score: Backbone.Model.extend({
-                            defaults: function() {
-                                return {
-                                    time: new Date().getTime()
-                                }
-                            },
+                init: function() {
+                    highScores.add.init();
 
-                            initialize: function() {
-                                if ( !this.get( 'name' ))
-                                    throw new Error( 'A name must be provided when initializing ' +
-                                                     'a highScores.database.Score' );
-
-                                if ( !this.get( 'score' ))
-                                    throw new Error( 'A score must be provided when initializing ' +
-                                                     'a highScores.database.Score' )
-                            }
-                        }),
-
-                        submitScore: function() {
-                            if ( highScores.add.playerName.field.text().length > 0 ){
-                                highScores.database.scores.add(
-                                    new highScores.database.Score({
-                                        score: highScores.add.score,
-                                        name: highScores.add.playerName.field.text()
-                                    })
-                                );
-
-                                highScores.add.state.set( 'current', 'stopping' )
-
-                            } else alert( 'Please provide your name, or click the "X" icon ' +
-                                          'if you do not wish to record your high score.' )
-                        },
-
-                        waitUntilConnected: function wait( cb ){
-                            if ( highScores.database.scores.at( 0 )) cb();
-                            else setTimeout( wait, 100, cb )
-                        },
-
-                        init: function() {
-                            highScores.database.TopScores = Backbone.Firebase.Collection.extend({
-                                model: highScores.database.Score,
-
-                                firebase: new Firebase( _s.database ).limit( _s.limit ).endAt(),
-
-                                comparator: function( model ){
-                                    return -model.get( 'score' )
-                                }
-                            });
-
-                            highScores.database.scores = new highScores.database.TopScores
-                        }
-                    };
-
-                    highScores.database.init();
-
-                    highScores.add.init( options );
-
-                    highScores.view.init( options )
+                    highScores.view.init()
                 }
             };
 
