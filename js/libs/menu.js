@@ -1,5 +1,5 @@
-define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ],
-    function( _, Backbone, Kinetic, settings, util, stage ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
+    function( _, Backbone, Kinetic, settings, util, stage, background ){
         var x = util.calculate.absolute.x,
             y = util.calculate.absolute.y,
             pi = util.calculate.pi,
@@ -12,6 +12,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ],
                 state: new Backbone.Model({ current: 'stopped' }),
 
                 layer: new Kinetic.Layer,
+
+                background: background.menu,
 
                 title: {
                     ceros: {
@@ -345,9 +347,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage' ],
                         util.module.stop( menu, frame )
                 }),
 
-                init: function ( options ){
-                    menu.background = options.background.menu;
-
+                init: function() {
                     ( function _numberControllerGroups() {
                         menu.options.singlePlayer.shape = menu.options.numberControllerGroup(
                             1,
