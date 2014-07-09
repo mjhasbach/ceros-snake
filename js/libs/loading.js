@@ -60,10 +60,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
                     require([ 'assets' ], function( assets ){
                         assets.waitForAsync( function() {
-                            assets.init({
-                                background: background,
-                                stage: stage
-                            });
+                            assets.init({ background: background });
 
                             assets.highScores.database.waitUntilConnected( function() {
                                 require([ 'events' ], function( events ){
