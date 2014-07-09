@@ -1,4 +1,4 @@
-define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kinetic, settings, util ){
+define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ], function( Backbone, Kinetic, settings, util, background ){
     var _s = settings.game,
         game = {
             name: 'game',
@@ -8,6 +8,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
             state: new Backbone.Model({ current: 'stopped' }),
 
             layer: new Kinetic.Layer,
+
+            background: background.game,
 
             snake: {
                 segment: {
@@ -327,9 +329,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util' ], function( Backbone, Kineti
                 }
             },
 
-            init: function( options ){
-                game.background = options.background.game;
-
+            init: function() {
                 ( function _boundaries() {
                     game.boundaries = {
                         top: new Kinetic.Rect({
