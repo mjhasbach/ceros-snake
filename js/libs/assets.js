@@ -12,10 +12,6 @@ define([ 'audio', 'webFonts', 'menu', 'game', 'highScores' ],
             waitForAsync: function wait( cb ){
                 if ( audio.song.isLoaded && webFonts.areLoaded ) cb();
                 else setTimeout( wait, 100, cb )
-            },
-
-            init: function( options ){
-
             }
         }
     }
