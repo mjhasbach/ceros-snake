@@ -92,10 +92,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         }),
 
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                menu.options.singlePlayer.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( menu.options.singlePlayer.hitBox )
                         }
                     },
 
@@ -121,19 +118,13 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         }),
 
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                menu.options.gear.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( menu.options.gear.hitBox )
                         }
                     },
 
                     highScores: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                menu.options.highScores.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( menu.options.highScores.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -229,10 +220,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
                     volume: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                menu.settings.volume.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( menu.settings.volume.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -256,10 +244,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
 
                     fullScreen: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                menu.settings.fullScreen.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( menu.settings.fullScreen.hitBox )
                         },
 
                         shape: new Kinetic.Text({

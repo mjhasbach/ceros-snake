@@ -61,10 +61,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     keyboard: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.add.keyboard.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.add.keyboard.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -89,10 +86,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     submit: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.add.submit.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.add.submit.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -117,10 +111,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     back: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.add.back.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.add.back.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -283,10 +274,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     previous: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.view.previous.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.view.previous.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -311,10 +299,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     back: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.view.back.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.view.back.hitBox )
                         },
 
                         shape: new Kinetic.Text({
@@ -339,10 +324,7 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
 
                     next: {
                         mouseOver: function() {
-                            return util.mouse.isOverNode(
-                                highScores.view.next.hitBox,
-                                stage
-                            )
+                            return util.mouse.isOverNode( highScores.view.next.hitBox )
                         },
 
                         shape: new Kinetic.Text({
