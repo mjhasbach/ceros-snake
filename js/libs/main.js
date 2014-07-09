@@ -1,6 +1,5 @@
 require.config({
     paths: {
-        // Dependencies
         async: '../deps/requirejs-plugins-v1.0.3/async',
         goog: '../deps/requirejs-plugins-v1.0.3/goog',
         font: '../deps/requirejs-plugins-v1.0.3/font',
@@ -13,21 +12,7 @@ require.config({
         jquery: '../deps/jquery-v1.11.1.min',
         Kinetic: '../deps/kinetic.min',
         kineticEditableText: '../deps/kinetic.editable-mjhasbach-fork',
-        underscore: '../deps/underscore-v1.6.0.min',
-
-        // Modules
-        assets: 'assets',
-        audio: 'audio',
-        background: 'background',
-        events: 'events',
-        game: 'game',
-        highScores: 'highScores',
-        loading: 'loading',
-        menu: 'menu',
-        settings: 'settings',
-        stage: 'stage',
-        util: 'util',
-        webFonts: 'webFonts'
+        underscore: '../deps/underscore-v1.6.0.min'
     },
 
     shim: {
