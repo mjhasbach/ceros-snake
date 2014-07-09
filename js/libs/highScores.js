@@ -195,23 +195,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     init: function() {
-                        ( function _layer() {
-                            highScores.add.layer.add( highScores.add.background.group );
+                        highScores.add.layer.add( highScores.add.background.group );
 
-                            highScores.add.layer.add( highScores.add.playerName.label );
-                            highScores.add.layer.add( highScores.add.playerName.field );
+                        highScores.add.layer.add( highScores.add.playerName.label );
+                        highScores.add.layer.add( highScores.add.playerName.field );
 
-                            highScores.add.layer.add( highScores.add.keyboard.shape );
-                            highScores.add.layer.add( highScores.add.keyboard.hitBox );
+                        highScores.add.layer.add( highScores.add.keyboard.shape );
+                        highScores.add.layer.add( highScores.add.keyboard.hitBox );
 
-                            highScores.add.layer.add( highScores.add.submit.shape );
-                            highScores.add.layer.add( highScores.add.submit.hitBox );
+                        highScores.add.layer.add( highScores.add.submit.shape );
+                        highScores.add.layer.add( highScores.add.submit.hitBox );
 
-                            highScores.add.layer.add( highScores.add.back.shape );
-                            highScores.add.layer.add( highScores.add.back.hitBox );
+                        highScores.add.layer.add( highScores.add.back.shape );
+                        highScores.add.layer.add( highScores.add.back.hitBox );
 
-                            highScores.add.animation.setLayers( highScores.add.layer )
-                        })()
+                        highScores.add.animation.setLayers( highScores.add.layer )
                     },
 
                     cleanUp: function() {
@@ -444,23 +442,21 @@ define([ 'Kinetic', 'kineticEditableText', 'backbone', 'firebase', 'settings', '
                     },
 
                     init: function() {
-                        ( function _layer() {
-                            highScores.view.layer.add( highScores.view.background.group );
+                        highScores.view.layer.add( highScores.view.background.group );
 
-                            highScores.view.layer.add( highScores.view.playerName.label );
-                            highScores.view.layer.add( highScores.view.playerName.scoreHolder );
+                        highScores.view.layer.add( highScores.view.playerName.label );
+                        highScores.view.layer.add( highScores.view.playerName.scoreHolder );
 
-                            highScores.view.layer.add( highScores.view.previous.shape );
-                            highScores.view.layer.add( highScores.view.previous.hitBox );
+                        highScores.view.layer.add( highScores.view.previous.shape );
+                        highScores.view.layer.add( highScores.view.previous.hitBox );
 
-                            highScores.view.layer.add( highScores.view.next.shape );
-                            highScores.view.layer.add( highScores.view.next.hitBox );
+                        highScores.view.layer.add( highScores.view.next.shape );
+                        highScores.view.layer.add( highScores.view.next.hitBox );
 
-                            highScores.view.layer.add( highScores.view.back.shape );
-                            highScores.view.layer.add( highScores.view.back.hitBox );
+                        highScores.view.layer.add( highScores.view.back.shape );
+                        highScores.view.layer.add( highScores.view.back.hitBox );
 
-                            highScores.view.animation.setLayers( highScores.view.layer )
-                        })()
+                        highScores.view.animation.setLayers( highScores.view.layer )
                     },
 
                     cleanUp: function() {
