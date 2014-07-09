@@ -12,6 +12,67 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                 background: background.game,
 
+                boundaries: {
+                    top: new Kinetic.Rect({
+                        x: background.game.tile.size() / 4,
+                        y: background.game.tile.size() / 4,
+                        width: ( background.game.tile.size() * background.game.tile.quantity.x ) -
+                            background.game.tile.size(),
+                        height: background.game.tile.size() / 2
+                    }),
+
+                    left: new Kinetic.Rect({
+                        x: background.game.tile.size() / 4,
+                        y: background.game.tile.size() / 4,
+                        width: background.game.tile.size() / 2,
+                        height: ( background.game.tile.size() * background.game.tile.quantity.y ) -
+                            background.game.tile.size()
+                    }),
+
+                    bottom: new Kinetic.Rect({
+                        x: background.game.tile.size() / 4,
+                        y: background.game.tile.size() *
+                            ( background.game.tile.quantity.y - 0.75 ),
+                        width: ( background.game.tile.size() * background.game.tile.quantity.x ) -
+                            background.game.tile.size(),
+                        height: background.game.tile.size() / 2
+                    }),
+
+                    right: new Kinetic.Rect({
+                        x: util.calculate.dimensions.original.width() -
+                            ( background.game.tile.size() * 0.75 ),
+                        y: background.game.tile.size() / 4,
+                        width: background.game.tile.size() / 2,
+                        height: ( background.game.tile.size() *
+                            ( background.game.tile.quantity.y - 0.5 ))
+                    }),
+
+                    fillWithDefaultColor: function() {
+                        var color = settings.background.colors.base[ 0 ];
+
+                        game.boundaries.top.fill( color );
+                        game.boundaries.left.fill( color );
+                        game.boundaries.bottom.fill( color );
+                        game.boundaries.right.fill( color )
+                    },
+
+                    areReadyToCycle: function( frame ){
+                        return frame.time - ( game.boundaries.lastCycleTime || 0 ) >=
+                            settings.animation.period() / 8
+                    },
+
+                    animation: function( frame ){
+                        var color = game.background.tile.color.base.random();
+
+                        game.boundaries.top.fill( color );
+                        game.boundaries.left.fill( color );
+                        game.boundaries.bottom.fill( color );
+                        game.boundaries.right.fill( color );
+
+                        game.boundaries.lastCycleTime = frame.time
+                    }
+                },
+
                 snake: {
                     segment: {
                         queue: [],
@@ -331,70 +392,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 },
 
                 init: function() {
-                    ( function _boundaries() {
-                        game.boundaries = {
-                            top: new Kinetic.Rect({
-                                x: game.background.tile.size() / 4,
-                                y: game.background.tile.size() / 4,
-                                width: ( game.background.tile.size() * game.background.tile.quantity.x ) -
-                                    game.background.tile.size(),
-                                height: game.background.tile.size() / 2
-                            }),
-
-                            left: new Kinetic.Rect({
-                                x: game.background.tile.size() / 4,
-                                y: game.background.tile.size() / 4,
-                                width: game.background.tile.size() / 2,
-                                height: ( game.background.tile.size() * game.background.tile.quantity.y ) -
-                                    game.background.tile.size()
-                            }),
-
-                            bottom: new Kinetic.Rect({
-                                x: game.background.tile.size() / 4,
-                                y: game.background.tile.size() *
-                                    ( game.background.tile.quantity.y - 0.75 ),
-                                width: ( game.background.tile.size() * game.background.tile.quantity.x ) -
-                                    game.background.tile.size() ,
-                                height: game.background.tile.size() / 2
-                            }),
-
-                            right: new Kinetic.Rect({
-                                x: util.calculate.dimensions.original.width() -
-                                    ( game.background.tile.size() * 0.75 ),
-                                y: game.background.tile.size() / 4,
-                                width: game.background.tile.size() / 2,
-                                height: ( game.background.tile.size() *
-                                    ( game.background.tile.quantity.y - 0.5 ))
-                            }),
-
-                            fillWithDefaultColor: function() {
-                                var color = settings.background.colors.base[ 0 ];
-
-                                game.boundaries.top.fill( color );
-                                game.boundaries.left.fill( color );
-                                game.boundaries.bottom.fill( color );
-                                game.boundaries.right.fill( color )
-                            },
-
-                            areReadyToCycle: function( frame ){
-                                return frame.time - ( game.boundaries.lastCycleTime || 0 ) >=
-                                    settings.animation.period() / 8
-                            },
-
-                            animation: function( frame ){
-                                var color = game.background.tile.color.base.random();
-
-                                game.boundaries.top.fill( color );
-                                game.boundaries.left.fill( color );
-                                game.boundaries.bottom.fill( color );
-                                game.boundaries.right.fill( color );
-
-                                game.boundaries.lastCycleTime = frame.time
-                            }
-                        };
-
-                        game.boundaries.fillWithDefaultColor()
-                    })();
+                    game.boundaries.fillWithDefaultColor();
 
                     ( function _prototypes() {
                         Number.prototype.toCoord = function() {
