@@ -157,7 +157,7 @@ define([], function() {
 
                     shadow: {
                         color: '#7878a7',
-                        blur: 35
+                        blur: 15
                     }
                 }
             },
