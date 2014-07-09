@@ -27,11 +27,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util' ],
 
                         if ( game.isNotStoppingOrStopped() ){
                             if ( key.which == keys.space ){
-                                if ( game.state.get( 'current' ) === 'running' ){
+                                var gameState = game.state.get( 'current' );
+
+                                if ( gameState === 'running' ){
                                     game.state.set( 'current', 'paused' );
                                     game.paused.moveToTop();
                                     game.paused.opacity( 1 )
-                                } else {
+                                } else if ( gameState === 'paused' ){
                                     game.state.set( 'current', 'running' );
                                     game.paused.opacity( 0 )
                                 }
