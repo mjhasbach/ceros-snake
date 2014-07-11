@@ -322,7 +322,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'starting' ) highScores.view.update();
+                        else if ( current === 'stopping' ) start( menu, stage )
                     })
                 })();
 

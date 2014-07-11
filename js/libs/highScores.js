@@ -349,19 +349,15 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                     },
 
                     animation: new Kinetic.Animation( function( frame ){
-                        var state = highScores.view.state.get( 'current' );
-
-                        if ( state === 'starting' ){
-                            highScores.view.update();
-                            highScores.view.state.set( 'current', 'running' )
-
-                        } else if ( state === 'running' ){
+                        if ( highScores.view.isNotStoppingOrStopped() ){
                             highScores.view.mouseOverCheck( frame );
                             highScores.view.background.cycleCheck(
                                 frame,
                                 highScores.view.current.get( 'score' )
                             )
-                        } else if ( state === 'stopping' )
+                        }
+
+                        else if ( highScores.view.state.get( 'current' ) === 'stopping' )
                             util.module.stop( highScores.view, frame )
                     }),
 
