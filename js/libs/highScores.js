@@ -135,10 +135,11 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                     },
 
                     animation: new Kinetic.Animation( function( frame ){
-                        if ( highScores.add.isNotStoppingOrStopped() )
+                        if ( highScores.add.isNotStoppingOrStopped() ){
                             highScores.add.mouseOverCheck( frame );
+                            highScores.add.background.cycleCheck( frame, highScores.add.score )
 
-                        else if ( highScores.add.state.get( 'current' ) === 'stopping' )
+                        } else if ( highScores.add.state.get( 'current' ) === 'stopping' )
                             util.module.stop( highScores.add, frame )
                     }),
 
