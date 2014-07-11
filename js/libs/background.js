@@ -478,6 +478,12 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     view: new background.Constructor()
                 };
 
+                background.menu.cycleCheck = function( frame ){
+                    if ( background.menu.sine.isAtMaximum(
+                            Math.sin( frame.time * 2 * Math.PI / settings.animation.period() ))
+                        ) background.menu.draw.randomize()
+                };
+
                 ( function _loading() {
                     background.loading.isReadyToCycle = function( sine ){
                         return background.loading.sine.directionChanged( sine )
