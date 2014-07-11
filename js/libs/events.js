@@ -32,6 +32,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 if ( gameState === 'running' ){
                                     game.paused.moveToTop();
                                     game.state.set( 'current', 'paused' );
+                                    
                                 } else if ( gameState === 'paused' )
                                     game.state.set( 'current', 'running' );
                             }
@@ -46,6 +47,19 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                             if ( key.which == keys.enter )
                                 database.submitScore( highScores )
+
+                        } else if ( highScores.view.isNotStoppingOrStopped() ){
+                            if ( key.which == keys.left && highScores.view.index !== 0 ){
+
+                                highScores.view.index -= 1;
+                                highScores.view.update()
+
+                            } else if ( key.which == keys.right &&
+                                        highScores.view.index !== database.scores.length - 1 ){
+
+                                highScores.view.index += 1;
+                                highScores.view.update()
+                            }
                         }
                     });
 
