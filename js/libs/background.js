@@ -432,11 +432,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                             ){
                             bg.draw.randomize();
 
-                            if ( number )
-                                bg.draw.number[ util.number.toText( number )](
-                                    _s.countDown.coords.x,
-                                    _s.countDown.coords.y
-                                );
+                            if ( number ) bg.count( number )
                         }
                     },
 
