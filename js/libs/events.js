@@ -18,7 +18,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         enter: 13
                     };
 
-                    $( '*' ).keyup( function( key ){
+                    $( '*' ).keydown( function( key ){
                         key.preventDefault();
                         key.stopPropagation();
 
