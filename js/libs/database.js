@@ -45,7 +45,7 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                         model: database.Score,
 
                         firebase: new Firebase( _s.scores.address )
-                            .limit( _s.limit ).endAt(),
+                            .limit( _s.scores.limit ).endAt(),
 
                         comparator: function( model ){
                             return -model.get( 'score' )

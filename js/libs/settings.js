@@ -213,10 +213,10 @@ define([], function() {
 
             database: {
                 scores: {
-                    address: 'https://ceros-snake.firebaseio.com/scores'
-                },
+                    address: 'https://ceros-snake.firebaseio.com/scores',
 
-                limit: 100
+                    limit: 100
+                }
             }
         };
 
