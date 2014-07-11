@@ -88,8 +88,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             });
 
                             menu.options.singlePlayer.hitBox.on( 'click touchstart', function() {
-                                if ( menu.isNotStoppingOrStopped() )
-                                    menu.state.set( 'current', 'stopping' )
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.state.set( 'current', 'stopping' );
+                                    game.state.set( 'current', 'starting' )
+                                }
+
                             })
                         })();
 
@@ -295,25 +298,22 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                     menu.state.on( 'change:current', function( state, current ){
                         if ( current === 'stopping' ){
-                            if ( menu.options.singlePlayer.mouseOver() ){
-                                start( game, stage );
-
-                                ( function waitForMenuOut() {
-                                    if ( menu.layer.opacity() === 0 )
-                                        game.state.set( 'current', 'counting down' );
-
-                                    else setTimeout( waitForMenuOut, 10 )
-                                })()
-                            } else if ( menu.options.highScores.mouseOver() )
-                                start( highScores.view, stage );
-
-                            else throw new Error( 'The "menu" module is stopping, but does ' +
-                                                  'not know which module to transition to!')
+                            if ( menu.options.highScores.mouseOver() )
+                                start( highScores.view, stage )
                         }
                     });
 
                     game.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' )
+                        if ( current === 'starting' ){
+                            start( game, stage );
+
+                            ( function waitForMenuOut() {
+                                if ( menu.layer.opacity() === 0 )
+                                    game.state.set( 'current', 'counting down' );
+
+                                else setTimeout( waitForMenuOut, 10 )
+                            })()
+                        } else if ( current === 'stopping' )
                             highScores.add.start( game.snake.segment.list.length )
                     });
 
@@ -322,7 +322,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
-                        if ( current === 'starting' ) highScores.view.update();
+                        if ( current === 'starting' ){
+                            highScores.view.update();
+                        }
                         else if ( current === 'stopping' ) start( menu, stage )
                     })
                 })();
