@@ -114,7 +114,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                                     else menu.state.set( 'current', 'running' )
                                 }
-                            });
+                            })
                         })();
 
                         ( function _highScores() {
@@ -127,9 +127,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             });
 
                             menu.options.highScores.hitBox.on( 'click touchstart', function() {
-                                if ( menu.isNotStoppingOrStopped() )
-                                    menu.state.set( 'current', 'stopping' )
-                            });
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.state.set( 'current', 'stopping' );
+                                    highScores.view.state.set( 'current', 'starting' )
+                                }
+                            })
                         })();
 
                         ( function _volume() {
@@ -296,13 +298,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         if ( current === 'stopping' ) start( menu, stage )
                     });
 
-                    menu.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ){
-                            if ( menu.options.highScores.mouseOver() )
-                                start( highScores.view, stage )
-                        }
-                    });
-
                     game.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
                             start( game, stage );
@@ -324,6 +319,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     highScores.view.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
                             highScores.view.update();
+
+                            start( highScores.view, stage )
                         }
                         else if ( current === 'stopping' ) start( menu, stage )
                     })
