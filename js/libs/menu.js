@@ -308,6 +308,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                     var state = menu.state.get( 'current' );
 
                     menu.title.bounce( frame );
+                    menu.background.cycleCheck( frame );
 
                     if ( state === 'starting' )
                         util.animation.fade( menu.layer, frame, 'in', function() {
