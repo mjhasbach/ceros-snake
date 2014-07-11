@@ -171,6 +171,18 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                             return false
                         }
+                    },
+
+                    isAtMaximum: function( s ){
+                        if (sine.lastDirection !== sine.getDirection( s ) && s > 0){
+                            sine.update( s );
+
+                            return true
+                        } else {
+                            sine.update( s );
+
+                            return false
+                        }
                     }
                 };
 
