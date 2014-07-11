@@ -353,15 +353,16 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
 
                         if ( state === 'starting' ){
                             highScores.view.update();
-
                             highScores.view.state.set( 'current', 'running' )
 
                         } else if ( state === 'running' ){
-                            highScores.view.mouseOverCheck( frame )
-
-                        } else if ( state === 'stopping' ){
+                            highScores.view.mouseOverCheck( frame );
+                            highScores.view.background.cycleCheck(
+                                frame,
+                                highScores.view.current.get( 'score' )
+                            )
+                        } else if ( state === 'stopping' )
                             util.module.stop( highScores.view, frame )
-                        }
                     }),
 
                     mouseOverCheck: function( frame ){
