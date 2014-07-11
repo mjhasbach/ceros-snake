@@ -44,7 +44,8 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                     database.TopScores = Backbone.Firebase.Collection.extend({
                         model: database.Score,
 
-                        firebase: new Firebase( _s.address ).limit( _s.limit ).endAt(),
+                        firebase: new Firebase( _s.scores.address )
+                            .limit( _s.limit ).endAt(),
 
                         comparator: function( model ){
                             return -model.get( 'score' )
