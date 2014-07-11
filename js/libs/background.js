@@ -5,6 +5,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 var bg = {
                     group: new Kinetic.Group({ listening: false }),
 
+                    sine: new util.SineHelper(),
+
                     lastCycleTime: 0,
 
                     tile: {
@@ -477,8 +479,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 };
 
                 ( function _loading() {
-                    background.loading.sine = new util.SineHelper();
-
                     background.loading.isReadyToCycle = function( sine ){
                         return background.loading.sine.directionChanged( sine )
                     }
