@@ -426,6 +426,20 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         }
                     },
 
+                    cycleCheck: function( frame, number ){
+                        if ( bg.sine.isAtMaximum(
+                                Math.sin( frame.time * 2 * Math.PI / settings.animation.period() ))
+                            ){
+                            bg.draw.randomize();
+
+                            if ( number )
+                                bg.draw.number[ util.number.toText( number )](
+                                    _s.countDown.coords.x,
+                                    _s.countDown.coords.y
+                                );
+                        }
+                    },
+
                     cleanUp: function() {
                         bg.draw.randomize();
 
@@ -476,12 +490,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                 background.highScores = {
                     add: new background.Constructor(),
                     view: new background.Constructor()
-                };
-
-                background.menu.cycleCheck = function( frame ){
-                    if ( background.menu.sine.isAtMaximum(
-                            Math.sin( frame.time * 2 * Math.PI / settings.animation.period() ))
-                        ) background.menu.draw.randomize()
                 };
 
                 ( function _loading() {
