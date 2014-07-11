@@ -20,10 +20,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         shape: new Kinetic.Shape({ sceneFunc: function( context ){
                             context.beginPath();
                             context.arc( x( 8.7 ), y( 5 ), x( 11.5 ), pi( 1.85 ), pi( 0.2 ), true );
-                            context.lineTo( x( 4.0185 ), y( 8 ));
+                            context.lineTo( x( 4.011 ), y( 8 ));
                             context.moveTo( x( 4 ), y( 3.35 ));
                             context.arc( x( 3.07 ), y( 5 ), x( 11.5 ), pi( 1.75 ), pi( 0.0 ), true );
-                            context.moveTo( x( 2.42 ), y( 2.65 ));
+                            context.moveTo( x( 2.42 ), y( 2.64 ));
                             context.arc( x( 2 ), y( 5 ), x( 11.5 ), pi( 1 ), pi( 1.9 ));
                             context.arc( x( 1.486 ), y( 5 ), x( 11.5 ), pi( 3 ), pi( 1 ), true );
                             context.arc( x( 1.486 ), y( 5 ), x( 11.5 ), pi( 3 ), pi( 2.2 ), true );
@@ -44,20 +44,20 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                             context.arc( x( 8.7 ), y( 1.72 ), x( 11.5 ), pi( 0.81 ), pi( 0.2 ), true );
                             context.arc( x( 3.07 ), y( 1.72 ), x( 11.5 ), pi( 1.2 ), pi( 2 ));
                             context.arc( x( 3.07 ), y( 1.72 ), x( 11.5 ), pi( 0 ), pi( 1 ), true );
-                            context.lineTo( x( 4.19 ), y( 1.318 ));
-                            context.moveTo( x( 2.423 ), y( 1.318 ));
-                            context.lineTo( x( 2.423 ), y( 1.318 ));
+                            context.lineTo( x( 4.19 ), y( 1.312 ));
+                            context.moveTo( x( 2.423 ), y( 1.312 ));
+                            context.lineTo( x( 2.423 ), y( 1.312 ));
                             context.lineTo( x( 2.423 ), y( 1.72 ));
                             context.arc( x( 1.99 ), y( 1.72 ), x( 11.5 ), pi( 1 ), pi( 2 ));
-                            context.lineTo( x( 1.695 ), y( 1.318 ));
-                            context.lineTo( x( 1.695 ), y( 2.47 ));
+                            context.lineTo( x( 1.695 ), y( 1.312 ));
+                            context.lineTo( x( 1.695 ), y( 2.49 ));
                             context.moveTo( x( 1.695 ), y( 1.71 ));
                             context.lineTo( x( 2.413 ), y( 1.71 ));
                             context.lineTo( x( 1.695 ), y( 1.71 ));
-                            context.quadraticCurveTo( x( 1.308 ), y( 1.71 ), x( 1.308 ), y( 2.45 ));
+                            context.quadraticCurveTo( x( 1.308 ), y( 1.71 ), x( 1.308 ), y( 2.49 ));
                             context.moveTo( x( 1.695 ), y( 1.71 ));
-                            context.quadraticCurveTo( x( 1.39 ), y( 1.71 ), x( 1.287 ), y( 1.3825 ));
-                            context.arc( x( 1.12 ), y( 1.72 ), x( 11.5 ), pi( 1.75 ), pi( 0 ), true );
+                            context.quadraticCurveTo( x( 1.39 ), y( 1.71 ), x( 1.287 ), y( 1.38 ));
+                            context.arc( x( 1.13 ), y( 1.72 ), x( 11.5 ), pi( 1.75 ), pi( 0 ), true );
                             context.stroke();
                             context.strokeShape( this )
                         },
