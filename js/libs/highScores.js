@@ -206,7 +206,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                     cleanUp: function() {
                         highScores.add.score = 0;
 
-                        highScores.add.playerName.field.text( '' );
+                        highScores.add.playerName.field.clear();
                         highScores.add.playerName.field.unfocus();
 
                         highScores.add.submit.hitBox.fire( 'mouseout' );
