@@ -19,8 +19,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     };
 
                     $( '*' ).keydown( function( key ){
-                        key.stopPropagation();
-
                         if ( key.which == keys.backtick && bigScreen.enabled )
                             bigScreen.toggle();
 
