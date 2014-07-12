@@ -18,7 +18,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         enter: 13
                     };
 
-                    $( '*' ).keydown( function( key ){
+                    $( document ).keydown( function( key ){
                         if ( key.which == keys.backtick && bigScreen.enabled )
                             bigScreen.toggle();
 
