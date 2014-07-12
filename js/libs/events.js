@@ -22,7 +22,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         if ( key.which == keys.backtick && bigScreen.enabled )
                             bigScreen.toggle();
 
-                        if ( game.isNotStoppingOrStopped() ){
+                        else if ( game.isNotStoppingOrStopped() ){
                             if ( key.which == keys.space ){
                                 var gameState = game.state.get( 'current' );
 
