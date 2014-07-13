@@ -243,14 +243,6 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                             strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         }),
 
-                        calculate: {
-                            scoreHolder: {
-                                x: function() {
-                                    return highScores.view.playerName.label.x() + util.calculate.absolute.x( 3.8 )
-                                }
-                            }
-                        },
-
                         move: function() {
                             var nameLength = highScores.view.current.get( 'name' ).length;
 
@@ -260,7 +252,8 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                             );
 
                             this.scoreHolder.x(
-                                highScores.view.playerName.calculate.scoreHolder.x()
+                                highScores.view.playerName.label.x() +
+                                    util.calculate.absolute.x( 3.8 )
                             )
                         }
                     },
