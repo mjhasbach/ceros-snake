@@ -36,15 +36,6 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                             strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
                         }),
 
-                        calculate: {
-                            field: {
-                                x: function() {
-                                    return highScores.add.playerName.label.x() +
-                                        util.calculate.absolute.x( 3.8 )
-                                }
-                            }
-                        },
-
                         move: function() {
                             var nameLength = this.field.tempText[ 0 ].text().length;
 
@@ -54,7 +45,8 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                             );
 
                             this.field.tempText[ 0 ].x(
-                                highScores.add.playerName.calculate.field.x()
+                                highScores.add.playerName.label.x() +
+                                    util.calculate.absolute.x( 3.8 )
                             )
                         }
                     },
