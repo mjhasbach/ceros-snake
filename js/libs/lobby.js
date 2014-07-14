@@ -13,10 +13,10 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                 players: {
                     previous: new Kinetic.Text({
-                        x: util.calculate.absolute.x( settings.lobby.players.previous.x ),
+                        x: util.calculate.absolute.x( settings.lobby.players.arrows.previous.x ),
                         y: util.calculate.absolute.y( settings.lobby.players.header.y ),
                         text: '\uf0aa',
-                        fontSize: util.calculate.absolute.size( settings.lobby.players.previous.font.size ),
+                        fontSize: util.calculate.absolute.size( settings.lobby.players.arrows.previous.font.size ),
                         fontFamily: 'FontAwesome',
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
