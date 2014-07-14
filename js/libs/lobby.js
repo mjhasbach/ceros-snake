@@ -39,6 +39,16 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         group: new Kinetic.Group({
                             x: util.calculate.absolute.x( settings.lobby.players.header.x ),
                             y: util.calculate.absolute.y( settings.lobby.players.header.y )
+                        }),
+
+                        name: new Kinetic.Text({
+                            text: 'Name',
+                            fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
+                            fontFamily: settings.font.face,
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
                         })
                     }
                 },
