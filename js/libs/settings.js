@@ -213,6 +213,10 @@ define([], function() {
 
             lobby: {
                 players: {
+                    font: {
+                        size: 20
+                    },
+
                     container: {
                         colors: [ '#191725', '#1e1a29' ]
                     }
