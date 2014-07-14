@@ -233,7 +233,7 @@ define([], function() {
 
                     header: {
                         x: 10,
-                        y: 4.4,
+                        y: 5.8,
                         latency: { x: 2 }
                     },
 
