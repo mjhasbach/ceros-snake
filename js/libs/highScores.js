@@ -37,17 +37,21 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                         }),
 
                         move: function() {
-                            var nameLength = this.field.text().length;
+                            var playerName = this;
 
-                            this.label.x(
-                                util.calculate.absolute.x( _s.name.label.x ) -
-                                    ( nameLength * util.calculate.absolute.x( 40.7 ))
-                            );
+                            setTimeout( function() {
+                                var nameLength = playerName.field.text().length;
 
-                            this.field.tempText[ 0 ].x(
-                                highScores.add.playerName.label.x() +
-                                    util.calculate.absolute.x( 3.8 )
-                            )
+                                playerName.label.x(
+                                    util.calculate.absolute.x( _s.name.label.x ) -
+                                        ( nameLength * util.calculate.absolute.x( 40.7 ))
+                                );
+
+                                playerName.field.tempText[ 0 ].x(
+                                    highScores.add.playerName.label.x() +
+                                        util.calculate.absolute.x( 3.8 )
+                                )
+                            }, 0 )
                         }
                     },
 
