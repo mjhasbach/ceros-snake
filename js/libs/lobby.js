@@ -55,6 +55,12 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             lobby.players.header.group.add( lobby.players.header.name );
                             lobby.layer.add( lobby.players.header.group )
                         }
+                    },
+
+                    init: function() {
+                        lobby.players.container.init();
+
+                        lobby.players.header.init()
                     }
                 },
 
@@ -75,13 +81,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 }),
 
                 init: function() {
-                    lobby.players.container.init();
-
                     lobby.layer.add( lobby.background.group );
 
                     lobby.layer.add( lobby.players.container.group );
 
-                    lobby.players.header.init();
+                    lobby.players.init();
 
                     lobby.layer.add( lobby.title );
 
