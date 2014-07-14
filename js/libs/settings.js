@@ -219,7 +219,8 @@ define([], function() {
                     },
 
                     header: {
-                        x: 10
+                        x: 10,
+                        y: 4.4
                     },
 
                     container: {
