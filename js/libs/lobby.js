@@ -13,8 +13,16 @@ define([ 'backbone', 'Kinetic', 'util', 'background' ],
 
                 animation: new Kinetic.Animation( function( frame ){
                     lobby.background.cycleCheck( frame )
-                })
+                }),
+
+                init: function() {
+                    lobby.layer.add( lobby.background.group );
+
+                    lobby.animation.setLayers( lobby.layer )
+                }
             };
+
+        lobby.init();
 
         return lobby
     }
