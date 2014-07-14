@@ -23,6 +23,17 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth )
                     }),
 
+                    next: new Kinetic.Text({
+                        x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
+                        y: util.calculate.absolute.y( settings.lobby.players.arrows.next.y ),
+                        text: '\uf0ab',
+                        fontSize: util.calculate.absolute.size( settings.lobby.players.arrows.font.size ),
+                        fontFamily: 'FontAwesome',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth )
+                    }),
+
                     container: {
                         group: new Kinetic.Group({
                             x: background.lobby.tile.size(),
@@ -87,7 +98,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         lobby.players.container.init();
                         lobby.players.header.init();
 
-                        lobby.layer.add( lobby.players.previous )
+                        lobby.layer.add( lobby.players.previous );
+                        lobby.layer.add( lobby.players.next )
                     }
                 },
 
