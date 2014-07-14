@@ -11,6 +11,16 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                 background: background.lobby,
 
+                players: {
+                    container: {
+                        group: new Kinetic.Group({
+                            x: background.lobby.tile.size(),
+                            y: background.lobby.tile.size() * 4,
+                            opacity: 0.92
+                        })
+                    }
+                },
+
                 title: new Kinetic.Text({
                     x: util.calculate.absolute.x( 6.8 ),
                     y: util.calculate.absolute.y( 50 ),
@@ -30,9 +40,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 init: function() {
                     lobby.layer.add( lobby.background.group );
 
+                    lobby.layer.add( lobby.players.container.group );
+
                     lobby.layer.add( lobby.title );
 
-                    lobby.animation.setLayers( lobby.layer )
+                    lobby.animation.setLayers( lobby.layer );
                 }
             };
 
