@@ -33,7 +33,8 @@ define([], function() {
             },
 
             playerName: {
-                size: 13
+                size: 13,
+                label: { x: 2.55 }
             },
 
             animation: {
