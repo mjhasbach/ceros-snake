@@ -196,7 +196,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                     },
 
                     mouseOverCheck: function( frame ){
-                        var brightnessVariance = util.calculate.brightnessVariance( frame),
+                        var brightnessVariance = util.calculate.brightnessVariance( frame ),
                             hF = settings.font.colors.fill.enabled.h,
                             sF = settings.font.colors.fill.enabled.s,
                             lF = settings.font.colors.fill.enabled.l - brightnessVariance,
@@ -206,6 +206,15 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
 
                         if ( menu.options.singlePlayer.mouseOver() )
                             menu.options.singlePlayer.shape.getChildren().each( function( node ){
+                                util.color.fillAndStroke({
+                                    node: node,
+                                    fill: { h: hF, s: sF, l: lF },
+                                    stroke: { h: hS, s: sS, l: lS }
+                                })
+                            });
+
+                        if ( menu.options.multiPlayer.mouseOver() )
+                            menu.options.multiPlayer.shape.getChildren().each( function( node ){
                                 util.color.fillAndStroke({
                                     node: node,
                                     fill: { h: hF, s: sF, l: lF },
