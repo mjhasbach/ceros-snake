@@ -214,7 +214,8 @@ define([], function() {
             lobby: {
                 players: {
                     font: {
-                        size: 20
+                        size: 20,
+                        strokeWidth: 500
                     },
 
                     container: {
