@@ -223,7 +223,7 @@ define([], function() {
                     arrows: {
                         x: 1.097,
                         font: { size: 17 },
-                        next: { y: 1.489 }
+                        next: { y: 1.625 }
                     },
 
                     font: {
