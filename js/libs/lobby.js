@@ -37,7 +37,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     container: {
                         group: new Kinetic.Group({
                             x: background.lobby.tile.size(),
-                            y: background.lobby.tile.size() * 4,
+                            y: background.lobby.tile.size() * 3,
                             opacity: 0.92
                         }),
 
