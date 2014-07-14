@@ -218,6 +218,10 @@ define([], function() {
                         strokeWidth: 500
                     },
 
+                    header: {
+                        x: 10
+                    },
+
                     container: {
                         colors: [ '#191725', '#1e1a29' ]
                     }
