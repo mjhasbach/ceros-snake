@@ -104,10 +104,10 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 },
 
                 title: new Kinetic.Text({
-                    x: util.calculate.absolute.x( 6.8 ),
-                    y: util.calculate.absolute.y( 50 ),
+                    x: util.calculate.absolute.x( 4.33 ),
+                    y: util.calculate.absolute.y( 80 ),
                     text: 'Multiplayer Lobby',
-                    fontSize: util.calculate.absolute.x( 11 ),
+                    fontSize: util.calculate.absolute.x( 14.4 ),
                     fontFamily: settings.font.face,
                     fill: settings.font.colors.fill.enabled.hex,
                     stroke: settings.font.colors.stroke.enabled.hex,
