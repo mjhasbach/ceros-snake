@@ -1,5 +1,5 @@
-define([ 'backbone', 'Kinetic', 'util' ],
-    function( Backbone, Kinetic, util ){
+define([ 'backbone', 'Kinetic', 'util', 'background' ],
+    function( Backbone, Kinetic, util, background ){
         var lobby = {
                 name: 'lobby',
 
@@ -7,7 +7,9 @@ define([ 'backbone', 'Kinetic', 'util' ],
 
                 state: new Backbone.Model({ current: 'stopped' }),
 
-                layer: new Kinetic.Layer
+                layer: new Kinetic.Layer,
+
+                background: background.lobby
             };
 
         return lobby

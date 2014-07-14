@@ -483,6 +483,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 background.game = new background.Constructor();
 
+                background.lobby = new background.Constructor();
+
                 background.highScores = {
                     add: new background.Constructor(),
                     view: new background.Constructor()
