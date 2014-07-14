@@ -12,6 +12,17 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 background: background.lobby,
 
                 players: {
+                    previous: new Kinetic.Text({
+                        x: util.calculate.absolute.x( 1.097 ),
+                        y: util.calculate.absolute.y( settings.lobby.players.header.y ),
+                        text: '\uf0aa',
+                        fontSize: util.calculate.absolute.size( settings.lobby.players.previous.font.size ),
+                        fontFamily: 'FontAwesome',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth )
+                    }),
+
                     container: {
                         group: new Kinetic.Group({
                             x: background.lobby.tile.size(),
@@ -74,8 +85,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                     init: function() {
                         lobby.players.container.init();
+                        lobby.players.header.init();
 
-                        lobby.players.header.init()
+                        lobby.layer.add( lobby.players.previous )
                     }
                 },
 
