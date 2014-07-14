@@ -1,5 +1,49 @@
 define([ 'underscore', 'settings' ], function( _, settings ){
     var util = {
+            SineHelper: function() {
+                var sine = {
+                    lastDirection: 'up',
+
+                    lastSine: 0,
+
+                    getDirection: function( s ){
+                        if ( s > sine.lastSine ) return 'up';
+                        else return 'down'
+                    },
+
+                    update: function( s ){
+                        sine.lastDirection = sine.getDirection( s );
+                        sine.lastSine = s
+                    },
+
+                    directionChanged: function( s ){
+                        if ( sine.lastDirection !== sine.getDirection( s )){
+                            sine.update( s );
+
+                            return true
+                        } else {
+                            sine.update( s );
+
+                            return false
+                        }
+                    },
+
+                    isAtMaximum: function( s ){
+                        if ( sine.lastDirection !== sine.getDirection( s ) && s > 0 ){
+                            sine.update( s );
+
+                            return true
+                        } else {
+                            sine.update( s );
+
+                            return false
+                        }
+                    }
+                };
+
+                return sine
+            },
+
             calculate: {
                 absolute: {
                     size: function( i ){ return width / i },
@@ -143,50 +187,6 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                         )
                     }
                 }
-            },
-
-            SineHelper: function() {
-                var sine = {
-                    lastDirection: 'up',
-
-                    lastSine: 0,
-
-                    getDirection: function( s ){
-                        if ( s > sine.lastSine ) return 'up';
-                        else return 'down'
-                    },
-
-                    update: function( s ){
-                        sine.lastDirection = sine.getDirection( s );
-                        sine.lastSine = s
-                    },
-
-                    directionChanged: function( s ){
-                        if ( sine.lastDirection !== sine.getDirection( s )){
-                            sine.update( s );
-
-                            return true
-                        } else {
-                            sine.update( s );
-
-                            return false
-                        }
-                    },
-
-                    isAtMaximum: function( s ){
-                        if (sine.lastDirection !== sine.getDirection( s ) && s > 0){
-                            sine.update( s );
-
-                            return true
-                        } else {
-                            sine.update( s );
-
-                            return false
-                        }
-                    }
-                };
-
-                return sine
             },
 
             number: {
