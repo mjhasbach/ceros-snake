@@ -32,6 +32,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                     })
                                 )
                             }
+
+                            lobby.layer.add( lobby.players.container.group )
                         }
                     },
 
@@ -82,8 +84,6 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                 init: function() {
                     lobby.layer.add( lobby.background.group );
-
-                    lobby.layer.add( lobby.players.container.group );
 
                     lobby.players.init();
 
