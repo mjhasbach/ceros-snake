@@ -93,6 +93,18 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             })
                         })();
 
+                        ( function _multiPlayer() {
+                            menu.options.multiPlayer.hitBox.on( 'mouseout', function() {
+                                menu.options.multiPlayer.shape.getChildren().each( function( node ){
+                                    util.color.fillAndStroke({
+                                        node: node,
+                                        fill: { hex: settings.font.colors.fill.enabled.hex },
+                                        stroke: { hex: settings.font.colors.stroke.enabled.hex }
+                                    })
+                                })
+                            })
+                        })();
+
                         ( function _gear() {
                             menu.options.gear.hitBox.on( 'mouseout', function() {
                                 if ( menu.isNotStoppingOrStopped() ){
