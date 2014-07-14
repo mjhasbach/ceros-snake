@@ -348,8 +348,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                                 2,
                                 util.calculate.absolute.x( 5 ),
                                 util.calculate.absolute.x( 3.99 ),
-                                settings.font.colors.fill.disabled,
-                                settings.font.colors.stroke.disabled
+                                settings.font.colors.fill.enabled.hex,
+                                settings.font.colors.stroke.enabled.hex
                             )
                         }
                     })();
