@@ -103,7 +103,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                             width: util.calculate.absolute.x( 5.86 ),
                             height: util.calculate.absolute.y( 8.46 ),
                             opacity: 0
-                        })
+                        }),
+
+                        mouseOver: function() {
+                            return util.mouse.isOverNode( menu.options.multiPlayer.hitBox )
+                        }
                     },
 
                     gear: {
