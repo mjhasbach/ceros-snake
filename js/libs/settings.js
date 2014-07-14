@@ -213,7 +213,10 @@ define([], function() {
 
             lobby: {
                 players: {
-                    previous: { font: { size: 17 }},
+                    previous: {
+                        x: 1.097,
+                        font: { size: 17 }
+                    },
 
                     font: {
                         size: 20,
