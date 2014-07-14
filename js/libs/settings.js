@@ -32,6 +32,10 @@ define([], function() {
                 }
             },
 
+            playerName: {
+                size: 13
+            },
+
             animation: {
                 transition: { speed: 1000 },
 
