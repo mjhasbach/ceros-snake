@@ -33,6 +33,13 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                 )
                             }
                         }
+                    },
+
+                    header: {
+                        group: new Kinetic.Group({
+                            x: util.calculate.absolute.x( settings.lobby.players.header.x ),
+                            y: util.calculate.absolute.y( settings.lobby.players.header.y )
+                        })
                     }
                 },
 
