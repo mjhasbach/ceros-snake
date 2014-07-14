@@ -63,12 +63,13 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                             assets.init( function( gameAssets ){
                                 require([ 'events' ], function( events ){
                                     events.init({
-                                        audio: assets.audio,
                                         stage: stage,
                                         loading: loading,
-                                        menu: gameAssets.menu,
+                                        audio: assets.audio,
                                         game: gameAssets.game,
-                                        highScores: gameAssets.highScores
+                                        highScores: gameAssets.highScores,
+                                        lobby: gameAssets.lobby,
+                                        menu: gameAssets.menu
                                     })
                                 })
                             })
