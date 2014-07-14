@@ -9,7 +9,11 @@ define([ 'backbone', 'Kinetic', 'util', 'background' ],
 
                 layer: new Kinetic.Layer,
 
-                background: background.lobby
+                background: background.lobby,
+
+                animation: new Kinetic.Animation( function( frame ){
+                    lobby.background.cycleCheck( frame )
+                })
             };
 
         return lobby
