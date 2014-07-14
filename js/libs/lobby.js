@@ -49,7 +49,12 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             stroke: settings.font.colors.stroke.enabled.hex,
                             strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
                             listening: false
-                        })
+                        }),
+
+                        init: function() {
+                            lobby.players.header.group.add( lobby.players.header.name );
+                            lobby.layer.add( lobby.players.header.group )
+                        }
                     }
                 },
 
@@ -75,6 +80,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     lobby.layer.add( lobby.background.group );
 
                     lobby.layer.add( lobby.players.container.group );
+
+                    lobby.players.header.init();
 
                     lobby.layer.add( lobby.title );
 
