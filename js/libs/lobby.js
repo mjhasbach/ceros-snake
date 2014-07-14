@@ -1,5 +1,5 @@
-define([ 'backbone', 'Kinetic', 'util', 'background' ],
-    function( Backbone, Kinetic, util, background ){
+define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
+    function( Backbone, Kinetic, settings, util, background ){
         var lobby = {
                 name: 'lobby',
 
@@ -11,12 +11,26 @@ define([ 'backbone', 'Kinetic', 'util', 'background' ],
 
                 background: background.lobby,
 
+                title: new Kinetic.Text({
+                    x: util.calculate.absolute.x( 6.8 ),
+                    y: util.calculate.absolute.y( 50 ),
+                    text: 'Multiplayer Lobby',
+                    fontSize: util.calculate.absolute.x( 11 ),
+                    fontFamily: settings.font.face,
+                    fill: settings.font.colors.fill.enabled.hex,
+                    stroke: settings.font.colors.stroke.enabled.hex,
+                    strokeWidth: util.calculate.absolute.size( settings.font.stroke.width ),
+                    listening: false
+                }),
+
                 animation: new Kinetic.Animation( function( frame ){
                     lobby.background.cycleCheck( frame )
                 }),
 
                 init: function() {
                     lobby.layer.add( lobby.background.group );
+
+                    lobby.layer.add( lobby.title );
 
                     lobby.animation.setLayers( lobby.layer )
                 }
