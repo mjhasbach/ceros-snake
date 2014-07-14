@@ -9,12 +9,13 @@ define([ 'audio', 'webFonts' ],
             },
 
             init: function( cb ){
-                require([ 'menu', 'game', 'highScores' ],
-                    function( menu, game, highScores ){
+                require([ 'game', 'highScores', 'lobby', 'menu' ],
+                    function( game, highScores, lobby, menu ){
                         cb({
-                            menu: menu,
                             game: game,
-                            highScores: highScores
+                            highScores: highScores,
+                            lobby: lobby,
+                            menu: menu
                         })
                     }
                 );
