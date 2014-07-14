@@ -37,7 +37,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                         }),
 
                         move: function() {
-                            var nameLength = this.field.tempText[ 0 ].text().length;
+                            var nameLength = this.field.text().length;
 
                             this.label.x(
                                 util.calculate.absolute.x( _s.name.label.x ) -
