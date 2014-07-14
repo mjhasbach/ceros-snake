@@ -17,7 +17,22 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             x: background.lobby.tile.size(),
                             y: background.lobby.tile.size() * 4,
                             opacity: 0.92
-                        })
+                        }),
+
+                        init: function() {
+                            var tileSize = lobby.background.tile.size();
+
+                            for ( var i = 0; i < 5; i++ ){
+                                lobby.players.container.group.add(
+                                    new Kinetic.Rect({
+                                        y: ( tileSize * 2 ) * i,
+                                        width: ( lobby.background.tile.quantity.x -2 ) * tileSize,
+                                        height: tileSize * 2,
+                                        fill: settings.lobby.players.container.colors[( i % 2 === 0 ) | 0 ]
+                                    })
+                                )
+                            }
+                        }
                     }
                 },
 
@@ -38,6 +53,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 }),
 
                 init: function() {
+                    lobby.players.container.init();
+
                     lobby.layer.add( lobby.background.group );
 
                     lobby.layer.add( lobby.players.container.group );
