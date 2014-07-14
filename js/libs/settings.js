@@ -215,7 +215,8 @@ define([], function() {
                 players: {
                     arrows: {
                         x: 1.097,
-                        font: { size: 17 }
+                        font: { size: 17 },
+                        next: { y: 1.489 }
                     },
 
                     font: {
