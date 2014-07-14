@@ -1,7 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stage', 'background' ],
-    function( Kinetic, kineticEditableText, settings, util, database, stage, background ){
-        kineticEditableText.init( Kinetic );
-
+define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
+    function( Kinetic, settings, util, database, stage, background ){
         var _s = settings.highScores,
             highScores = {
                 add: {
@@ -15,45 +13,9 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
 
                     background: background.highScores.add,
 
-                    playerName: {
-                        label: new Kinetic.Text({
-                            x: util.calculate.absolute.x( _s.name.label.x ),
-                            y: util.calculate.absolute.y( _s.name.y ),
-                            text: 'Name:',
-                            fontSize: util.calculate.absolute.size( _s.name.size ),
-                            fontFamily: 'Fira Mono',
-                            fill: settings.font.colors.fill.enabled.hex,
-                            stroke: settings.font.colors.stroke.enabled.hex,
-                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                        }),
-
-                        field: new Kinetic.EditableText({
-                            y: util.calculate.absolute.y( _s.name.y ),
-                            fontSize: util.calculate.absolute.size( _s.name.size ),
-                            fontFamily: 'Fira Mono',
-                            fill: settings.font.colors.fill.enabled.hex,
-                            stroke: settings.font.colors.stroke.enabled.hex,
-                            strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                        }),
-
-                        move: function() {
-                            var playerName = this;
-
-                            setTimeout( function() {
-                                var nameLength = playerName.field.text().length;
-
-                                playerName.label.x(
-                                    util.calculate.absolute.x( _s.name.label.x ) -
-                                        ( nameLength * util.calculate.absolute.x( 40.7 ))
-                                );
-
-                                playerName.field.tempText[ 0 ].x(
-                                    highScores.add.playerName.label.x() +
-                                        util.calculate.absolute.x( 3.8 )
-                                )
-                            }, 0 )
-                        }
-                    },
+                    playerName: new util.PlayerName({
+                        y: settings.highScores.name.y
+                    }),
 
                     keyboard: {
                         mouseOver: function() {

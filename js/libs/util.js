@@ -1,5 +1,57 @@
-define([ 'underscore', 'settings' ], function( _, settings ){
+define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ], function( _, Kinetic, kineticEditableText, settings ){
     var util = {
+            PlayerName: function( options ){
+                if ( typeof Kinetic.EditableText === 'undefined' )
+                    kineticEditableText.init( Kinetic );
+
+                return {
+                    label: new Kinetic.Text({
+                        x: util.calculate.absolute.x( settings.playerName.label.x ),
+                        y: util.calculate.absolute.y( options.y ),
+                        text: 'Name:',
+                        fontSize: util.calculate.absolute.size( settings.playerName.size ),
+                        fontFamily: 'Fira Mono',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    }),
+
+                    field: new Kinetic.EditableText({
+                        y: util.calculate.absolute.y( options.y ),
+                        fontSize: util.calculate.absolute.size( settings.playerName.size ),
+                        fontFamily: 'Fira Mono',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    }),
+
+                    move: function() {
+                        var playerName = this;
+
+                        setTimeout( function() {
+                            var x = util.calculate.absolute.x,
+                                nameLength = playerName.field.text().length;
+
+                            playerName.label.x(
+                                x( settings.playerName.label.x ) - ( nameLength * x( 42.7 ))
+                            );
+
+                            var fieldX = playerName.label.x() + playerName.label.width();
+
+                            playerName.field.x( fieldX );
+                            playerName.field.tempText[ 0 ].x( fieldX )
+                        }, 0 )
+                    },
+
+                    init: function( layer ){
+                        this.move();
+
+                        layer.add( this.label );
+                        layer.add( this.field )
+                    }
+                }
+            },
+
             SineHelper: function() {
                 var sine = {
                     lastDirection: 'up',
