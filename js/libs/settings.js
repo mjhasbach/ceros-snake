@@ -211,6 +211,14 @@ define([], function() {
                 }
             },
 
+            lobby: {
+                players: {
+                    container: {
+                        colors: [ '#191725', '#1e1a29' ]
+                    }
+                }
+            },
+
             database: {
                 scores: {
                     address: 'https://ceros-snake.firebaseio.com/scores',
