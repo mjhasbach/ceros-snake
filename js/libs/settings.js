@@ -1,6 +1,6 @@
 define([], function() {
     var settings = {
-            debug: false,
+            debug: true,
 
             font: {
                 face: 'New Rocker',

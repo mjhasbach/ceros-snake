@@ -90,7 +90,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                     menu.state.set( 'current', 'stopping' );
                                     game.state.set( 'current', 'starting' )
                                 }
-
                             })
                         })();
 
@@ -103,6 +102,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                         stroke: { hex: settings.font.colors.stroke.enabled.hex }
                                     })
                                 })
+                            });
+
+                            menu.options.multiPlayer.hitBox.on( 'click touchstart', function() {
+                                if ( menu.isNotStoppingOrStopped() ){
+                                    menu.state.set( 'current', 'stopping' );
+                                    lobby.state.set( 'current', 'starting' )
+                                }
                             })
                         })();
 
@@ -333,7 +339,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             start( highScores.view, stage )
                         }
                         else if ( current === 'stopping' ) start( menu, stage )
-                    })
+                    });
+
+                    lobby.state.on( 'change:current', function( state, current ){
+                        if ( current === 'starting' )
+                            start( lobby, stage )
+                    });
                 })();
 
                 ( function _transitionToMenu() {
