@@ -96,6 +96,16 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         }
                     },
 
+                    multiPlayer: {
+                        hitBox: new Kinetic.Rect({
+                            x: util.calculate.absolute.x( 5 ),
+                            y: util.calculate.absolute.y( 1.214 ),
+                            width: util.calculate.absolute.x( 5.86 ),
+                            height: util.calculate.absolute.y( 8.46 ),
+                            opacity: 0
+                        })
+                    },
+
                     gear: {
                         shape: new Kinetic.Text({
                             x: util.calculate.absolute.x( 2.51 ),
@@ -343,15 +353,13 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                             settings.font.colors.stroke.enabled.hex
                         );
 
-                        menu.options.multiPlayer = {
-                            shape: menu.options.numberControllerGroup(
-                                2,
-                                util.calculate.absolute.x( 5 ),
-                                util.calculate.absolute.x( 3.99 ),
-                                settings.font.colors.fill.enabled.hex,
-                                settings.font.colors.stroke.enabled.hex
-                            )
-                        }
+                        menu.options.multiPlayer.shape = menu.options.numberControllerGroup(
+                            2,
+                            util.calculate.absolute.x( 5 ),
+                            util.calculate.absolute.x( 3.99 ),
+                            settings.font.colors.fill.enabled.hex,
+                            settings.font.colors.stroke.enabled.hex
+                        )
                     })();
 
                     ( function _settingsGroup() {
@@ -377,6 +385,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
                         menu.layer.add( menu.options.singlePlayer.hitBox );
 
                         menu.layer.add( menu.options.multiPlayer.shape );
+                        menu.layer.add( menu.options.multiPlayer.hitBox );
 
                         menu.layer.add( menu.options.gear.shape );
                         menu.layer.add( menu.options.gear.hitBox );
