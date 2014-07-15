@@ -67,7 +67,12 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         width: util.calculate.absolute.size( 16.1 ),
                         height: util.calculate.absolute.size( 16.2 ),
                         opacity: 0
-                    })
+                    }),
+
+                    init: function() {
+                        lobby.layer.add( lobby.back.shape );
+                        lobby.layer.add( lobby.back.hitBox )
+                    }
                 },
 
                 players: {
@@ -184,6 +189,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     lobby.players.init();
 
                     lobby.keyboard.init();
+
+                    lobby.back.init();
 
                     lobby.playerName.init( lobby.layer );
 
