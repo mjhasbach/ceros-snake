@@ -180,8 +180,37 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 }),
 
                 animation: new Kinetic.Animation( function( frame ){
-                    lobby.background.cycleCheck( frame )
+                    lobby.background.cycleCheck( frame );
+
+                    if ( lobby.isNotStoppingOrStopped() )
+                        lobby.mouseOverCheck( frame );
+
+                    else util.module.stop( lobby, frame )
                 }),
+
+                mouseOverCheck: function( frame ){
+                    var brightnessVariance = util.calculate.brightnessVariance( frame ),
+                        hF = settings.font.colors.fill.enabled.h,
+                        sF = settings.font.colors.fill.enabled.s,
+                        lF = settings.font.colors.fill.enabled.l - brightnessVariance,
+                        hS = settings.font.colors.stroke.enabled.h,
+                        sS = settings.font.colors.stroke.enabled.s,
+                        lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
+
+                    if ( lobby.keyboard.mouseOver() )
+                        util.color.fillAndStroke({
+                            node: lobby.keyboard.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
+
+                    if ( lobby.back.mouseOver() )
+                        util.color.fillAndStroke({
+                            node: lobby.back.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        })
+                },
 
                 init: function() {
                     lobby.layer.add( lobby.background.group );
