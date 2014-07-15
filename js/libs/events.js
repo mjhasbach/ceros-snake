@@ -368,7 +368,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             start( lobby, stage );
 
                             lobby.playerName.field.focus()
-                        }
+                        } else if ( current === 'stopping' )
+                            start( menu, stage )
                     });
                 })();
 
