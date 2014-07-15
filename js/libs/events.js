@@ -58,7 +58,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 highScores.view.index += 1;
                                 highScores.view.update()
                             }
-                        }
+                        } else if ( lobby.isNotStoppingOrStopped() )
+                            lobby.playerName.move()
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
