@@ -15,6 +15,19 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     y: settings.lobby.playerName.y
                 }),
 
+                keyboard: {
+                    shape: new Kinetic.Text({
+                        x: util.calculate.absolute.x( 2.709 ),
+                        y: util.calculate.absolute.y( 1.444 ),
+                        text: '\uf11c',
+                        fontSize: util.calculate.absolute.size( 11 ),
+                        fontFamily: 'FontAwesome',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    })
+                },
+
                 players: {
                     previous: new Kinetic.Text({
                         x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
