@@ -226,6 +226,12 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     lobby.layer.add( lobby.title );
 
                     lobby.animation.setLayers( lobby.layer );
+                },
+
+                cleanUp: function() {
+                    lobby.playerName.field.clear();
+                    lobby.playerName.move();
+                    lobby.playerName.field.unfocus()
                 }
             };
 
