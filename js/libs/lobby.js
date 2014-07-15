@@ -45,6 +45,19 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     }
                 },
 
+                back: {
+                    shape: new Kinetic.Text({
+                        x: util.calculate.absolute.x( 1.875 ),
+                        y: util.calculate.absolute.y( 1.392 ),
+                        text: '\uf057',
+                        fontSize: util.calculate.absolute.size( 14.7 ),
+                        fontFamily: 'FontAwesome',
+                        fill: settings.font.colors.fill.enabled.hex,
+                        stroke: settings.font.colors.stroke.enabled.hex,
+                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    })
+                },
+
                 players: {
                     previous: new Kinetic.Text({
                         x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
