@@ -55,6 +55,14 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         fill: settings.font.colors.fill.enabled.hex,
                         stroke: settings.font.colors.stroke.enabled.hex,
                         strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
+                    }),
+
+                    hitBox: new Kinetic.Rect({
+                        x: util.calculate.absolute.x( 1.88 ),
+                        y: util.calculate.absolute.y( 1.384 ),
+                        width: util.calculate.absolute.size( 16.1 ),
+                        height: util.calculate.absolute.size( 16.2 ),
+                        opacity: 0
                     })
                 },
 
