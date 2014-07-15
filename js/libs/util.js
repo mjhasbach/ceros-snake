@@ -254,7 +254,7 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ],
                                 'five', 'six', 'seven', 'eight', 'nine'
                             ][ parseFloat( number )];
 
-                        else throw new Error( 'util.numberToText() can only handle numbers 0-9' )
+                        else throw new Error( 'util.number.toText() can only handle numbers 0-9' )
                     }
                 },
 
