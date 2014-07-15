@@ -11,6 +11,10 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                 background: background.lobby,
 
+                playerName: new util.PlayerName({
+                    y: settings.lobby.playerName.y
+                }),
+
                 players: {
                     previous: new Kinetic.Text({
                         x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
@@ -123,6 +127,8 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     lobby.layer.add( lobby.background.group );
 
                     lobby.players.init();
+
+                    lobby.playerName.init( lobby.layer );
 
                     lobby.layer.add( lobby.title );
 
