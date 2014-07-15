@@ -217,7 +217,7 @@ define([], function() {
             },
 
             lobby: {
-                playerName: { y: 1.17 },
+                playerName: { y: 1.162 },
 
                 players: {
                     arrows: {
