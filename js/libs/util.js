@@ -178,11 +178,11 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ],
                             if ( settings.debug )
                                 console.log( 'Stopping module "' + module.name + '"');
 
+                            if ( module.cleanUp ) module.cleanUp();
+
                             module.animation.stop();
 
                             module.layer.remove();
-
-                            if ( module.cleanUp ) module.cleanUp();
 
                             module.state.set( 'current', 'stopped' )
                         }
