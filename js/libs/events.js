@@ -304,6 +304,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             lobby.back.hitBox.on( 'mouseout', function() {
                                 lobby.back.shape.fill( settings.font.colors.fill.enabled.hex );
                                 lobby.back.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            });
+
+                            lobby.back.hitBox.on( 'click touchstart', function() {
+                                if ( lobby.isNotStoppingOrStopped() )
+                                    lobby.state.set( 'current', 'stopping' )
                             })
                         })()
                     })();
