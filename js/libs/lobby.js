@@ -46,6 +46,10 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 },
 
                 back: {
+                    mouseOver: function() {
+                        return util.mouse.isOverNode( lobby.back.hitBox )
+                    },
+
                     shape: new Kinetic.Text({
                         x: util.calculate.absolute.x( 1.875 ),
                         y: util.calculate.absolute.y( 1.392 ),
