@@ -298,6 +298,15 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             })();
                         })();
                     })();
+
+                    ( function _lobby() {
+                        ( function _back() {
+                            lobby.back.hitBox.on( 'mouseout', function() {
+                                lobby.back.shape.fill( settings.font.colors.fill.enabled.hex );
+                                lobby.back.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            })
+                        })()
+                    })();
                 })();
 
                 ( function _databaseEvents() {
