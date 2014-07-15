@@ -343,8 +343,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     lobby.state.on( 'change:current', function( state, current ){
-                        if ( current === 'starting' )
-                            start( lobby, stage )
+                        if ( current === 'starting' ){
+                            start( lobby, stage );
+
+                            lobby.playerName.field.focus()
+                        }
                     });
                 })();
 
