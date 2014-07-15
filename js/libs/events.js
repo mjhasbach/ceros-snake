@@ -310,7 +310,14 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 if ( lobby.isNotStoppingOrStopped() )
                                     lobby.state.set( 'current', 'stopping' )
                             })
-                        })()
+                        })();
+
+                        ( function _keyboard() {
+                            lobby.keyboard.hitBox.on( 'mouseout', function() {
+                                lobby.keyboard.shape.fill( settings.font.colors.fill.enabled.hex );
+                                lobby.keyboard.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            })
+                        })();
                     })();
                 })();
 
