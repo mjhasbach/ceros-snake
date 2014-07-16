@@ -51,6 +51,12 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                 },
 
                 init: function() {
+                    database.player.Collection = Backbone.Firebase.Collection.extend({
+                        model: database.player.Model,
+
+                        firebase: new Firebase( _s.address + 'players' )
+                    });
+
                     database.TopScores = Backbone.Firebase.Collection.extend({
                         model: database.Score,
 
