@@ -68,6 +68,8 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                         }
                     });
 
+                    database.player.list = new database.player.Collection;
+
                     database.scores = new database.TopScores
                 }
             };
