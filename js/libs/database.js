@@ -11,7 +11,12 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                                 available: true
                             }
                         }
-                    })
+                    }),
+
+                    removeMeOnDisconnect: function() {
+                        new Firebase( _s.address + 'players/' + database.player.me.id )
+                            .onDisconnect().remove()
+                    }
                 },
 
                 Score: Backbone.Model.extend({
