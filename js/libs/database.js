@@ -2,6 +2,16 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
     function( Backbone, Firebase, settings ){
         var _s = settings.database,
             database = {
+                player: {
+                    Model: Backbone.Model.extend({
+                        defaults: function() {
+                            return {
+                                available: true
+                            }
+                        }
+                    })
+                },
+
                 Score: Backbone.Model.extend({
                     defaults: function() {
                         return {
