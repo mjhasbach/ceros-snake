@@ -246,11 +246,7 @@ define([], function() {
             database: {
                 address: 'https://ceros-snake.firebaseio.com/',
 
-                scores: {
-                    address: 'https://ceros-snake.firebaseio.com/scores',
-
-                    limit: 100
-                }
+                scores: { limit: 100 }
             }
         };
 
