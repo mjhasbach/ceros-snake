@@ -2,6 +2,8 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
     function( Backbone, Firebase, settings ){
         var _s = settings.database,
             database = {
+                connected: new Firebase( _s.address + '.info/connected' ),
+
                 player: {
                     Model: Backbone.Model.extend({
                         defaults: function() {

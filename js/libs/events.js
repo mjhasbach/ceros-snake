@@ -322,6 +322,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                 })();
 
                 ( function _databaseEvents() {
+                    database.connected.on( 'value', function( status ){
+
+                    });
+
                     database.scores.on( 'add', function( record ){
                         if ( highScores.view.state.get( 'current' ) === 'running' )
                             if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
