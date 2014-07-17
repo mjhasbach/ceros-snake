@@ -139,8 +139,21 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             listening: false
                         }),
 
+                        available: new Kinetic.Text({
+                            text: 'Available',
+                            x: util.calculate.absolute.x( settings.lobby.players.header.available.x ),
+                            y: util.calculate.absolute.y( settings.lobby.players.header.available.yOffset ),
+                            fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
+                            fontFamily: settings.font.face,
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
+                        }),
+
                         init: function() {
                             lobby.players.header.group.add( lobby.players.header.name );
+                            lobby.players.header.group.add( lobby.players.header.available );
 
                             lobby.layer.add( lobby.players.header.group )
                         }
