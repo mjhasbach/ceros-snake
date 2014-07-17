@@ -324,24 +324,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     })();
                 })();
 
-                ( function _databaseEvents() {
-                    database.connected.on( 'value', function( status ){
-                        if ( status.val() === true ){
-                            database.player.me = database.player.list.get(
-                                database.player.list.create().id
-                            );
-
-                            database.player.removeMeOnDisconnect()
-                        }
-                    });
-
-                    database.scores.on( 'add', function( record ){
-                        if ( highScores.view.state.get( 'current' ) === 'running' )
-                            if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
-                                highScores.view.index++
-                    })
-                })();
-
                 ( function _transitionListener() {
                     var start = util.module.start;
 
@@ -382,6 +364,24 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         else if ( current === 'stopping' )
                             start( menu, stage )
                     });
+                })();
+
+                ( function _databaseEvents() {
+                    database.connected.on( 'value', function( status ){
+                        if ( status.val() === true ){
+                            database.player.me = database.player.list.get(
+                                database.player.list.create().id
+                            );
+
+                            database.player.removeMeOnDisconnect()
+                        }
+                    });
+
+                    database.scores.on( 'add', function( record ){
+                        if ( highScores.view.state.get( 'current' ) === 'running' )
+                            if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
+                                highScores.view.index++
+                    })
                 })();
 
                 ( function _transitionToMenu() {
