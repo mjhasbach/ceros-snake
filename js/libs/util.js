@@ -1,5 +1,5 @@
-define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ],
-    function( _, Kinetic, kineticEditableText, settings ){
+define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' ],
+    function( _, Kinetic, kineticEditableText, settings, database ){
         var util = {
                 PlayerName: function( options ){
                     if ( typeof Kinetic.EditableText === 'undefined' )
@@ -157,7 +157,13 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ],
 
                         stage.add( module.layer );
 
-                        if ( module.playerName && module.playerName.field ) module.playerName.field.focus();
+                        if ( module.playerName && module.playerName.field ){
+                            module.playerName.field.focus();
+
+                            module.playerName.field.text(
+                                database.player.me.get( 'name' ) || ''
+                            )
+                        }
 
                         module.layer.opacity( 1 );
 
