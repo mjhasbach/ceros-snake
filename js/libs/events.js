@@ -327,7 +327,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                 ( function _databaseEvents() {
                     database.connected.on( 'value', function( status ){
                         if ( status.val() === true ){
-                            database.player.me = database.player.list.create();
+                            database.player.me = database.player.list.get(
+                                database.player.list.create().id
+                            );
 
                             database.player.removeMeOnDisconnect()
                         }
