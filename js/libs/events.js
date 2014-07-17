@@ -58,8 +58,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 highScores.view.index += 1;
                                 highScores.view.update()
                             }
-                        } else if ( lobby.isNotStoppingOrStopped() )
+                        } else if ( lobby.isNotStoppingOrStopped() ){
+                            database.player.name.update( lobby );
                             lobby.playerName.move()
+                        }
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
