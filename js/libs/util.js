@@ -182,9 +182,7 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
                     },
 
                     stop: function( module, frame ){
-                        util.animation.fade( module.layer, frame, 'out' );
-
-                        if ( module.layer.opacity() === 0 ){
+                        util.animation.fade( module.layer, frame, 'out', function() {
                             if ( settings.debug )
                                 console.log( 'Stopping module "' + module.name + '"');
 
@@ -195,7 +193,7 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
                             module.layer.remove();
 
                             module.state.set( 'current', 'stopped' )
-                        }
+                        })
                     },
 
                     isNotStoppingOrStopped: function() {
