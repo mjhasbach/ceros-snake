@@ -16,6 +16,15 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                     removeMeOnDisconnect: function() {
                         new Firebase( _s.address + 'players/' + database.player.me.id )
                             .onDisconnect().remove()
+                    },
+
+                    name: {
+                        update: function( module ){
+                            setTimeout( function() {
+                                database.player.list.get( database.player.me.id )
+                                    .set( 'name', module.playerName.field.text() );
+                            }, 0 )
+                        }
                     }
                 },
 
