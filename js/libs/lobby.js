@@ -230,7 +230,6 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 },
 
                 cleanUp: function() {
-                    lobby.playerName.move();
                     lobby.playerName.field.unfocus()
                 }
             };

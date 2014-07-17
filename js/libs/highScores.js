@@ -137,9 +137,7 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
 
                         highScores.add.background.count( score );
 
-                        util.module.start( highScores.add, stage );
-
-                        highScores.add.playerName.move()
+                        util.module.start( highScores.add, stage )
                     },
 
                     init: function() {

@@ -162,7 +162,9 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
 
                             module.playerName.field.text(
                                 database.player.me.get( 'name' ) || ''
-                            )
+                            );
+
+                            module.playerName.move()
                         }
 
                         module.layer.opacity( 1 );
