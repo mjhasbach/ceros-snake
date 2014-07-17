@@ -41,6 +41,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             handleNewDirection( key.which, [ keys.right, keys.d ], 'right' )
 
                         } else if ( highScores.add.isNotStoppingOrStopped() ){
+                            database.player.name.update( highScores.add );
                             highScores.add.playerName.move();
 
                             if ( key.which == keys.enter )
