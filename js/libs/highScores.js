@@ -163,7 +163,6 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
                     cleanUp: function() {
                         highScores.add.score = 0;
 
-                        highScores.add.playerName.field.clear();
                         highScores.add.playerName.field.unfocus();
 
                         highScores.add.submit.hitBox.fire( 'mouseout' );
