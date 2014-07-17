@@ -3,6 +3,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
         var loading = {
                 name: 'loading',
 
+                isNotStoppingOrStopped: util.module.isNotStoppingOrStopped,
+
                 state: new Backbone.Model({ current: 'stopped' }),
 
                 layer: new Kinetic.Layer,
