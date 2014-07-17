@@ -375,11 +375,9 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     lobby.state.on( 'change:current', function( state, current ){
-                        if ( current === 'starting' ){
+                        if ( current === 'starting' )
                             start( lobby, stage );
-
-                            lobby.playerName.field.focus()
-                        } else if ( current === 'stopping' )
+                        else if ( current === 'stopping' )
                             start( menu, stage )
                     });
                 })();

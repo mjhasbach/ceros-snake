@@ -157,6 +157,8 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings' ],
 
                         stage.add( module.layer );
 
+                        if ( module.playerName && module.playerName.field ) module.playerName.field.focus();
+
                         module.layer.opacity( 1 );
 
                         module.layer.moveToBottom();

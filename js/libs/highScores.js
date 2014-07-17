@@ -139,8 +139,6 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
 
                         util.module.start( highScores.add, stage );
 
-                        highScores.add.playerName.field.focus();
-
                         highScores.add.playerName.move()
                     },
 
