@@ -60,11 +60,6 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                                   'if you do not wish to record your high score.' )
                 },
 
-                waitUntilConnected: function wait( cb ){
-                    if ( database.scores.at( 0 )) cb();
-                    else setTimeout( wait, 100, cb )
-                },
-
                 init: function() {
                     database.player.Collection = Backbone.Firebase.Collection.extend({
                         model: database.player.Model,

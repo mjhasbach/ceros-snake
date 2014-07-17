@@ -373,7 +373,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 database.player.list.create().id
                             );
 
-                            database.player.removeMeOnDisconnect()
+                            database.player.removeMeOnDisconnect();
+
+                            if ( loading.isNotStoppingOrStopped() ){
+                                assets.audio.song.mp3.play().loop();
+                                loading.state.set({ current: 'stopping' })
+                            }
                         }
                     });
 
@@ -383,13 +388,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 highScores.view.index++
                     })
                 })();
-
-                ( function _transitionToMenu() {
-                    database.waitUntilConnected( function() {
-                        assets.audio.song.mp3.play().loop();
-                        loading.state.set( 'current', 'stopping' )
-                    })
-                })()
             }
         }
     }
