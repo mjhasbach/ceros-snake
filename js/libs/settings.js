@@ -233,7 +233,10 @@ define([], function() {
 
                     header: {
                         x: 10,
-                        y: 5.8
+                        y: 5.8,
+                        available: {
+                            x: 2
+                        }
                     },
 
                     container: {
