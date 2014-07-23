@@ -220,12 +220,6 @@ define([], function() {
                 playerName: { y: 1.162 },
 
                 players: {
-                    arrows: {
-                        x: 1.097,
-                        font: { size: 17 },
-                        next: { y: 1.625 }
-                    },
-
                     font: {
                         size: 20,
                         strokeWidth: 500
