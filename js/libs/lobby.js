@@ -96,9 +96,62 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         }
                     },
 
+                    rows: {
+                        group: new Kinetic.Group({
+                            y: ( background.lobby.tile.size() * 5 )
+                        }),
+
+                        init: function() {
+                            if ( !lobby.players.container.hasBeenInitialized )
+                                throw new Error( 'lobby.players.container has not been initialized' );
+                            else if ( !lobby.players.header.hasBeenInitialized )
+                                throw new Error( 'lobby.players.header has not been initialized' );
+                            else {
+                                for ( var i = 0; i < lobby.players.container.group.getChildren().length - 1; i++ ){
+                                    var row = new Kinetic.Group({
+                                        y: ( background.lobby.tile.size() * 2 ) * ( i + 0.16 )
+                                    });
+
+                                    row.add(
+                                        new Kinetic.Text({
+                                            align: 'center',
+                                            fontFamily: 'Fira Mono',
+                                            fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
+                                            x: lobby.players.header.name.x(),
+                                            width: lobby.players.header.name.width(),
+                                            fill: settings.font.colors.fill.enabled.hex,
+                                            stroke: settings.font.colors.stroke.enabled.hex,
+                                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                                            listening: false
+                                        })
+                                    );
+
+                                    row.add(
+                                        new Kinetic.Text({
+                                            align: 'center',
+                                            fontFamily: 'Fira Mono',
+                                            fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
+                                            x: lobby.players.header.available.x(),
+                                            width: lobby.players.header.available.width(),
+                                            fill: settings.font.colors.fill.enabled.hex,
+                                            stroke: settings.font.colors.stroke.enabled.hex,
+                                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                                            listening: false
+                                        })
+                                    );
+
+                                    lobby.players.rows.group.add( row )
+                                }
+
+                                lobby.layer.add( lobby.players.rows.group )
+                            }
+                        }
+                    },
+
                     init: function() {
                         lobby.players.container.init();
-                        lobby.players.header.init()
+                        lobby.players.header.init();
+                        lobby.players.rows.init()
                     }
                 },
 
