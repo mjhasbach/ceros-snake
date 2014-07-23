@@ -334,16 +334,15 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         sS = settings.font.colors.stroke.enabled.s,
                         lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
 
-                    if ( lobby.options.keyboard.mouseOver() )
-                        util.color.fillAndStroke({
-                            node: lobby.options.keyboard.shape,
-                            fill: { h: hF, s: sF, l: lF },
-                            stroke: { h: hS, s: sS, l: lS }
-                        });
-
                     if ( lobby.options.back.mouseOver() )
                         util.color.fillAndStroke({
                             node: lobby.options.back.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
+                    else if ( lobby.options.keyboard.mouseOver() )
+                        util.color.fillAndStroke({
+                            node: lobby.options.keyboard.shape,
                             fill: { h: hF, s: sF, l: lF },
                             stroke: { h: hS, s: sS, l: lS }
                         })
