@@ -89,7 +89,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                 header.group.add( header.name );
                                 header.group.add( header.available );
 
-                                lobby.layer.add( header.group )
+                                lobby.layer.add( header.group );
+
+                                header.hasBeenInitialized = true
                             }
                         }
                     },
