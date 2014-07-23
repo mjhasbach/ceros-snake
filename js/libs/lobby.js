@@ -15,89 +15,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     y: settings.lobby.playerName.y
                 }),
 
-                keyboard: {
-                    mouseOver: function() {
-                        return util.mouse.isOverNode( lobby.keyboard.hitBox )
-                    },
-
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( 2.709 ),
-                        y: util.calculate.absolute.y( 1.444 ),
-                        text: '\uf11c',
-                        fontSize: util.calculate.absolute.size( 11 ),
-                        fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex,
-                        stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                    }),
-
-                    hitBox: new Kinetic.Rect({
-                        x: util.calculate.absolute.x( 2.718 ),
-                        y: util.calculate.absolute.y( 1.384 ),
-                        width: util.calculate.absolute.size( 9.9 ),
-                        height: util.calculate.absolute.size( 16 ),
-                        opacity: 0
-                    }),
-
-                    init: function() {
-                        lobby.layer.add( lobby.keyboard.shape );
-                        lobby.layer.add( lobby.keyboard.hitBox )
-                    }
-                },
-
-                back: {
-                    mouseOver: function() {
-                        return util.mouse.isOverNode( lobby.back.hitBox )
-                    },
-
-                    shape: new Kinetic.Text({
-                        x: util.calculate.absolute.x( 1.875 ),
-                        y: util.calculate.absolute.y( 1.392 ),
-                        text: '\uf057',
-                        fontSize: util.calculate.absolute.size( 14.7 ),
-                        fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex,
-                        stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( settings.font.stroke.width )
-                    }),
-
-                    hitBox: new Kinetic.Rect({
-                        x: util.calculate.absolute.x( 1.88 ),
-                        y: util.calculate.absolute.y( 1.384 ),
-                        width: util.calculate.absolute.size( 16.1 ),
-                        height: util.calculate.absolute.size( 16.2 ),
-                        opacity: 0
-                    }),
-
-                    init: function() {
-                        lobby.layer.add( lobby.back.shape );
-                        lobby.layer.add( lobby.back.hitBox )
-                    }
-                },
-
                 players: {
-                    previous: new Kinetic.Text({
-                        x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
-                        y: util.calculate.absolute.y( settings.lobby.players.header.y ),
-                        text: '\uf0aa',
-                        fontSize: util.calculate.absolute.size( settings.lobby.players.arrows.font.size ),
-                        fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex,
-                        stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth )
-                    }),
-
-                    next: new Kinetic.Text({
-                        x: util.calculate.absolute.x( settings.lobby.players.arrows.x ),
-                        y: util.calculate.absolute.y( settings.lobby.players.arrows.next.y ),
-                        text: '\uf0ab',
-                        fontSize: util.calculate.absolute.size( settings.lobby.players.arrows.font.size ),
-                        fontFamily: 'FontAwesome',
-                        fill: settings.font.colors.fill.enabled.hex,
-                        stroke: settings.font.colors.stroke.enabled.hex,
-                        strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth )
-                    }),
-
                     container: {
                         group: new Kinetic.Group({
                             x: background.lobby.tile.size(),
@@ -161,10 +79,156 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                     init: function() {
                         lobby.players.container.init();
-                        lobby.players.header.init();
+                        lobby.players.header.init()
+                    }
+                },
 
-                        lobby.layer.add( lobby.players.previous );
-                        lobby.layer.add( lobby.players.next )
+                options: {
+                    container: {
+                        shape: new Kinetic.Rect({
+                            x: ( background.lobby.tile.quantity.x - 4 ) * background.lobby.tile.size(),
+                            y: background.lobby.tile.size() * 3,
+                            width: background.lobby.tile.size() * 3,
+                            height: background.lobby.tile.size() * 12,
+                            fill: settings.lobby.players.container.colors[ 0 ],
+                            listening: false
+                        }),
+
+                        init: function() {
+                            lobby.layer.add( lobby.options.container.shape )
+                        }
+                    },
+
+                    back: {
+                        mouseOver: function() {
+                            return util.mouse.isOverNode( lobby.options.back.hitBox )
+                        },
+
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( settings.lobby.options.back.y ),
+                            text: '\uf057',
+                            fontSize: util.calculate.absolute.size( settings.lobby.options.circular.font.size ),
+                            fontFamily: 'FontAwesome',
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
+                        }),
+
+                        hitBox: new Kinetic.Rect({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( 5.4 ),
+                            width: util.calculate.absolute.size( 13.6 ),
+                            height: util.calculate.absolute.size( 13.6 ),
+                            opacity: 0
+                        }),
+
+                        init: function() {
+                            lobby.layer.add( lobby.options.back.shape );
+                            lobby.layer.add( lobby.options.back.hitBox )
+                        }
+                    },
+
+                    previous: {
+                        mouseOver: function() {
+                            return util.mouse.isOverNode( lobby.options.previous.hitBox )
+                        },
+
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( settings.lobby.options.previous.y ),
+                            text: '\uf0aa',
+                            fontSize: util.calculate.absolute.size( settings.lobby.options.circular.font.size ),
+                            fontFamily: 'FontAwesome',
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
+                        }),
+
+                        hitBox: new Kinetic.Rect({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( 2.7 ),
+                            width: util.calculate.absolute.size( 13.6 ),
+                            height: util.calculate.absolute.size( 13.6 ),
+                            opacity: 0
+                        }),
+
+                        init: function() {
+                            lobby.layer.add( lobby.options.previous.shape );
+                            lobby.layer.add( lobby.options.previous.hitBox )
+                        }
+                    },
+
+                    next: {
+                        mouseOver: function() {
+                            return util.mouse.isOverNode( lobby.options.next.hitBox )
+                        },
+
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( settings.lobby.options.next.y ),
+                            text: '\uf0ab',
+                            fontSize: util.calculate.absolute.size( settings.lobby.options.circular.font.size ),
+                            fontFamily: 'FontAwesome',
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
+                        }),
+
+                        hitBox: new Kinetic.Rect({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( 1.81 ),
+                            width: util.calculate.absolute.size( 13.6 ),
+                            height: util.calculate.absolute.size( 13.6 ),
+                            opacity: 0
+                        }),
+
+                        init: function() {
+                            lobby.layer.add( lobby.options.next.shape );
+                            lobby.layer.add( lobby.options.next.hitBox )
+                        }
+                    },
+
+                    keyboard: {
+                        mouseOver: function() {
+                            return util.mouse.isOverNode( lobby.options.keyboard.hitBox )
+                        },
+
+                        shape: new Kinetic.Text({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( settings.lobby.options.keyboard.y ),
+                            text: '\uf11c',
+                            fontSize: util.calculate.absolute.size( settings.lobby.options.keyboard.font.size ),
+                            fontFamily: 'FontAwesome',
+                            fill: settings.font.colors.fill.enabled.hex,
+                            stroke: settings.font.colors.stroke.enabled.hex,
+                            strokeWidth: util.calculate.absolute.size( settings.lobby.players.font.strokeWidth ),
+                            listening: false
+                        }),
+
+                        hitBox: new Kinetic.Rect({
+                            x: util.calculate.absolute.x( settings.lobby.options.x ),
+                            y: util.calculate.absolute.y( 1.36 ),
+                            width: util.calculate.absolute.size( 13.8 ),
+                            height: util.calculate.absolute.size( 22 ),
+                            opacity: 0
+                        }),
+
+                        init: function() {
+                            lobby.layer.add( lobby.options.keyboard.shape );
+                            lobby.layer.add( lobby.options.keyboard.hitBox )
+                        }
+                    },
+
+                    init: function() {
+                        lobby.options.container.init();
+                        lobby.options.back.init();
+                        lobby.options.previous.init();
+                        lobby.options.next.init();
+                        lobby.options.keyboard.init()
                     }
                 },
 
@@ -198,16 +262,16 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         sS = settings.font.colors.stroke.enabled.s,
                         lS = settings.font.colors.stroke.enabled.l - brightnessVariance;
 
-                    if ( lobby.keyboard.mouseOver() )
+                    if ( lobby.options.keyboard.mouseOver() )
                         util.color.fillAndStroke({
-                            node: lobby.keyboard.shape,
+                            node: lobby.options.keyboard.shape,
                             fill: { h: hF, s: sF, l: lF },
                             stroke: { h: hS, s: sS, l: lS }
                         });
 
-                    if ( lobby.back.mouseOver() )
+                    if ( lobby.options.back.mouseOver() )
                         util.color.fillAndStroke({
-                            node: lobby.back.shape,
+                            node: lobby.options.back.shape,
                             fill: { h: hF, s: sF, l: lF },
                             stroke: { h: hS, s: sS, l: lS }
                         })
@@ -218,9 +282,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                     lobby.players.init();
 
-                    lobby.keyboard.init();
-
-                    lobby.back.init();
+                    lobby.options.init();
 
                     lobby.playerName.init( lobby.layer );
 

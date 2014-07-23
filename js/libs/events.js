@@ -304,23 +304,23 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                     ( function _lobby() {
                         ( function _back() {
-                            lobby.back.hitBox.on( 'mouseout', function() {
-                                lobby.back.shape.fill( settings.font.colors.fill.enabled.hex );
-                                lobby.back.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            lobby.options.back.hitBox.on( 'mouseout', function() {
+                                lobby.options.back.shape.fill( settings.font.colors.fill.enabled.hex );
+                                lobby.options.back.shape.stroke( settings.font.colors.stroke.enabled.hex )
                             });
 
-                            lobby.back.hitBox.on( 'click touchstart', function() {
+                            lobby.options.back.hitBox.on( 'click touchstart', function() {
                                 if ( lobby.isNotStoppingOrStopped() )
                                     lobby.state.set( 'current', 'stopping' )
                             })
                         })();
 
                         ( function _keyboard() {
-                            lobby.keyboard.hitBox.on( 'mouseout', function() {
-                                lobby.keyboard.shape.fill( settings.font.colors.fill.enabled.hex );
-                                lobby.keyboard.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            lobby.options.keyboard.hitBox.on( 'mouseout', function() {
+                                lobby.options.keyboard.shape.fill( settings.font.colors.fill.enabled.hex );
+                                lobby.options.keyboard.shape.stroke( settings.font.colors.stroke.enabled.hex )
                             })
-                        })();
+                        })()
                     })();
                 })();
 
