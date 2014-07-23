@@ -229,7 +229,7 @@ define([], function() {
                         x: 10,
                         y: 5.8,
                         available: {
-                            x: 2,
+                            x: 1.8,
                             yOffset: 90
                         }
                     },
