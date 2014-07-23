@@ -73,10 +73,14 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         }),
 
                         init: function() {
-                            lobby.players.header.group.add( lobby.players.header.name );
-                            lobby.players.header.group.add( lobby.players.header.available );
+                            if ( !lobby.players.container.hasBeenInitialized )
+                                throw new Error( 'lobby.players.container has not been initialized' );
+                            else {
+                                lobby.players.header.group.add( lobby.players.header.name );
+                                lobby.players.header.group.add( lobby.players.header.available );
 
-                            lobby.layer.add( lobby.players.header.group )
+                                lobby.layer.add( lobby.players.header.group )
+                            }
                         }
                     },
 
