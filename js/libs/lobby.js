@@ -46,12 +46,12 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                     header: {
                         group: new Kinetic.Group({
-                            x: util.calculate.absolute.x( settings.lobby.players.header.x ),
                             y: util.calculate.absolute.y( settings.lobby.players.header.y )
                         }),
 
                         name: new Kinetic.Text({
                             text: 'Name',
+                            align: 'center',
                             fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
                             fontFamily: settings.font.face,
                             fill: settings.font.colors.fill.enabled.hex,
@@ -78,6 +78,11 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             if ( !lobby.players.container.hasBeenInitialized )
                                 throw new Error( 'lobby.players.container has not been initialized' );
                             else {
+                                var rowWidth = lobby.players.container.group.getChildren()[ 0 ].width();
+
+                                header.name.x( lobby.players.container.group.x() );
+                                header.name.width( rowWidth * 0.7 );
+
                                 header.group.add( header.name );
                                 header.group.add( header.available );
 
