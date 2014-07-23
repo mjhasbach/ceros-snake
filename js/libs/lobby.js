@@ -348,6 +348,13 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             stroke: { h: hS, s: sS, l: lS }
                         });
 
+                    else if ( lobby.options.next.mouseOver() )
+                        util.color.fillAndStroke({
+                            node: lobby.options.next.shape,
+                            fill: { h: hF, s: sF, l: lF },
+                            stroke: { h: hS, s: sS, l: lS }
+                        });
+
                     else if ( lobby.options.keyboard.mouseOver() )
                         util.color.fillAndStroke({
                             node: lobby.options.keyboard.shape,
