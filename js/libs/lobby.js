@@ -38,7 +38,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                 )
                             }
 
-                            lobby.layer.add( container.group )
+                            lobby.layer.add( container.group );
+
+                            container.hasBeenInitialized = true
                         }
                     },
 
