@@ -62,7 +62,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                         available: new Kinetic.Text({
                             text: 'Available',
-                            x: util.calculate.absolute.x( settings.lobby.players.header.available.x ),
+                            align: 'center',
                             y: util.calculate.absolute.y( settings.lobby.players.header.available.yOffset ),
                             fontSize: util.calculate.absolute.x( settings.lobby.players.font.size ),
                             fontFamily: settings.font.face,
@@ -82,6 +82,9 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                                 header.name.x( lobby.players.container.group.x() );
                                 header.name.width( rowWidth * 0.7 );
+
+                                header.available.x( header.name.x() + header.name.width() );
+                                header.available.width( rowWidth * 0.3 );
 
                                 header.group.add( header.name );
                                 header.group.add( header.available );
