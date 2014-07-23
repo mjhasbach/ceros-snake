@@ -243,6 +243,23 @@ define([], function() {
                     container: {
                         colors: [ '#191725', '#1e1a29' ]
                     }
+                },
+
+                options: {
+                    x: 1.129,
+
+                    circular: { font: { size: 12 }},
+
+                    back: { y: 5.6 },
+
+                    previous: { y: 2.755 },
+
+                    next: { y: 1.834 },
+
+                    keyboard: {
+                        y: 1.4,
+                        font: { size: 15 }
+                    }
                 }
             },
 
