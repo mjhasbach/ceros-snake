@@ -30,7 +30,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                 lobby.players.container.group.add(
                                     new Kinetic.Rect({
                                         y: ( tileSize * 2 ) * i,
-                                        width: ( lobby.background.tile.quantity.x -2 ) * tileSize,
+                                        width: ( lobby.background.tile.quantity.x - 5 ) * tileSize,
                                         height: tileSize * 2,
                                         fill: settings.lobby.players.container.colors[( i % 2 === 0 ) | 0 ]
                                     })
