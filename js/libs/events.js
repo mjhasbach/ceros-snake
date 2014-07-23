@@ -322,6 +322,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             })
                         })();
 
+                        ( function _next() {
+                            lobby.options.next.hitBox.on( 'mouseout', function() {
+                                lobby.options.next.shape.fill( settings.font.colors.fill.enabled.hex );
+                                lobby.options.next.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            })
+                        })();
+
                         ( function _keyboard() {
                             lobby.options.keyboard.hitBox.on( 'mouseout', function() {
                                 lobby.options.keyboard.shape.fill( settings.font.colors.fill.enabled.hex );
