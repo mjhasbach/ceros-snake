@@ -26,7 +26,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                         init: function() {
                             var tileSize = lobby.background.tile.size();
 
-                            for ( var i = 0; i < 5; i++ ){
+                            for ( var i = 0; i < 6; i++ ){
                                 lobby.players.container.group.add(
                                     new Kinetic.Rect({
                                         y: ( tileSize * 2 ) * i,
