@@ -389,6 +389,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                             database.player.removeMeOnDisconnect();
 
+                            lobby.players.update();
+
                             if ( loading.isNotStoppingOrStopped() ){
                                 assets.audio.song.mp3.play().loop();
                                 loading.state.set({ current: 'stopping' })
