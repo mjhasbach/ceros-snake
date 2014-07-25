@@ -369,9 +369,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                 })();
 
                 ( function _databaseEvents() {
-                    database.player.list.on( 'change', function( player ){
-                        if ( _.indexOf( lobby.players.displayed, player ) != -1 )
-                            lobby.players.update()
+                    database.player.list.on( 'change', function() {
+                        lobby.players.update()
                     });
 
                     database.connected.on( 'value', function( status ){

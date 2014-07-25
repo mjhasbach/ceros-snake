@@ -160,21 +160,24 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
 
                     update: function( options ){
                         setTimeout( function() {
-                            var playerList = database.player.list,
-                                rows = lobby.players.rows.group.getChildren();
+                            var rows = lobby.players.rows.group.getChildren(),
+                                players = lobby.players.current();
 
-                            lobby.players.displayed = [];
+                            if ( options ){
+                                if ( options.previous ) database.player.index -= rows.length;
+                                else if ( options.next ) database.player.index += rows.length
+                            }
 
                             for ( var i = 0; i < rows.length; i++ ){
-                                var x = options && options.previous ? -i : i,
-                                    player = playerList.at( database.player.index + x );
+                                var player = players[ i ],
+                                    columns = rows[ i ].getChildren(),
+                                    nameField = columns[ 0 ],
+                                    availableField = columns[ 1 ];
 
                                 if ( player ){
-                                    var playerName = player.get( 'name' ),
-                                        columns = rows[ i ].getChildren(),
-                                        nameField = columns[ 0 ];
+                                    var playerName = $.trim( player.get( 'name' ));
 
-                                    if ( $.trim( playerName ) === '' )
+                                    if ( playerName === '' )
                                         nameField.text( 'Anonymous' );
                                     else
                                         nameField.text( playerName );
@@ -183,18 +186,13 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                                         nameField.text( nameField.text() + ' (You)' );
 
                                     if ( player.get( 'available' ))
-                                        columns[ 1 ].text( 'Yes' );
+                                        availableField.text( 'Yes' );
                                     else
-                                        columns[ 1 ].text( 'No' );
-
-                                    lobby.players.displayed.push( player )
-
-                                } else break
-                            }
-
-                            if ( options ){
-                                if ( options.previous ) database.player.index -= rows.length;
-                                else if ( options.next ) database.player.index += rows.length
+                                        availableField.text( 'No' )
+                                } else {
+                                    nameField.text( '' );
+                                    availableField.text( '' )
+                                }
                             }
                         }, 0 )
                     },
