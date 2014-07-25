@@ -369,7 +369,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                 })();
 
                 ( function _databaseEvents() {
-                    database.player.list.on( 'change', function() {
+                    database.player.list.on( 'change add remove', function() {
                         lobby.players.update()
                     });
 
