@@ -179,8 +179,6 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
 
                     background: background.highScores.view,
 
-                    index: 0,
-
                     playerName: {
                         label: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.name.label.x ),
@@ -338,32 +336,45 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
                             })
                     },
 
-                    update: function() {
-                        highScores.view.current = database.scores.at( highScores.view.index );
+                    update: function( options ){
+                        var o = options;
 
-                        highScores.view.background.count( highScores.view.current.get( 'score' ));
+                        if ( o.reset || !highScores.view.current )
+                            highScores.view.current = database.scores.at( 0 );
+                        else {
+                            var x = o && o.previous ? -1 : o && o.next ? 1 : 0;
 
-                        highScores.view.playerName.scoreHolder.text( highScores.view.current.get( 'name' ));
-
-                        highScores.view.playerName.move();
-
-                        if ( highScores.view.index === 0 ){
-                            highScores.view.previous.shape.remove();
-                            highScores.view.previous.hitBox.remove()
-
-                        } else if ( highScores.view.index === database.scores.length - 1 ){
-                            highScores.view.next.shape.remove();
-                            highScores.view.next.hitBox.remove()
+                            highScores.view.current = database.scores.at(
+                                database.scores.indexOf( highScores.view.current ) + x
+                            )
                         }
 
-                        if ( highScores.view.index > 0 && !highScores.view.previous.shape.getParent() ){
-                            highScores.view.layer.add( highScores.view.previous.shape );
-                            highScores.view.layer.add( highScores.view.previous.hitBox )
+                        var layer = highScores.view.layer,
+                            previous = highScores.view.previous,
+                            next = highScores.view.next,
+                            current = highScores.view.current,
+                            playerName = highScores.view.playerName;
 
-                        } else if ( highScores.view.index < database.scores.length - 1 &&
-                                    !highScores.view.next.shape.getParent() ){
-                            highScores.view.layer.add( highScores.view.next.shape );
-                            highScores.view.layer.add( highScores.view.next.hitBox )
+                        highScores.view.background.count( current.get( 'score' ));
+
+                        playerName.scoreHolder.text( current.get( 'name' ));
+
+                        playerName.move();
+
+                        if ( current == database.scores.at( 0 )){
+                            previous.shape.remove();
+                            previous.hitBox.remove()
+                        } else if ( !previous.shape.getParent() ){
+                            layer.add( previous.shape );
+                            layer.add( previous.hitBox )
+                        }
+
+                        if ( current == database.scores.at( database.scores.length - 1 )){
+                            next.shape.remove();
+                            next.hitBox.remove()
+                        } else if ( !next.shape.getParent() ){
+                            layer.add( next.shape );
+                            layer.add( next.hitBox )
                         }
                     },
 
@@ -386,8 +397,6 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
                     },
 
                     cleanUp: function() {
-                        highScores.view.index = 0;
-
                         highScores.view.back.hitBox.fire( 'mouseout' )
                     }
                 },

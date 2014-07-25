@@ -48,17 +48,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 database.submitScore( highScores )
 
                         } else if ( highScores.view.isNotStoppingOrStopped() ){
-                            if ( key.which == keys.left && highScores.view.index !== 0 ){
+                            if ( key.which == keys.left && highScores.view.previous.shape.getParent() )
+                                highScores.view.update({ previous: true });
+                            else if ( key.which == keys.right && highScores.view.next.shape.getParent() )
+                                highScores.view.update({ next: true })
 
-                                highScores.view.index -= 1;
-                                highScores.view.update()
-
-                            } else if ( key.which == keys.right &&
-                                        highScores.view.index !== database.scores.length - 1 ){
-
-                                highScores.view.index += 1;
-                                highScores.view.update()
-                            }
                         } else if ( lobby.isNotStoppingOrStopped() ){
                             database.player.name.update( lobby );
                             lobby.playerName.move()
@@ -257,11 +251,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 });
 
                                 highScores.view.previous.hitBox.on( 'click touchstart', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.index -= 1;
-
-                                        highScores.view.update()
-                                    }
+                                    if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.update({ previous: true })
                                 })
                             })();
 
@@ -277,11 +268,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 });
 
                                 highScores.view.next.hitBox.on( 'click touchstart', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.index += 1;
-
-                                        highScores.view.update()
-                                    }
+                                    if ( highScores.view.isNotStoppingOrStopped() )
+                                        highScores.view.update({ next: true })
                                 })
                             })();
 
@@ -365,7 +353,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                     highScores.view.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
-                            highScores.view.update();
+                            highScores.view.update({ reset: true });
 
                             start( highScores.view, stage )
                         }
@@ -401,14 +389,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 loading.state.set({ current: 'stopping' })
                             }
                         }
-                    });
-
-                    database.scores.on( 'add', function( record ){
-                        if ( highScores.view.state.get( 'current' ) === 'running' )
-                            if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
-                                highScores.view.index++
                     })
-                })();
+                })()
             }
         }
     }
