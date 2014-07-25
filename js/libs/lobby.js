@@ -1,5 +1,5 @@
-define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
-    function( Backbone, Kinetic, settings, util, background ){
+define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'background' ],
+    function( $, Backbone, Kinetic, settings, util, database, background ){
         var lobby = {
                 name: 'lobby',
 
@@ -146,6 +146,47 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                                 lobby.layer.add( lobby.players.rows.group )
                             }
                         }
+                    },
+
+                    update: function( options ){
+                        setTimeout( function() {
+                            var playerList = database.player.list,
+                                rows = lobby.players.rows.group.getChildren();
+
+                            lobby.players.displayed = [];
+
+                            for ( var i = 0; i < rows.length; i++ ){
+                                var x = options && options.previous ? -i : i,
+                                    player = playerList.at( database.player.index + x );
+
+                                if ( player ){
+                                    var playerName = player.get( 'name' ),
+                                        columns = rows[ i ].getChildren(),
+                                        nameField = columns[ 0 ];
+
+                                    if ( $.trim( playerName ) === '' )
+                                        nameField.text( 'Anonymous' );
+                                    else
+                                        nameField.text( playerName );
+
+                                    if ( player.get( 'id' ) === database.player.me.get( 'id' ))
+                                        nameField.text( nameField.text() + ' (You)' );
+
+                                    if ( player.get( 'available' ))
+                                        columns[ 1 ].text( 'Yes' );
+                                    else
+                                        columns[ 1 ].text( 'No' );
+
+                                    lobby.players.displayed.push( player )
+
+                                } else break
+                            }
+
+                            if ( options ){
+                                if ( options.previous ) database.player.index -= rows.length;
+                                else if ( options.next ) database.player.index += rows.length
+                            }
+                        }, 0 )
                     },
 
                     init: function() {
