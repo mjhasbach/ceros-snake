@@ -221,7 +221,7 @@ define([], function() {
 
                 players: {
                     font: {
-                        size: 20,
+                        size: 22,
                         strokeWidth: 500
                     },
 
