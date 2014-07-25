@@ -109,7 +109,8 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                             else {
                                 for ( var i = 0; i < lobby.players.container.group.getChildren().length - 1; i++ ){
                                     var row = new Kinetic.Group({
-                                        y: ( background.lobby.tile.size() * 2 ) * ( i + 0.16 )
+                                        y: ( background.lobby.tile.size() * 2 ) *
+                                           ( i + settings.lobby.players.row.yOffset )
                                     });
 
                                     row.add(

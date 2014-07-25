@@ -234,6 +234,10 @@ define([], function() {
                         }
                     },
 
+                    row: {
+                        yOffset: 0.2
+                    },
+
                     container: {
                         colors: [ '#191725', '#1e1a29' ]
                     }
