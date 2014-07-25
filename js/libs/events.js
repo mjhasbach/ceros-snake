@@ -49,13 +49,13 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             if ( key.which == keys.left && highScores.view.index !== 0 ){
 
                                 highScores.view.index -= 1;
-                                highScores.view.update()
+                                highScores.view.update({ previous: true })
 
                             } else if ( key.which == keys.right &&
                                         highScores.view.index !== database.scores.length - 1 ){
 
                                 highScores.view.index += 1;
-                                highScores.view.update()
+                                highScores.view.update({ next: true })
                             }
                         }
                     });
@@ -237,7 +237,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         highScores.view.index -= 1;
 
-                                        highScores.view.update()
+                                        highScores.view.update({ previous: true })
                                     }
                                 })
                             })();
@@ -257,7 +257,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                     if ( highScores.view.isNotStoppingOrStopped() ){
                                         highScores.view.index += 1;
 
-                                        highScores.view.update()
+                                        highScores.view.update({ next: true })
                                     }
                                 })
                             })();
@@ -315,7 +315,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                     highScores.view.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
-                            highScores.view.update();
+                            highScores.view.update({ reset: true });
 
                             start( highScores.view, stage )
                         }
