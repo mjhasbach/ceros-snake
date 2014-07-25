@@ -222,8 +222,6 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
 
                     background: background.highScores.view,
 
-                    index: 0,
-
                     playerName: {
                         label: new Kinetic.Text({
                             x: util.calculate.absolute.x( _s.name.label.x ),
@@ -442,8 +440,6 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
                     },
 
                     cleanUp: function() {
-                        highScores.view.index = 0;
-
                         highScores.view.back.hitBox.fire( 'mouseout' )
                     }
                 },

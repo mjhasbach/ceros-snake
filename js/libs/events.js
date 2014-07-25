@@ -46,17 +46,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 database.submitScore( highScores )
 
                         } else if ( highScores.view.isNotStoppingOrStopped() ){
-                            if ( key.which == keys.left && highScores.view.index !== 0 ){
+                            if ( key.which == keys.left && highScores.view.previous.shape.getParent() )
+                                highScores.view.update({ previous: true });
 
-                                highScores.view.index -= 1;
-                                highScores.view.update({ previous: true })
-
-                            } else if ( key.which == keys.right &&
-                                        highScores.view.index !== database.scores.length - 1 ){
-
-                                highScores.view.index += 1;
+                            else if ( key.which == keys.right && highScores.view.next.shape.getParent() )
                                 highScores.view.update({ next: true })
-                            }
                         }
                     });
 
@@ -234,11 +228,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 });
 
                                 highScores.view.previous.hitBox.on( 'click touchstart', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.index -= 1;
-
+                                    if ( highScores.view.isNotStoppingOrStopped() )
                                         highScores.view.update({ previous: true })
-                                    }
                                 })
                             })();
 
@@ -254,11 +245,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 });
 
                                 highScores.view.next.hitBox.on( 'click touchstart', function() {
-                                    if ( highScores.view.isNotStoppingOrStopped() ){
-                                        highScores.view.index += 1;
-
+                                    if ( highScores.view.isNotStoppingOrStopped() )
                                         highScores.view.update({ next: true })
-                                    }
                                 })
                             })();
 
@@ -278,14 +266,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             })();
                         })();
                     })();
-                })();
-
-                ( function _databaseEvents() {
-                    database.scores.on( 'add', function( record ){
-                        if ( highScores.view.state.get( 'current' ) === 'running' )
-                            if ( record.get( 'score' ) > highScores.view.current.get( 'score' ))
-                                highScores.view.index++
-                    })
                 })();
 
                 ( function _transitionListener() {
