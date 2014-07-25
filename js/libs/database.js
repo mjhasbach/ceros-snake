@@ -10,6 +10,8 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                     Model: Backbone.Model.extend({
                         defaults: function() {
                             return {
+                                name: '',
+
                                 available: true
                             }
                         }
