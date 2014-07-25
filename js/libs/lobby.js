@@ -149,6 +149,15 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                         }
                     },
 
+                    current: function() {
+                        var player = database.player;
+
+                        return player.list.models.slice(
+                            player.index,
+                            player.index + lobby.players.rows.group.getChildren().length
+                        )
+                    },
+
                     update: function( options ){
                         setTimeout( function() {
                             var playerList = database.player.list,
