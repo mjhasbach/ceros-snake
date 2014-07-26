@@ -338,6 +338,8 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
 
                     game.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
+                            database.player.me.set({ available: false });
+
                             start( game, stage );
 
                             ( function waitForMenuOut() {
