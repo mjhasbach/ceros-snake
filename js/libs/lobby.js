@@ -178,6 +178,16 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                             lobby.layer.add( lobby.options.previous.hitBox )
                         }
 
+                        if ( !( database.player.list.at(( lobby.players.page + 1 ) *
+                                lobby.players.rows.group.getChildren().length ))){
+
+                            lobby.options.next.shape.remove();
+                            lobby.options.next.hitBox.remove()
+                        } else {
+                            lobby.layer.add( lobby.options.next.shape );
+                            lobby.layer.add( lobby.options.next.hitBox )
+                        }
+
                         for ( var i = 0; i < rows.length; i++ ){
                             var player = players[ i ],
                                 columns = rows[ i ].getChildren(),
