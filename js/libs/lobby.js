@@ -170,6 +170,14 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                             else if ( options.next ) lobby.players.page += 1
                         }
 
+                        if ( lobby.players.page === 0 ){
+                            lobby.options.previous.shape.remove();
+                            lobby.options.previous.hitBox.remove()
+                        } else {
+                            lobby.layer.add( lobby.options.previous.shape );
+                            lobby.layer.add( lobby.options.previous.hitBox )
+                        }
+
                         for ( var i = 0; i < rows.length; i++ ){
                             var player = players[ i ],
                                 columns = rows[ i ].getChildren(),
