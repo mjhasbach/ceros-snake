@@ -24,9 +24,7 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
 
                     name: {
                         update: function( module ){
-                            setTimeout( function() {
-                                database.player.me.set( 'name', module.playerName.field.text() );
-                            }, 0 )
+                            database.player.me.set( 'name', module.playerName.field.text() );
                         }
                     }
                 },
