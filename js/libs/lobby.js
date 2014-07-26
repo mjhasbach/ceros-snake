@@ -162,42 +162,40 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                     },
 
                     update: function( options ){
-                        setTimeout( function() {
-                            var rows = lobby.players.rows.group.getChildren(),
-                                players = lobby.players.current();
+                        var rows = lobby.players.rows.group.getChildren(),
+                            players = lobby.players.current();
 
-                            if ( options ){
-                                if ( options.previous ) lobby.players.page -= 1;
-                                else if ( options.next ) lobby.players.page += 1
+                        if ( options ){
+                            if ( options.previous ) lobby.players.page -= 1;
+                            else if ( options.next ) lobby.players.page += 1
+                        }
+
+                        for ( var i = 0; i < rows.length; i++ ){
+                            var player = players[ i ],
+                                columns = rows[ i ].getChildren(),
+                                nameField = columns[ 0 ],
+                                availableField = columns[ 1 ];
+
+                            if ( player ){
+                                var playerName = $.trim( player.get( 'name' ));
+
+                                if ( playerName === '' )
+                                    nameField.text( 'Anonymous' );
+                                else
+                                    nameField.text( playerName );
+
+                                if ( player.get( 'id' ) === database.player.me.get( 'id' ))
+                                    nameField.text( nameField.text() + ' (You)' );
+
+                                if ( player.get( 'available' ))
+                                    availableField.text( 'Yes' );
+                                else
+                                    availableField.text( 'No' )
+                            } else {
+                                nameField.text( '' );
+                                availableField.text( '' )
                             }
-
-                            for ( var i = 0; i < rows.length; i++ ){
-                                var player = players[ i ],
-                                    columns = rows[ i ].getChildren(),
-                                    nameField = columns[ 0 ],
-                                    availableField = columns[ 1 ];
-
-                                if ( player ){
-                                    var playerName = $.trim( player.get( 'name' ));
-
-                                    if ( playerName === '' )
-                                        nameField.text( 'Anonymous' );
-                                    else
-                                        nameField.text( playerName );
-
-                                    if ( player.get( 'id' ) === database.player.me.get( 'id' ))
-                                        nameField.text( nameField.text() + ' (You)' );
-
-                                    if ( player.get( 'available' ))
-                                        availableField.text( 'Yes' );
-                                    else
-                                        availableField.text( 'No' )
-                                } else {
-                                    nameField.text( '' );
-                                    availableField.text( '' )
-                                }
-                            }
-                        }, 0 )
+                        }
                     },
 
                     init: function() {
