@@ -49,16 +49,17 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 highScores.view.update({ previous: true });
                             else if ( key.which == keys.right && highScores.view.next.shape.getParent() )
                                 highScores.view.update({ next: true })
-
-                        } else if ( lobby.isNotStoppingOrStopped() ){
-                            database.player.name.update( lobby );
-                            lobby.playerName.move()
                         }
                     });
 
                     highScores.add.playerName.field.on( 'change', function() {
                         database.player.name.update( highScores.add );
                         highScores.add.playerName.move();
+                    });
+
+                    lobby.playerName.field.on( 'change', function() {
+                        database.player.name.update( lobby );
+                        lobby.playerName.move()
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
