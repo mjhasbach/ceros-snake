@@ -378,10 +378,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                 })();
 
                 ( function _databaseEvents() {
-                    database.player.list.on( 'change add remove', function() {
-                        lobby.players.update()
-                    });
-
                     database.connected.on( 'value', function( status ){
                         if ( status.val() === true ){
                             database.player.me = database.player.list.get(
@@ -397,6 +393,10 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 loading.state.set({ current: 'stopping' })
                             }
                         }
+                    });
+
+                    database.player.list.on( 'change add remove', function() {
+                        lobby.players.update()
                     })
                 })()
             }
