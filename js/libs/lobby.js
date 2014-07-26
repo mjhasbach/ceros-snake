@@ -16,6 +16,8 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                 }),
 
                 players: {
+                    page: 0,
+
                     container: {
                         group: new Kinetic.Group({
                             x: background.lobby.tile.size(),
@@ -150,11 +152,12 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                     },
 
                     current: function() {
-                        var player = database.player;
+                        var players = lobby.players,
+                            namesPerPage = players.rows.group.getChildren().length;
 
-                        return player.list.models.slice(
-                            player.index,
-                            player.index + lobby.players.rows.group.getChildren().length
+                        return database.player.list.models.slice(
+                            players.page * namesPerPage,
+                            ( players.page * namesPerPage ) + namesPerPage
                         )
                     },
 
@@ -164,8 +167,8 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                                 players = lobby.players.current();
 
                             if ( options ){
-                                if ( options.previous ) database.player.index -= rows.length;
-                                else if ( options.next ) database.player.index += rows.length
+                                if ( options.previous ) lobby.players.page -= 1;
+                                else if ( options.next ) lobby.players.page += 1
                             }
 
                             for ( var i = 0; i < rows.length; i++ ){

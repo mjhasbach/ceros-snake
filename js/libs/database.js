@@ -5,8 +5,6 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                 connected: new Firebase( _s.address + '.info/connected' ),
 
                 player: {
-                    index: 0,
-
                     Model: Backbone.Model.extend({
                         defaults: function() {
                             return {
