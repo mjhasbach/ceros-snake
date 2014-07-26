@@ -41,9 +41,6 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             handleNewDirection( key.which, [ keys.right, keys.d ], 'right' )
 
                         } else if ( highScores.add.isNotStoppingOrStopped() ){
-                            database.player.name.update( highScores.add );
-                            highScores.add.playerName.move();
-
                             if ( key.which == keys.enter )
                                 database.submitScore( highScores )
 
@@ -57,6 +54,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             database.player.name.update( lobby );
                             lobby.playerName.move()
                         }
+                    });
+
+                    highScores.add.playerName.field.on( 'change', function() {
+                        database.player.name.update( highScores.add );
+                        highScores.add.playerName.move();
                     });
 
                     function handleNewDirection( pressedKey, expectedKeys, direction ){
