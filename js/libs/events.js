@@ -353,7 +353,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     highScores.add.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'stopping' ){
+                            database.player.me.set({ available: true });
+
+                            start( menu, stage )
+                        }
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
