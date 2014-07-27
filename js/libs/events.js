@@ -310,6 +310,11 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                             lobby.options.previous.hitBox.on( 'mouseout', function() {
                                 lobby.options.previous.shape.fill( settings.font.colors.fill.enabled.hex );
                                 lobby.options.previous.shape.stroke( settings.font.colors.stroke.enabled.hex )
+                            });
+
+                            lobby.options.previous.hitBox.on( 'click touchstart', function() {
+                                if ( lobby.isNotStoppingOrStopped() )
+                                    lobby.players.update({ previous: true })
                             })
                         })();
 
