@@ -162,8 +162,7 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                     },
 
                     update: function( options ){
-                        var rows = lobby.players.rows.group.getChildren(),
-                            players = lobby.players.current();
+                        var rows = lobby.players.rows.group.getChildren();
 
                         if ( options ){
                             if ( options.previous ) lobby.players.page -= 1;
@@ -189,7 +188,7 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                         }
 
                         for ( var i = 0; i < rows.length; i++ ){
-                            var player = players[ i ],
+                            var player = lobby.players.current()[ i ],
                                 columns = rows[ i ].getChildren(),
                                 nameField = columns[ 0 ],
                                 availableField = columns[ 1 ];
