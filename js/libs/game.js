@@ -47,13 +47,22 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             ( background.game.tile.quantity.y - 0.5 ))
                     }),
 
-                    fillWithDefaultColor: function() {
-                        var color = settings.background.colors.base[ 0 ];
+                    fill: function fill( color ){
+                        if ( typeof color === 'string' ){
+                            color = color.toLowerCase();
 
-                        game.boundaries.top.fill( color );
-                        game.boundaries.left.fill( color );
-                        game.boundaries.bottom.fill( color );
-                        game.boundaries.right.fill( color )
+                            if ( color === 'default' )
+                                fill( settings.background.colors.base[ 0 ] );
+                            else if ( color === 'random' )
+                                fill( game.background.tile.color.base.random() );
+                            else {
+                                game.boundaries.top.fill( color );
+                                game.boundaries.left.fill( color );
+                                game.boundaries.bottom.fill( color );
+                                game.boundaries.right.fill( color );
+                            }
+                        }
+                        else throw new Error( 'game.boundaries.fill() requires a string argument' );
                     },
 
                     areReadyToCycle: function( frame ){
@@ -62,12 +71,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     },
 
                     animation: function( frame ){
-                        var color = game.background.tile.color.base.random();
-
-                        game.boundaries.top.fill( color );
-                        game.boundaries.left.fill( color );
-                        game.boundaries.bottom.fill( color );
-                        game.boundaries.right.fill( color );
+                        game.boundaries.fill( 'random' );
 
                         game.boundaries.lastCycleTime = frame.time
                     }
@@ -400,7 +404,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                 },
 
                 init: function() {
-                    game.boundaries.fillWithDefaultColor();
+                    game.boundaries.fill( 'default' );
 
                     ( function _prototypes() {
                         Number.prototype.toCoord = function() {
@@ -440,7 +444,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     game.heart.list.forEach( function( heart ){ heart.destroy() });
                     game.heart.list = [];
 
-                    game.boundaries.fillWithDefaultColor();
+                    game.boundaries.fill( 'default' );
 
                     game.background.cleanUp()
                 }
