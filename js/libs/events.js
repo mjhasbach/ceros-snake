@@ -45,9 +45,14 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                                 database.submitScore( highScores )
 
                         } else if ( highScores.view.isNotStoppingOrStopped() ){
-                            if ( key.which == keys.left && highScores.view.previous.shape.getParent() )
+                            if (( key.which == keys.left || key.which == keys.a ) &&
+                                  highScores.view.previous.shape.getParent() )
+
                                 highScores.view.update({ previous: true });
-                            else if ( key.which == keys.right && highScores.view.next.shape.getParent() )
+
+                            else if (( key.which == keys.right || key.which == keys.d ) &&
+                                       highScores.view.next.shape.getParent() )
+
                                 highScores.view.update({ next: true })
                         }
                     });
