@@ -10,9 +10,12 @@ Enjoy =)
 
 ### Controls:
 
-- Up: W or Up Arrow
-- Left: A or Left Arrow
-- Down: S or Down Arrow
-- Right: D or Right Arrow
+- Snake Direction Up: W or Up Arrow
+- Snake Direction Left: A or Left Arrow
+- Snake Direction Down: S or Down Arrow
+- Snake Direction Right: D or Right Arrow
+- Previous High Score: A or Left Arrow
+- Next High Score: D or Right Arrow
 - Pause: Space Bar
+- Submit High Score: Enter
 - Toggle Full-Screen: Backtick (`)
