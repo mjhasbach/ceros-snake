@@ -222,6 +222,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
 
                     } else return false;
                 }
+            },
+
+            isKineticObject: function( shape ){
+                return _.isObject( shape ) && _.isString( shape.nodeType )
             }
         };
 
