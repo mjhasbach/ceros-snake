@@ -217,17 +217,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                                    game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
                                    game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
                                    game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y
-                        },
-
-                        heart: function( cb ){
-                            var index = game.collision({
-                                shape: game.snake.segment.list[ 0 ],
-                                list: game.heart.list
-                            });
-
-                            var collision = index !== -1;
-
-                            cb( collision, index )
                         }
                     }
                 },
