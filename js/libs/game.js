@@ -1,5 +1,5 @@
-define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
-    function( Backbone, Kinetic, settings, util, background ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
+    function( _, Backbone, Kinetic, settings, util, background ){
         var _s = settings.game,
             game = {
                 name: 'game',
@@ -209,7 +209,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                             return game.collision({
                                 shape: game.snake.segment.list[ 0 ],
                                 list: game.snake.segment.list
-                            }) !== -1
+                            })
                         },
 
                         boundary: function() {
@@ -237,19 +237,13 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                     generate: function() {
                         var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
-                            y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1),
-                            noCollisionAtProposedCoordinates =
-                                game.collision({
-                                    coords: { x: x, y: y },
-                                    list: game.heart.list
-                                }) === -1 &&
+                            y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 ),
+                            collisionAtProposedCoordinates = game.collision({
+                                coords: { x: x, y: y },
+                                list: [ game.snake.segment.list, game.heart.list ]
+                            });
 
-                                game.collision({
-                                    coords: { x: x, y: y },
-                                    list: game.snake.segment.list
-                                }) === -1;
-
-                        if ( noCollisionAtProposedCoordinates ){
+                        if ( !collisionAtProposedCoordinates ){
                             var heart = new Kinetic.Group({ x: x.fromCoord(), y: y.fromCoord() });
 
                             for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
@@ -333,16 +327,18 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                             game.snake.segment.addNewIfNecessary();
 
-                            if ( game.snake.isCollidingWith.itself() )
-                                game.state.set( 'current', 'stopping' );
+                            if ( game.snake.isCollidingWith.itself() ||
+                                 game.snake.isCollidingWith.boundary() )
 
-                            else if ( game.snake.isCollidingWith.boundary() )
                                 game.state.set( 'current', 'stopping' );
-
                             else {
-                                game.snake.isCollidingWith.heart( function( collision, index ){
-                                    if ( collision ){
-                                        game.heart.destroy( index );
+                                game.collision(
+                                    {
+                                        shape: game.snake.segment.list[ 0 ],
+                                        list: game.heart.list
+                                    },
+                                    function( i ){
+                                        game.heart.destroy( i );
 
                                         game.background.count( game.snake.segment.list.length + 1 );
 
@@ -350,7 +346,7 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
 
                                         if ( game.heart.list.length === 0 ) game.heart.regenerate()
                                     }
-                                })
+                                )
                             }
                         }
                     } else if ( state === 'stopping' )
@@ -366,41 +362,96 @@ define([ 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
                     }
                 }),
 
-                collision: function( options ){
-                    var i;
+                collision: function( options, cb ){
+                    var collisions = [],
+                        errPrefix = 'game.collision.filter() - ';
 
-                    if ( options.shape ){
-                        if ( options.list ){
-                            for ( i = 0; i < options.list.length; i++ ){
-                                if ( options.shape != options.list[ i ] &&
-                                     options.list[ i ].x().toCoord() == options.shape.x().toCoord() &&
-                                     options.list[ i ].y().toCoord() == options.shape.y().toCoord() ){
+                    if ( !_.isObject( options ))
+                        throw new TypeError(
+                            errPrefix + 'The options argument must be an object'
+                        );
+                    else if ( !_.isArray( options.list ))
+                        throw new TypeError(
+                            errPrefix + 'options.list must be a single or nested array of KineticJS shapes'
+                        );
+                    else if (
+                        !(
+                            util.isKineticObject( options.shape ) ||
+                            _.isArray( options.shape )
+                        )
+                        &&
+                        !(
+                            _.isObject( options.coords ) ||
+                            _.isArray( options.coords )
+                        )
+                    )
+                        throw new TypeError(
+                            errPrefix + 'Either options.shape or options.coords must be supplied. ' +
+                            'options.shape can be a KineticJS shape or an array of KineticJS shapes. ' +
+                            'options.coords can be an object containing x and y integer properties or ' +
+                            'an array of objects containing x and y integer properties.'
+                        );
+                    else {
+                        if ( util.isKineticObject( options.list[ 0 ]))
+                            options.list = [ options.list ];
 
-                                    return i
+                        if ( options.shape && !_.isArray( options.shape ))
+                            options.shape = [ options.shape ];
+
+                        if ( options.coords && !_.isArray( options.coords ))
+                            options.coords = [ options.coords ];
+
+                        _.each( options.list, function( list ){
+                            _.each( list, function( shape, listIndex ){
+                                if ( !util.isKineticObject( shape ))
+                                    throw new TypeError(
+                                        errPrefix + 'Encountered a non-Kinetic object in options.list'
+                                    );
+
+                                else {
+                                    if ( _.isArray( options.shape ) && options.shape.length > 0 ){
+                                        _.each( options.shape, function( _shape ){
+                                            if ( !util.isKineticObject( _shape ))
+                                                throw new TypeError(
+                                                    errPrefix + 'Encountered a non-Kinetic object in options.shape'
+                                                );
+
+                                            if ( shape.x().toCoord() === _shape.x().toCoord() &&
+                                                 shape.y().toCoord() === _shape.y().toCoord() &&
+                                                 shape !== _shape ){
+
+                                                collisions.push( listIndex );
+                                            }
+                                        })
+                                    }
+                                    if ( _.isArray( options.coords ) && options.coords.length > 0 ){
+                                        _.each( options.coords, function( coords ){
+                                            if ( !( _.isObject( coords ) &&
+                                                    _.isNumber( coords.x ) &&
+                                                    _.isNumber( coords.y ))
+                                            )
+                                                throw new TypeError(
+                                                    errPrefix + 'Encountered non-integer coordinate(s) in options.coords'
+                                                );
+
+                                            if ( shape.x().toCoord() === coords.x &&
+                                                 shape.y().toCoord() === coords.y ){
+
+                                                collisions.push( listIndex );
+                                            }
+                                        })
+                                    }
                                 }
-                            }
-                        } else throwListError()
-
-                    } else if ( options.coords ){
-                        if ( options.list ){
-                            for ( i = 0; i < options.list.length; i++ ){
-                                if ( options.list[ i ].x().toCoord() == options.coords.x &&
-                                     options.list[ i ].y().toCoord() == options.coords.y ){
-
-                                    return i
-                                }
-                            }
-                        } else throwListError()
-
-                    } else throw new Error( 'The collision detector was provided neither ' +
-                                            'a coordinate pair nor shape to search for' );
-
-                    return -1;
-
-                    function throwListError() {
-                        throw new Error( 'The collision detector was not provided a list ' +
-                                         'in which to search for the provided shape' )
+                            })
+                        })
                     }
+
+                    if ( _.isFunction( cb ))
+                        _.each( collisions, function( listIndex ){
+                            cb( listIndex );
+                        });
+
+                    return collisions.length > 0;
                 },
 
                 init: function() {
