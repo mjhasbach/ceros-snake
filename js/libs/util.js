@@ -1,10 +1,11 @@
-define([ 'underscore', 'settings' ], function( _, settings ){
-    var util = {
+define([ 'underscore', 'settings', 'viewport' ], function( _, settings, viewport ){
+    var dimensions = viewport.dimensions.original,
+        util = {
             calculate: {
                 absolute: {
-                    size: function( i ){ return width / i },
-                    x: function( i ){ return width / i },
-                    y: function( i ){ return height / i }
+                    size: function( i ){ return dimensions.width / i },
+                    x: function( i ){ return dimensions.width / i },
+                    y: function( i ){ return dimensions.height / i }
                 },
 
                 brightnessVariance: function( frame ){
@@ -26,29 +27,10 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                     }
                 },
 
-                dimensions: {
-                    original: {
-                        width: function() { return width },
-                        height: function() { return height }
-                    },
-
-                    aspect: function() {
-                        var dimensions = {
-                            width: window.innerWidth,
-                            height: window.innerHeight
-                        };
-
-                        if ( 9 * dimensions.width / 16 < dimensions.height )
-                            dimensions.height = Math.floor( 9 * dimensions.width / 16 );
-                        else
-                            dimensions.width = Math.floor(( dimensions.height / 9 ) * 16 );
-
-                        return dimensions
-                    },
-
-                    scale: function() {
-                        return util.calculate.dimensions.aspect().width /
-                            util.calculate.dimensions.original.width()
+                tile: {
+                    size: function() {
+                        return dimensions.width /
+                            settings.background.tile.quantity.x
                     }
                 }
             },
@@ -65,8 +47,8 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                     module.layer.moveToBottom();
 
                     stage.scale({
-                        x: util.calculate.dimensions.scale(),
-                        y: util.calculate.dimensions.scale()
+                        x: viewport.scale(),
+                        y: viewport.scale()
                     });
 
                     module.animation.start();
@@ -228,9 +210,6 @@ define([ 'underscore', 'settings' ], function( _, settings ){
                 return _.isObject( shape ) && _.isString( shape.nodeType )
             }
         };
-
-    var width = util.calculate.dimensions.aspect().width,
-        height = util.calculate.dimensions.aspect().height;
 
     return util
 });

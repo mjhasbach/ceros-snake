@@ -1,4 +1,4 @@
-define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, settings, util ){
+define([ 'Kinetic', 'underscore', 'settings', 'util', 'viewport' ], function( Kinetic, _, settings, util, viewport ){
     var _s = settings.background,
         background = {
             Constructor: function() {
@@ -13,7 +13,7 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                         list: [],
 
                         size: function() {
-                            return util.calculate.dimensions.original.width() /
+                            return viewport.dimensions.original.width /
                                 settings.background.tile.quantity.x
                         },
 

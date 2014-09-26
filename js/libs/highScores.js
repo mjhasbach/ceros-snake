@@ -1,5 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stage', 'background' ],
-    function( Kinetic, kineticEditableText, settings, util, database, stage, background ){
+define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'viewport', 'background' ],
+    function( Kinetic, kineticEditableText, settings, util, database, viewport, background ){
         kineticEditableText.init( Kinetic );
 
         var _s = settings.highScores,
@@ -175,7 +175,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'stag
 
                         highScores.add.background.count( score );
 
-                        util.module.start( highScores.add, stage );
+                        util.module.start( highScores.add, viewport.stage );
 
                         highScores.add.playerName.field.focus();
 

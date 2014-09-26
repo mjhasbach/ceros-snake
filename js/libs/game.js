@@ -1,5 +1,5 @@
-define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ],
-    function( _, Backbone, Kinetic, settings, util, background ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'background'],
+    function( _, Backbone, Kinetic, settings, util, viewport, background ){
         var _s = settings.game,
             game = {
                 name: 'game',
@@ -39,7 +39,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                     }),
 
                     right: new Kinetic.Rect({
-                        x: util.calculate.dimensions.original.width() -
+                        x: viewport.dimensions.original.width -
                             ( background.game.tile.size() * 0.75 ),
                         y: background.game.tile.size() / 4,
                         width: background.game.tile.size() / 2,

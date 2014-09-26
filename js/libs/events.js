@@ -3,7 +3,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
         return {
             init: function( assets ){
                 var audio = assets.audio,
-                    stage = assets.stage,
+                    viewport = assets.viewport,
                     loading = assets.loading,
                     menu = assets.menu,
                     game = assets.game,
@@ -276,12 +276,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     var start = util.module.start;
 
                     loading.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'stopping' ) start( menu, viewport.stage )
                     });
 
                     game.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
-                            start( game, stage );
+                            start( game, viewport.stage );
 
                             ( function waitForMenuOut() {
                                 if ( menu.layer.opacity() === 0 )
@@ -294,16 +294,16 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     highScores.add.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'stopping' ) start( menu, viewport.stage )
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
                             highScores.view.update({ reset: true });
 
-                            start( highScores.view, stage )
+                            start( highScores.view, viewport.stage )
                         }
-                        else if ( current === 'stopping' ) start( menu, stage )
+                        else if ( current === 'stopping' ) start( menu, viewport.stage )
                     })
                 })();
 
