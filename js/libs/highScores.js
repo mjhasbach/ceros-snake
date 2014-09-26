@@ -175,7 +175,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'view
 
                         highScores.add.background.count( score );
 
-                        util.module.start( highScores.add, viewport.stage );
+                        util.module.start( highScores.add );
 
                         highScores.add.playerName.field.focus();
 

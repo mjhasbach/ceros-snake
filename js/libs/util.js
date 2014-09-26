@@ -36,17 +36,17 @@ define([ 'underscore', 'settings', 'viewport' ], function( _, settings, viewport
             },
 
             module: {
-                start: function( module, stage ){
+                start: function( module ){
                     if ( settings.debug )
                         console.log( 'Starting module "' + module.name + '"');
 
-                    stage.add( module.layer );
+                    viewport.stage.add( module.layer );
 
                     module.layer.opacity( 1 );
 
                     module.layer.moveToBottom();
 
-                    stage.scale({
+                    viewport.stage.scale({
                         x: viewport.scale(),
                         y: viewport.scale()
                     });

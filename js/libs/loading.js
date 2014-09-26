@@ -56,7 +56,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                         loading.animation.setLayers( loading.layer );
                     })();
 
-                    util.module.start( loading, viewport.stage );
+                    util.module.start( loading );
 
                     require([ 'assets' ], function( assets ){
                         assets.waitForAsync( function() {

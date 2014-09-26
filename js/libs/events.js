@@ -276,12 +276,12 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     var start = util.module.start;
 
                     loading.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, viewport.stage )
+                        if ( current === 'stopping' ) start( menu )
                     });
 
                     game.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
-                            start( game, viewport.stage );
+                            start( game );
 
                             ( function waitForMenuOut() {
                                 if ( menu.layer.opacity() === 0 )
@@ -294,16 +294,16 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     });
 
                     highScores.add.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, viewport.stage )
+                        if ( current === 'stopping' ) start( menu )
                     });
 
                     highScores.view.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
                             highScores.view.update({ reset: true });
 
-                            start( highScores.view, viewport.stage )
+                            start( highScores.view )
                         }
-                        else if ( current === 'stopping' ) start( menu, viewport.stage )
+                        else if ( current === 'stopping' ) start( menu )
                     })
                 })();
 
