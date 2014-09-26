@@ -188,6 +188,10 @@ define([ 'underscore', 'settings', 'viewport' ], function( _, settings, viewport
 
                 toCoord: function( number ) {
                     return ( number / util.calculate.tile.size() ) + 2
+                },
+
+                fromCoord: function( number ) {
+                    return ( number - 2 ) * util.calculate.tile.size()
                 }
             },
 

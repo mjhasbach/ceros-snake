@@ -90,8 +90,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                                 segment.x = game.snake.segment.list.last().x();
                                 segment.y = game.snake.segment.list.last().y()
                             } else {
-                                segment.x = _s.snake.initial.coords.x.fromCoord();
-                                segment.y = _s.snake.initial.coords.y.fromCoord()
+                                segment.x = util.number.fromCoord( _s.snake.initial.coords.x );
+                                segment.y = util.number.fromCoord( _s.snake.initial.coords.y )
                             }
 
                             segment.shape = new Kinetic.Group({
@@ -233,7 +233,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                             });
 
                         if ( !collisionAtProposedCoordinates ){
-                            var heart = new Kinetic.Group({ x: x.fromCoord(), y: y.fromCoord() });
+                            var heart = new Kinetic.Group({
+                                x: util.number.fromCoord( x ),
+                                y: util.number.fromCoord( y ) }
+                            );
 
                             for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
                                 heart.add(
@@ -447,10 +450,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                     game.boundaries.fill( 'default' );
 
                     ( function _prototypes() {
-                        Number.prototype.fromCoord = function() {
-                            return ( this - 2 ) * util.calculate.tile.size()
-                        };
-
                         Array.prototype.last = function() {
                             return this[ this.length - 1 ]
                         }
