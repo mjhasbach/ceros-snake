@@ -87,8 +87,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                             var segment = {};
 
                             if ( game.snake.segment.list.length > 0 ){
-                                segment.x = game.snake.segment.list.last().x();
-                                segment.y = game.snake.segment.list.last().y()
+                                segment.x = _.last( game.snake.segment.list ).x();
+                                segment.y = _.last( game.snake.segment.list ).y()
                             } else {
                                 segment.x = util.number.fromCoord( _s.snake.initial.coords.x );
                                 segment.y = util.number.fromCoord( _s.snake.initial.coords.y )
@@ -152,13 +152,13 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                                 else if ( direction === 'left' ) opposite = 'right';
                                 else if ( direction === 'right' ) opposite = 'left';
 
-                                return game.snake.direction.current == opposite ||
-                                       game.snake.direction.queue.last() == opposite
+                                return game.snake.direction.current === opposite ||
+                                       _.last( game.snake.direction.queue ) === opposite
                             }
                         },
 
                         lastQueuedIsSameAs: function( direction ){
-                            return game.snake.direction.queue.last() == direction
+                            return _.last( game.snake.direction.queue ) === direction
                         },
 
                         pushOrInit: function( direction ){
@@ -178,7 +178,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                         game.snake.direction.changeIfNecessary();
 
                         var firstSegment = game.snake.segment.list[ 0 ],
-                            lastSegment = game.snake.segment.list.last(),
+                            lastSegment = _.last( game.snake.segment.list ),
                             currentDirection = game.snake.direction.current;
 
                         if ( currentDirection === 'up' ){
@@ -448,12 +448,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
 
                 init: function() {
                     game.boundaries.fill( 'default' );
-
-                    ( function _prototypes() {
-                        Array.prototype.last = function() {
-                            return this[ this.length - 1 ]
-                        }
-                    })();
 
                     ( function _layer() {
                         game.layer.add( game.background.group );
