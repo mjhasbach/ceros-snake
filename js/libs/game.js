@@ -16,7 +16,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                     top: new Kinetic.Rect({
                         x: background.game.tile.size() / 4,
                         y: background.game.tile.size() / 4,
-                        width: ( background.game.tile.size() * background.game.tile.quantity.x ) -
+                        width: ( background.game.tile.size() * settings.background.tile.quantity.x ) -
                             background.game.tile.size(),
                         height: background.game.tile.size() / 2
                     }),
@@ -25,15 +25,15 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                         x: background.game.tile.size() / 4,
                         y: background.game.tile.size() / 4,
                         width: background.game.tile.size() / 2,
-                        height: ( background.game.tile.size() * background.game.tile.quantity.y ) -
+                        height: ( background.game.tile.size() * settings.background.tile.quantity.y ) -
                             background.game.tile.size()
                     }),
 
                     bottom: new Kinetic.Rect({
                         x: background.game.tile.size() / 4,
                         y: background.game.tile.size() *
-                            ( background.game.tile.quantity.y - 0.75 ),
-                        width: ( background.game.tile.size() * background.game.tile.quantity.x ) -
+                            ( settings.background.tile.quantity.y - 0.75 ),
+                        width: ( background.game.tile.size() * settings.background.tile.quantity.x ) -
                             background.game.tile.size(),
                         height: background.game.tile.size() / 2
                     }),
@@ -44,7 +44,7 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                         y: background.game.tile.size() / 4,
                         width: background.game.tile.size() / 2,
                         height: ( background.game.tile.size() *
-                            ( background.game.tile.quantity.y - 0.5 ))
+                            ( settings.background.tile.quantity.y - 0.5 ))
                     }),
 
                     fill: function fill( color ){
@@ -214,9 +214,9 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
 
                         boundary: function() {
                             return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                                   game.snake.segment.list[ 0 ].x().toCoord() == game.background.tile.quantity.x ||
+                                   game.snake.segment.list[ 0 ].x().toCoord() == settings.background.tile.quantity.x ||
                                    game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                                   game.snake.segment.list[ 0 ].y().toCoord() == game.background.tile.quantity.y
+                                   game.snake.segment.list[ 0 ].y().toCoord() == settings.background.tile.quantity.y
                         }
                     }
                 },
@@ -225,8 +225,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'background' ]
                     list: [],
 
                     generate: function() {
-                        var x = util.calculate.random.int( 2, game.background.tile.quantity.x - 1 ),
-                            y = util.calculate.random.int( 2, game.background.tile.quantity.y - 1 ),
+                        var x = util.calculate.random.int( 2, settings.background.tile.quantity.x - 1 ),
+                            y = util.calculate.random.int( 2, settings.background.tile.quantity.y - 1 ),
                             collisionAtProposedCoordinates = game.collision({
                                 coords: { x: x, y: y },
                                 list: [ game.snake.segment.list, game.heart.list ]

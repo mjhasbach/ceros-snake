@@ -50,6 +50,10 @@ define([], function() {
             background: {
                 countDown: { coords: { x: 14, y: 6 }},
 
+                tile: {
+                    quantity: { x: 32, y: 18 }
+                },
+
                 colors: {
                     base: [
                         '#27212d', '#131019', '#272331', '#1e1b26', '#16151b', '#1e1c27',

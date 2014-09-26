@@ -12,11 +12,9 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     tile: {
                         list: [],
 
-                        quantity: { x: 32, y: 18 },
-
                         size: function() {
                             return util.calculate.dimensions.original.width() /
-                                bg.tile.quantity.x
+                                settings.background.tile.quantity.x
                         },
 
                         color: {
@@ -456,8 +454,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
                     })
                 }
 
-                for ( var x = 0; x < bg.tile.quantity.x; x++ ){
-                    for ( var y = 0; y < bg.tile.quantity.y; y++ ){
+                for ( var x = 0; x < settings.background.tile.quantity.x; x++ ){
+                    for ( var y = 0; y < settings.background.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
                             new Kinetic.Rect({
                                 x: x * bg.tile.size(),
