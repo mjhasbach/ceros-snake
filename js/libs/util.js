@@ -184,6 +184,10 @@ define([ 'underscore', 'settings', 'viewport' ], function( _, settings, viewport
                         ][ parseFloat( number )];
 
                     else throw new Error( 'util.numberToText() can only handle numbers 0-9' )
+                },
+
+                toCoord: function( number ) {
+                    return ( number / util.calculate.tile.size() ) + 2
                 }
             },
 

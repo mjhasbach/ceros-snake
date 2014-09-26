@@ -441,8 +441,8 @@ define([ 'Kinetic', 'underscore', 'settings', 'util', 'viewport' ], function( Ki
 
                 function randomDrawColor( xCoord, yCoord ){
                     bg.tile.list.forEach( function( tile ){
-                        if ( tile.x().toCoord() == xCoord &&
-                             tile.y().toCoord() == yCoord ){
+                        if ( util.number.toCoord( tile.x() ) === xCoord &&
+                             util.number.toCoord( tile.y() ) === yCoord ){
 
                             tile.fill( bg.tile.color.number.random() )
                         }

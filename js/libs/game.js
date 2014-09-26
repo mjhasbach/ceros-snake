@@ -213,10 +213,10 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                         },
 
                         boundary: function() {
-                            return game.snake.segment.list[ 0 ].x().toCoord() == 1 ||
-                                   game.snake.segment.list[ 0 ].x().toCoord() == settings.background.tile.quantity.x ||
-                                   game.snake.segment.list[ 0 ].y().toCoord() == 1 ||
-                                   game.snake.segment.list[ 0 ].y().toCoord() == settings.background.tile.quantity.y
+                            return util.number.toCoord( game.snake.segment.list[ 0 ].x() ) === 1 ||
+                                   util.number.toCoord( game.snake.segment.list[ 0 ].x() ) === settings.background.tile.quantity.x ||
+                                   util.number.toCoord( game.snake.segment.list[ 0 ].y() ) === 1 ||
+                                   util.number.toCoord( game.snake.segment.list[ 0 ].y() ) === settings.background.tile.quantity.y
                         }
                     }
                 },
@@ -405,8 +405,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                                                     errPrefix + 'Encountered a non-Kinetic object in options.shape'
                                                 );
 
-                                            if ( shape.x().toCoord() === _shape.x().toCoord() &&
-                                                 shape.y().toCoord() === _shape.y().toCoord() &&
+                                            if ( util.number.toCoord( shape.x() ) === util.number.toCoord( _shape.x() ) &&
+                                                 util.number.toCoord( shape.y() ) === util.number.toCoord( _shape.y() ) &&
                                                  shape !== _shape ){
 
                                                 collisions.push( listIndex );
@@ -423,8 +423,8 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                                                     errPrefix + 'Encountered non-integer coordinate(s) in options.coords'
                                                 );
 
-                                            if ( shape.x().toCoord() === coords.x &&
-                                                 shape.y().toCoord() === coords.y ){
+                                            if ( util.number.toCoord( shape.x() ) === coords.x &&
+                                                 util.number.toCoord( shape.y() ) === coords.y ){
 
                                                 collisions.push( listIndex );
                                             }
@@ -447,10 +447,6 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                     game.boundaries.fill( 'default' );
 
                     ( function _prototypes() {
-                        Number.prototype.toCoord = function() {
-                            return ( this / util.calculate.tile.size() ) + 2
-                        };
-
                         Number.prototype.fromCoord = function() {
                             return ( this - 2 ) * util.calculate.tile.size()
                         };
