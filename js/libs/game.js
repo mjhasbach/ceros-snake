@@ -14,36 +14,36 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
 
                 boundaries: {
                     top: new Kinetic.Rect({
-                        x: background.game.tile.size() / 4,
-                        y: background.game.tile.size() / 4,
-                        width: ( background.game.tile.size() * settings.background.tile.quantity.x ) -
-                            background.game.tile.size(),
-                        height: background.game.tile.size() / 2
+                        x: util.calculate.tile.size() / 4,
+                        y: util.calculate.tile.size() / 4,
+                        width: ( util.calculate.tile.size() * settings.background.tile.quantity.x ) -
+                            util.calculate.tile.size(),
+                        height: util.calculate.tile.size() / 2
                     }),
 
                     left: new Kinetic.Rect({
-                        x: background.game.tile.size() / 4,
-                        y: background.game.tile.size() / 4,
-                        width: background.game.tile.size() / 2,
-                        height: ( background.game.tile.size() * settings.background.tile.quantity.y ) -
-                            background.game.tile.size()
+                        x: util.calculate.tile.size() / 4,
+                        y: util.calculate.tile.size() / 4,
+                        width: util.calculate.tile.size() / 2,
+                        height: ( util.calculate.tile.size() * settings.background.tile.quantity.y ) -
+                            util.calculate.tile.size()
                     }),
 
                     bottom: new Kinetic.Rect({
-                        x: background.game.tile.size() / 4,
-                        y: background.game.tile.size() *
+                        x: util.calculate.tile.size() / 4,
+                        y: util.calculate.tile.size() *
                             ( settings.background.tile.quantity.y - 0.75 ),
-                        width: ( background.game.tile.size() * settings.background.tile.quantity.x ) -
-                            background.game.tile.size(),
-                        height: background.game.tile.size() / 2
+                        width: ( util.calculate.tile.size() * settings.background.tile.quantity.x ) -
+                            util.calculate.tile.size(),
+                        height: util.calculate.tile.size() / 2
                     }),
 
                     right: new Kinetic.Rect({
                         x: viewport.dimensions.original.width -
-                            ( background.game.tile.size() * 0.75 ),
-                        y: background.game.tile.size() / 4,
-                        width: background.game.tile.size() / 2,
-                        height: ( background.game.tile.size() *
+                            ( util.calculate.tile.size() * 0.75 ),
+                        y: util.calculate.tile.size() / 4,
+                        width: util.calculate.tile.size() / 2,
+                        height: ( util.calculate.tile.size() *
                             ( settings.background.tile.quantity.y - 0.5 ))
                     }),
 
@@ -103,14 +103,14 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                             for ( var i = 0; i < _s.snake.amountOfInnerRectangles + 1; i++ ){
                                 segment.shape.add(
                                     new Kinetic.Rect({
-                                        x: game.background.tile.size() + i *
-                                            (( game.background.tile.size() * 0.33 ) / 2 ),
-                                        y: game.background.tile.size() + i *
-                                            (( game.background.tile.size() * 0.33 ) / 2 ),
-                                        width: game.background.tile.size() - i *
-                                            ( game.background.tile.size() * 0.33 ),
-                                        height: game.background.tile.size() - i *
-                                            ( game.background.tile.size() * 0.33 ),
+                                        x: util.calculate.tile.size() + i *
+                                            (( util.calculate.tile.size() * 0.33 ) / 2 ),
+                                        y: util.calculate.tile.size() + i *
+                                            (( util.calculate.tile.size() * 0.33 ) / 2 ),
+                                        width: util.calculate.tile.size() - i *
+                                            ( util.calculate.tile.size() * 0.33 ),
+                                        height: util.calculate.tile.size() - i *
+                                            ( util.calculate.tile.size() * 0.33 ),
                                         fill: _s.snake.colors[ i ],
                                         listening: false
                                     })
@@ -183,18 +183,18 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
 
                         if ( currentDirection === 'up' ){
                             lastSegment.x( firstSegment.x() );
-                            lastSegment.y( firstSegment.y() - game.background.tile.size() )
+                            lastSegment.y( firstSegment.y() - util.calculate.tile.size() )
 
                         } else if ( currentDirection === 'right' ){
-                            lastSegment.x( firstSegment.x() + game.background.tile.size() );
+                            lastSegment.x( firstSegment.x() + util.calculate.tile.size() );
                             lastSegment.y( firstSegment.y() )
 
                         } else if ( currentDirection === 'down' ){
                             lastSegment.x( firstSegment.x() );
-                            lastSegment.y( firstSegment.y() + game.background.tile.size() )
+                            lastSegment.y( firstSegment.y() + util.calculate.tile.size() )
 
                         } else {
-                            lastSegment.x( firstSegment.x() - game.background.tile.size() );
+                            lastSegment.x( firstSegment.x() - util.calculate.tile.size() );
                             lastSegment.y( firstSegment.y() )
                         }
 
@@ -238,12 +238,12 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
                             for ( var i = 0; i < _s.heart.amountOfInnerHearts + 1; i++ ){
                                 heart.add(
                                     new Kinetic.Text({
-                                        x: game.background.tile.size() + i *
-                                            (( game.background.tile.size() * 0.33 ) / 2 ),
-                                        y: game.background.tile.size() + i *
-                                            (( game.background.tile.size() * 0.33 ) / 2 ),
-                                        fontSize: game.background.tile.size() - i *
-                                            ( game.background.tile.size() * 0.33 ),
+                                        x: util.calculate.tile.size() + i *
+                                            (( util.calculate.tile.size() * 0.33 ) / 2 ),
+                                        y: util.calculate.tile.size() + i *
+                                            (( util.calculate.tile.size() * 0.33 ) / 2 ),
+                                        fontSize: util.calculate.tile.size() - i *
+                                            ( util.calculate.tile.size() * 0.33 ),
                                         fontFamily: 'FontAwesome',
                                         text: '\uf004',
                                         fill: _s.heart.colors[ i ],
@@ -448,11 +448,11 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'b
 
                     ( function _prototypes() {
                         Number.prototype.toCoord = function() {
-                            return ( this / game.background.tile.size() ) + 2
+                            return ( this / util.calculate.tile.size() ) + 2
                         };
 
                         Number.prototype.fromCoord = function() {
-                            return ( this - 2 ) * game.background.tile.size()
+                            return ( this - 2 ) * util.calculate.tile.size()
                         };
 
                         Array.prototype.last = function() {

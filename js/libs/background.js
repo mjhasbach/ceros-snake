@@ -12,11 +12,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util', 'viewport' ], function( Ki
                     tile: {
                         list: [],
 
-                        size: function() {
-                            return viewport.dimensions.original.width /
-                                settings.background.tile.quantity.x
-                        },
-
                         color: {
                             base: {
                                 random: function() {
@@ -458,10 +453,10 @@ define([ 'Kinetic', 'underscore', 'settings', 'util', 'viewport' ], function( Ki
                     for ( var y = 0; y < settings.background.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
                             new Kinetic.Rect({
-                                x: x * bg.tile.size(),
-                                y: y * bg.tile.size(),
-                                width: bg.tile.size(),
-                                height: bg.tile.size(),
+                                x: x * util.calculate.tile.size(),
+                                y: y * util.calculate.tile.size(),
+                                width: util.calculate.tile.size(),
+                                height: util.calculate.tile.size(),
                                 fill: bg.tile.color.base.random(),
                                 listening: false
                             })
