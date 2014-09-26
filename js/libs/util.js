@@ -197,20 +197,15 @@ define([ 'underscore', 'settings', 'viewport' ], function( _, settings, viewport
 
             mouse: {
                 isOverNode: function( node ){
-                    var stage = node.getStage();
+                    var pos = viewport.stage.getPointerPosition();
 
-                    if ( stage ){
-                        var pos = stage.getPointerPosition();
+                    if ( pos )
+                        return viewport.stage.getIntersection({
+                            x: pos.x,
+                            y: pos.y
+                        }) == node;
 
-                        if ( pos )
-                            return stage.getIntersection({
-                                x: pos.x,
-                                y: pos.y
-                            }) == node;
-
-                        else return false
-
-                    } else return false;
+                    else return false
                 }
             },
 
