@@ -1,5 +1,7 @@
-define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
-    function( Kinetic, settings, util, database, stage, background ){
+define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'viewport', 'background' ],
+    function( Kinetic, kineticEditableText, settings, util, database, viewport, background ){
+        kineticEditableText.init( Kinetic );
+
         var _s = settings.highScores,
             highScores = {
                 add: {
@@ -137,7 +139,7 @@ define([ 'Kinetic', 'settings', 'util', 'database', 'stage', 'background' ],
 
                         highScores.add.background.count( score );
 
-                        util.module.start( highScores.add, stage )
+                        util.module.start( highScores.add )
                     },
 
                     init: function() {

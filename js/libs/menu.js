@@ -1,5 +1,5 @@
-define([ 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
-    function( Backbone, Kinetic, settings, util, stage, background ){
+define([ 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'background' ],
+    function( Backbone, Kinetic, settings, util, viewport, background ){
         var x = util.calculate.absolute.x,
             y = util.calculate.absolute.y,
             pi = util.calculate.pi,

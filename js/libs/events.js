@@ -8,7 +8,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     loading = assets.loading,
                     lobby = assets.lobby,
                     menu = assets.menu,
-                    stage = assets.stage;
+                    viewport = assets.viewport;
 
                 ( function _keyEvents() {
                     var keys = {
@@ -348,14 +348,14 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                     var start = util.module.start;
 
                     loading.state.on( 'change:current', function( state, current ){
-                        if ( current === 'stopping' ) start( menu, stage )
+                        if ( current === 'stopping' ) start( menu )
                     });
 
                     game.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' ){
                             database.player.me.set({ available: false });
 
-                            start( game, stage );
+                            start( game );
 
                             ( function waitForMenuOut() {
                                 if ( menu.layer.opacity() === 0 )
@@ -371,7 +371,7 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         if ( current === 'stopping' ){
                             database.player.me.set({ available: true });
 
-                            start( menu, stage )
+                            start( menu )
                         }
                     });
 
@@ -379,16 +379,16 @@ define([ 'jquery', 'underscore', 'bigScreen', 'settings', 'util', 'database' ],
                         if ( current === 'starting' ){
                             highScores.view.update({ reset: true });
 
-                            start( highScores.view, stage )
+                            start( highScores.view )
                         }
-                        else if ( current === 'stopping' ) start( menu, stage )
+                        else if ( current === 'stopping' ) start( menu )
                     });
 
                     lobby.state.on( 'change:current', function( state, current ){
                         if ( current === 'starting' )
-                            start( lobby, stage );
+                            start( lobby );
                         else if ( current === 'stopping' )
-                            start( menu, stage )
+                            start( menu )
                     });
                 })();
 

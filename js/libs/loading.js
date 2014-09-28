@@ -1,5 +1,5 @@
-define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'background' ],
-    function( _, Backbone, Kinetic, settings, util, stage, background ){
+define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'viewport', 'background' ],
+    function( _, Backbone, Kinetic, settings, util, viewport, background ){
         var loading = {
                 name: 'loading',
 
@@ -58,14 +58,14 @@ define([ 'underscore', 'backbone', 'Kinetic', 'settings', 'util', 'stage', 'back
                         loading.animation.setLayers( loading.layer );
                     })();
 
-                    util.module.start( loading, stage );
+                    util.module.start( loading );
 
                     require([ 'assets' ], function( assets ){
                         assets.waitForAsync( function() {
                             assets.init( function( gameAssets ){
                                 require([ 'events' ], function( events ){
                                     events.init({
-                                        stage: stage,
+                                        viewport: viewport,
                                         loading: loading,
                                         audio: assets.audio,
                                         game: gameAssets.game,

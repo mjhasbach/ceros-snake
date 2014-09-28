@@ -1,4 +1,4 @@
-define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, settings, util ){
+define([ 'Kinetic', 'underscore', 'settings', 'util', 'viewport' ], function( Kinetic, _, settings, util, viewport ){
     var _s = settings.background,
         background = {
             Constructor: function() {
@@ -11,13 +11,6 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                     tile: {
                         list: [],
-
-                        quantity: { x: 32, y: 18 },
-
-                        size: function() {
-                            return util.calculate.dimensions.original.width() /
-                                bg.tile.quantity.x
-                        },
 
                         color: {
                             base: {
@@ -448,22 +441,22 @@ define([ 'Kinetic', 'underscore', 'settings', 'util' ], function( Kinetic, _, se
 
                 function randomDrawColor( xCoord, yCoord ){
                     bg.tile.list.forEach( function( tile ){
-                        if ( tile.x().toCoord() == xCoord &&
-                             tile.y().toCoord() == yCoord ){
+                        if ( util.number.toCoord( tile.x() ) === xCoord &&
+                             util.number.toCoord( tile.y() ) === yCoord ){
 
                             tile.fill( bg.tile.color.number.random() )
                         }
                     })
                 }
 
-                for ( var x = 0; x < bg.tile.quantity.x; x++ ){
-                    for ( var y = 0; y < bg.tile.quantity.y; y++ ){
+                for ( var x = 0; x < settings.background.tile.quantity.x; x++ ){
+                    for ( var y = 0; y < settings.background.tile.quantity.y; y++ ){
                         bg.tile.list.unshift(
                             new Kinetic.Rect({
-                                x: x * bg.tile.size(),
-                                y: y * bg.tile.size(),
-                                width: bg.tile.size(),
-                                height: bg.tile.size(),
+                                x: x * util.calculate.tile.size(),
+                                y: y * util.calculate.tile.size(),
+                                width: util.calculate.tile.size(),
+                                height: util.calculate.tile.size(),
                                 fill: bg.tile.color.base.random(),
                                 listening: false
                             })

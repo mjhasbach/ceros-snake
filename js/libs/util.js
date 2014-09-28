@@ -1,6 +1,7 @@
-define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' ],
-    function( _, Kinetic, kineticEditableText, settings, database ){
-        var util = {
+define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database', 'viewport' ],
+    function( _, Kinetic, kineticEditableText, settings, database, viewport ){
+        var dimensions = viewport.dimensions.original,
+            util = {
                 PlayerName: function( options ){
                     if ( typeof Kinetic.EditableText === 'undefined' )
                         kineticEditableText.init( Kinetic );
@@ -123,39 +124,20 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
                         }
                     },
 
-                    dimensions: {
-                        original: {
-                            width: function() { return width },
-                            height: function() { return height }
-                        },
-
-                        aspect: function() {
-                            var dimensions = {
-                                width: window.innerWidth,
-                                height: window.innerHeight
-                            };
-
-                            if ( 9 * dimensions.width / 16 < dimensions.height )
-                                dimensions.height = Math.floor( 9 * dimensions.width / 16 );
-                            else
-                                dimensions.width = Math.floor(( dimensions.height / 9 ) * 16 );
-
-                            return dimensions
-                        },
-
-                        scale: function() {
-                            return util.calculate.dimensions.aspect().width /
-                                util.calculate.dimensions.original.width()
+                    tile: {
+                        size: function() {
+                            return dimensions.width /
+                                settings.background.tile.quantity.x
                         }
                     }
                 },
 
                 module: {
-                    start: function( module, stage ){
+                    start: function( module ){
                         if ( settings.debug )
                             console.log( 'Starting module "' + module.name + '"');
 
-                        stage.add( module.layer );
+                        viewport.stage.add( module.layer );
 
                         if ( module.playerName && module.playerName.field ){
                             module.playerName.field.focus();
@@ -171,7 +153,7 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
 
                         module.layer.moveToBottom();
 
-                        stage.scale({
+                        viewport.stage.scale({
                             x: util.calculate.dimensions.scale(),
                             y: util.calculate.dimensions.scale()
                         });
@@ -261,37 +243,37 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database' 
                                 'zero', 'one', 'two', 'three', 'four',
                                 'five', 'six', 'seven', 'eight', 'nine'
                             ][ parseFloat( number )];
-
+                        
                         else throw new Error( 'util.number.toText() can only handle numbers 0-9' )
+                    },
+
+                    toCoord: function( number ) {
+                        return ( number / util.calculate.tile.size() ) + 2
+                    },
+    
+                    fromCoord: function( number ) {
+                        return ( number - 2 ) * util.calculate.tile.size()
                     }
                 },
 
                 mouse: {
                     isOverNode: function( node ){
-                        var stage = node.getStage();
+                        var pos = viewport.stage.getPointerPosition();
 
-                        if ( stage ){
-                            var pos = stage.getPointerPosition();
-
-                            if ( pos )
-                                return stage.getIntersection({
+                        if ( pos )
+                            return viewport.stage.getIntersection({
                                     x: pos.x,
                                     y: pos.y
                                 }) == node;
 
-                            else return false
-
-                        } else return false;
+                        else return false
                     }
                 },
-    
+
                 isKineticObject: function( shape ){
                     return _.isObject( shape ) && _.isString( shape.nodeType )
                 }
             };
-
-        var width = util.calculate.dimensions.aspect().width,
-            height = util.calculate.dimensions.aspect().height;
 
         return util
     }
