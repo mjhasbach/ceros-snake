@@ -13,11 +13,6 @@ define([ 'jquery', 'underscore', 'Kinetic', 'settings' ],
             },
 
             dimensions: {
-                original: {
-                    width: window.innerWidth,
-                    height: window.innerHeight
-                },
-
                 aspect: function() {
                     var dimensions = {
                         width: window.innerWidth,
@@ -33,6 +28,8 @@ define([ 'jquery', 'underscore', 'Kinetic', 'settings' ],
                 }
             }
         };
+
+        viewport.dimensions.original = viewport.dimensions.aspect();
 
         $( window ).resize( function() {
             viewport.stage.size({
