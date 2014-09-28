@@ -24,6 +24,14 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                         update: function( module ){
                             database.player.me.set( 'name', module.playerName.field.text() );
                         }
+                    },
+
+                    init: function() {
+                        database.player.me = database.player.list.get(
+                            database.player.list.create().id
+                        );
+
+                        database.player.removeMeOnDisconnect();
                     }
                 },
 
