@@ -100,9 +100,9 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database',
 
                 calculate: {
                     absolute: {
-                        size: function( i ){ return width / i },
-                        x: function( i ){ return width / i },
-                        y: function( i ){ return height / i }
+                        size: function( i ){ return dimensions.width / i },
+                        x: function( i ){ return dimensions.width / i },
+                        y: function( i ){ return dimensions.height / i }
                     },
 
                     brightnessVariance: function( frame ){
@@ -154,8 +154,8 @@ define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'database',
                         module.layer.moveToBottom();
 
                         viewport.stage.scale({
-                            x: util.calculate.dimensions.scale(),
-                            y: util.calculate.dimensions.scale()
+                            x: viewport.scale(),
+                            y: viewport.scale()
                         });
 
                         module.animation.start();

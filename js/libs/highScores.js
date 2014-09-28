@@ -1,7 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'viewport', 'background' ],
-    function( Kinetic, kineticEditableText, settings, util, database, viewport, background ){
-        kineticEditableText.init( Kinetic );
-
+define([ 'Kinetic', 'settings', 'util', 'database', 'viewport', 'background' ],
+    function( Kinetic, settings, util, database, viewport, background ){
         var _s = settings.highScores,
             highScores = {
                 add: {

@@ -20,20 +20,20 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
 
                     container: {
                         group: new Kinetic.Group({
-                            x: background.lobby.tile.size(),
-                            y: background.lobby.tile.size() * 3,
+                            x: util.calculate.tile.size(),
+                            y: util.calculate.tile.size() * 3,
                             opacity: 0.92
                         }),
 
                         init: function() {
                             var container = this,
-                                tileSize = lobby.background.tile.size();
+                                tileSize = util.calculate.tile.size();
 
                             for ( var i = 0; i < 6; i++ ){
                                 container.group.add(
                                     new Kinetic.Rect({
                                         y: ( tileSize * 2 ) * i,
-                                        width: ( lobby.background.tile.quantity.x - 5 ) * tileSize,
+                                        width: ( settings.background.tile.quantity.x - 5 ) * tileSize,
                                         height: tileSize * 2,
                                         fill: settings.lobby.players.container.colors[( i % 2 === 0 ) | 0 ]
                                     })
@@ -100,7 +100,7 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
 
                     rows: {
                         group: new Kinetic.Group({
-                            y: ( background.lobby.tile.size() * 5 )
+                            y: ( util.calculate.tile.size() * 5 )
                         }),
 
                         init: function() {
@@ -111,7 +111,7 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                             else {
                                 for ( var i = 0; i < lobby.players.container.group.getChildren().length - 1; i++ ){
                                     var row = new Kinetic.Group({
-                                        y: ( background.lobby.tile.size() * 2 ) *
+                                        y: ( util.calculate.tile.size() * 2 ) *
                                            ( i + settings.lobby.players.row.yOffset )
                                     });
 
@@ -225,10 +225,10 @@ define([ 'jquery', 'backbone', 'Kinetic', 'settings', 'util', 'database', 'backg
                 options: {
                     container: {
                         shape: new Kinetic.Rect({
-                            x: ( background.lobby.tile.quantity.x - 4 ) * background.lobby.tile.size(),
-                            y: background.lobby.tile.size() * 3,
-                            width: background.lobby.tile.size() * 3,
-                            height: background.lobby.tile.size() * 12,
+                            x: ( settings.background.tile.quantity.x - 4 ) * util.calculate.tile.size(),
+                            y: util.calculate.tile.size() * 3,
+                            width: util.calculate.tile.size() * 3,
+                            height: util.calculate.tile.size() * 12,
                             fill: settings.lobby.players.container.colors[ 0 ],
                             listening: false
                         }),
