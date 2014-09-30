@@ -1,5 +1,5 @@
-define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'viewport', 'background' ],
-    function( Kinetic, kineticEditableText, settings, util, database, viewport, background ){
+define([ 'underscore', 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'viewport', 'background' ],
+    function( _, Kinetic, kineticEditableText, settings, util, database, viewport, background ){
         kineticEditableText.init( Kinetic );
 
         var _s = settings.highScores,
@@ -39,7 +39,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'view
                         move: function() {
                             var playerName = this;
 
-                            setTimeout( function() {
+                            _.defer( function() {
                                 var nameLength = playerName.field.text().length;
 
                                 playerName.label.x(
@@ -51,7 +51,7 @@ define([ 'Kinetic', 'kineticEditableText', 'settings', 'util', 'database', 'view
                                     highScores.add.playerName.label.x() +
                                         util.calculate.absolute.x( 3.8 )
                                 )
-                            }, 0 )
+                            })
                         }
                     },
 
