@@ -69,13 +69,13 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                 },
 
                 init: function() {
-                    database.player.Collection = Backbone.Firebase.Collection.extend({
+                    database.player.list = new (Backbone.Firebase.Collection.extend({
                         model: database.player.Model,
 
                         firebase: new Firebase( _s.address + 'players' )
-                    });
+                    }))();
 
-                    database.TopScores = Backbone.Firebase.Collection.extend({
+                    database.scores = new (Backbone.Firebase.Collection.extend({
                         model: database.Score,
 
                         firebase: new Firebase( _s.address + 'scores' )
@@ -84,11 +84,7 @@ define([ 'backbone', 'firebase', 'settings', 'backfire' ],
                         comparator: function( model ){
                             return -model.get( 'score' )
                         }
-                    });
-
-                    database.player.list = new database.player.Collection;
-
-                    database.scores = new database.TopScores
+                    }))()
                 }
             };
 
